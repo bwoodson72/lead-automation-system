@@ -1,4 +1,4 @@
-# Lead Automation System — Agent Instructions
+# Prospect Foundry — Agent Instructions
 
 This file contains the non-negotiable engineering instructions for coding agents working in this repository.
 
@@ -313,7 +313,7 @@ Do not store sellable PDF files in public website paths.
 
 Lemon Squeezy store name:
 
-**Lead Automation System**
+**Prospect Foundry**
 
 There are four separate Lemon Squeezy products, one per PDF guide.
 

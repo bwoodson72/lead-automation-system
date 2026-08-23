@@ -1,4 +1,4 @@
-# Lead Automation System — V1 Website Product Specification
+# Prospect Foundry — V1 Website Product Specification
 
 **Status:** Source of truth for V1 product, content, information architecture, design direction, and acceptance criteria.
 
@@ -8,7 +8,7 @@ This file defines what the website must communicate and contain. Engineering imp
 
 ## 1. Product Summary
 
-Lead Automation System is a four-tier family of downloadable PDF implementation manuals for freelance web developers and small web-development agencies.
+Prospect Foundry is a four-tier family of downloadable PDF implementation manuals for freelance web developers and small web-development agencies.
 
 The guides teach increasingly automated versions of the same evidence-first client-acquisition system:
 
@@ -53,7 +53,7 @@ The website must:
 
 ### Brand name
 
-**Lead Automation System**
+**Prospect Foundry**
 
 Do not invent a different parent brand without an explicit instruction.
 
@@ -77,7 +77,7 @@ The product is not primarily about sending more email. It is about building a be
 
 ## 3. What the Product Is
 
-Lead Automation System teaches customers how to:
+Prospect Foundry teaches customers how to:
 
 - identify businesses that may need web-development help
 - verify that the business and website are legitimate and current
@@ -99,7 +99,7 @@ The guides are implementation manuals, not motivational courses.
 
 ## 4. What the Product Is Not
 
-Never position Lead Automation System as:
+Never position Prospect Foundry as:
 
 - a spam-blasting system
 - a bulk email product
@@ -621,7 +621,7 @@ Use Lemon Squeezy for V1.
 
 Store name:
 
-**Lead Automation System**
+**Prospect Foundry**
 
 Create four separate Lemon Squeezy products, one per guide.
 
@@ -819,7 +819,7 @@ Repeat tomorrow
 
 Closing line:
 
-> Lead Automation System turns those disconnected actions into one defined workflow.
+> Prospect Foundry turns those disconnected actions into one defined workflow.
 
 ### 17.3 Evidence-first section
 
@@ -978,7 +978,7 @@ Copy direction:
 
 Comparison:
 
-| Question | Lead Automation System | Apollo / Contact Platform |
+| Question | Prospect Foundry | Apollo / Contact Platform |
 | --- | --- | --- |
 | Should this business be contacted? | Website-specific qualification | May provide account data |
 | Why should I contact it? | Verified website evidence | Not its core purpose |
@@ -1562,7 +1562,7 @@ Route: `/compare/`
 
 H1:
 
-# Which Lead Automation System Is Right for You?
+# Which Prospect Foundry Guide Is Right for You?
 
 Intro:
 
@@ -1801,7 +1801,7 @@ H1:
 
 Copy direction:
 
-> Lead Automation System grew from a practical problem: finding good web-development prospects took too much repetitive work, while conventional lead databases still left the most important question unanswered—why should this particular business want to talk to a web developer?
+> Prospect Foundry grew from a practical problem: finding good web-development prospects took too much repetitive work, while conventional lead databases still left the most important question unanswered—why should this particular business want to talk to a web developer?
 
 > The solution was not simply to automate sending. It was to define the decision process before sending: verify the business, inspect the current site, preserve factual evidence, qualify the opportunity, find the appropriate contact, and only then create outreach.
 
@@ -2003,7 +2003,7 @@ Each guide needs a distinct cover that clearly belongs to the same family and sh
 - tier number
 - guide title
 - short descriptor
-- Lead Automation System branding
+- Prospect Foundry branding
 
 Visual progression:
 
@@ -2409,7 +2409,7 @@ Sections:
 
 Bottom line:
 
-`© [current year] Lead Automation System. All rights reserved.`
+`© [current year] Prospect Foundry. All rights reserved.`
 
 Do not add meaningless social icons when no active social properties exist.
 
@@ -2443,7 +2443,7 @@ Centralize site-level values, for example:
 
 ```ts
 export const siteConfig = {
-  name: "Lead Automation System",
+  name: "Prospect Foundry",
   description:
     "Implementation guides for building evidence-first client acquisition systems for freelance web developers.",
   url: "",
@@ -2485,16 +2485,16 @@ Never fabricate reviews, ratings, offers, inventory, prices, or customer data in
 
 Suggested homepage metadata:
 
-**Title:** `Lead Automation System | Client Acquisition for Web Developers`
+**Title:** `Prospect Foundry | Client Acquisition for Web Developers`
 
 **Description:** `Build an evidence-first web-development prospecting system with ChatGPT, automation workflows, APIs, or production application infrastructure.`
 
 Suggested product titles:
 
-- `AI Prospecting Starter for Web Developers | Lead Automation System`
+- `AI Prospecting Starter for Web Developers | Prospect Foundry`
 - `ChatGPT Client Acquisition System for Web Developers`
 - `Automated Lead Engine with n8n & AI for Web Developers`
-- `Production Lead Automation System for Web Developers`
+- `Production Lead Engine for Web Developers | Prospect Foundry`
 
 Adjust length during implementation without changing positioning.
 
@@ -2874,7 +2874,7 @@ V1 does not require testimonials. If legitimate testimonials do not exist, do no
 
 ## 54. Final V1 Statement
 
-Lead Automation System V1 is:
+Prospect Foundry V1 is:
 
 > A fast, static, dark-first Astro commerce site that sells four downloadable PDF implementation guides teaching freelance web developers how to build increasingly automated, evidence-first client acquisition systems.
 

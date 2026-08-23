@@ -44,7 +44,7 @@ Do not remove technical specificity. Reorder it so the buyer understands why the
 
 # 2. Primary Buyer Outcome
 
-The core benefit of Lead Automation System is:
+The core benefit of Prospect Foundry is:
 
 > Spend less of your working time hunting for the next web-development client and more of it doing paid work, talking to qualified prospects, or running your business.
 
@@ -299,7 +299,7 @@ Start over
 
 Closing copy:
 
-> Lead Automation System teaches you to replace that stop-start behavior with a process that can become more consistent as you automate it.
+> Prospect Foundry teaches you to replace that stop-start behavior with a process that can become more consistent as you automate it.
 
 Do not claim guaranteed pipeline continuity or guaranteed leads.
 
@@ -574,7 +574,7 @@ Opening:
 
 Copy:
 
-> Apollo can help you find companies and contacts, enrich records, run sequences, and automate parts of sales engagement. Lead Automation System teaches the decision process around those tools: which businesses are worth your effort, what website evidence makes them worth contacting, when to reject them, and how the pieces fit together.
+> Apollo can help you find companies and contacts, enrich records, run sequences, and automate parts of sales engagement. Prospect Foundry teaches the decision process around those tools: which businesses are worth your effort, what website evidence makes them worth contacting, when to reject them, and how the pieces fit together.
 
 Key closing line:
 
@@ -771,7 +771,7 @@ Retain the detailed capability comparison table, but put an outcome-oriented dec
 
 H1 remains:
 
-# Which Lead Automation System Is Right for You?
+# Which Prospect Foundry Guide Is Right for You?
 
 Replace/augment the intro with:
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-This is an active copy addendum for the Lead Automation System website.
+This is an active copy addendum for the Prospect Foundry website.
 
 Read `AGENTS.md`, `docs/PRODUCT_SPEC.md`, and `docs/CURRENT_IMPLEMENTATION_BRIEF.md` before implementing it.
 
@@ -22,7 +22,7 @@ The website should not pretend that building a system is always superior to buyi
 
 The correct position is:
 
-> Off-the-shelf prospecting software can be the fastest way to get company data, contacts, enrichment, and sequences. Lead Automation System becomes valuable when you want control over the web-development-specific decision process around those tools: which businesses are worth contacting, what evidence qualifies them, what should be said, how state is stored, what gets automated, and which providers perform each job.
+> Off-the-shelf prospecting software can be the fastest way to get company data, contacts, enrichment, and sequences. Prospect Foundry becomes valuable when you want control over the web-development-specific decision process around those tools: which businesses are worth contacting, what evidence qualifies them, what should be said, how state is stored, what gets automated, and which providers perform each job.
 
 The core distinction is:
 
@@ -62,7 +62,7 @@ The website should translate this into a buyer outcome:
 
 Generic prospecting software often begins with company/contact criteria such as industry, location, company size, title, or intent signals.
 
-Lead Automation System adds a web-development-specific qualification layer:
+Prospect Foundry adds a web-development-specific qualification layer:
 
 ```text
 business candidate
@@ -256,7 +256,7 @@ Opening copy:
 
 > Sometimes buying software is the right answer. If all you need is a database of companies, contact information, enrichment, and a basic email sequence, an off-the-shelf platform may get you there faster.
 
-> Lead Automation System is for the point where you want more control over the process itself—especially the part generic prospecting software cannot decide for you automatically: what makes a business a worthwhile web-development prospect and what legitimate reason you have to contact it.
+> Prospect Foundry is for the point where you want more control over the process itself—especially the part generic prospecting software cannot decide for you automatically: what makes a business a worthwhile web-development prospect and what legitimate reason you have to contact it.
 
 Core statement / emphasized callout:
 
@@ -304,7 +304,7 @@ Secondary: **Compare the Guides** → `/compare/`
 
 Use this comparison on the homepage if it remains readable, or place the full version on `/how-it-works/` and use a shorter summary on the homepage.
 
-| Question | Off-the-shelf prospecting software | Your Lead Automation System |
+| Question | Off-the-shelf prospecting software | Your Prospect Foundry system |
 | --- | --- | --- |
 | Fastest way to start? | Usually | Requires setup/implementation |
 | Company/contact discovery | Often a core strength | Uses the provider(s) you choose |
@@ -451,7 +451,7 @@ Add these questions to the main FAQ collection.
 
 Answer:
 
-> If you only need company/contact data and basic sequencing, buying an off-the-shelf tool may be the faster choice. Lead Automation System is for developers who want more control over web-development-specific qualification, current-site evidence, workflow state, provider choice, and automation. The guides can still use commercial services as components; they teach you how those components fit into a process you understand and control.
+> If you only need company/contact data and basic sequencing, buying an off-the-shelf tool may be the faster choice. Prospect Foundry is for developers who want more control over web-development-specific qualification, current-site evidence, workflow state, provider choice, and automation. The guides can still use commercial services as components; they teach you how those components fit into a process you understand and control.
 
 ## Will building my own system save money?
 

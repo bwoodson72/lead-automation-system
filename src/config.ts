@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Lead Automation System",
+  name: "Prospect Foundry",
   description:
     "Implementation guides for building evidence-first client acquisition systems for freelance web developers.",
   url: import.meta.env.SITE_URL || "",

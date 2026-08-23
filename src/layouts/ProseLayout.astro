@@ -1,0 +1,5 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+const { title, description, eyebrow, noindex = false } = Astro.props;
+---
+<BaseLayout title={`${title} | Lead Automation System`} description={description} noindex={noindex}><article class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-3xl">{eyebrow && <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">{eyebrow}</p>}<h1 class="mt-4 text-5xl font-semibold tracking-tight">{title}</h1><p class="mt-6 text-lg leading-8 text-muted-foreground">{description}</p><div class="mt-12 space-y-8 text-base leading-8 text-muted-foreground [&_a]:text-primary-accent [&_h2]:pt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-foreground"><slot /></div></div></article></BaseLayout>

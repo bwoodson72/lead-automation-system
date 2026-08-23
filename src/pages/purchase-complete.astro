@@ -1,0 +1,5 @@
+---
+import ProseLayout from "@/layouts/ProseLayout.astro";
+import { siteConfig } from "@/config";
+---
+<ProseLayout title="You're In." description="Your purchase is complete." eyebrow="Purchase complete" noindex={true}><p>Your download information is provided through the checkout and delivery system associated with your purchase.</p><p>Start at the beginning of the guide even if you recognize some of the tools. Later automation depends on decisions made earlier in the workflow.</p>{siteConfig.supportEmail ? <p>If you have trouble accessing the purchase, email <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>.</p> : <p class="rounded-lg border border-warning/30 bg-warning/10 p-4 text-warning">Support contact is awaiting production configuration.</p>}</ProseLayout>

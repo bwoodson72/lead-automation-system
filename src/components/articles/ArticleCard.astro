@@ -1,0 +1,5 @@
+---
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+const { article } = Astro.props;
+---
+<Card class="h-full"><CardHeader><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">{article.data.category}</p><CardTitle><a href={`/articles/${article.id}/`} class="hover:text-primary-accent">{article.data.title}</a></CardTitle></CardHeader><CardContent><p class="leading-7 text-muted-foreground">{article.data.description}</p><p class="mt-5 text-sm text-muted-foreground"><time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString("en-US", { dateStyle: "long" })}</time></p></CardContent></Card>

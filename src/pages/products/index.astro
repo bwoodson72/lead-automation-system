@@ -1,0 +1,8 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductGrid from "@/components/products/ProductGrid.astro";
+import CTASection from "@/components/marketing/CTASection.astro";
+const products = (await getCollection("products")).sort((a,b) => a.data.order-b.data.order);
+---
+<BaseLayout title="Products | Lead Automation System" description="Four implementation guides for building the same evidence-first client acquisition system at different automation levels."><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The product family</p><h1 class="mt-4 max-w-4xl text-5xl font-semibold tracking-tight">Four Ways to Build the Same Client Acquisition System.</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Choose based on the prospecting work you want to stop doing manually—not simply which technology sounds most advanced.</p><div class="mt-12"><ProductGrid products={products} /></div></div></section><CTASection title="Compare Every Capability." description="See which operational bottleneck each tier removes, then compare tools, complexity, and architecture side by side." /></BaseLayout>

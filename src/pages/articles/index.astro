@@ -1,0 +1,7 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleCard from "@/components/articles/ArticleCard.astro";
+const articles = (await getCollection("articles", ({data}) => !data.draft)).sort((a,b) => b.data.publishedAt.valueOf()-a.data.publishedAt.valueOf());
+---
+<BaseLayout title="Client Acquisition Systems for Web Developers" description="Practical articles about prospecting, qualification, outreach, automation, and client-acquisition infrastructure."><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Educational articles</p><h1 class="mt-4 text-5xl font-semibold tracking-tight">Client Acquisition Systems for Web Developers</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Practical guides to prospecting, qualification, outreach, automation, and the infrastructure behind a repeatable web-development sales pipeline.</p><div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{articles.map((article) => <ArticleCard article={article} />)}</div></div></section></BaseLayout>

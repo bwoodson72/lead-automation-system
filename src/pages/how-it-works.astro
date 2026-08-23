@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Pipeline from "@/components/marketing/Pipeline.astro";
+import CTASection from "@/components/marketing/CTASection.astro";
+
+const steps = [
+  ["Design the campaign", "Define the service, niche, geography, offer, CTA, qualification requirements, rejection rules, and send limits."],
+  ["Discover businesses", "Discovery creates candidates—not automatically qualified prospects."],
+  ["Verify the business", "Confirm the company identity, current website, relevant service, and domain relationship."],
+  ["Inspect the current site", "Collect current, observable evidence instead of assumptions."],
+  ["Qualify or reject", "Decide whether the finding is factual, current, relevant, and meaningful enough to justify outreach."],
+  ["Find a legitimate contact", "Use public business information and reputable discovery or verification tools."],
+  ["Turn evidence into an angle", "Connect the finding to a business consequence, relevant improvement, and concise outreach."],
+  ["Send deliberately", "Maintain a legitimate identity, authentication, appropriate volume, state, and opt-out mechanisms."],
+  ["Follow up", "Make follow-up depend on recorded campaign state."],
+  ["Stop appropriately", "Stop on replies, opt-outs, hard bounces, suppression, and defined exclusions."],
+  ["Measure the system", "Track qualification, contacts, sends, replies, conversations, bounces, opt-outs, and relevant costs."],
+];
+const buildBuyRows = [
+  ["Fastest way to start?", "Usually", "Requires setup and implementation"],
+  ["Company and contact discovery", "Often a core strength", "Uses the providers you choose"],
+  ["Generic enrichment and sequences", "Often built in", "Can integrate them"],
+  ["Web-development-specific qualification", "Depends on platform and customization", "Designed around it"],
+  ["Qualification and evidence rules", "Platform and configuration dependent", "You define and preserve them"],
+  ["Provider choice", "Usually centered on one platform", "Components are separated by responsibility"],
+  ["Campaign state", "Primarily vendor-defined", "Defined by the system and increasingly owned directly"],
+  ["Cost and order of processing", "Follows the platform model", "You control operation order and gates"],
+  ["Extensibility", "Limited to vendor capabilities and APIs", "Increases substantially by tier"],
+  ["Maintenance burden", "Lower", "Higher because you own more of the system"],
+  ["Best fit", "Standard sales prospecting needs", "A web-development-specific process and greater control"],
+];
+---
+<BaseLayout title="How the Evidence-First Lead Engine Works" description="Learn the evidence-first client acquisition methodology from campaign design through qualification, outreach, follow-up, and reporting.">
+  <section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The methodology</p>
+    <h1 class="mt-4 text-5xl font-semibold tracking-tight">The Lead Engine, From Discovery to Conversation.</h1>
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Every tier implements the same decision process. Automation changes who executes the steps, not the standard of evidence.</p>
+    <div class="mt-12"><Pipeline /></div>
+    <ol class="mt-16 grid gap-5 md:grid-cols-2">{steps.map(([title, text], index) => <li class="rounded-xl border border-border bg-card p-6"><p class="font-mono text-xs text-primary-accent">STEP {String(index + 1).padStart(2, "0")}</p><h2 class="mt-3 text-xl font-semibold">{title}</h2><p class="mt-3 leading-7 text-muted-foreground">{text}</p></li>)}</ol>
+    <div class="mt-16 rounded-2xl border border-primary/30 bg-primary/10 p-8 text-center"><h2 class="text-3xl font-semibold">Automate only after the decision process works.</h2></div>
+  </div></section>
+  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Own the process</p>
+    <h2 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight">The Tools Can Change. The Prospecting Logic Should Still Make Sense.</h2>
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The system separates discovery, current-site evidence, qualification, contact enrichment, sending, and state into defined responsibilities. Tools, prices, APIs, volume, and niches change. A process you understand can evolve without forcing you to rethink prospecting from zero.</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{["Discovery provider", "Website evidence provider", "AI qualification", "Contact and enrichment provider", "Sending or sequence provider"].map((provider) => <div class="rounded-xl border border-border bg-card p-5 text-center text-sm"><p class="font-mono text-xs text-primary-accent">Your rules + state</p><p class="mt-3 font-semibold">{provider}</p></div>)}</div>
+    <p class="mt-6 font-semibold">Providers can be replaced with implementation work. The logic that decides who deserves your attention is the asset.</p>
+    <h2 class="mt-16 text-3xl font-semibold">Build or buy: the practical tradeoff</h2>
+    <div class="mt-8 overflow-x-auto rounded-xl border border-border"><table class="w-full min-w-4xl text-left text-sm"><caption class="sr-only">Comparison of off-the-shelf prospecting software and a Lead Automation System</caption><thead class="bg-muted"><tr><th scope="col" class="p-4">Question</th><th scope="col" class="p-4">Off-the-shelf software</th><th scope="col" class="p-4">Your Lead Automation System</th></tr></thead><tbody class="divide-y divide-border">{buildBuyRows.map((row) => <tr><th scope="row" class="p-4 font-medium">{row[0]}</th><td class="p-4 text-muted-foreground">{row[1]}</td><td class="p-4 text-muted-foreground">{row[2]}</td></tr>)}</tbody></table></div>
+  </div></section>
+  <CTASection title="Implement the Method at Your Level." description="Choose a human-supervised, scheduled, automated, or production implementation." />
+</BaseLayout>

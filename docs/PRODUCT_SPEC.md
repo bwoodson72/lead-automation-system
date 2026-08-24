@@ -1,260 +1,266 @@
-# Prospect Foundry — V1 Website Product Specification
+# Prospect Foundry — V2 Website Product Specification
 
-**Status:** Source of truth for V1 product, content, information architecture, design direction, and acceptance criteria.
+**Status:** Source of truth for website positioning, product architecture, information architecture, page-content requirements, conversion strategy, commerce, SEO, and V2 acceptance criteria.
 
-This file defines what the website must communicate and contain. Engineering implementation rules live in the repository root `AGENTS.md`. Coding agents must read both files before planning or implementing work.
+This specification supersedes the previous V1 website specification that treated Prospect Foundry as only a four-tier AI prospecting product family.
+
+Engineering implementation rules live in the repository root `AGENTS.md`. Coding agents must read both files before planning or implementing product/UI work.
 
 ---
 
 ## 1. Product Summary
 
-Prospect Foundry is a four-tier family of downloadable PDF implementation manuals for freelance web developers and small web-development agencies.
+Prospect Foundry is a digital publishing business for freelance developers, independent software developers, technical consultants, micro-SaaS founders, bootstrapped SaaS founders, and other technical builders who need practical systems for turning technical capability into revenue.
 
-The guides teach increasingly automated versions of the same evidence-first client-acquisition system:
+The website is the central marketing, education, list-building, product-discovery, and commerce layer for a connected catalog of implementation-focused products.
 
-```text
-DISCOVER
-   ↓
-VERIFY BUSINESS
-   ↓
-INSPECT WEBSITE
-   ↓
-QUALIFY OR REJECT
-   ↓
-FIND / VERIFY CONTACT
-   ↓
-WRITE OUTREACH
-   ↓
-SEND
-   ↓
-FOLLOW UP
-   ↓
-STOP / RECORD
-   ↓
-REPORT
-```
+The site must help visitors answer:
 
-The website is a marketing and commerce site. It is not the lead-generation application itself.
+1. **What business problem should I solve next?**
+2. **Which Prospect Foundry product will help me solve it?**
 
-The website must:
-
-1. Explain the methodology clearly.
-2. Show the difference between the four tiers.
-3. Help a visitor choose the correct tier without contacting support.
-4. Establish that the products teach complete systems rather than isolated prompts.
-5. Sell the four PDF guides through Lemon Squeezy.
-6. Support long-term organic acquisition through educational articles.
-7. Show credible product imagery, diagrams, examples, and real PDF previews.
-8. Remain fast, static-first, accessible, and easy to maintain without a CMS or application backend.
+Prospect Foundry should not appear to be a shelf of unrelated ebooks. The catalog is a set of systems for solving successive commercial bottlenecks.
 
 ---
 
-## 2. Brand and Umbrella Positioning
+## 2. Brand
 
 ### Brand name
 
 **Prospect Foundry**
 
-Do not invent a different parent brand without an explicit instruction.
+Do not invent a different umbrella brand without explicit instruction.
 
-### Primary positioning
+### Core positioning
 
-# Build Your Own Web-Development Client Acquisition System
+# Build the business system around your technical skills.
 
-Supporting message:
+Supporting proposition:
 
-> Learn how to find businesses with real website opportunities, qualify them using evidence, turn that evidence into personalized outreach, manage follow-ups, and progressively automate the entire pipeline.
+> Practical field guides and implementation systems for developers who need to find customers, sell valuable work, validate products, and build a more repeatable independent business.
 
-### Central product principle
-
-> Find a defensible reason to contact the business before writing the email.
-
-### Most important differentiation
-
-The product is not primarily about sending more email. It is about building a better system for deciding **who should receive an email and why**.
-
----
-
-## 3. What the Product Is
-
-Prospect Foundry teaches customers how to:
-
-- identify businesses that may need web-development help
-- verify that the business and website are legitimate and current
-- inspect the existing website
-- distinguish meaningful sales opportunities from arbitrary criticism
-- reject businesses when there is no defensible reason to contact them
-- find legitimate business contact information
-- create outreach based on verified evidence
-- manage follow-ups
-- stop outreach appropriately
-- preserve campaign state
-- progressively automate repetitive parts of the process
-- test the system before increasing automation or volume
-- measure whether the campaign is creating legitimate conversations
-
-The guides are implementation manuals, not motivational courses.
-
----
-
-## 4. What the Product Is Not
-
-Never position Prospect Foundry as:
-
-- a spam-blasting system
-- a bulk email product
-- a generic cold-email template pack
-- a simple prompt pack
-- a scraped lead list
-- a prospect database
-- a SaaS lead-generation application
-- an Apollo replacement
-- an email warmup service
-- an email sending service
-- a guaranteed client-generation system
-- a passive-income scheme
-- a get-rich-quick product
-- a one-click AI sales machine
-- software that runs the full system for the purchaser
-
-The customer is purchasing a downloadable PDF implementation manual for the selected tier.
-
----
-
-## 5. Primary Audience
-
-Primary audience:
-
-**Freelance web developers and solo/small web-development agencies that need a repeatable client-acquisition system.**
-
-Typical buyer characteristics:
-
-- can build websites but may have little formal sales-system experience
-- may depend heavily on referrals
-- may prospect manually and inconsistently
-- may already experiment with ChatGPT
-- may use Google Workspace
-- may have tried Apollo, Hunter, or similar platforms
-- may want automation but not understand how the tools fit together
-- may not understand DNS, deliverability, APIs, n8n, queues, or databases
-- may be technically capable but still need a system architecture rather than another collection of tools
-
-The guides explain concepts from first principles, but the technical difficulty rises substantially across tiers.
-
----
-
-## 6. Core Buyer Problems
-
-### 6.1 Fragmented manual prospecting
-
-A freelancer often:
-
-1. searches for businesses
-2. opens websites manually
-3. decides who might be worth contacting
-4. searches for contact information
-5. tries to find something meaningful to mention
-6. writes outreach
-7. records the lead somewhere
-8. tries to remember follow-ups
-9. starts over the next day
-
-The problem is not simply that prospecting takes time. The process often has no defined operating architecture.
-
-### 6.2 Generic outreach
-
-A large list is not useful if there is no credible reason to contact each business.
-
-The methodology emphasizes:
+### Brand progression
 
 ```text
-EVIDENCE
-   ↓
-QUALIFICATION
-   ↓
-BUSINESS CONSEQUENCE
-   ↓
-OUTREACH ANGLE
+I CAN BUILD THINGS
+        ↓
+I KNOW WHAT TO SELL
+        ↓
+I KNOW WHAT TO CHARGE
+        ↓
+I KNOW WHO TO SELL TO
+        ↓
+I CAN FIND OPPORTUNITIES
+        ↓
+I CAN CREATE CONVERSATIONS
+        ↓
+I CAN CLOSE BUSINESS
+        ↓
+I CAN BUILD REPEATABLE SYSTEMS
 ```
 
-### 6.3 Tools without strategy
+### Brand principles
 
-A freelancer can subscribe to ChatGPT, Apollo, Hunter, n8n, and other services and still not have a functioning acquisition system.
+Prospect Foundry is:
 
-Tools are components. The product teaches the architecture.
+- practical
+- technically literate
+- evidence-based
+- implementation-oriented
+- commercially realistic
+- respectful of the reader's intelligence
+- focused on systems instead of isolated tactics
 
-### 6.4 Automation amplifies mistakes
+Prospect Foundry is not:
 
-Automating fabricated findings, poor qualification, duplicates, broken suppression, or weak messaging makes the system worse. The product therefore introduces automation progressively and preserves the same decision logic at every tier.
+- a get-rich-quick brand
+- a passive-income brand
+- a generic prompt store
+- an influencer course business
+- a collection of motivational ebooks
+- a guaranteed-income system
+- a spam methodology
+- a “one weird trick” marketing brand
 
 ---
 
-## 7. Product Ladder
+## 3. Primary Audiences
 
-Always present the product family as a progression.
+### 3.1 Freelance / service builders
+
+Includes:
+
+- freelance web developers
+- freelance software developers
+- technical consultants
+- solo development businesses
+- small development agencies
+- developers preparing to begin freelancing
+
+Common problems:
+
+- not knowing what to sell
+- generic positioning
+- uncertainty about pricing
+- inconsistent client acquisition
+- dependence on referrals
+- dependence on freelance marketplaces
+- weak prospecting systems
+- difficulty translating technical work into business value
+- poor follow-up
+- difficulty closing
+- feast-or-famine project revenue
+- inefficient solo-business operations
+
+### 3.2 Product / SaaS builders
+
+Includes:
+
+- indie hackers
+- micro-SaaS founders
+- bootstrapped SaaS founders
+- independent software developers
+- technical founders
+
+Common problems:
+
+- building before validating
+- uncertainty about target users
+- difficulty acquiring first customers
+- feature-first rather than problem-first thinking
+- weak positioning
+- random marketing experiments
+- unclear acquisition channels
+- weak activation or retention
+- too much building and too little customer contact
+
+---
+
+## 4. Product Philosophy
+
+The freelance/service journey is broadly:
 
 ```text
-TIER 1
-AI Prospecting Starter
-Human supervised
-You + ChatGPT + Google Sheets
-
+WHAT SHOULD I SELL?
         ↓
-
-TIER 2
-ChatGPT Client Acquisition System
-Scheduled / semi-autonomous
-ChatGPT + Google tools + recurring tasks
-
+WHAT SHOULD I CHARGE?
         ↓
-
-TIER 3
-Automated Lead Engine
-Automated workflows
-n8n + APIs + Google Sheets state
-
+WHO SHOULD I SELL TO?
         ↓
-
-TIER 4
-Production Lead Engine
-Production application
-Node/TypeScript + PostgreSQL + queues + workers
+HOW DO I REACH THEM?
+        ↓
+HOW DO I CREATE OPPORTUNITIES?
+        ↓
+HOW DO I CLOSE THEM?
+        ↓
+HOW DO I CREATE REPEATABLE REVENUE?
+        ↓
+HOW DO I OPERATE THIS MORE EFFICIENTLY?
 ```
 
-Do not imply that Tier 4 is inherently the best choice. The correct tier is the lowest one that matches the buyer's current process, technical ability, and desired level of automation.
+The SaaS journey is broadly:
+
+```text
+SHOULD I BUILD THIS?
+        ↓
+WHAT SHOULD I BUILD?
+        ↓
+HOW DO I LAUNCH IT?
+        ↓
+HOW DO I GET THE FIRST CUSTOMERS?
+        ↓
+HOW DO I BUILD REPEATABLE ACQUISITION?
+```
+
+The website must expose these journeys clearly and help visitors choose the next relevant system without implying they must buy every preceding product.
 
 ---
 
-## 8. Tier 1 — AI Prospecting Starter
+## 5. Product Catalog
 
-### Short descriptor
+### 5.1 Free entry point
 
-Build a disciplined, evidence-based prospecting workflow with ChatGPT, Google Workspace, and a campaign tracker.
+#### Developer Marketing Quickstart
 
-### Intended customer
+**Price:** Free
 
-Freelance web developers who want a repeatable outbound process without APIs or automation builders.
+**Outcome:** Build a minimum viable customer-acquisition system in seven days.
 
-### What the customer builds
+**Role:** Primary email-list acquisition asset and first trust-building product.
 
-A human-supervised workflow in which ChatGPT assists with research and outreach drafting while the customer:
+The Quickstart should naturally point qualified readers toward relevant paid products without feeling like a disguised sales brochure.
 
-- defines the campaign
-- verifies each business and website
-- verifies evidence
-- controls the campaign tracker
-- approves outreach
-- sends messages
-- manages follow-up
-- supervises the full process
+---
 
-### Topics covered
+## 6. Freelance Business Foundation
+
+### Productize Your Dev Skills
+
+**Target price:** $29–39
+
+**Outcome:** Turn technical capabilities into a specific, sellable offer.
+
+Core buyer question:
+
+> What exactly should I sell?
+
+### Web Developer Pricing System
+
+**Target price:** $29–49
+
+**Outcome:** Price projects profitably and confidently.
+
+Core buyer question:
+
+> What should I charge?
+
+### Client Acquisition Without Upwork
+
+**Target price:** $39–59
+
+**Outcome:** Build an independent pipeline of freelance opportunities.
+
+Core buyer question:
+
+> Where do I find clients without depending on a marketplace?
+
+### Marketing for Builders
+
+**Price:** $49
+
+**Outcome:** Build a complete marketing system for a service business or SaaS product.
+
+Core buyer question:
+
+> How do I create a repeatable way to generate demand?
+
+---
+
+## 7. AI Prospecting System Product Family
+
+The AI Prospecting System remains a distinct four-tier product ladder inside the larger Prospect Foundry catalog.
+
+Do not collapse it into one generic product.
+
+### Tier 1 — AI Prospecting Starter
+
+**Short descriptor:** Build a disciplined, evidence-based prospecting workflow with ChatGPT, Google Workspace, and a campaign tracker.
+
+**Intended customer:** Freelance web developers who want a repeatable outbound process without APIs or automation builders.
+
+**Automation level:** Low. AI-assisted but human controlled.
+
+**Technical level:** Beginner.
+
+**Core positioning:**
+
+> Stop prospecting randomly. Build the process first.
+
+Primary capabilities/topics:
 
 - system fundamentals
-- sending domain and mailbox foundation
-- SPF
-- DKIM
-- DMARC
+- sending foundation
+- SPF / DKIM / DMARC concepts
 - sender reputation
 - U.S. B2B outreach considerations
 - campaign design
@@ -274,57 +280,24 @@ A human-supervised workflow in which ChatGPT assists with research and outreach 
 - quality control
 - metrics
 - troubleshooting
-- upgrade path to Tier 2
 
-### Automation level
+Tier 1 does not provide or teach a production implementation of unattended processing, API automation, n8n workflows, databases, or custom application infrastructure.
 
-Low. AI-assisted but human controlled.
+### Tier 2 — ChatGPT Client Acquisition System
 
-### Technical level
+**Short descriptor:** Turn the Tier 1 method into a scheduled, semi-autonomous operating system using ChatGPT, Google Drive, Google Sheets, Gmail, and recurring tasks.
 
-Beginner.
+**Intended customer:** Freelancers who have proven the basic prospecting method and want recurring research and pipeline management without learning APIs.
 
-### Product-page positioning
+**Automation level:** Moderate. Scheduled and semi-autonomous.
 
-> Stop prospecting randomly. Build the process first.
+**Technical level:** Beginner to intermediate. No API knowledge required.
 
-### Deliberate non-capabilities
+**Core positioning:**
 
-Tier 1 does not provide or teach a production implementation of:
+> Make prospecting a recurring system instead of a recurring chore.
 
-- unattended lead processing
-- API automation
-- n8n workflows
-- database infrastructure
-- production application development
-
----
-
-## 9. Tier 2 — ChatGPT Client Acquisition System
-
-### Short descriptor
-
-Turn the Tier 1 method into a scheduled, semi-autonomous operating system using ChatGPT, Google Drive, Google Sheets, Gmail, and recurring tasks.
-
-### Intended customer
-
-Freelancers who have proven the basic prospecting method and want recurring research and pipeline management without learning APIs.
-
-### What the customer builds
-
-A scheduled ChatGPT workflow that can:
-
-- read durable campaign state
-- research prospects
-- draft outreach
-- identify due follow-ups
-- review campaign activity and replies
-- maintain recurring campaign operations
-- produce recurring reports
-
-The system remains deliberately low-volume and appropriately supervised.
-
-### Topics covered
+Primary capabilities/topics:
 
 - scheduled ChatGPT automation
 - sending foundation
@@ -332,7 +305,6 @@ The system remains deliberately low-volume and appropriately supervised.
 - Google Sheets as durable state
 - Google Drive
 - Gmail connection
-- task architecture
 - recurring prospecting jobs
 - follow-up and reply-review jobs
 - reporting jobs
@@ -344,42 +316,24 @@ The system remains deliberately low-volume and appropriately supervised.
 - failure modes
 - metrics
 - troubleshooting
-- upgrade path to APIs and n8n
 
-### Automation level
+Tier 2 does not center on n8n orchestration, custom API pipelines, application databases, or worker infrastructure.
 
-Moderate. Scheduled and semi-autonomous.
+### Tier 3 — Automated Lead Engine
 
-### Technical level
+**Short descriptor:** Deploy an unattended web-development prospecting pipeline with n8n, current website evidence, OpenAI, and Hunter or Apollo.
 
-Beginner to intermediate. No API knowledge required.
+**Intended customer:** Freelancers and solo agencies with a proven campaign that want automated processing without building a custom application.
 
-### Product-page positioning
+**Automation level:** High. Designed for unattended processing after correct implementation and testing.
 
-> Make prospecting a recurring system instead of a recurring chore.
+**Technical level:** Intermediate.
 
-### Deliberate non-capabilities
+**Core positioning:**
 
-Tier 2 is not the high-volume unattended implementation. It does not center on:
+> Connect the entire pipeline and let the system do the repetitive work.
 
-- n8n orchestration
-- custom API pipelines
-- application databases
-- worker infrastructure
-
----
-
-## 10. Tier 3 — Automated Lead Engine
-
-### Short descriptor
-
-Deploy an unattended web-development prospecting pipeline with n8n, current website evidence, OpenAI, and Hunter or Apollo.
-
-### Intended customer
-
-Freelancers and solo agencies with a proven campaign that want automated processing without building a custom application.
-
-### What the customer builds
+Core architecture:
 
 ```text
 BUSINESS DISCOVERY
@@ -405,10 +359,10 @@ STOP      CONTACT DISCOVERY / VERIFICATION
           STATE + METRICS UPDATE
 ```
 
-### Core technologies
+Core technologies/topics:
 
 - n8n
-- DataForSEO or equivalent discovery functions described by the guide
+- discovery APIs/services
 - Firecrawl
 - OpenAI API
 - Google Workspace
@@ -417,162 +371,20 @@ STOP      CONTACT DISCOVERY / VERIFICATION
 - APIs
 - OAuth/credentials
 - webhooks
-
-### Topics covered
-
-- architecture
-- service accounts
-- campaign/data schemas
-- evidence storage
-- business discovery
-- website crawling
-- structured AI qualification
-- AI schemas
+- structured qualification
 - enrichment
 - contact verification
-- outreach generation
 - sequence enrollment
-- webhook processing
-- reply handling
-- bounce handling
-- unsubscribe handling
+- reply/bounce/unsubscribe handling
 - suppression
 - deduplication
-- workflow failures
-- retry paths
+- retries
 - error handling
 - daily caps
-- metrics
 - cost controls
-- testing
-- dry runs
-- launch
-- troubleshooting
-- upgrade path to Tier 4
+- testing and dry runs
 
-### Automation level
-
-High. Designed for unattended processing after correct implementation and testing.
-
-### Technical level
-
-Intermediate. The guide explains concepts from the beginning, but implementation involves APIs, credentials, data structures, and n8n workflows.
-
-### Product-page positioning
-
-> Connect the entire pipeline and let the system do the repetitive work.
-
-### Architectural boundary
-
-Tier 3 remains freelancer-scale workflow automation:
-
-- Google Sheets is the primary campaign state store
-- n8n is the primary orchestration layer
-- workflow logic handles retries and deduplication
-
----
-
-## 11. Tier 4 — Production Lead Engine
-
-### Short descriptor
-
-Build and deploy a database-backed lead automation application with Node.js/TypeScript, PostgreSQL, durable jobs, workers, provider integrations, and production controls.
-
-### Intended customer
-
-Developers and agencies that need:
-
-- durable scale
-- controlled concurrency
-- multiple campaigns
-- stronger auditability
-- extensibility
-- production software architecture
-
-### What the customer builds
-
-A real application in which:
-
-- PostgreSQL owns durable state
-- queues own pending work
-- workers execute processing
-- providers collect evidence
-- structured AI makes qualification decisions
-- outbound providers handle appropriate sending responsibilities
-- external events synchronize state
-- externally visible actions are idempotent and auditable
-
-### Core technologies
-
-- Node.js
-- TypeScript
-- Neon PostgreSQL
-- PostgreSQL-backed job queue
-- Railway
-- DataForSEO
-- Firecrawl
-- OpenAI API
-- Hunter and/or Apollo adapters
-- workers
-- scheduled jobs
-- webhooks
-- migrations
-- logging
-- production controls
-
-### Topics covered
-
-- production architecture
-- local development
-- environment variables
-- database schema
-- migrations
-- uniqueness constraints
-- durable state
-- queues
-- workers
-- scheduling
-- retry/backoff policies
-- dead-letter handling
-- provider adapters
-- discovery services
-- crawling services
-- qualification services
-- enrichment
-- sequence enrollment
-- webhook processing
-- reporting
-- deployment
-- health checks
-- logging
-- idempotency
-- budgets
-- rate limiting
-- security
-- backups
-- rollback
-- unit testing
-- integration testing
-- end-to-end testing
-- production readiness
-- maintenance
-- scaling
-
-### Automation level
-
-Production-grade.
-
-### Technical level
-
-Advanced implementation, even though the manual explains concepts from first principles.
-
-### Product-page positioning
-
-> When a workflow is no longer enough, build the system as software.
-
-### Tier 3 vs Tier 4
-
-Tier 3:
+Tier 3 boundary:
 
 ```text
 Google Sheets = primary state
@@ -581,7 +393,51 @@ workflow = unit of execution
 workflow logic = retries / dedupe
 ```
 
-Tier 4:
+### Tier 4 — Production Lead Engine
+
+**Short descriptor:** Build and deploy a database-backed lead automation application with Node.js/TypeScript, PostgreSQL, durable jobs, workers, provider integrations, and production controls.
+
+**Intended customer:** Developers and agencies needing durable scale, controlled concurrency, multiple campaigns, stronger auditability, extensibility, and production software architecture.
+
+**Automation level:** Production-grade.
+
+**Technical level:** Advanced.
+
+**Core positioning:**
+
+> When a workflow is no longer enough, build the system as software.
+
+Core technologies/topics:
+
+- Node.js
+- TypeScript
+- Neon PostgreSQL
+- PostgreSQL-backed job queue
+- Railway
+- DataForSEO or equivalent discovery provider
+- Firecrawl
+- OpenAI API
+- Hunter and/or Apollo adapters
+- workers
+- scheduled jobs
+- webhooks
+- migrations
+- logging
+- durable state
+- uniqueness constraints
+- retry/backoff policies
+- dead-letter handling
+- provider adapters
+- rate limiting
+- security
+- backups
+- rollback
+- unit/integration/end-to-end testing
+- production readiness
+- maintenance
+- scaling
+
+Tier 4 boundary:
 
 ```text
 PostgreSQL = system of record
@@ -590,116 +446,214 @@ queue job = unit of execution
 database/queue policies = retries / dedupe
 ```
 
----
+### AI Prospecting family principle
 
-## 12. Deliverable Format
+The correct tier is the **lowest tier that matches the buyer's current process, technical ability, and desired automation level**.
 
-Each paid product is a **single downloadable PDF**.
-
-Do not imply additional downloads unless they are explicitly added later.
-
-Do not advertise separate:
-
-- spreadsheet templates
-- source-code downloads
-- prompt-pack files
-- workflow exports
-- n8n JSON files
-- ZIP archives
-- bonus guides
-- dashboards
-- software access
-- accounts
-
-The PDF may itself contain prompts, worksheets, code examples, diagrams, tables, and checklists. Those are contents inside the guide, not separate deliverables.
+Do not imply Tier 4 is inherently the best choice.
 
 ---
 
-## 13. Commerce
+## 8. Sales and Closing
 
-Use Lemon Squeezy for V1.
+### Developer Sales Playbook
 
-Store name:
+**Target price:** $39–59
 
-**Prospect Foundry**
+**Outcome:** Turn qualified conversations into signed projects.
 
-Create four separate Lemon Squeezy products, one per guide.
+### Developer Proposal & Closing Kit
 
-Lemon Squeezy owns:
+**Target price:** $29–49
 
-- checkout
-- payment processing
-- receipts
-- protected digital PDF delivery
-- merchant-of-record functionality provided by the platform
+**Outcome:** Qualify, propose, follow up, and close opportunities.
 
-The Astro website must not process card data and must not publicly host the sellable PDFs.
+This should be more asset-oriented than the Sales Playbook. Do not advertise specific templates, scripts, or files until their inclusion is finalized.
 
-### Purchase flow
+---
+
+## 9. Growth and Recurring Revenue
+
+### Agency Partnership Playbook
+
+**Target price:** $29–49
+
+**Outcome:** Generate referral and subcontracting opportunities from agencies.
+
+### Freelancer Retainer System
+
+**Target price:** $29–49
+
+**Outcome:** Turn completed projects into legitimate recurring revenue.
+
+Do not promote artificial retainers that provide no continuing customer value.
+
+---
+
+## 10. Flagship Freelance System
+
+### Freelance Developer Launch Kit
+
+**Target price:** $79–99
+
+**Outcome:** Build a freelance development business from technical skill to repeatable pipeline.
+
+Conceptual progression:
 
 ```text
-VISITOR
-   ↓
-MARKETING / PRODUCT PAGE
-   ↓
-BUY GUIDE
-   ↓
-LEMON SQUEEZY CHECKOUT
-   ↓
-PAYMENT
-   ↓
-LEMON SQUEEZY PDF DELIVERY
-   ↓
-OPTIONAL RETURN TO /purchase-complete/
+MARKET
+↓
+OFFER
+↓
+PRICING
+↓
+POSITIONING
+↓
+PORTFOLIO
+↓
+ACQUISITION
+↓
+SALES
+↓
+ONBOARDING
+↓
+DELIVERY
+↓
+REFERRALS
+↓
+RECURRING REVENUE
 ```
 
-No website account is required.
+This is a flagship integrated system, not simply a larger ebook.
+
+Exact contents must be finalized before the product page claims specific deliverables.
 
 ---
 
-## 14. V1 Technical Shape
+## 11. SaaS Product Line
 
-The public site is a static-first Astro commerce site.
+### SaaS Validation Before You Build
 
-```text
-Astro
-│
-├── Marketing pages
-├── Product content collection
-├── Article content collection
-├── FAQ content collection
-├── Local optimized images
-├── Starwind UI components
-├── Tailwind CSS v4 theme/tokens
-├── Minimal Svelte only when real client-side state is required
-│
-└── Lemon Squeezy
-    └── Checkout + PDF delivery
-```
+**Target price:** $39–59
 
-Hosting: Vercel.
+**Outcome:** Determine whether customers are sufficiently interested in a problem and proposed solution before heavy development.
 
-No database or custom backend API is required for core V1 functionality.
+### Micro-SaaS Launch System
+
+**Target price:** $69–99
+
+**Outcome:** Move from validated opportunity through MVP, launch, and initial revenue.
+
+### The First 10 SaaS Customers
+
+**Target price:** $39–59
+
+**Outcome:** Acquire and learn from the first ten paying customers.
+
+The number ten is a product objective and organizing concept, not a guarantee.
+
+Never imply purchase guarantees ten customers.
 
 ---
 
-## 15. Information Architecture and Routes
+## 12. Premium Operations Product
 
-Required routes:
+### AI-Powered One-Person Dev Business
+
+**Target price:** $79–129
+
+**Outcome:** Use AI to increase the operating capacity of a solo development business.
+
+Potential domains include:
+
+- research
+- prospecting
+- qualification
+- outreach
+- call preparation
+- proposals
+- planning
+- development
+- QA
+- documentation
+- reporting
+- client communication
+- content
+- follow-up
+- referrals
+- administration
+
+Positioning principle:
+
+> AI-assisted business operations, not a prompt pack.
+
+Do not promise autonomous business operation.
+
+---
+
+## 13. Bundles
+
+The architecture must support bundles as first-class commerce products.
+
+Initial planned bundles:
+
+### Freelancer Starter Bundle
+
+Productization + Pricing + Marketing
+
+Target range: **$79–99**
+
+### Client Acquisition Bundle
+
+Client Acquisition + Marketing + selected AI Prospecting tier
+
+Target range: **$99–149**
+
+### Freelancer Sales System
+
+Sales Playbook + Closing Kit + Retainer System
+
+Target range: **$89–129**
+
+### Freelance Developer Business System
+
+Most or all freelance products
+
+Target range: **$179–249**
+
+### Independent SaaS Founder System
+
+Validation + Launch + First 10 Customers + Marketing
+
+Target range: **$149–199**
+
+### Complete Builder Business Library
+
+Broad catalog access
+
+Target range: **$249–349+**
+
+Tier 4 of the AI Prospecting System must not automatically be included in an inexpensive “everything” bundle. Bundle contents and pricing remain configurable until commercially finalized.
+
+---
+
+## 14. Information Architecture
+
+Required top-level routes:
 
 ```text
 /
+/start/
 /products/
-/products/ai-prospecting-starter/
-/products/chatgpt-client-acquisition-system/
-/products/automated-lead-engine/
-/products/production-lead-engine/
-/compare/
-/how-it-works/
+/products/[slug]/
+/products/ai-prospecting-system/
+/bundles/
+/bundles/[slug]/
+/free/
 /articles/
 /articles/[slug]/
-/faq/
 /about/
+/faq/
 /privacy/
 /terms/
 /refund-policy/
@@ -707,2191 +661,1063 @@ Required routes:
 /404
 ```
 
+Every available product must have a dedicated product route.
+
+Existing AI Prospecting tier routes should be preserved where possible:
+
+```text
+/products/ai-prospecting-starter/
+/products/chatgpt-client-acquisition-system/
+/products/automated-lead-engine/
+/products/production-lead-engine/
+```
+
 Use consistent trailing-slash behavior.
 
-### Primary navigation
+---
+
+## 15. Primary Navigation
 
 Desktop navigation:
 
+- Start Here
 - Products
-- Compare
-- How It Works
+- AI Prospecting
+- Bundles
 - Articles
-- FAQ
+- About
 
 Primary header CTA:
 
-**Choose Your Guide**
+**Get the Free Quickstart**
 
-Logo links to `/`.
+Product navigation should group products by family rather than present an unstructured list of every product.
 
-Products may use a Starwind dropdown/navigation component if it improves usability. Mobile navigation must expose the same core routes.
+Mobile navigation must expose the same core destinations.
 
 ---
 
 ## 16. Homepage Objective
 
-The homepage must answer, in roughly this order:
+The homepage is no longer a sales page for the AI Prospecting System.
 
-1. What is this?
-2. Why would I need it?
-3. What is different about the methodology?
-4. How does the system work?
-5. Which tier is right for me?
-6. What will I learn/build?
-7. Why not just use Apollo or another contact platform?
-8. What exactly do I receive?
-9. How do I buy?
+It must:
 
-The homepage should not try to teach every implementation detail.
+1. establish the umbrella problem
+2. identify the audience
+3. communicate the Prospect Foundry philosophy
+4. help visitors identify their current commercial bottleneck
+5. route them to the appropriate product or family
+6. capture email through Developer Marketing Quickstart
+7. establish credibility
+8. introduce the larger product ecosystem
+
+The homepage must not lead with AI as the parent value proposition.
 
 ---
 
-## 17. Homepage Content Specification
+## 17. Homepage Content Architecture
 
-### 17.1 Hero
+### Hero — Attention
 
-Eyebrow:
+Conceptual direction:
 
-> Client acquisition systems for freelance web developers
+# You Learned How to Build. Now Build the Business Around It.
 
-H1:
-
-# Stop Hunting for Web-Development Clients Manually.
-
-Supporting copy:
-
-> Build a repeatable system for finding businesses with real website opportunities, qualifying them with evidence, creating personalized outreach, managing follow-ups, and progressively automating the entire pipeline.
+Supporting copy should address developers who can create websites, applications, SaaS products, and technical solutions but lack a systematic way to turn those capabilities into customers and revenue.
 
 Primary CTA:
 
-**Compare the Guides** → `/compare/`
+**Get the Free Quickstart**
 
 Secondary CTA:
 
-**See How the System Works** → `/how-it-works/`
+**Find Your Next System**
 
-Trust line:
+### Problem section — Interest
 
-> Four implementation guides. From AI-assisted prospecting to a production-grade lead engine.
+Expose recognizable situations such as:
 
-Hero visual:
+- you can build almost anything but struggle to explain what you sell
+- pricing feels improvised
+- client acquisition happens in bursts
+- referrals are unpredictable
+- marketplaces control access to opportunities
+- prospecting feels manual and inconsistent
+- sales conversations do not reliably become projects
+- SaaS ideas get built before demand is established
+- AI tools are available but do not form a coherent operating system
 
-```text
-DISCOVER → VERIFY → ANALYZE → QUALIFY → CONTACT → OUTREACH → FOLLOW UP → TRACK
-```
+Core idea:
 
-Use a technical pipeline/flow composition, not decorative AI imagery.
+> These are business-system problems.
 
-### 17.2 Problem section
+### Product-path section — Desire
 
-Heading:
+Use problem-oriented entry points, not only product names.
 
-# Prospecting Usually Isn't One Problem. It's Ten Small Jobs.
+Examples:
 
-Copy direction:
+- I don't know what to sell → Productize Your Dev Skills
+- I don't know what to charge → Web Developer Pricing System
+- I need clients → Client Acquisition Without Upwork
+- I need a marketing system → Marketing for Builders
+- I want to automate prospecting → AI Prospecting System
+- I get conversations but don't close enough → Developer Sales Playbook
+- I need recurring revenue → Freelancer Retainer System
+- I have a SaaS idea → SaaS Validation Before You Build
+- I want AI to increase my operating capacity → AI-Powered One-Person Dev Business
 
-> Finding a potential client is only the beginning. You still have to determine whether the business is worth contacting, inspect its current site, find a legitimate contact, decide what matters enough to mention, write the message, track what happened, and remember when to follow up.
+This problem-based routing is more important than a giant product grid.
 
-> Most freelancers do those jobs manually and inconsistently. The result is a process that consumes hours without ever becoming a real system.
+### Free Quickstart section
 
-Visual:
+Feature Developer Marketing Quickstart prominently.
 
-```text
-Search for businesses
-        ↓
-Open the website
-        ↓
-Decide if it's a prospect
-        ↓
-Find contact information
-        ↓
-Find something worth discussing
-        ↓
-Write the email
-        ↓
-Record the lead
-        ↓
-Remember the follow-up
-        ↓
-Repeat tomorrow
-```
+Communicate that it helps the reader identify:
 
-Closing line:
+- who they are targeting
+- what problem they are selling against
+- what they are offering
+- what to say
+- where to find buyers
+- what to do next
+- what to measure
 
-> Prospect Foundry turns those disconnected actions into one defined workflow.
+### System / philosophy section
 
-### 17.3 Evidence-first section
-
-Eyebrow:
-
-> The difference is qualification
-
-Heading:
-
-# Don't Invent a Problem Just to Send an Email.
-
-Copy direction:
-
-> Generic outreach starts with a list and looks for an excuse to contact everyone on it. This system works in the opposite direction.
-
-> A business is researched first. A website problem must be current, factual, relevant, and meaningful enough to justify outreach. If there isn't a defensible opportunity, the business can be rejected.
-
-Visual:
+Explain that Prospect Foundry products are executable systems:
 
 ```text
-BUSINESS FOUND
-      ↓
-CURRENT SITE VERIFIED
-      ↓
-EVIDENCE COLLECTED
-      ↓
-REAL BUSINESS CONSEQUENCE?
-   ↙          ↘
- NO           YES
- ↓             ↓
-REJECT      QUALIFY
-                ↓
-          OUTREACH ANGLE
+LEARN
+  ↓
+DECIDE
+  ↓
+IMPLEMENT
+  ↓
+EXECUTE
+  ↓
+MEASURE
+  ↓
+IMPROVE
 ```
 
-Callout:
+Contrast this with random tactics, disconnected tools, prompt collections, and endless theory.
 
-> No verified opportunity means no manufactured sales angle.
+### Product families section
 
-### 17.4 Worked example
+Show major families:
 
-Heading:
+- Freelance Foundations
+- Client Acquisition
+- AI Prospecting
+- Sales & Closing
+- Growth & Recurring Revenue
+- SaaS
+- AI Operations
 
-# From Raw Lead to a Reason to Talk.
+### Proof section
 
-Use a clearly fictional example such as **Summit Ridge Roofing**.
+Proof does not need to come from Prospect Foundry's own operation.
 
-Card 1 — Discovered:
+Acceptable proof includes:
 
-> Local roofing contractor with a current website.
+- sourced case examples
+- relevant research
+- documented founder examples
+- documented freelancer examples
+- verified methodology demonstrations
+- real product previews
 
-Card 2 — Inspected:
+Never fabricate testimonials, sales, revenue, customer counts, or case-study outcomes.
 
-> Verified finding: a primary estimate link on a current service page leads to a dead end.
+### Final CTA
 
-Card 3 — Business consequence:
+Primary:
 
-> A potential roofing customer attempting to request an estimate can fail to reach the conversion path.
+**Get the Free Quickstart**
 
-Card 4 — Outreach angle:
+Secondary:
 
-> Contact the business about the broken estimate path instead of sending a generic “your website could be better” pitch.
-
-Supporting line:
-
-> The system teaches you to preserve that chain of evidence as automation increases.
-
-### 17.5 Product ladder
-
-Eyebrow:
-
-> Choose your level of automation
-
-Heading:
-
-# Start Where You Are. Automate From There.
-
-Supporting copy:
-
-> All four guides teach the same underlying client-acquisition logic. Each tier replaces more manual work with scheduled automation, APIs, workflows, or application infrastructure.
-
-#### Tier 1 card
-
-**AI Prospecting Starter**
-
-- Badge: `TIER 1`
-- Descriptor: **Human supervised**
-- Copy: Build the fundamental workflow with ChatGPT, Google Workspace, and a campaign tracker.
-- Best for: Freelancers building a disciplined prospecting process for the first time.
-- CTA: **Explore Tier 1**
-
-#### Tier 2 card
-
-**ChatGPT Client Acquisition System**
-
-- Badge: `TIER 2`
-- Descriptor: **Scheduled**
-- Copy: Turn the manual method into a recurring ChatGPT operating system connected to your Google tools.
-- Best for: Freelancers who want recurring research and follow-up management without APIs.
-- CTA: **Explore Tier 2**
-
-#### Tier 3 card
-
-**Automated Lead Engine**
-
-- Badge: `TIER 3`
-- Descriptor: **Automated**
-- Copy: Connect discovery, website evidence, AI qualification, enrichment, outreach, and campaign events through n8n and APIs.
-- Best for: Freelancers and solo agencies ready to automate the pipeline.
-- CTA: **Explore Tier 3**
-
-#### Tier 4 card
-
-**Production Lead Engine**
-
-- Badge: `TIER 4`
-- Descriptor: **Production**
-- Copy: Replace spreadsheet/workflow state with PostgreSQL, queues, workers, typed services, and production deployment.
-- Best for: Developers and agencies building the lead engine as real software.
-- CTA: **Explore Tier 4**
-
-Below cards:
-
-**Compare all four guides →**
-
-### 17.6 Automation progression
-
-Use a readable comparison:
-
-```text
-MORE HUMAN CONTROL                         MORE SYSTEM CONTROL
-
-Tier 1              Tier 2             Tier 3             Tier 4
-─────────────────────────────────────────────────────────────────
-ChatGPT             ChatGPT Tasks      n8n + APIs         Node/TS
-Google Sheets       Google Tools       Google Sheets      PostgreSQL
-Manual approval     Scheduled work     Workflows          Workers
-Manual process      Semi-autonomous    Unattended         Production
-```
-
-Do not frame human involvement as a defect.
-
-### 17.7 Apollo objection
-
-Heading:
-
-# “Why Not Just Use Apollo?”
-
-Copy direction:
-
-> You can.
-
-> Apollo can be useful for discovering companies and contacts, enriching records, managing sequences, and automating sales workflows. The guides do not require you to abandon it.
-
-> The missing question is whether the business is actually a good web-development prospect.
-
-Comparison:
-
-| Question | Prospect Foundry | Apollo / Contact Platform |
-| --- | --- | --- |
-| Should this business be contacted? | Website-specific qualification | May provide account data |
-| Why should I contact it? | Verified website evidence | Not its core purpose |
-| What should the message discuss? | Approved finding + consequence | Can store/use personalization |
-| Who should receive it? | Defines contact requirement | Strong contact/enrichment capability |
-| How should the campaign operate? | Defines architecture and safeguards | Can execute parts of the sales workflow |
-
-Closing:
-
-> Think of Apollo as a possible component in the engine, not the methodology itself.
-
-CTA: **See the full system** → `/how-it-works/`
-
-### 17.8 What the buyer learns
-
-Heading:
-
-# This Is an Implementation Manual, Not a Motivation Course.
-
-Groups:
-
-**Prospecting architecture**
-- campaign design
-- qualification rules
-- durable state
-- suppression
-- deduplication
-
-**Evidence**
-- current-site verification
-- factual findings
-- business consequences
-- qualification
-- rejection
-
-**Outreach**
-- contact discovery
-- personalized messaging
-- follow-ups
-- stop conditions
-
-**Infrastructure**
-- Google Workspace
-- ChatGPT
-- Google Sheets
-- n8n
-- APIs
-- PostgreSQL
-- queues
-- workers
-
-**Operations**
-- testing
-- metrics
-- failure handling
-- cost controls
-- deliverability safeguards
-
-### 17.9 Inside the guides
-
-Heading:
-
-# See What You're Actually Buying.
-
-Use real PDF page previews when available.
-
-Suggested captions:
-
-- Step-by-step implementation instructions
-- Architecture explained before configuration begins
-- Concrete workflow examples
-- Checklists for critical launch steps
-
-Supporting line:
-
-> Each guide is written to explain what a component does, why the system needs it, how to implement it, and what failure looks like.
-
-Never use fake guide pages.
-
-### 17.10 Tier recommendation
-
-Prefer a static decision tree in V1.
-
-Heading:
-
-# Which Guide Should You Start With?
-
-```text
-Do you already have a repeatable manual prospecting process?
-
-NO → TIER 1
-YES ↓
-
-Do you want recurring automation without APIs?
-
-YES → TIER 2
-NO ↓
-
-Do you want an automated system without building a custom backend?
-
-YES → TIER 3
-NO ↓
-
-Do you want to build the engine as a production application?
-
-YES → TIER 4
-```
-
-CTA: **Compare Every Tier**
-
-Do not add a JavaScript/Svelte quiz unless it materially improves the user experience.
-
-### 17.11 Trust/guardrails
-
-Heading:
-
-# Automation With Guardrails.
-
-Feature blocks:
-
-**Evidence first** — The system can reject a lead instead of inventing a reason to contact it.
-
-**Stop conditions** — Replies, opt-outs, and hard bounces are treated as state, not obstacles to bypass.
-
-**Controlled volume** — The guides emphasize reputation and legitimate campaign operation rather than maximizing raw sends.
-
-**Durable records** — The system maintains enough state to prevent duplicate and inappropriate outreach.
-
-**Progressive automation** — Automation increases only after the underlying process is understood and tested.
-
-### 17.12 Featured FAQ
-
-Show approximately six:
-
-1. Is this a lead-generation service?
-2. Do I need Apollo?
-3. Do I need to know how to code?
-4. Which tier should I start with?
-5. Are these video courses?
-6. What exactly do I receive after purchase?
-
-CTA: **View all FAQs**
-
-### 17.13 Final CTA
-
-Heading:
-
-# Build the System Instead of Repeating the Chore.
-
-Copy:
-
-> Start with the level that matches how you work today and build toward as much automation as you actually need.
-
-Primary CTA: **Compare the Guides**
-
-Secondary CTA: **View All Products**
+**Browse All Products**
 
 ---
 
-## 18. Products Overview Page
+## 18. Start Here Page
 
-Route: `/products/`
+Route:
 
-H1:
+`/start/`
 
-# Four Ways to Build the Same Client Acquisition System.
+Purpose:
 
-Intro:
+Diagnose the visitor's current bottleneck and route them to the appropriate next product.
 
-> Every guide follows the same evidence-first prospecting architecture. What changes is who performs each step: you, ChatGPT, an automation workflow, or a production application.
+This can be a static Astro decision tree; it does not require a JavaScript quiz.
 
-Each product card includes:
-
-- tier
-- title
-- automation level
-- technical level
-- short promise
-- key tools
-- best-for statement
-- configured price
-- product CTA
-
-Follow with a simplified tier comparison and a link to `/compare/`.
-
----
-
-## 19. Shared Product Page Structure
-
-Every product page should contain:
-
-1. Breadcrumb
-2. Tier badge
-3. Product title
-4. Short descriptor
-5. Real product cover
-6. Configured price
-7. Purchase CTA
-8. Best-for statement
-9. What the customer will build
-10. Architecture diagram
-11. What the guide covers
-12. Tools used
-13. Automation level
-14. Technical level / prerequisites
-15. Real inside-the-guide previews
-16. What the guide deliberately does not do
-17. Comparison with adjacent tier(s)
-18. Relevant FAQ
-19. Final purchase CTA
-
-The page should answer:
-
-> What will I be capable of building after implementing this guide?
-
-not merely:
-
-> How many pages are in the PDF?
-
----
-
-## 20. Tier 1 Product Page
-
-Route: `/products/ai-prospecting-starter/`
-
-H1: **AI Prospecting Starter**
-
-Badge: **Tier 1 · Human Supervised**
-
-Hero descriptor:
-
-> Build a disciplined, evidence-based client prospecting workflow with ChatGPT, Google Workspace, and a campaign tracker.
-
-Best for:
-
-> Freelance web developers who want a repeatable outbound process without APIs or automation builders.
-
-Primary CTA:
-
-**Buy AI Prospecting Starter — [configured price]**
-
-What you will build:
-
-> A human-supervised system in which ChatGPT helps research prospects and draft outreach while you verify the evidence, control the campaign tracker, approve messages, and send.
-
-Architecture:
+Example logic:
 
 ```text
-YOU DEFINE CAMPAIGN
+SERVICES
+   ↓
+Do you know exactly what you sell?
+   NO → Productize Your Dev Skills
+   YES
       ↓
-CHATGPT RESEARCH
+Do you have a reliable way to find opportunities?
+   NO → Client Acquisition Without Upwork
+   YES
       ↓
-YOU VERIFY EVIDENCE
+Do you need prospecting automation?
+   YES → AI Prospecting System
       ↓
-GOOGLE SHEETS STATE
+Are conversations turning into projects?
+   NO → Developer Sales Playbook
       ↓
-CHATGPT DRAFTS
+Do you need recurring revenue?
+   YES → Freelancer Retainer System
+
+SOFTWARE / SAAS
+   ↓
+Have you validated the problem?
+   NO → SaaS Validation Before You Build
+   YES
       ↓
-YOU SEND / FOLLOW UP
+Have you launched?
+   NO → Micro-SaaS Launch System
+   YES
+      ↓
+Do you have early paying customers?
+   NO → The First 10 SaaS Customers
+   YES → Marketing for Builders
 ```
 
-Section heading:
-
-# Build the Foundation Before You Automate It.
-
-Primary coverage:
-
-- sending identity
-- domain/mailbox fundamentals
-- SPF / DKIM / DMARC
-- sender reputation
-- campaign design
-- niche selection
-- qualification criteria
-- tracker setup
-- ChatGPT research workflow
-- lead verification
-- website evidence
-- contact discovery
-- Hunter option
-- Apollo option
-- personalized outreach
-- follow-up
-- quality control
-- metrics
-- troubleshooting
-
-“This is not” section:
-
-- unattended automation
-- API automation
-- bulk sending
-- an Apollo requirement
-
-Next tier:
-
-**When Tier 2 makes sense**
-
-> Upgrade when the workflow works but repeatedly initiating research, follow-up review, and reporting yourself has become the bottleneck.
+This is guidance, not a rigid prerequisite system.
 
 ---
 
-## 21. Tier 2 Product Page
+## 19. Products Index
 
-Route: `/products/chatgpt-client-acquisition-system/`
+Route:
 
-H1: **ChatGPT Client Acquisition System**
+`/products/`
 
-Badge: **Tier 2 · Scheduled**
+Support two discovery modes.
 
-Hero descriptor:
+### Browse by problem
 
-> Turn the Tier 1 method into a scheduled, semi-autonomous daily operating system using ChatGPT and connected Google tools.
+Examples:
 
-Best for:
+- Decide what to sell
+- Set prices
+- Find clients
+- Automate prospecting
+- Improve sales
+- Create recurring revenue
+- Validate SaaS
+- Launch SaaS
+- Find first SaaS customers
+- Operate more efficiently with AI
 
-> Freelancers who want recurring research and pipeline management without building API workflows.
+### Browse by product family
 
-Primary CTA:
+Group products under:
 
-**Buy ChatGPT Client Acquisition System — [configured price]**
+- Freelance Foundations
+- Prospecting
+- Sales & Closing
+- Growth
+- SaaS
+- Operations
 
-What you will build:
+Every card should include:
 
-> A recurring ChatGPT workflow that reads campaign state, researches prospects, drafts outreach, identifies due follow-ups, reviews campaign activity, and produces operational reports.
+- product name
+- one-sentence outcome
+- intended audience
+- price or Free
+- family indicator
+- status where relevant
+- CTA
 
-Architecture:
+Avoid enormous equal-weight card grids.
+
+---
+
+## 20. Universal Product Page Requirement
+
+Every available sellable product gets its own page.
+
+Every product page uses **AIDA** as the persuasion architecture:
 
 ```text
-SCHEDULED TASK
-      ↓
-CHATGPT
-      ↕
-GOOGLE SHEETS CAMPAIGN STATE
-      ↕
-GMAIL / GOOGLE TOOLS
-      ↓
-DRAFT / REVIEW / ACTION
-      ↓
-UPDATED STATE + REPORTING
+ATTENTION
+↓
+INTEREST
+↓
+DESIRE
+↓
+ACTION
 ```
 
-Section heading:
-
-# Make the Process Recurring Without Building an API Stack.
-
-Primary coverage:
-
-- scheduled ChatGPT workflows
-- campaign state
-- Drive / Sheets / Gmail connections
-- recurring task architecture
-- prospecting tasks
-- follow-up / reply review
-- weekly reporting
-- task prompts
-- sending safeguards
-- testing
-- supervision
-- limitations
-- troubleshooting
-- metrics
-
-Not intended for:
-
-- high-volume unattended processing
-- n8n/API workflow orchestration
-- custom backend infrastructure
-
-Adjacent tiers:
-
-- Tier 1 if the methodology itself is not established.
-- Tier 3 when recurring ChatGPT tasks are no longer enough and provider APIs should become an unattended workflow.
+The page does not need visible labels saying Attention, Interest, Desire, or Action. AIDA governs sales logic, not headings.
 
 ---
 
-## 22. Tier 3 Product Page
+## 21. Product Page — Attention
 
-Route: `/products/automated-lead-engine/`
+Above the fold must answer:
 
-H1: **Automated Lead Engine**
+- What is this?
+- Who is it for?
+- What meaningful outcome does it help create?
+- Why should this visitor keep reading?
 
-Badge: **Tier 3 · Automated**
+Required elements:
 
-Hero descriptor:
+- product-family eyebrow
+- product title
+- outcome-oriented headline/subheadline
+- concise audience qualifier
+- product visual
+- price
+- primary CTA
+- format indicator such as “Downloadable implementation guide”
+- short trust statement where appropriate
 
-> Deploy an unattended web-development prospecting pipeline with n8n, current website evidence, OpenAI, and Hunter or Apollo.
+Do not open with a table of contents.
 
-Best for:
+Do not open with technology unless the technology itself is central to the buying decision.
 
-> Freelancers and solo agencies with a proven campaign that want unattended processing without building a custom application.
+---
 
-Primary CTA:
+## 22. Product Page — Interest
 
-**Buy Automated Lead Engine — [configured price]**
+Make the visitor recognize the current problem.
 
-Architecture:
+Suggested structure:
+
+### The situation
+
+Describe the current workflow or frustration.
+
+### Why the obvious solution fails
+
+Explain why common approaches produce weak results where relevant.
+
+### What actually needs to change
+
+Introduce the system or methodology taught by the product.
+
+Use concrete examples.
+
+Do not artificially intensify pain or invent financial losses.
+
+---
+
+## 23. Product Page — Desire
+
+Translate contents into capability.
+
+Required sections where applicable:
+
+### What you'll be able to do
+
+Outcome-oriented capabilities.
+
+### The system you'll build
+
+Show workflow or conceptual architecture.
+
+### What's inside
+
+Display actual major sections/modules.
+
+### How it works
+
+Explain how the reader moves from reading to implementation.
+
+### Examples / preview
+
+Use genuine PDF pages, diagrams, worksheets, tables, or excerpts when available.
+
+### Who this is for
+
+Specific positive qualification.
+
+### Who this is not for
+
+Prevent wrong purchases.
+
+### Proof
+
+Use legitimate evidence where useful.
+
+Proof may be first-party or credible external evidence. External proof must never be presented as a Prospect Foundry customer result.
+
+### Related progression
+
+Show useful before/after or next-product relationships without implying every preceding product is mandatory.
+
+---
+
+## 24. Product Page — Action
+
+Near the purchasing decision, clearly state:
+
+- product
+- format
+- current price
+- what is included
+- checkout mechanism
+- delivery mechanism
+- relevant refund information
+- CTA
+
+Primary paid CTA should be explicit, e.g.:
+
+**Get [Product Name]**
+
+Avoid vague purchase CTAs such as “Learn More.”
+
+For the free product:
+
+**Get the Free Quickstart**
+
+Finish with a concise product-specific FAQ where useful.
+
+---
+
+## 25. AIDA Copy Standard
+
+AIDA does not mean hype.
+
+### Attention
+
+Earn attention through relevance.
+
+Bad:
+
+> Revolutionize your freelance journey.
+
+Better:
+
+> You can build the project. The harder part is finding someone ready to pay for it.
+
+### Interest
+
+Demonstrate understanding of the actual problem.
+
+### Desire
+
+Show a credible better state and the mechanism for reaching it.
+
+### Action
+
+Give a specific next step.
+
+Never use:
+
+- fake urgency
+- fake scarcity
+- countdown timers without a legitimate deadline
+- invented discounts
+- guaranteed results
+- unsubstantiated income claims
+- manipulative shame
+- exaggerated fear
+
+---
+
+## 26. Product Content Model
+
+Use centralized structured product data.
+
+Recommended fields:
+
+```text
+title
+slug
+status
+family
+audience
+shortDescription
+coreOutcome
+problem
+price
+priceLabel
+format
+difficulty
+featured
+free
+checkoutUrl
+coverImage
+previewImages
+aida:
+  attention
+  interest
+  desire
+  action
+capabilities[]
+contents[]
+whoItsFor[]
+whoItsNotFor[]
+proof[]
+faqs[]
+relatedProducts[]
+nextProducts[]
+seo:
+  title
+  description
+```
+
+The exact Astro schema may differ, but data must remain centralized.
+
+Never duplicate product price or checkout URL data across templates.
+
+---
+
+## 27. Product Status
+
+Support:
+
+```text
+available
+coming-soon
+planned
+```
+
+### Available
+
+Full sales page and purchase CTA.
+
+### Coming soon
+
+May have full positioning, expected outcome, and an email-interest/waitlist CTA.
+
+Must not claim final contents or price unless finalized.
+
+### Planned
+
+Should normally appear only where roadmap/catalog context adds value.
+
+Do not create fake checkout buttons.
+
+This status system allows the site redesign to launch before the entire catalog is finished.
+
+---
+
+## 28. AI Prospecting Family Page
+
+Route:
+
+`/products/ai-prospecting-system/`
+
+Purpose:
+
+Help visitors understand the common methodology and choose the correct automation level.
+
+The page should follow its own AIDA progression.
+
+### Attention
+
+> Build an evidence-first prospecting system at the level of automation you actually need.
+
+### Interest
+
+Explain that the problem is not lack of tools but lack of an operating system connecting:
 
 ```text
 DISCOVERY
-   ↓
-NORMALIZE / DEDUPE
-   ↓
-CURRENT WEBSITE CONTENT
-   ↓
-AI QUALIFICATION
-   ↓
-QUALIFIED?
- ↙      ↘
-NO      YES
-↓        ↓
-STOP   CONTACT ENRICHMENT
-          ↓
-       OUTREACH
-          ↓
-       SEQUENCE
-          ↓
- REPLY / BOUNCE / OPT-OUT
-          ↓
-       STATE UPDATE
+↓
+VERIFICATION
+↓
+WEBSITE EVIDENCE
+↓
+QUALIFICATION
+↓
+CONTACT DISCOVERY
+↓
+OUTREACH
+↓
+FOLLOW-UP
+↓
+STATE
+↓
+MEASUREMENT
 ```
 
-Section heading:
+### Desire
 
-# Automate the Pipeline, Not the Mistakes.
+Compare the four implementation levels:
 
-Supporting copy:
+```text
+TIER 1
+Human supervised
+        ↓
+TIER 2
+Scheduled / semi-autonomous
+        ↓
+TIER 3
+Workflow automated
+        ↓
+TIER 4
+Production software
+```
 
-> Tier 3 moves the system out of recurring manual sessions and into connected workflows. But every automated decision still depends on explicit data, evidence, state, and stop conditions.
+The comparison should include:
 
-Primary coverage:
+- intended user
+- automation level
+- technical level
+- primary tools
+- state/storage model
+- supervision requirement
+- what the customer builds
+- price when finalized
+- “Choose this tier if...” guidance
 
-- n8n setup
-- API fundamentals
-- credentials
-- discovery APIs
-- Firecrawl
-- OpenAI API
-- structured outputs
-- lead schemas
-- Google Sheets state
-- domain normalization
-- dedupe
-- qualification
-- evidence storage
-- Hunter integration
-- Apollo integration
-- outreach generation
-- sequences
-- webhooks
-- replies
-- bounces
-- opt-outs
-- suppression
-- error handling
-- retries
-- cost controls
-- testing
-- launch
-- operations
+### Action
 
-Critical statement:
+Each tier links to its own complete product page.
 
-> The system is allowed to produce zero qualified leads from a batch. Automation does not create permission to fabricate findings.
-
-Tier 3 vs Tier 4:
-
-**Tier 3**
-- Google Sheets owns primary campaign state
-- n8n orchestrates processing
-- workflows handle retries and dedupe
-- optimized for freelancer/solo operation
-
-**Tier 4**
-- PostgreSQL owns state
-- workers/services orchestrate processing
-- queue infrastructure manages work
-- database constraints enforce uniqueness
-- built for stronger scale and extensibility
+Do not sell all four tiers through one ambiguous CTA.
 
 ---
 
-## 23. Tier 4 Product Page
+## 29. Bundle Pages
 
-Route: `/products/production-lead-engine/`
+Every active bundle gets its own page.
 
-H1: **Production Lead Engine**
+Bundle pages should emphasize:
 
-Badge: **Tier 4 · Production**
+- larger outcome
+- why the included products fit together
+- who should buy the bundle instead of individual products
+- included products
+- individual-value comparison where factually accurate
+- bundle price
+- mathematically accurate savings where applicable
+- recommended sequence
+- CTA
 
-Hero descriptor:
+Do not use fake anchoring.
 
-> Build and deploy a database-backed web-development lead automation application with Node.js/TypeScript, PostgreSQL, workers, queues, provider APIs, and production controls.
+---
 
-Best for:
+## 30. Free Resources
 
-> Developers and agencies that want durable state, controlled concurrency, multiple campaigns, stronger auditability, and an architecture they can extend.
+Route:
 
-Primary CTA:
+`/free/`
 
-**Buy Production Lead Engine — [configured price]**
+Initially feature:
 
-Architecture:
+**Developer Marketing Quickstart**
+
+The architecture should permit future legitimate guides, worksheets, checklists, calculators, or templates.
+
+Do not advertise resources that do not exist.
+
+---
+
+## 31. Email Acquisition
+
+Developer Marketing Quickstart is the primary opt-in asset.
+
+Flow:
 
 ```text
-                 POSTGRESQL
-                SYSTEM STATE
-                     │
-                  JOB QUEUE
-                     │
-                   WORKERS
-        ┌────────────┼────────────┐
-        ↓            ↓            ↓
-    DISCOVERY     CRAWLING   QUALIFICATION
-        └────────────┼────────────┘
-                     ↓
-                ENRICH / SEND
-                     ↓
-              PROVIDER EVENTS
-                     ↓
-                 STATE UPDATE
+VISITOR
+↓
+QUICKSTART LANDING PAGE / FORM
+↓
+EMAIL SUBMISSION + REQUIRED DISCLOSURE/CONSENT
+↓
+CONFIRMATION / DELIVERY
+↓
+WELCOME + NURTURE
+↓
+RELEVANT PRODUCT PATH
 ```
 
-Section heading:
+Do not gate useful content inside the Quickstart merely to collect an email address already collected during acquisition.
 
-# When a Workflow Becomes Software.
+Supplementary subscriber assets may be delivered later where strategically useful.
 
-Copy:
+---
 
-> Tier 4 replaces spreadsheet-owned state and workflow-level reliability with a real application model: database constraints, queue jobs, workers, typed services, deployment, monitoring, retries, idempotency, and operational controls.
+## 32. Articles
 
-Primary coverage:
+Articles support:
 
-- Node.js
+- organic discovery
+- trust
+- product education
+- email acquisition
+- internal linking
+- commercial problem awareness
+
+Suggested categories:
+
+- Freelancing
+- Offers
+- Pricing
+- Marketing
+- Prospecting
+- Sales
+- SaaS
+- AI Operations
+
+Articles should link to the most relevant next resource rather than automatically promote the most expensive product.
+
+---
+
+## 33. About Page
+
+The About page should explain:
+
+- why Prospect Foundry exists
+- the practical/system-oriented publishing philosophy
+- who the products are for
+- how research and evidence are handled
+- the distinction between technical capability and commercial systems
+
+Do not fabricate personal achievements or authority.
+
+Authority may come from demonstrated reasoning, research, useful frameworks, transparent methodology, documented examples, and product quality.
+
+---
+
+## 34. Commerce
+
+Continue using Lemon Squeezy unless explicitly changed.
+
+Store name:
+
+**Prospect Foundry**
+
+Lemon Squeezy should own:
+
+- checkout
+- payment processing
+- receipts
+- protected paid digital delivery
+- merchant-of-record functions provided by the service
+
+The Astro site must not process card data.
+
+Paid PDFs must not be stored in public website paths.
+
+Each sellable product and bundle should have centralized commerce metadata.
+
+Do not assume there are only four Lemon Squeezy products.
+
+---
+
+## 35. Technical Architecture
+
+Preserve:
+
+- Astro 7
 - TypeScript
-- project architecture
-- Neon PostgreSQL
-- schema design
-- migrations
-- unique constraints
-- queues
-- workers
-- scheduling
-- backoff
-- dead-letter handling
-- provider adapters
-- DataForSEO
-- Firecrawl
-- OpenAI
-- Hunter
-- Apollo
-- application services
-- webhooks
-- Railway deployment
-- secrets
-- health checks
-- logging
-- idempotency
-- rate limiting
-- budgets
-- backups
-- rollback
-- testing
-- launch
-- operations
-- scaling
+- Tailwind CSS 4
+- Starwind UI
+- Svelte 5 integration only where genuinely required
+- Vercel
+- static-first rendering
+- Astro content collections
+- local optimized imagery
+- minimal client JavaScript
 
-Section heading:
+Do not add a CMS solely because the catalog is larger.
 
-# Do You Actually Need Tier 4?
+The catalog remains manageable as structured local content.
 
-Copy:
-
-> If a single freelancer campaign can operate comfortably in Google Sheets and n8n, Tier 3 is probably enough. Tier 4 exists for the point where durable concurrency, custom behavior, larger datasets, multiple campaigns, auditability, or application-level control justify real software infrastructure.
+No database or custom backend is required for the core public commerce site unless later requirements explicitly introduce one.
 
 ---
 
-## 24. Compare Page
+## 36. Content Collections
 
-Route: `/compare/`
-
-H1:
-
-# Which Prospect Foundry Guide Is Right for You?
-
-Intro:
-
-> The underlying strategy does not change. The difference is how much of the workflow you want the system to execute for you.
-
-Required dimensions:
-
-| Capability | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
-| --- | --- | --- | --- | --- |
-| Evidence-first qualification | Yes | Yes | Yes | Yes |
-| Google Workspace | Yes | Yes | Yes | Yes |
-| ChatGPT | Yes | Yes | API/AI layer | API/AI layer |
-| Google Sheets state | Yes | Yes | Yes | Non-primary |
-| Human-led workflow | Primary | Reduced | Minimal operational | Administrative |
-| Scheduled ChatGPT | No | Yes | Not primary | Not primary |
-| APIs | No | No | Yes | Yes |
-| n8n | No | No | Yes | Non-primary |
-| Automated discovery | Assisted | Scheduled/assisted | Yes | Yes |
-| Automated site evidence | No | Assisted | Yes | Yes |
-| Automated qualification | Assisted | Assisted | Yes | Yes |
-| Contact enrichment | Manual/optional | Assisted | Automated | Automated |
-| Sequence integration | No | Limited/provider dependent | Yes | Yes |
-| Webhooks | No | No | Yes | Yes |
-| PostgreSQL | No | No | No | Yes |
-| Job queue | No | No | No | Yes |
-| Workers | No | No | No | Yes |
-| Multi-campaign architecture | Manual | Limited | Possible | Designed for it |
-| Best for | Learning the system | Recurring operation | Freelancer automation | Production software |
-| Complexity | Low | Low-medium | Medium | High |
-
-Quick recommendation:
-
-- **Tier 1:** You need the methodology.
-- **Tier 2:** The methodology works and you want ChatGPT handling recurring operations.
-- **Tier 3:** You want the workflow running through connected APIs.
-- **Tier 4:** You want to own the lead engine as a software system.
-
----
-
-## 25. How It Works Page
-
-Route: `/how-it-works/`
-
-H1:
-
-# The Lead Engine, From Discovery to Conversation.
-
-This page explains the methodology independently of a tier.
-
-Required sections:
-
-### 1. Design the campaign
-
-Define service, niche, geography, offer, CTA, qualification requirements, contact requirements, rejection rules, and send limits.
-
-### 2. Discover businesses
-
-Discovery creates candidates, not automatically qualified prospects.
-
-### 3. Verify the business
-
-Confirm company identity, current website, relevant service offering, and domain relationship.
-
-### 4. Inspect the current site
-
-Collect current, observable evidence.
-
-### 5. Qualify or reject
-
-A finding must be factual, current, relevant to the service, meaningful to the business, and sufficient to justify outreach.
-
-### 6. Find a legitimate contact
-
-Use public business information and reputable discovery/verification tools. Do not teach dictionary/guessing attacks against possible email addresses.
-
-### 7. Turn evidence into an angle
-
-```text
-FINDING
-  ↓
-BUSINESS CONSEQUENCE
-  ↓
-RELEVANT IMPROVEMENT
-  ↓
-CONCISE OUTREACH
-```
-
-### 8. Send deliberately
-
-Maintain sender identity, authentication, appropriate volume, campaign state, and opt-out mechanisms.
-
-### 9. Follow up
-
-Follow-up depends on recorded campaign state.
-
-### 10. Stop appropriately
-
-Stop conditions include reply, opt-out, hard bounce, suppression state, and other campaign-defined exclusions.
-
-### 11. Measure the system
-
-Useful metrics include discovered leads, researched leads, qualified leads, contacts found, messages sent, replies, conversations, consultations, bounce rate, opt-outs, and cost per qualified lead when relevant.
-
-Closing concept:
-
-# Automate only after the decision process works.
-
----
-
-## 26. Articles Hub and Content Strategy
-
-Route: `/articles/`
-
-H1:
-
-# Client Acquisition Systems for Web Developers
-
-Intro:
-
-> Practical guides to prospecting, qualification, outreach, automation, and the infrastructure behind a repeatable web-development sales pipeline.
-
-Article cards include title, description, category, publish date, and hero image.
-
-Initial target topics:
-
-1. How to Find Businesses That Actually Need a New Website
-2. How to Automate Web-Development Lead Generation
-3. How to Use ChatGPT to Find Web-Development Clients
-4. How to Analyze a Prospect's Website Before Cold Outreach
-5. Why Generic Web-Design Cold Emails Get Ignored
-6. How to Personalize Web-Development Outreach With AI
-7. Apollo for Freelance Web Developers: Where It Fits
-8. Apollo Alternatives for Web-Development Prospecting
-9. How to Find Business Email Addresses Without Guessing
-10. How to Build a Freelance Web-Development Sales Pipeline
-11. How to Track Cold Outreach Without Losing Follow-Ups
-12. When to Automate Your Freelance Prospecting
-13. n8n for Web-Development Lead Generation
-14. Google Sheets vs PostgreSQL for Lead Automation
-15. How to Prevent AI From Inventing Website Problems
-16. What Makes a Business a Qualified Web-Development Lead?
-
-V1 does not require every article to exist at launch. If fewer than about three substantive articles exist, omit Articles from primary navigation rather than launching an empty-looking content section.
-
-### Article layout
-
-Every article should contain:
-
-- breadcrumb
-- title
-- description/deck
-- publication date
-- updated date when present
-- hero image
-- article body
-- table of contents when useful
-- inline images when useful
-- one contextually relevant product CTA
-- end-of-article CTA
-- related articles
-- author attribution where appropriate
-
-Do not turn educational articles into repetitive sales landing pages.
-
----
-
-## 27. FAQ Page
-
-Route: `/faq/`
-
-H1:
-
-# Frequently Asked Questions
-
-Required core answers:
-
-### What do I receive?
-
-> You receive the PDF implementation guide for the tier you purchase.
-
-### Are these video courses?
-
-> No. The V1 products are downloadable PDF implementation manuals.
-
-### Do I get software?
-
-> No. The guides teach you how to build and operate the systems using the tools described in the relevant tier.
-
-### Which tier should I start with?
-
-> Start with the lowest tier whose prerequisites and workflow you already understand. Tier 1 establishes the core methodology. Tier 2 adds recurring ChatGPT operation. Tier 3 introduces API automation. Tier 4 turns the architecture into production software.
-
-### Do I have to buy the tiers in order?
-
-> No. A technically experienced buyer can choose the tier appropriate to their existing skills and system.
-
-### Do I need Apollo?
-
-> No. Apollo is optional in relevant workflows. It can serve as a useful discovery, enrichment, and outbound component, but the qualification methodology does not depend on Apollo.
-
-### Do I need Hunter?
-
-> Not for every tier. The relevant guides explain where contact discovery and verification tools fit into the architecture.
-
-### Do I need Google Workspace?
-
-> The guides are built around a legitimate business sending identity, and Google Workspace is the primary mailbox environment described by the system.
-
-### Do I need to know how to code?
-
-> Not for Tier 1 or Tier 2. Tier 3 introduces APIs and n8n. Tier 4 requires building and deploying a software application even though the guide explains concepts from the beginning.
-
-### Will this guarantee clients?
-
-> No. The system provides a structured method for prospecting and outreach. Results still depend on your market, offer, positioning, evidence quality, messaging, deliverability, and sales ability.
-
-### Is this a high-volume cold email system?
-
-> No. The methodology emphasizes evidence-based personalized outreach, controlled sending, suppression, and sender reputation.
-
-### What version will I receive?
-
-> Buyers receive the version currently distributed through the product delivery system according to the current sales terms.
-
-Do not promise lifetime updates unless explicitly established.
-
----
-
-## 28. About Page
-
-Route: `/about/`
-
-H1:
-
-# Built From a Real Prospecting Problem.
-
-Copy direction:
-
-> Prospect Foundry grew from a practical problem: finding good web-development prospects took too much repetitive work, while conventional lead databases still left the most important question unanswered—why should this particular business want to talk to a web developer?
-
-> The solution was not simply to automate sending. It was to define the decision process before sending: verify the business, inspect the current site, preserve factual evidence, qualify the opportunity, find the appropriate contact, and only then create outreach.
-
-> The four guides document increasingly automated versions of that system, from a human-supervised ChatGPT workflow through a production database-backed application.
-
-Author section:
-
-**Brian Woodson**
-
-Position as a web developer, builder of the system, and practitioner documenting the implementation. Do not invent inflated credentials or unverifiable claims.
-
-CTA: **Compare the Guides**
-
----
-
-## 29. Legal Pages
-
-Required:
-
-- `/privacy/`
-- `/terms/`
-- `/refund-policy/`
-
-Final legal language must be reviewed before launch.
-
-Do not let an agent invent binding commercial promises for:
-
-- refund window
-- refund conditions
-- legal business name
-- business address
-- governing law
-- update policy
-- product license terms
-
-Use clearly identified configuration/placeholders until those facts are supplied.
-
----
-
-## 30. Purchase Complete Page
-
-Route: `/purchase-complete/`
-
-H1:
-
-# You're In.
-
-Suggested copy:
-
-> Your purchase is complete. Your download information is provided through the checkout and delivery system associated with your purchase.
-
-> Start with the beginning of the guide even if you recognize some of the tools. The system is designed so that later automation depends on decisions made earlier in the workflow.
-
-Support line:
-
-> If you have a problem accessing your purchase, contact [configured support email].
-
-Never expose direct PDF paths.
-
----
-
-## 31. Content Collections
-
-There is no CMS. The Git repository is the content source of truth.
-
-Primary collections:
+Recommended collections:
 
 ```text
 products
+bundles
 articles
 faqs
 ```
 
-### Product collection
+The AI Prospecting family page may use structured configuration derived from the product collection.
 
-Directory:
-
-`src/content/products/`
-
-Recommended entries:
-
-```text
-01-ai-prospecting-starter.mdx
-02-chatgpt-client-acquisition-system.mdx
-03-automated-lead-engine.mdx
-04-production-lead-engine.mdx
-```
-
-Recommended fields:
-
-```ts
-{
-  title,
-  shortTitle,
-  slug,
-  tier,
-  tagline,
-  description,
-  audience,
-  promise,
-  automationLevel,
-  technicalLevel,
-  heroImage,
-  heroAlt,
-  previewImages,
-  whatYouBuild,
-  topics,
-  tools,
-  prerequisites,
-  outcomes,
-  limitations,
-  price,
-  checkoutUrl,
-  version,
-  pageCount,
-  lastUpdated,
-  featured,
-  order
-}
-```
-
-Required fields should be validated with Astro's content schema and `image()` where appropriate. Product facts, pricing, and checkout URLs must not be duplicated across unrelated components.
-
-### Article collection
-
-Directory:
-
-`src/content/articles/`
-
-Use MDX.
-
-Recommended fields:
-
-```ts
-{
-  title,
-  description,
-  publishedAt,
-  updatedAt,
-  heroImage,
-  heroAlt,
-  category,
-  tags,
-  relatedProducts,
-  featured,
-  draft
-}
-```
-
-### FAQ collection
-
-Directory:
-
-`src/content/faqs/`
-
-Recommended fields:
-
-```ts
-{
-  question,
-  answer,
-  category,
-  tiers,
-  featured,
-  order
-}
-```
+Use local assets from `src/assets` with Astro's image pipeline.
 
 ---
 
-## 32. Images and Product Previews
+## 37. Design Direction
 
-Primary structure:
+The site should feel like a premium technical/business publishing platform.
 
-```text
-src/assets/
-├── brand/
-├── products/
-│   ├── tier-1/
-│   ├── tier-2/
-│   ├── tier-3/
-│   └── tier-4/
-├── diagrams/
-├── examples/
-├── screenshots/
-└── articles/
-```
+Desired characteristics:
 
-Use Astro's local image pipeline.
-
-Do not use `/public` for normal product/article images just to simplify paths. Reserve public assets for files that genuinely need stable public URLs.
-
-Every meaningful image needs useful alternative text. Decorative visuals should not create redundant screen-reader output.
-
-### Product covers
-
-Each guide needs a distinct cover that clearly belongs to the same family and shows:
-
-- tier number
-- guide title
-- short descriptor
-- Prospect Foundry branding
-
-Visual progression:
-
-- Tier 1: simple human + AI workflow
-- Tier 2: scheduled/recurring system
-- Tier 3: connected workflow nodes
-- Tier 4: database/worker/application architecture
-
-Avoid generic robot heads, glowing brains, humanoid AI art, fake SaaS dashboards, handshakes, money imagery, and luxury imagery.
-
-### PDF previews
-
-Each product page should support 2–3 representative images exported from the real PDF, such as:
-
-- table of contents
-- architecture/workflow page
-- implementation page
-- code/configuration example
-
-Never fabricate preview pages and do not expose enough high-resolution content to recreate the complete guide.
-
----
-
-## 33. Design Direction
-
-Overall aesthetic:
-
-- dark
-- minimal
-- technical
-- premium
-- serious
+- dark-first
 - restrained
-- highly legible
+- high information clarity
+- strong typography
+- technical without looking like developer documentation
+- commercial without looking like an internet-marketing funnel
+- generous spacing
+- meaningful diagrams
+- real product covers
+- real PDF previews
+- useful comparison tables
+- strong visual hierarchy
 
-The site should feel like engineering/documentation translated into a polished commercial experience.
+Avoid:
 
-It should not feel like a generic funnel, crypto site, AI hype page, corporate SaaS clone, or online-course template.
+- stock-photo dependence
+- fake SaaS dashboards
+- excessive gradients
+- neon cyberpunk clichés
+- giant product-card walls
+- excessive animation
+- fake testimonials
+- fake notification popups
+- countdown timers
+- aggressive modal behavior
 
-### Visual motifs
-
-Prefer:
-
-- pipelines
-- nodes
-- connectors
-- state transitions
-- evidence cards
-- data records
-- workflow diagrams
-- architecture diagrams
-- real guide previews
-- code/configuration snippets where useful
-
-### Animation
-
-Use only restrained motion:
-
-- hover/focus transitions
-- accordion/menu transitions
-- subtle pipeline state changes when useful
-
-Avoid constant floating objects, parallax, animated gradient blobs, autoplay backgrounds, and heavy scroll-trigger animation.
-
-Respect reduced-motion preferences.
+Product families may receive subtle distinctions through iconography, labels, diagrams, or restrained accent treatment, but they must remain one coherent brand.
 
 ---
 
-## 34. Tailwind v4 Theme and Design Tokens
+## 38. SEO
 
-The project uses Tailwind CSS v4's CSS-first theme model through the existing `src/styles/starwind.css` file. Do **not** introduce a Tailwind v3-style `tailwind.config.js` merely to define colors.
+Every available product should have an indexable dedicated page.
 
-`src/styles/starwind.css` is the single approved project stylesheet and contains:
-
-- Tailwind import
-- Starwind-required imports/plugins
-- `@custom-variant` definitions
-- `@theme` / `@theme inline` token mappings
-- `:root` and `.dark` semantic CSS variables
-- minimal approved `@layer base` rules
-- Starwind-required keyframes
-
-Components and pages do not contain custom CSS.
-
-### Required semantic color tokens
-
-Continue using Starwind's existing semantic token contract:
-
-```text
-background
-foreground
-card
-card-foreground
-popover
-popover-foreground
-primary
-primary-foreground
-primary-accent
-secondary
-secondary-foreground
-secondary-accent
-muted
-muted-foreground
-accent
-accent-foreground
-info
-info-foreground
-success
-success-foreground
-warning
-warning-foreground
-error
-error-foreground
-border
-input
-outline
-```
-
-The site is dark-first. The default dark visual target is:
-
-```text
-background              neutral-950
-foreground              neutral-50
-card                    neutral-900
-card-foreground         neutral-50
-popover                 neutral-900
-popover-foreground      neutral-50
-primary                 blue-600
-primary-foreground      neutral-50
-primary-accent          blue-400
-secondary               neutral-800
-secondary-foreground    neutral-50
-secondary-accent        neutral-200
-muted                   neutral-900
-muted-foreground        neutral-400
-accent                  neutral-800
-accent-foreground       neutral-50
-info                    sky-400
-success                 green-400
-warning                 amber-400
-error                   red-500
-border                  neutral-50 at low opacity
-input                   neutral-50 at low opacity
-outline                 blue-400
-radius                  0.75rem target
-```
-
-Exact values may be adjusted modestly for WCAG contrast or Starwind compatibility, but semantic roles must remain stable.
-
-### Tailwind utility rule
-
-Components must consume semantic tokens through classes such as:
-
-```text
-bg-background
-text-foreground
-bg-card
-text-card-foreground
-text-muted-foreground
-border-border
-bg-primary
-text-primary-foreground
-bg-secondary
-text-secondary-foreground
-bg-error
-text-error-foreground
-ring-outline
-```
-
-Opacity modifiers on semantic tokens are allowed, e.g. `bg-primary/10`, `border-primary/20`.
-
-Do not use raw palette colors in page/component markup when a semantic token exists. Do not use arbitrary hex values such as `bg-[#0b0f14]` or `text-[#f4f4f5]`.
-
-### Typography and sizing
-
-Use Tailwind's standard typography, spacing, radius, width, breakpoint, and shadow scales unless the design system establishes a named token for a repeated exception.
-
-Do not use arbitrary values merely to visually nudge a component. Avoid patterns such as:
-
-```text
-text-[13px]
-max-w-[1180px]
-rounded-[18px]
-shadow-[...]
-tracking-[...]
-```
-
-If a non-standard repeated value is genuinely necessary, establish it once in the Tailwind theme rather than repeating arbitrary values.
-
-### Dark mode
-
-Use Starwind's dark-mode contract. The visual design is dark-first. If no user-selectable light theme is implemented in V1, the root layout may intentionally apply the dark theme globally while preserving valid Starwind semantic variables.
-
----
-
-## 35. Starwind UI Component Strategy
-
-Starwind UI is the default source for standard interactive and presentational UI primitives.
-
-Before hand-building a common primitive, check whether an appropriate Starwind component exists.
-
-Use Starwind for standard controls/components where available, including categories such as:
-
-- buttons
-- badges
-- cards
-- accordions
-- dropdown/navigation menus
-- dialogs/sheets if needed
-- tooltips if needed
-- tables when appropriate
-- inputs/forms if added later
-
-Install supported components through the documented Starwind CLI and keep generated Starwind source in the configured `src/components/starwind` directory.
-
-Project-specific components such as `ProductCard`, `ProductHero`, `LeadExample`, or `WorkflowDiagram` should compose Starwind primitives and semantic Astro markup rather than recreating standard primitives from scratch.
-
-Custom semantic markup is appropriate where no Starwind primitive is relevant, especially for content layout and diagrams.
-
-Do not leave the site looking like an untouched component-library demo. Product identity comes from composition, typography, content, imagery, and the project theme tokens.
-
----
-
-## 36. Component and Styling Constraints
-
-These constraints are non-negotiable:
-
-- No `<style>` blocks in `.astro` files.
-- No `<style>` blocks in `.svelte` files.
-- No `style="..."` attributes for visual styling.
-- No CSS modules.
-- No per-component stylesheet files.
-- No page-specific custom CSS files.
-- No arbitrary raw color values in markup.
-- No arbitrary Tailwind values unless a one-off technical requirement cannot reasonably use the established scale; repeated values must become theme tokens.
-- Component/page styling is Tailwind utility classes only.
-- Semantic color classes must come from the Tailwind/Starwind theme tokens.
-- `src/styles/starwind.css` is the only approved project stylesheet and exists for Tailwind/Starwind theme infrastructure, not page-by-page styling.
-
----
-
-## 37. Svelte Usage
-
-Default to Astro.
-
-Use Svelte only when persistent client-side state or interaction genuinely requires it.
-
-Potentially justified examples:
-
-- complex mobile navigation only if Starwind/Astro behavior is insufficient
-- a future interactive filter
-- a future tier recommendation tool if explicitly approved
-
-Do not use Svelte for static product cards, hero sections, pricing, comparison content, workflow diagrams, ordinary CTAs, article layouts, or footer content.
-
-Do not hydrate static content.
-
----
-
-## 38. Recommended Project Structure
-
-```text
-src/
-├── assets/
-│   ├── articles/
-│   ├── brand/
-│   ├── diagrams/
-│   ├── examples/
-│   ├── products/
-│   └── screenshots/
-│
-├── components/
-│   ├── articles/
-│   ├── layout/
-│   ├── marketing/
-│   ├── products/
-│   ├── starwind/
-│   └── ui/
-│
-├── content/
-│   ├── articles/
-│   ├── faqs/
-│   └── products/
-│
-├── layouts/
-│   ├── BaseLayout.astro
-│   ├── ArticleLayout.astro
-│   └── ProductLayout.astro
-│
-├── lib/
-│   └── utils/
-│
-├── pages/
-│   ├── index.astro
-│   ├── about.astro
-│   ├── compare.astro
-│   ├── faq.astro
-│   ├── how-it-works.astro
-│   ├── privacy.astro
-│   ├── refund-policy.astro
-│   ├── terms.astro
-│   ├── purchase-complete.astro
-│   ├── articles/
-│   │   ├── index.astro
-│   │   └── [slug].astro
-│   └── products/
-│       ├── index.astro
-│       └── [slug].astro
-│
-├── styles/
-│   └── starwind.css
-│
-├── content.config.ts
-└── config.ts
-```
-
-Do not create `global.css` in addition to `starwind.css`. Keep one theme/style entry point.
-
----
-
-## 39. Reusable Project Components
-
-Likely composition components:
-
-```text
-SiteHeader.astro
-SiteFooter.astro
-Logo.astro
-Hero.astro
-SectionHeader.astro
-CTASection.astro
-ProductCard.astro
-ProductGrid.astro
-ProductBadge.astro
-ProductHero.astro
-ProductCTA.astro
-ProductPreview.astro
-ProductComparison.astro
-WorkflowDiagram.astro
-ArchitectureDiagram.astro
-LeadExample.astro
-EvidenceFlow.astro
-ArticleCard.astro
-ArticleGrid.astro
-ArticleTOC.astro
-RelatedArticles.astro
-FAQList.astro
-Breadcrumbs.astro
-ProductCallout.astro
-ScreenshotFrame.astro
-```
-
-These are project-level compositions. Standard primitives inside them should use Starwind where available.
-
-Do not create abstraction-heavy component systems before real repetition exists.
-
----
-
-## 40. Header and Footer
-
-### Header
-
-Desktop:
-
-- logo left
-- primary navigation center/right
-- primary CTA right
-
-Mobile:
-
-- use an accessible Starwind navigation/menu primitive where appropriate
-- keyboard operable
-- correct expanded state
-- Escape closes overlay/menu behavior when applicable
-- focus remains predictable
-
-Avoid an oversized sticky header.
-
-### Footer
-
-Sections:
-
-**Products**
-- AI Prospecting Starter
-- ChatGPT Client Acquisition System
-- Automated Lead Engine
-- Production Lead Engine
-
-**Learn**
-- How It Works
-- Compare
-- Articles
-- FAQ
-
-**Company**
-- About
-- support email
-
-**Legal**
-- Privacy
-- Terms
-- Refund Policy
-
-Bottom line:
-
-`© [current year] Prospect Foundry. All rights reserved.`
-
-Do not add meaningless social icons when no active social properties exist.
-
----
-
-## 41. Price and Checkout Data
-
-Final retail prices are not defined by this document unless later explicitly supplied.
-
-Product data supports at minimum:
-
-```text
-price
-checkoutUrl
-```
-
-No component may independently hardcode a retail price or checkout URL.
-
-If price/checkout is not configured:
-
-- development may omit the purchase CTA or show an unmistakable development-only placeholder
-- production must never show `[PRICE]`, `$0`, `undefined`, or a fabricated amount
-
-Create one shared product purchase CTA/composition that consumes product data.
-
----
-
-## 42. Site Configuration
-
-Centralize site-level values, for example:
-
-```ts
-export const siteConfig = {
-  name: "Prospect Foundry",
-  description:
-    "Implementation guides for building evidence-first client acquisition systems for freelance web developers.",
-  url: "",
-  supportEmail: "",
-  commerce: {
-    provider: "lemonsqueezy",
-  },
-};
-```
-
-Do not duplicate site identity or support data through multiple pages.
-
----
-
-## 43. SEO
-
-Every indexable page needs:
+Product pages require:
 
 - unique title
 - unique meta description
 - canonical URL
-- Open Graph title
-- Open Graph description
-- appropriate Open Graph image
-- social metadata as appropriate
+- Product structured data where appropriate and accurate
+- BreadcrumbList structured data
+- meaningful heading hierarchy
+- contextual internal links
 
-Generate sitemap and robots.txt.
+Do not generate thin pages for unfinished products merely to increase page count.
 
-Use structured data only when valid and supported by visible content:
-
-- Organization
-- WebSite
-- Product
-- BreadcrumbList
-- Article
-- FAQPage only when current search-engine guidance makes it appropriate
-
-Never fabricate reviews, ratings, offers, inventory, prices, or customer data in schema.
-
-Suggested homepage metadata:
-
-**Title:** `Prospect Foundry | Client Acquisition for Web Developers`
-
-**Description:** `Build an evidence-first web-development prospecting system with ChatGPT, automation workflows, APIs, or production application infrastructure.`
-
-Suggested product titles:
-
-- `AI Prospecting Starter for Web Developers | Prospect Foundry`
-- `ChatGPT Client Acquisition System for Web Developers`
-- `Automated Lead Engine with n8n & AI for Web Developers`
-- `Production Lead Engine for Web Developers | Prospect Foundry`
-
-Adjust length during implementation without changing positioning.
+Coming-soon pages should be indexed only if they contain enough substantive information to justify it.
 
 ---
 
-## 44. Analytics
+## 39. Internal Linking
 
-Use lightweight, replaceable analytics.
+Products should link contextually to relevant:
 
-Track at minimum:
+- prerequisites when genuinely useful
+- next-stage products
+- bundles
+- articles
+- Quickstart
+
+Example progression:
 
 ```text
-page_view
-product_view
-compare_view
-product_cta_click
-checkout_click
-article_product_cta_click
+Productize Your Dev Skills
+        ↓
+Web Developer Pricing System
+        ↓
+Client Acquisition Without Upwork
+        ↓
+Marketing for Builders
 ```
 
-Useful properties:
-
-```text
-product_slug
-tier
-source_page
-cta_location
-```
-
-Do not collect sensitive data unnecessarily.
+Do not imply customers are required to buy preceding products unless that is actually true.
 
 ---
 
-## 45. Performance
-
-Primary goal: a mostly static site with minimal browser JavaScript.
-
-Requirements:
-
-- static Astro rendering wherever practical
-- optimized local images
-- known image dimensions/aspect ratios
-- minimized layout shift
-- lazy loading for non-critical images
-- no unnecessary third-party scripts
-- no heavy animation framework without explicit justification
-- no SPA conversion
-- no hydration of static marketing sections
-- keep Starwind/Svelte behavior scoped to actual interactive needs
-
-Target excellent Core Web Vitals rather than cosmetic score chasing.
-
----
-
-## 46. Accessibility
+## 40. Accessibility
 
 Target WCAG 2.2 AA.
 
-Requirements:
+Required:
 
-- correct landmarks
-- logical H1 and heading hierarchy
-- keyboard-operable controls
+- semantic landmarks
+- logical headings
+- keyboard-accessible navigation
 - visible focus states
+- accessible accordions
+- accessible comparison tables
+- descriptive CTAs
 - sufficient contrast
-- accessible navigation
-- accessible Starwind component usage
-- accessible accordions and menus
-- semantic comparison tables
-- no color-only communication
-- descriptive links
-- meaningful alt text
-- decorative images hidden appropriately
+- meaningful image alt text
 - reduced-motion support
-- adequate touch targets
-- no hover-only critical information
-
-Desktop comparison should use semantic table markup. Mobile may scroll horizontally or use an equivalent grouped layout without removing information.
+- forms with labels and useful errors
+- product-family distinctions that do not rely solely on color
 
 ---
 
-## 47. Security
+## 41. Performance
 
-V1 has a small attack surface.
+Maintain static-first implementation.
 
 Requirements:
 
-- no secrets committed to Git
-- no Lemon Squeezy secret API keys exposed client-side
-- no sellable PDFs in public site assets
-- safe external-link behavior
-- appropriate deployment security headers where practical
-- dependency maintenance
+- minimal hydration
+- optimized product images
+- lazy-load below-fold imagery
+- avoid unnecessary third-party scripts
+- no SPA conversion
+- no client-side rendering of static product content
+- minimize layout shift
+
+The larger catalog is not justification for adding an application backend.
 
 ---
 
-## 48. Content Integrity and Claim Rules
+## 42. Analytics
 
-Agents must not invent:
+The site should be capable of measuring:
 
-- product capabilities
-- extra deliverables
-- testimonials
-- customer numbers
-- customer logos
-- revenue numbers
-- conversion/reply rates
-- guarantees
-- external tool capabilities
-- external tool pricing
-- screenshots presented as real
-- legal conclusions
+- Quickstart landing-page visits
+- Quickstart opt-ins
+- product-page views
+- product-family navigation
+- Start Here navigation
+- checkout clicks
+- completed purchases where integration permits
+- bundle interest
+- article-to-product navigation
 
-Allowed:
+Measurement should answer:
 
-> Build a repeatable client-acquisition system.
+> Which paths actually move visitors toward email subscription or purchase?
 
-Not allowed:
-
-> Generate 20 clients every month.
-
-Allowed:
-
-> Automate repetitive prospecting operations.
-
-Not allowed:
-
-> Get clients on autopilot while you sleep.
-
-Allowed:
-
-> Qualify prospects from current website evidence.
-
-Not allowed:
-
-> AI automatically finds businesses guaranteed to buy from you.
-
-If required content is missing, omit it or use an explicit development placeholder rather than fabricating commercial proof.
+Do not add analytics complexity that does not serve this question.
 
 ---
 
-## 49. Compliance Positioning
+## 43. Conversion Principles
 
-Trust messaging should make clear that:
+Prioritize:
 
-- users are responsible for applicable law
-- users are responsible for provider terms
-- users are responsible for sender reputation
-- opt-outs must be honored
-- automation must not fabricate evidence
-- automation must not be used to evade provider controls
+1. relevance
+2. comprehension
+3. trust
+4. product fit
+5. action
 
-Do not make sweeping legal claims about what is universally legal.
+Do not prioritize pressure, visual noise, repeated popups, or exaggerated claims.
 
----
+The visitor should think:
 
-## 50. V1 Hard Non-Goals
+> This understands the business problem I'm trying to solve.
 
-Do not build unless scope is explicitly changed:
+before:
 
-- CMS
-- Sanity
-- WordPress
-- Contentful
-- Supabase
-- Firebase
-- website database
-- authentication
-- registration
-- user accounts
-- customer dashboard
-- course dashboard
-- lesson completion
-- embedded PDF reader
-- custom protected file server
-- custom download system
-- community/forum/comments
-- AI chatbot
-- embedded lead-generation software
-- interactive lead discovery
-- workflow generator
-- prompt generator
-- subscription management
-- custom checkout
-- custom payment processing
-- custom admin panel
-
-Possible future features must not complicate V1 architecture now.
+> I should buy this.
 
 ---
 
-## 51. Development Sequence
+## 44. Launch Strategy
 
-### Phase 1 — Foundation
+The V2 site does not need every planned product completed before launch.
 
-- finalize Tailwind/Starwind semantic theme
-- establish BaseLayout and dark-first theme behavior
-- site configuration
-- SEO utilities
-- content schemas
-- shared header/footer
-- install required Starwind primitives
+Use status honestly.
 
-### Phase 2 — Product system
+### Available
 
-- four product entries
-- product composition components
-- product layout
-- dynamic product route
-- real product cover/preview support
+Completed, commercially ready products with functioning delivery/checkout.
 
-### Phase 3 — Core sales pages
+### Coming soon
 
-- homepage
-- products overview
-- compare
-- how it works
+Products actively being produced and sufficiently defined to present accurately.
 
-### Phase 4 — Article system
+### Planned
 
-- article collection
-- MDX layout
-- articles index
-- article route
-- controlled MDX composition components
-- related product CTA
+Products still conceptual.
 
-### Phase 5 — Supporting pages
+The homepage should emphasize available products.
 
-- FAQ
-- About
-- Privacy
-- Terms
-- Refund Policy
-- purchase complete
-- 404
-
-### Phase 6 — Commerce
-
-- Lemon Squeezy product data
-- checkout URLs
-- shared purchase CTA
-- checkout analytics
-- test purchase flow
-
-### Phase 7 — SEO / analytics / polish
-
-- metadata
-- structured data
-- sitemap
-- robots
-- OG imagery
-- analytics
-- Search Console preparation
-
-### Phase 8 — QA
-
-- production build
-- responsive QA
-- keyboard/accessibility QA
-- content integrity QA
-- checkout QA
-- route/link/image QA
-- Core Web Vitals review
+Do not let a large coming-soon catalog make the business look imaginary.
 
 ---
 
-## 52. Launch Content Requirements
+## 45. Migration From Existing Site
 
-Before production launch, the site requires:
+Preserve useful existing assets:
 
-- completed homepage
-- products overview
-- all four accurate product pages
-- comparison page
-- how-it-works page
-- FAQ
-- About
-- finalized legal pages
-- final product covers
-- real prices
-- working Lemon Squeezy products
-- real checkout links
-- support email
-- final domain
-- enough substantive articles to justify an Articles navigation item
+- Prospect Foundry brand
+- technical stack
+- design tokens
+- reusable components
+- article infrastructure
+- Lemon Squeezy integration
+- AI Prospecting tier content
+- legitimate product imagery
+- existing legal pages
 
-Each product should ideally have 2–3 real PDF preview images.
+Replace the old assumption:
 
-V1 does not require testimonials. If legitimate testimonials do not exist, do not create a testimonial section.
+> Prospect Foundry = AI Prospecting System
 
----
+with:
 
-## 53. V1 Definition of Done
+> AI Prospecting System = one major product family within Prospect Foundry.
 
-### Product clarity
+Preserve existing tier URLs where possible to avoid unnecessary URL churn.
 
-- A first-time visitor can explain what the product does after the hero and early sections.
-- The visitor understands the products are downloadable implementation manuals.
-- The visitor understands the deliverable is a PDF.
-- The visitor understands the four-tier progression.
-- The visitor understands that higher tiers mean more automation/infrastructure, not automatically more appropriateness.
-
-### Differentiation
-
-- Tier 1 clearly represents human-supervised ChatGPT prospecting.
-- Tier 2 clearly represents scheduled ChatGPT operation.
-- Tier 3 clearly represents n8n/API automation.
-- Tier 4 clearly represents a production application.
-
-### Positioning
-
-- The site does not present the products as spam automation.
-- Evidence-first qualification is prominent.
-- Apollo's role is explained accurately.
-- No guaranteed-results or passive-income claims appear.
-
-### Design system
-
-- Starwind is used as the default component primitive library where applicable.
-- All component/page styling uses Tailwind utility classes.
-- No component contains a `<style>` block.
-- No inline `style` attributes are used for visual styling.
-- Semantic colors come from established Starwind/Tailwind theme tokens.
-- No repeated arbitrary values exist where a theme token should be used.
-- `src/styles/starwind.css` is the single theme/style entry point.
-- The dark-first theme is consistent across pages.
-
-### Commerce
-
-- Every product displays its correct configured price.
-- Every purchase CTA reaches the correct Lemon Squeezy product.
-- Test purchase flow works.
-- Sellable PDFs are not exposed by the website.
-
-### Technical
-
-- production build succeeds
-- no normal-use console errors
-- no broken routes
-- no broken images
-- no broken internal links
-- no broken checkout links
-- metadata is present
-- sitemap and robots work
-- 404 works
-
-### Performance
-
-- static content is not unnecessarily hydrated
-- images are optimized
-- layout shift is minimized
-- third-party scripts are controlled
-
-### Accessibility
-
-- keyboard navigation works
-- focus indicators are visible
-- menus/accordions are accessible
-- headings are logical
-- image alternatives are correct
-- tables remain usable
-- contrast meets AA requirements
-- reduced motion is respected
-
-### Content integrity
-
-- no fake testimonials
-- no fake customers
-- no fake screenshots
-- no fabricated statistics
-- no invented deliverables
-- no unapproved prices
-- no guaranteed-results claims
+The old `/compare/` route may redirect to or evolve into `/products/ai-prospecting-system/` if the family page fully assumes comparison duties.
 
 ---
 
-## 54. Final V1 Statement
+## 46. V2 Definition of Done
 
-Prospect Foundry V1 is:
+The redesign is complete when:
 
-> A fast, static, dark-first Astro commerce site that sells four downloadable PDF implementation guides teaching freelance web developers how to build increasingly automated, evidence-first client acquisition systems.
+- [ ] Prospect Foundry is positioned as a multi-product publishing business.
+- [ ] The homepage no longer revolves around one prospecting product.
+- [ ] Developer Marketing Quickstart is integrated as the primary free entry point.
+- [ ] Every available product has its own dedicated page.
+- [ ] Every product page follows AIDA sales logic.
+- [ ] Product copy is outcome-oriented rather than table-of-contents-first.
+- [ ] Products are organized into understandable families.
+- [ ] Visitors can browse by problem.
+- [ ] `/start/` routes visitors according to their current bottleneck.
+- [ ] The AI Prospecting System has a family/comparison page.
+- [ ] Each AI Prospecting tier retains its own product page.
+- [ ] AI Prospecting tier names and technical boundaries match this spec.
+- [ ] Bundles are supported as first-class products.
+- [ ] Available, coming-soon, and planned states are supported.
+- [ ] Prices and checkout URLs are centralized.
+- [ ] No unavailable product has a fake checkout action.
+- [ ] No testimonials, outcomes, statistics, or commercial claims are fabricated.
+- [ ] Real product previews are used where available.
+- [ ] Email acquisition is integrated with the Quickstart.
+- [ ] Articles connect naturally to relevant products.
+- [ ] Existing AI Prospecting URLs are preserved or intentionally redirected.
+- [ ] Astro content collections remain the source of truth for repeating product content.
+- [ ] Static-first Astro architecture is preserved.
+- [ ] Starwind remains the standard component primitive library.
+- [ ] Tailwind v4 semantic tokens remain the visual foundation.
+- [ ] WCAG 2.2 AA requirements are met.
+- [ ] Production build passes.
+- [ ] Product-page CTAs work.
+- [ ] Lemon Squeezy checkout links work for every available paid product.
+- [ ] Free-product acquisition flow works.
+- [ ] The site remains usable without client-side JavaScript except where interaction genuinely requires it.
 
-The buyer journey should remain clear:
+---
 
-```text
-WHAT THE SYSTEM DOES
-        ↓
-WHY THE METHOD IS DIFFERENT
-        ↓
-WHAT EACH TIER BUILDS
-        ↓
-WHICH TIER FITS THE BUYER
-        ↓
-WHAT THE BUYER RECEIVES
-        ↓
-HOW TO PURCHASE
-```
+## 47. Final Product Principle
 
-Anything that does not materially improve one of those steps should be treated skeptically for V1.
+The website should not sell “ebooks.”
+
+It should sell **the next system the visitor needs to build**.
+
+The organizing principle for the entire experience is:
+
+> Find your current business bottleneck. Build the system that removes it. Then move to the next one.
+
+That principle should govern the homepage, Start Here experience, product organization, internal linking, AIDA copy, bundles, email acquisition, and future expansion of the Prospect Foundry catalog.

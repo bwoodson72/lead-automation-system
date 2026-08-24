@@ -12,6 +12,10 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://example.com',
   trailingSlash: 'always',
+  redirects: {
+    '/compare/': { status: 301, destination: '/products/ai-prospecting-system/' },
+    '/how-it-works/': { status: 301, destination: '/products/ai-prospecting-system/' },
+  },
   integrations: [svelte(), mdx(), sitemap()],
 
   vite: {

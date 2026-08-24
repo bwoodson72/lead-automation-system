@@ -1,7 +1,6 @@
 ---
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/starwind/accordion";
-import type { CollectionEntry } from "astro:content";
-interface Props { faqs: CollectionEntry<"faqs">[]; }
+interface Props { faqs: Array<{ id?: string; data: { question: string; answer: string } }>; }
 const { faqs } = Astro.props;
 ---
-<Accordion type="single" collapsible class="rounded-xl border border-border bg-card px-6">{faqs.map((faq) => <AccordionItem value={faq.id}><AccordionTrigger>{faq.data.question}</AccordionTrigger><AccordionContent><p class="pb-4 leading-7 text-muted-foreground">{faq.data.answer}</p></AccordionContent></AccordionItem>)}</Accordion>
+<Accordion type="single" collapsible={true} class="rounded-xl border border-border bg-card px-6">{faqs.map((faq, index) => <AccordionItem value={faq.id || `faq-${index}`}><AccordionTrigger>{faq.data.question}</AccordionTrigger><AccordionContent><p class="pb-4 leading-7 text-muted-foreground">{faq.data.answer}</p></AccordionContent></AccordionItem>)}</Accordion>

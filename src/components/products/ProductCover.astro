@@ -1,0 +1,12 @@
+---
+const { title, family, tier } = Astro.props;
+---
+<div class="relative flex aspect-[4/5] max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${title} cover concept`}>
+  <div class="absolute inset-x-0 top-0 h-2 bg-primary"></div>
+  <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Prospect Foundry</p>
+  <div class="my-auto">
+    <p class="text-sm font-medium text-muted-foreground">{family}{tier ? ` · Tier ${tier}` : ""}</p>
+    <p class="mt-4 text-4xl font-semibold tracking-tight">{title}</p>
+  </div>
+  <div class="grid grid-cols-5 gap-2" aria-hidden="true">{[1,2,3,4,5].map((n) => <span class:list={["h-2 rounded-full", n < 4 ? "bg-primary" : "bg-muted"]}></span>)}</div>
+</div>

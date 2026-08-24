@@ -1,12 +1,15 @@
 ---
 import { Button } from "@/components/starwind/button";
+import KitForm from "@/components/marketing/KitForm.astro";
 const { product, location = "product" } = Astro.props;
-const { checkoutUrl, price, title, tier, slug } = product.data;
+const d = product.data;
 ---
-{checkoutUrl && price ? (
-  <Button as="a" href={checkoutUrl} target="_blank" rel="noopener noreferrer" data-event="checkout_click" data-product-slug={slug} data-tier={tier} data-cta-location={location}>
-    Buy {title} — ${price}
-  </Button>
+{d.status === "available" && d.free ? (
+  <Button as="a" href="/free/" data-event="quickstart_view" data-cta-location={location}>Get the Free Quickstart</Button>
+) : d.status === "available" && d.checkoutUrl && d.price ? (
+  <Button as="a" href={d.checkoutUrl} target="_blank" rel="noopener noreferrer" data-event="checkout_click" data-product-slug={d.slug} data-cta-location={location}>Get {d.title} — ${d.price}</Button>
+) : d.status === "coming-soon" ? (
+  <KitForm kind="updates" productSlug={d.slug} />
 ) : (
-  <p class="rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning">Purchasing will be available when pricing and checkout are configured.</p>
+  <p class="rounded-lg border border-border bg-muted px-4 py-3 text-sm text-muted-foreground">This system is planned. There is no purchase or interest form yet.</p>
 )}

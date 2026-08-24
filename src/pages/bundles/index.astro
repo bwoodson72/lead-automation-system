@@ -1,0 +1,8 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Badge } from "@/components/starwind/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
+const bundles = (await getCollection("bundles")).sort((a,b)=>a.data.order-b.data.order);
+---
+<BaseLayout title="Bundles | Prospect Foundry" description="Planned Prospect Foundry product bundles, published honestly before contents and pricing are finalized."><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Bundles</p><h1 class="mt-4 max-w-4xl text-5xl font-semibold">Larger systems, still being assembled.</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">These bundles are planned concepts. Contents, prices, savings, and availability will appear only after they are commercially finalized.</p><div class="mt-12 grid gap-5 md:grid-cols-2">{bundles.map((bundle)=><Card><CardHeader><Badge variant="secondary" class="mb-3 w-fit">Planned</Badge><CardTitle>{bundle.data.title}</CardTitle></CardHeader><CardContent><p class="leading-7 text-muted-foreground">{bundle.data.outcome}</p><p class="mt-4 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{bundle.data.audience}</span></p></CardContent></Card>)}</div></div></section></BaseLayout>

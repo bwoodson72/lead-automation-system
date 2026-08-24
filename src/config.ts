@@ -1,15 +1,13 @@
 export const siteConfig = {
   name: "Prospect Foundry",
-  description:
-    "Implementation guides for building evidence-first client acquisition systems for freelance web developers.",
+  description: "Practical systems for developers who need to find customers, sell valuable work, validate products, and build a more repeatable independent business.",
   url: import.meta.env.SITE_URL || "",
   supportEmail: import.meta.env.PUBLIC_SUPPORT_EMAIL || "",
-  commerce: { provider: "lemonsqueezy" as const },
+  kit: { quickstartFormUid: import.meta.env.PUBLIC_KIT_QUICKSTART_FORM_UID || "", updatesFormUid: import.meta.env.PUBLIC_KIT_UPDATES_FORM_UID || "" },
+  commerce: { provider: "lemonsqueezy" as const, storeName: "Prospect Foundry" },
   navigation: [
-    { label: "Products", href: "/products/" },
-    { label: "Compare", href: "/compare/" },
-    { label: "How It Works", href: "/how-it-works/" },
-    { label: "Articles", href: "/articles/" },
-    { label: "FAQ", href: "/faq/" },
+    { label: "Start Here", href: "/start/" }, { label: "Products", href: "/products/" },
+    { label: "AI Prospecting", href: "/products/ai-prospecting-system/" }, { label: "Bundles", href: "/bundles/" },
+    { label: "Articles", href: "/articles/" }, { label: "About", href: "/about/" },
   ],
 };

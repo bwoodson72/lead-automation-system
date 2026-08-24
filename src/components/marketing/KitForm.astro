@@ -1,0 +1,23 @@
+---
+import { siteConfig } from "@/config";
+import { Button } from "@/components/starwind/button";
+interface Props { kind: "quickstart" | "updates"; productSlug?: string; }
+const { kind, productSlug } = Astro.props;
+const uid = kind === "quickstart" ? siteConfig.kit.quickstartFormUid : siteConfig.kit.updatesFormUid;
+const label = kind === "quickstart" ? "Get the Free Quickstart" : "Get catalog updates";
+---
+<div class="rounded-xl border border-border bg-card p-6" data-form-kind={kind} data-product-slug={productSlug}>
+  {uid ? (
+    <>
+      <script is:inline src={`https://f.convertkit.com/${uid}.js`} async></script>
+      <p class="mt-4 text-xs leading-5 text-muted-foreground">By subscribing, you agree to receive the requested resource and relevant Prospect Foundry emails. Unsubscribe at any time. See the <a class="underline hover:text-foreground" href="/privacy/">privacy policy</a>.</p>
+      <noscript><p class="mt-4 text-sm text-warning">JavaScript is required for the Kit form. Please contact us through the details in the privacy policy.</p></noscript>
+    </>
+  ) : (
+    <div>
+      <p class="font-semibold">{label} is not available yet.</p>
+      <p class="mt-2 text-sm leading-6 text-muted-foreground">The resource and its Kit delivery flow are still being configured. We will not collect an address until delivery is ready.</p>
+      <Button as="a" href="/products/" variant="outline" class="mt-4">Browse current systems</Button>
+    </div>
+  )}
+</div>

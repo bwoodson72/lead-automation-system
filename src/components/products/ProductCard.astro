@@ -2,25 +2,12 @@
 import { Badge } from "@/components/starwind/badge";
 import { Button } from "@/components/starwind/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/starwind/card";
-import type { CollectionEntry } from "astro:content";
-interface Props { product: CollectionEntry<"products">; }
 const { product } = Astro.props;
-const data = product.data;
+const d = product.data;
+const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "planned" ? "Planned" : d.free ? "Free" : d.price ? `$${d.price}` : "Available";
 ---
 <Card class="flex h-full flex-col border-border bg-card/70">
-  <CardHeader>
-    <Badge variant="outline" class="mb-4 w-fit border-primary/30 text-primary-accent">Tier {data.tier}</Badge>
-    <CardTitle class="text-xl">{data.title}</CardTitle>
-  </CardHeader>
-  <CardContent class="flex-1 space-y-5">
-    <div><p class="font-semibold text-foreground">{data.buyerQuestion}</p><p class="mt-2 text-sm leading-6 text-muted-foreground">{data.benefitDescription}</p></div>
-    <p class="border-l-2 border-primary pl-4 text-sm font-semibold text-primary-accent">{data.outcomeLabel}</p>
-    <div><p class="text-sm font-semibold text-foreground">Best for</p><p class="mt-1 text-sm leading-6 text-muted-foreground">{data.audience}</p></div>
-    <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">{data.automationLevel} · {data.technicalLevel}</p>
-    <ul class="flex flex-wrap gap-2" aria-label="Tools">{data.tools.slice(0, 4).map((tool) => <li class="rounded-full border border-border bg-muted px-3 py-1 text-xs text-muted-foreground">{tool}</li>)}</ul>
-  </CardContent>
-  <CardFooter class="flex items-center justify-between gap-4">
-    {data.price ? <span class="font-semibold">${data.price}</span> : <span class="text-sm text-muted-foreground">Price coming soon</span>}
-    <Button as="a" href={`/products/${data.slug}/`} variant="secondary">Explore Tier {data.tier}</Button>
-  </CardFooter>
+  <CardHeader><div class="mb-4 flex flex-wrap gap-2"><Badge variant="outline">{d.family}</Badge><Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge></div><CardTitle class="text-xl">{d.title}</CardTitle></CardHeader>
+  <CardContent class="flex-1"><p class="leading-7 text-muted-foreground">{d.coreOutcome}</p><p class="mt-5 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p></CardContent>
+  <CardFooter><Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>Explore {d.title}</Button></CardFooter>
 </Card>

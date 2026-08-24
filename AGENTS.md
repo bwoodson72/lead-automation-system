@@ -4,15 +4,18 @@ This file contains the non-negotiable engineering instructions for coding agents
 
 ## Required reading
 
-Before planning, coding, refactoring, or making product/content decisions, read the complete V1 specification:
+Before planning, coding, refactoring, or making product/content decisions, read the complete current website specification:
 
 **`docs/PRODUCT_SPEC.md`**
 
 That file is the source of truth for:
 
-- product positioning
-- the four guide definitions
-- page content
+- Prospect Foundry's umbrella positioning
+- the complete product catalog and product families
+- the AI Prospecting four-tier ladder
+- product statuses and bundles
+- AIDA product-page requirements
+- homepage and Start Here content architecture
 - routes and information architecture
 - design direction
 - content collections
@@ -20,10 +23,9 @@ That file is the source of truth for:
 - SEO
 - accessibility
 - performance
-- V1 scope and non-goals
-- acceptance criteria
+- launch scope and acceptance criteria
 
-Do not rely on a summary of the product spec. Read the file itself before implementation work.
+Do not rely on summaries of the product spec. Read the file itself before implementation work.
 
 If a later explicit user instruction conflicts with the product spec or this file, the later instruction wins.
 
@@ -95,15 +97,15 @@ Install components through the documented Starwind CLI, for example:
 npx starwind@latest add button
 ```
 
-Generated Starwind components belong in the configured directory:
+Generated Starwind components belong in:
 
 ```text
 src/components/starwind
 ```
 
-Project-specific components such as `ProductCard`, `ProductHero`, `LeadExample`, and `WorkflowDiagram` are composition components. They should compose Starwind primitives where applicable rather than reimplementing standard UI behavior from scratch.
+Project-specific components such as `ProductCard`, `ProductHero`, `ProductFamilyCard`, `ProductPath`, `LeadExample`, and `WorkflowDiagram` are composition components. They should compose Starwind primitives where applicable rather than reimplementing standard UI behavior from scratch.
 
-Custom semantic Astro markup is appropriate when there is no relevant Starwind primitive, especially for content layouts and diagrams.
+Custom semantic Astro markup is appropriate when there is no relevant Starwind primitive, especially for content layouts, decision trees, and diagrams.
 
 Do not copy random third-party component HTML when Starwind already provides the primitive.
 
@@ -188,9 +190,7 @@ input
 outline
 ```
 
-The site is dark-first. Target semantic values are defined in `docs/PRODUCT_SPEC.md`.
-
-Components consume tokens through semantic Tailwind classes such as:
+The site is dark-first. Components consume tokens through semantic Tailwind classes such as:
 
 ```text
 bg-background
@@ -208,22 +208,9 @@ text-error-foreground
 ring-outline
 ```
 
-Opacity modifiers on semantic tokens are allowed:
+Opacity modifiers on semantic tokens are allowed.
 
-```text
-bg-primary/10
-border-primary/20
-text-foreground/80
-```
-
-Avoid raw palette classes such as `bg-neutral-950` in product/page markup when an appropriate semantic token exists.
-
-Do not use arbitrary colors such as:
-
-```text
-bg-[#0b0f14]
-text-[#f4f4f5]
-```
+Avoid raw palette classes when an appropriate semantic token exists. Do not use arbitrary colors such as `bg-[#0b0f14]` or `text-[#f4f4f5]`.
 
 ---
 
@@ -243,8 +230,6 @@ shadow-[...]
 
 If a non-standard value is genuinely repeated and necessary, promote it into the Tailwind v4 theme so it becomes a named design token.
 
-A truly one-off technical exception may use an arbitrary utility only when the standard scale and theme cannot reasonably express it. Treat that as an exception, not normal styling practice.
-
 ---
 
 ## 6. Theme initialization
@@ -253,7 +238,7 @@ Import `src/styles/starwind.css` once in the shared base layout.
 
 Use Starwind's Astro theme initialization mechanism where required by the installed Starwind version.
 
-The visual product is dark-first. Do not implement a theme toggle unless explicitly requested. A global dark theme is acceptable while retaining Starwind's semantic theme architecture.
+The visual product is dark-first. Do not implement a theme toggle unless explicitly requested.
 
 ---
 
@@ -267,8 +252,10 @@ Do not use Svelte for:
 
 - hero sections
 - product cards
+- product grids
 - pricing
 - static comparison tables
+- decision trees
 - workflow diagrams
 - ordinary CTAs
 - article layouts
@@ -278,7 +265,7 @@ Use Svelte only when a feature genuinely requires persistent browser-side state 
 
 Do not hydrate static content.
 
-## No CMS or application backend in V1
+## No CMS or application backend unless explicitly required
 
 Do not add:
 
@@ -293,7 +280,9 @@ Do not add:
 - customer dashboard
 - custom payment backend
 
-The V1 site is static-first and uses Lemon Squeezy for checkout and PDF delivery.
+The public site is static-first and uses Lemon Squeezy for checkout and protected paid PDF delivery unless a later instruction changes commerce.
+
+The larger catalog is not justification for adding a CMS or backend. Use structured local content.
 
 ## Content source of truth
 
@@ -301,6 +290,7 @@ Use Astro content collections for repeating content:
 
 ```text
 products
+bundles
 articles
 faqs
 ```
@@ -309,19 +299,86 @@ Use local images from `src/assets` with Astro's image pipeline.
 
 Do not store sellable PDF files in public website paths.
 
+## Product architecture
+
+Prospect Foundry is now a **multi-product technical-business publishing brand**, not a site centered on one four-guide product family.
+
+Important rules:
+
+- Every available sellable product gets its own dedicated product page.
+- Product pages use AIDA as the persuasion architecture.
+- Products are organized into families and by customer problem/stage.
+- `Developer Marketing Quickstart` is the primary free email-acquisition asset.
+- The AI Prospecting System remains a four-tier product family inside Prospect Foundry.
+- The AI Prospecting family gets one family/comparison page plus four individual tier pages.
+- Preserve the exact existing AI Prospecting tier names and technical boundaries from `docs/PRODUCT_SPEC.md`.
+- Do not imply Tier 4 is automatically the correct choice; recommend the lowest tier that matches the buyer's needs.
+- Bundles are first-class commerce products when finalized.
+- Product status must support `available`, `coming-soon`, and `planned`.
+- Do not create fake checkout CTAs for unfinished products.
+
 ## Commerce
 
 Lemon Squeezy store name:
 
 **Prospect Foundry**
 
-There are four separate Lemon Squeezy products, one per PDF guide.
+Centralize product and bundle prices and checkout URLs. Never duplicate prices or checkout URLs across templates.
 
-Centralize product price and checkout URL data. Never duplicate prices or checkout URLs across templates.
+Do not assume there are only four Lemon Squeezy products anymore.
 
 ---
 
-# Content Integrity
+# Content and Conversion Rules
+
+## AIDA product-page requirement
+
+Every product sales page must follow this persuasion sequence without necessarily displaying these labels:
+
+```text
+ATTENTION
+↓
+INTEREST
+↓
+DESIRE
+↓
+ACTION
+```
+
+AIDA must remain practical and evidence-based, not hype-driven.
+
+Product pages should generally include:
+
+- product family / context
+- product title
+- outcome-oriented hero
+- intended audience
+- price and format
+- current problem / situation
+- why common approaches fail where relevant
+- system or methodology
+- capabilities the reader will gain
+- actual contents
+- implementation workflow
+- genuine previews where available
+- who it is for
+- who it is not for
+- legitimate proof where useful
+- product-specific FAQ
+- explicit CTA
+- relevant next or related products
+
+Do not lead with a table of contents before establishing relevance and outcome.
+
+## Homepage and discovery
+
+The homepage must position Prospect Foundry as the umbrella brand and route visitors by current business bottleneck. It must not revolve around AI Prospecting alone.
+
+The site must include a `Start Here` experience that helps visitors find the correct next product based on problems such as offer, pricing, acquisition, prospecting automation, sales, recurring revenue, SaaS validation, SaaS launch, first customers, or AI-assisted operations.
+
+Avoid a giant equal-weight grid of products as the primary discovery mechanism.
+
+## Content integrity
 
 Do not invent:
 
@@ -336,10 +393,14 @@ Do not invent:
 - external tool pricing
 - fake screenshots
 - legal conclusions
+- bundle contents that have not been finalized
+- finished-product details for products still marked planned
 
 If required commercial content is unknown, omit it or use an explicit development placeholder rather than fabricating it.
 
-The site must not make guaranteed-client, passive-income, or spam-evasion claims.
+The site must not make guaranteed-client, guaranteed-customer, passive-income, spam-evasion, or guaranteed-revenue claims.
+
+Proof may be first-party or credible external proof. Never imply externally sourced proof is a Prospect Foundry customer result.
 
 ---
 
@@ -358,6 +419,7 @@ Build accessibility into the components from the start:
 - accessible menus/accordions/tables
 - meaningful alt text
 - reduced-motion support
+- product-family distinctions that do not rely solely on color
 
 Performance requirements:
 
@@ -387,6 +449,7 @@ src/
 │   └── ui/
 ├── content/
 │   ├── articles/
+│   ├── bundles/
 │   ├── faqs/
 │   └── products/
 ├── layouts/
@@ -403,15 +466,21 @@ src/
 
 # Working Rules
 
-1. Read `docs/PRODUCT_SPEC.md` before implementing product/UI work.
+1. Read `docs/PRODUCT_SPEC.md` before implementing product, UI, navigation, content, commerce, or information-architecture work.
 2. Preserve Astro, Tailwind v4, Starwind, and the existing Vercel deployment approach.
-3. Use Starwind primitives first where a suitable component exists.
-4. Use Tailwind utility classes for all component/page styling.
-5. Never add `<style>` blocks to components.
-6. Use semantic design-token classes instead of raw colors.
-7. Keep the Tailwind theme in `src/styles/starwind.css` using Tailwind v4 `@theme` conventions.
-8. Keep static UI in Astro.
-9. Do not add infrastructure that V1 does not need.
-10. Do not fabricate content or commercial claims.
-11. Run the production build before declaring work complete.
-12. Validate the implementation against the Definition of Done in `docs/PRODUCT_SPEC.md`.
+3. Treat Prospect Foundry as a multi-product brand; AI Prospecting is one product family, not the entire brand.
+4. Give every available product its own dedicated product page.
+5. Use AIDA for product-page persuasion architecture.
+6. Preserve the four exact AI Prospecting tier names and boundaries defined in the product spec.
+7. Use Starwind primitives first where a suitable component exists.
+8. Use Tailwind utility classes for all component/page styling.
+9. Never add `<style>` blocks to components.
+10. Use semantic design-token classes instead of raw colors.
+11. Keep the Tailwind theme in `src/styles/starwind.css` using Tailwind v4 `@theme` conventions.
+12. Keep static UI in Astro.
+13. Do not add infrastructure the public commerce site does not need.
+14. Do not fabricate content or commercial claims.
+15. Centralize prices and checkout URLs.
+16. Preserve or intentionally redirect established AI Prospecting URLs when restructuring routes.
+17. Run the production build before declaring implementation work complete.
+18. Validate the implementation against the Definition of Done in `docs/PRODUCT_SPEC.md`.

@@ -3,13 +3,36 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const status = z.enum(["available", "coming-soon", "planned"]);
+const lemonSqueezyCheckoutUrl = z.url().superRefine((value, ctx) => {
+  if (!URL.canParse(value)) {
+    return;
+  }
+
+  const url = new URL(value);
+  const isLemonSqueezyStore = url.hostname.endsWith(".lemonsqueezy.com") && url.hostname !== ".lemonsqueezy.com";
+  const isReusableSharePath = /^\/checkout\/buy\/[^/]+\/?$/.test(url.pathname);
+
+  if (
+    url.protocol !== "https:" ||
+    url.port !== "" ||
+    url.username !== "" ||
+    url.password !== "" ||
+    !isLemonSqueezyStore ||
+    !isReusableSharePath
+  ) {
+    ctx.addIssue({
+      code: "custom",
+      message: "checkoutUrl must be a reusable HTTPS Lemon Squeezy share URL matching https://*.lemonsqueezy.com/checkout/buy/....",
+    });
+  }
+});
 const products = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/products" }),
   schema: z.object({
     title: z.string(), slug: z.string(), status, family: z.string(), path: z.enum(["services", "saas", "both"]),
     audience: z.string(), shortDescription: z.string(), coreOutcome: z.string(), problem: z.string(),
     format: z.string().default("Implementation guide"), difficulty: z.string().optional(), free: z.boolean().default(false), featured: z.boolean().default(false), order: z.number(),
-    price: z.number().positive().optional(), priceLabel: z.string().optional(), checkoutUrl: z.url().optional(),
+    price: z.number().positive().optional(), priceLabel: z.string().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
     situation: z.string(), commonFailure: z.string(), methodology: z.string(), capabilities: z.array(z.string()).min(3), contents: z.array(z.string()).default([]),
     whoItsFor: z.array(z.string()).min(1), whoItsNotFor: z.array(z.string()).min(1), workflow: z.array(z.string()).min(3),
     faqs: z.array(z.object({ question: z.string(), answer: z.string() })).default([]), relatedProducts: z.array(z.string()).default([]),
@@ -22,7 +45,7 @@ const products = defineCollection({
 });
 const bundles = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/bundles" }),
-  schema: z.object({ title: z.string(), slug: z.string(), status, outcome: z.string(), audience: z.string(), order: z.number(), products: z.array(z.string()).default([]), price: z.number().positive().optional(), checkoutUrl: z.url().optional() }).superRefine((data, ctx) => {
+  schema: z.object({ title: z.string(), slug: z.string(), status, outcome: z.string(), audience: z.string(), order: z.number(), products: z.array(z.string()).default([]), price: z.number().positive().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional() }).superRefine((data, ctx) => {
     if (data.status === "available" && (!data.price || !data.checkoutUrl)) ctx.addIssue({ code: "custom", message: "Available bundles require price and checkoutUrl." });
     if (data.status !== "available" && data.checkoutUrl) ctx.addIssue({ code: "custom", message: "Only available bundles may have checkoutUrl." });
   }),

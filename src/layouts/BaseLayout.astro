@@ -26,7 +26,14 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
     <!--suppress JSUnresolvedLibraryURL -->
-    {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
+    {enableCheckoutOverlay && (
+      <script
+        is:inline
+        src="https://app.lemonsqueezy.com/js/lemon.js"
+        defer
+        onload="if (window.createLemonSqueezy) window.createLemonSqueezy()"
+      ></script>
+    )}
     <title>{displayTitle}</title>
   </head>
   <body>

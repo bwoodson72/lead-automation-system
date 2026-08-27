@@ -41,5 +41,25 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     <SiteHeader />
     <main id="main-content"><slot /></main>
     <SiteFooter />
+    {enableCheckoutOverlay && (
+      <script is:inline>
+        {`document.addEventListener("click", function (event) {
+          if (!(event.target instanceof Element)) return;
+          const trigger = event.target.closest("[data-ls-checkout-url]");
+          if (!trigger) return;
+
+          event.preventDefault();
+          const checkoutUrl = trigger.getAttribute("data-ls-checkout-url");
+          if (!checkoutUrl) return;
+
+          if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === "function") {
+            window.LemonSqueezy.Url.Open(checkoutUrl);
+            return;
+          }
+
+          console.error("Lemon Squeezy checkout overlay is not ready.");
+        });`}
+      </script>
+    )}
   </body>
 </html>

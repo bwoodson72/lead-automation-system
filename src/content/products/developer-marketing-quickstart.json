@@ -1,1 +1,82 @@
-{"title":"Developer Marketing Quickstart","slug":"developer-marketing-quickstart","status":"coming-soon","family":"Free Resources","path":"both","audience":"Developers who need a simple starting point for customer acquisition.","shortDescription":"Build a minimum viable customer-acquisition system in seven days.","coreOutcome":"Define who to target, what to offer, where to find buyers, and what to measure.","problem":"Marketing feels like disconnected advice instead of a process you can execute.","format":"Free downloadable guide","free":true,"featured":true,"order":1,"situation":"You can build useful things, but customer acquisition still starts from a blank page.","commonFailure":"Collecting tactics without choosing a market, offer, message, channel, and measurement loop creates activity without a system.","methodology":"Build the smallest complete acquisition loop, run it, measure it, and improve the weakest step.","capabilities":["Choose a specific audience and problem","Connect an offer to a practical message","Select a buyer-finding channel","Define the next action and measurement"],"contents":[],"whoItsFor":["Freelancers, consultants, and SaaS builders beginning to systematize marketing"],"whoItsNotFor":["Anyone looking for guaranteed customers or a passive acquisition shortcut"],"workflow":["Target","Offer","Message","Channel","Action","Measure"],"faqs":[{"question":"Why is the form not available yet?","answer":"The guide and Kit delivery flow must be configured before email collection begins."}],"relatedProducts":["marketing-for-builders"],"seo":{"title":"Developer Marketing Quickstart | Prospect Foundry","description":"A free seven-day starting point for building a minimum viable customer-acquisition system."}}
+{
+  "title": "Developer Marketing Quickstart",
+  "slug": "developer-marketing-quickstart",
+  "status": "available",
+  "family": "Free Resources",
+  "path": "both",
+  "audience": "Freelance developers, SaaS founders, technical consultants, and independent builders who can ship useful work but need a simple customer-acquisition system.",
+  "shortDescription": "Build a practical customer-acquisition system in 7 steps—choose buyers, shape your offer, reach prospects, and learn what actually works.",
+  "coreOutcome": "Build and run a complete first customer-acquisition loop: choose a buyer, identify a painful problem, create an offer, write the message, choose a channel, contact real prospects, and measure the results.",
+  "problem": "You know how to build, but marketing feels like disconnected tactics and you are unsure who to target, what to say, where to find buyers, or what to do next.",
+  "format": "Free downloadable field guide",
+  "free": true,
+  "featured": true,
+  "order": 1,
+  "checkoutUrl": "https://developerbusinesslab.lemonsqueezy.com/checkout/buy/b6cceb5a-b139-47fc-8d49-2a9e6b3b3f3c?media=0",
+  "situation": "You can build websites, software, or technical products, but customer acquisition still starts from a blank page and you need a practical way to create demand.",
+  "commonFailure": "Collecting marketing tactics without connecting market, problem, offer, message, channel, action, and measurement creates activity without a working acquisition system.",
+  "methodology": "Work through a seven-step acquisition loop, put it into motion with the First 25 Challenge, record what buyers actually do and say, then improve the weakest stage instead of constantly replacing the entire strategy.",
+  "capabilities": [
+    "Choose a specific, reachable buyer instead of targeting everyone",
+    "Identify a painful problem and connect it to a meaningful business consequence",
+    "Turn technical skills into an offer a buyer can understand",
+    "Write a buyer-first message with a clear next step",
+    "Choose an acquisition channel that fits the buyer and offer",
+    "Source and qualify the first 25 real prospects or users",
+    "Track responses and diagnose the weakest stage of the acquisition loop"
+  ],
+  "contents": [
+    "Step 1: Pick One Buyer",
+    "Step 2: Find the Painful Problem",
+    "Step 3: Turn the Problem Into an Offer",
+    "Step 4: Create the Message",
+    "Step 5: Choose One Customer-Acquisition Channel",
+    "Step 6: The First 25 Challenge",
+    "Prospect sourcing and qualification guidance",
+    "Practical outreach templates",
+    "Step 7: Read the Results Like an Engineer",
+    "The 7-Day Quickstart implementation plan",
+    "One-Page Marketing System desk reference",
+    "Complete worked example from market selection through results"
+  ],
+  "whoItsFor": [
+    "Freelance developers who need a repeatable way to start finding clients",
+    "Technical consultants and solo builders turning skills into commercial offers",
+    "SaaS founders who need to talk to real potential users and test demand",
+    "Developers who understand the technical work but have never built a customer-acquisition process"
+  ],
+  "whoItsNotFor": [
+    "Anyone looking for guaranteed customers, instant revenue, spam tactics, or a passive acquisition shortcut",
+    "Experienced marketing teams looking for an advanced multi-channel growth playbook"
+  ],
+  "workflow": [
+    "Market",
+    "Problem",
+    "Offer",
+    "Message",
+    "Channel",
+    "Action",
+    "Measurement"
+  ],
+  "faqs": [
+    {
+      "question": "What will I have when I finish the Quickstart?",
+      "answer": "You will have a defined buyer, a problem hypothesis backed by real evidence, a concrete offer, a clear message, one primary acquisition channel, a first prospect or user list, and a simple measurement loop for deciding what to improve next."
+    },
+    {
+      "question": "Is this only for freelance web developers?",
+      "answer": "No. The system is written for freelance developers, technical consultants, SaaS founders, and other independent builders. The guide shows how the execution differs when you are selling a service versus validating and selling software."
+    },
+    {
+      "question": "Do I need paid ads, a large audience, or marketing automation?",
+      "answer": "No. The Quickstart is designed to help you create a small working acquisition loop before adding more channels, advertising, or automation."
+    }
+  ],
+  "relatedProducts": [
+    "marketing-for-builders"
+  ],
+  "seo": {
+    "title": "Developer Marketing Quickstart | Developer Business Lab",
+    "description": "A practical seven-step customer-acquisition field guide for developers, consultants, SaaS founders, and independent technical builders."
+  }
+}

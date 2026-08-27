@@ -5,6 +5,8 @@ import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
 interface Props { title: string; description: string; noindex?: boolean; enableCheckoutOverlay?: boolean; }
 const { title, description, noindex = false, enableCheckoutOverlay = false } = Astro.props;
+const displayTitle = title.replaceAll("Prospect Foundry", siteConfig.name);
+const displayDescription = description.replaceAll("Prospect Foundry", siteConfig.name);
 const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).toString() : undefined;
 ---
 <!doctype html>
@@ -13,19 +15,19 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+    <meta name="description" content={displayDescription} />
     {noindex && <meta name="robots" content="noindex" />}
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={displayTitle} />
+    <meta property="og:description" content={displayDescription} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
     <!--suppress JSUnresolvedLibraryURL -->
     {enableCheckoutOverlay && <script is:inline src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>}
-    <title>{title}</title>
+    <title>{displayTitle}</title>
   </head>
   <body>
     <a href="#main-content" class="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>

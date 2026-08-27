@@ -4,7 +4,18 @@ import KitForm from "@/components/marketing/KitForm.astro";
 const { product, location = "product" } = Astro.props;
 const d = product.data;
 ---
-{d.status === "available" && d.free ? (
+{d.status === "available" && d.free && d.checkoutUrl ? (
+  <Button
+    as="a"
+    href={d.checkoutUrl}
+    class="lemonsqueezy-button"
+    data-event="checkout_click"
+    data-product-slug={d.slug}
+    data-cta-location={location}
+  >
+    Get the Free Quickstart
+  </Button>
+) : d.status === "available" && d.free ? (
   <Button as="a" href="/free/" data-event="quickstart_view" data-cta-location={location}>Get the Free Quickstart</Button>
 ) : d.status === "available" && d.checkoutUrl && d.price ? (
   <Button as="a" href={d.checkoutUrl} class="lemonsqueezy-button" data-event="checkout_click" data-product-slug={d.slug} data-cta-location={location}>Get {d.title} — ${d.price}</Button>

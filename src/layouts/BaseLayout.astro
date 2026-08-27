@@ -32,13 +32,6 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     <SiteHeader />
     <main id="main-content"><slot /></main>
     <SiteFooter />
-    {enableCheckoutOverlay && (
-      <script
-        is:inline
-        src="https://assets.lemonsqueezy.com/lemon.js"
-        defer
-        onload="if (window.createLemonSqueezy) window.createLemonSqueezy()"
-      ></script>
-    )}
+    {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
   </body>
 </html>

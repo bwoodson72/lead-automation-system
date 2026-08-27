@@ -28,10 +28,11 @@ const lemonSqueezyCheckoutUrl = z.url().superRefine((value, ctx) => {
 });
 const products = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/products" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(), slug: z.string(), status, family: z.string(), path: z.enum(["services", "saas", "both"]),
     audience: z.string(), shortDescription: z.string(), coreOutcome: z.string(), problem: z.string(),
     format: z.string().default("Implementation guide"), difficulty: z.string().optional(), free: z.boolean().default(false), featured: z.boolean().default(false), order: z.number(),
+    coverImage: image().optional(),
     price: z.number().positive().optional(), priceLabel: z.string().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
     situation: z.string(), commonFailure: z.string(), methodology: z.string(), capabilities: z.array(z.string()).min(3), contents: z.array(z.string()).default([]),
     whoItsFor: z.array(z.string()).min(1), whoItsNotFor: z.array(z.string()).min(1), workflow: z.array(z.string()).min(3),

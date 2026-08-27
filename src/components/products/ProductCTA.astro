@@ -6,7 +6,9 @@ const { product, location = "product" } = Astro.props;
 const d = product.data;
 const checkoutClass = button({ class: "lemonsqueezy-button" });
 ---
-{d.status === "available" && d.free && d.checkoutUrl ? (
+{d.status === "available" && d.free && d.checkoutUrl && d.slug === "developer-marketing-quickstart" ? (
+  <a href={d.checkoutUrl} class="lemonsqueezy-button">Buy Developer Marketing Quickstart</a>
+) : d.status === "available" && d.free && d.checkoutUrl ? (
   <a
     href={d.checkoutUrl}
     class={checkoutClass}

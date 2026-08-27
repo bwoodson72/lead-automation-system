@@ -34,7 +34,7 @@ const products = defineCollection({
     audience: z.string(), shortDescription: z.string(), coreOutcome: z.string(), problem: z.string(),
     format: z.string().default("Implementation guide"), difficulty: z.string().optional(), free: z.boolean().default(false), featured: z.boolean().default(false), order: z.number(),
     contentLayout: z.enum(["generated", "mdx"]).default("generated"),
-    coverImage: image().optional(),
+    coverImage: image().optional(), coverImageSrc: z.string().startsWith("/").optional(),
     price: z.number().positive().optional(), priceLabel: z.string().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
     situation: z.string(), commonFailure: z.string(), methodology: z.string(), capabilities: z.array(z.string()).min(3), contents: z.array(z.string()).default([]),
     whoItsFor: z.array(z.string()).min(1), whoItsNotFor: z.array(z.string()).min(1), workflow: z.array(z.string()).min(3),

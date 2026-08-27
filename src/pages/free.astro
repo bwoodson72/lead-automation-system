@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
@@ -13,6 +13,8 @@ if (!product) {
 
 const d = product.data;
 const enableCheckoutOverlay = d.status === "available" && Boolean(d.checkoutUrl);
+const renderedProduct = d.contentLayout === "mdx" ? await render(product) : undefined;
+const ProductContent = renderedProduct?.Content;
 ---
 <BaseLayout
   title={d.seo.title}
@@ -31,21 +33,40 @@ const enableCheckoutOverlay = d.status === "available" && Boolean(d.checkoutUrl)
         </div>
         <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Lemon Squeezy handles checkout and delivery.</p>
       </div>
-      <ProductCover title={d.title} family="Free Resource" image={d.coverImage} />
+      <ProductCover
+        title={d.title}
+        family="Free Resource"
+        image={d.coverImage}
+        imageSrc={d.coverImageSrc}
+      />
     </div>
   </section>
 
-  <section class="border-t border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">The seven-step operating loop</h2>
-      <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {d.workflow.map((item, index) => (
-          <li class="rounded-lg border border-border bg-card p-5">
-            <span class="font-mono text-xs text-primary-accent">STEP {index + 1}</span>
-            <p class="mt-2">{item}</p>
-          </li>
-        ))}
-      </ol>
+  {ProductContent ? (
+    <ProductContent />
+  ) : (
+    <section class="border-t border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <h2 class="text-3xl font-semibold">The seven-step operating loop</h2>
+        <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {d.workflow.map((item, index) => (
+            <li class="rounded-lg border border-border bg-card p-5">
+              <span class="font-mono text-xs text-primary-accent">STEP {index + 1}</span>
+              <p class="mt-2">{item}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="border-t border-border px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-semibold">Build your first customer-acquisition loop.</h2>
+      <p class="mt-4 text-muted-foreground">Start with the free Quickstart and put the seven-step system into motion.</p>
+      <div class="mt-8">
+        <ProductCTA product={product} location="free-page-final" />
+      </div>
     </div>
   </section>
 </BaseLayout>

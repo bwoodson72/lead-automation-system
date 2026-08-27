@@ -4,24 +4,236 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
 import ProductCard from "@/components/products/ProductCard.astro";
-import KitForm from "@/components/marketing/KitForm.astro";
+
 const products = await getCollection("products");
+
 const paths = [
-  ["I don't know what to sell","productize-your-dev-skills"],["I don't know what to charge","web-developer-pricing-system"],["I need clients beyond marketplaces","client-acquisition-without-upwork"],["I need a marketing system","marketing-for-builders"],["I want to automate prospecting","ai-prospecting-starter"],["Conversations are not becoming projects","developer-sales-playbook"],["I need recurring revenue","freelancer-retainer-system"],["I have a SaaS idea","saas-validation-before-you-build"],["I want AI to increase my capacity","ai-powered-one-person-dev-business"],
+  ["I can build, but I don't know what to sell", "productize-your-dev-skills"],
+  ["I'm guessing what my work should cost", "web-developer-pricing-system"],
+  ["I'm tired of depending on freelance marketplaces", "client-acquisition-without-upwork"],
+  ["I don't know how to consistently find clients", "marketing-for-builders"],
+  ["Prospecting takes too much of my time", "ai-prospecting-starter"],
+  ["Prospects talk to me but don't hire me", "developer-sales-playbook"],
+  ["I'm starting from zero every month", "freelancer-retainer-system"],
+  ["I want to build SaaS without wasting months on the wrong idea", "saas-validation-before-you-build"],
+  ["I want to run more of the business without hiring a team", "ai-powered-one-person-dev-business"],
 ];
+
 const resolvedPaths = paths.flatMap(([problem, slug]) => {
   const product = products.find((entry) => entry.data.slug === slug);
   return product ? [{ problem, product }] : [];
 });
-const nextSteps = products.filter((entry) => ["developer-marketing-quickstart", "productize-your-dev-skills"].includes(entry.data.slug));
-const families = ["Freelance Foundations","AI Prospecting","Sales & Closing","Growth & Recurring Revenue","SaaS","AI Operations"];
+
+const nextSteps = products.filter((entry) =>
+  ["developer-marketing-quickstart", "productize-your-dev-skills"].includes(entry.data.slug),
+);
+
+const families = [
+  {
+    name: "Freelance Foundations",
+    description: "Decide what to sell, who it is for, and how to price it without treating your skills like a commodity.",
+  },
+  {
+    name: "AI Prospecting",
+    description: "Build a repeatable way to identify, research, contact, and follow up with potential clients.",
+  },
+  {
+    name: "Sales & Closing",
+    description: "Turn interest into signed projects with a clearer sales process, proposals, and next steps.",
+  },
+  {
+    name: "Growth & Recurring Revenue",
+    description: "Stop rebuilding the pipeline from zero by creating retention, referrals, and recurring revenue.",
+  },
+  {
+    name: "SaaS",
+    description: "Move beyond client work by validating demand and finding customers before overbuilding software.",
+  },
+  {
+    name: "AI Operations",
+    description: "Increase what one independent developer can operate without immediately adding a team.",
+  },
+];
+
+const businessQuestions = [
+  "What should I sell?",
+  "Who should I sell it to?",
+  "How do I find good clients without depending on marketplaces?",
+  "How much should I charge?",
+  "How do I stop competing primarily on price?",
+  "How do I turn conversations into signed projects?",
+  "How do I create recurring revenue?",
+  "When should I move from services into products or SaaS?",
+];
+
+const connectedSystems = [
+  "Positioning",
+  "Offer",
+  "Pricing",
+  "Customer Acquisition",
+  "Sales",
+  "Proposal",
+  "Delivery",
+  "Retention",
+  "Referrals",
+  "Growth",
+];
 ---
-<BaseLayout title="Developer Business Lab | Business Systems for Independent Developers" description="Practical business systems for independent developers who need to find customers, sell valuable work, validate products, and build a repeatable business.">
-  <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Business systems for independent developers</p><h1 class="mt-5 max-w-5xl text-5xl font-semibold tracking-tight sm:text-7xl">You learned how to build. Now build the business around it.</h1><p class="mt-7 max-w-3xl text-xl leading-8 text-muted-foreground">Field guides and implementation systems for developers who need to find customers, sell valuable work, validate products, and create a more repeatable independent business.</p><div class="mt-9 flex flex-wrap gap-3"><Button as="a" href="/free/" size="lg" data-event="quickstart_view">Get the Free Quickstart</Button><Button as="a" href="/start/" variant="outline" size="lg">Find Your Next System</Button></div></div></section>
-  <section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Recognize the bottleneck</p><h2 class="mt-3 max-w-3xl text-4xl font-semibold">Technical capability is not the same as a commercial system.</h2><div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{["Your offer is difficult to explain","Pricing feels improvised","Client acquisition happens in bursts","Prospecting stops when delivery gets busy","Sales conversations stall","SaaS gets built before demand is established"].map((item) => <div class="rounded-xl border border-border bg-card p-5">{item}</div>)}</div><p class="mt-8 text-xl font-semibold text-primary-accent">These are business-system problems.</p></div></section>
-  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-4xl font-semibold">Start with the problem in front of you.</h2><div class="mt-10 grid gap-3 md:grid-cols-2">{resolvedPaths.map(({ problem, product }) => <a href={`/products/${product.data.slug}/`} class="group flex items-center justify-between rounded-xl border border-border bg-card p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" data-event="problem_path" data-product-slug={product.data.slug}><span>{problem}</span><span class="text-primary-accent group-hover:translate-x-1 motion-reduce:transform-none">{product.data.title} →</span></a>)}</div><p class="mt-7"><Button as="a" href="/start/" variant="outline">Use the Start Here guide</Button></p></div></section>
-  <section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2"><div><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Free starting point</p><h2 class="mt-3 text-4xl font-semibold">Developer Marketing Quickstart</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Build a minimum viable customer-acquisition system in seven days: target, problem, offer, message, buyer source, next action, and measurement.</p><div class="mt-8"><Button as="a" href="/free/">See the Quickstart</Button></div></div><KitForm kind="quickstart" /></div></section>
-  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-4xl font-semibold">Executable systems, not disconnected tactics.</h2><ol class="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">{["Learn","Decide","Implement","Execute","Measure","Improve"].map((step,index) => <li class="rounded-xl border border-border bg-card p-5"><span class="font-mono text-xs text-primary-accent">0{index+1}</span><p class="mt-3 font-semibold">{step}</p></li>)}</ol></div></section>
-  <section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-4xl font-semibold">One catalog, organized around the next system.</h2><div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{families.map((family) => <Card><CardHeader><CardTitle>{family}</CardTitle></CardHeader><CardContent><p class="text-sm text-muted-foreground">{products.filter((p)=>p.data.family===family).length} focused system{products.filter((p)=>p.data.family===family).length === 1 ? "" : "s"}</p><a href={`/products/#${family.toLowerCase().replaceAll(" ","-").replaceAll("&","")}`} class="mt-4 inline-block font-semibold text-primary-accent">Explore family →</a></CardContent></Card>)}</div></div></section>
-  <section class="border-t border-border px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-4xl font-semibold">Two useful next steps.</h2><div class="mt-10 grid gap-5 md:grid-cols-2">{nextSteps.map((product) => <ProductCard product={product} />)}</div><div class="mt-8 flex flex-wrap gap-3"><Button as="a" href="/free/">Get the Free Quickstart</Button><Button as="a" href="/products/" variant="outline">Browse All Products</Button></div></div></section>
+
+<BaseLayout
+  title="Developer Business Lab | Build the Business Around Your Development Skills"
+  description="Practical business systems for capable developers who want better clients, stronger offers, sustainable pricing, repeatable customer acquisition, and an independent business beyond freelance marketplaces."
+>
+  <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Business systems for independent developers</p>
+      <h1 class="mt-5 max-w-5xl text-5xl font-semibold tracking-tight sm:text-7xl">You learned how to build. Now build the business around it.</h1>
+      <div class="mt-7 max-w-3xl space-y-5 text-xl leading-8 text-muted-foreground">
+        <p>You have real development skills. That does not mean you want to spend your career bidding against dozens of developers for low-budget projects, competing on price, and taking whatever client happens to say yes.</p>
+        <p>So you start looking for another way. You watch YouTube. Read Reddit threads. Buy books. Try cold outreach. Think about niching down. Change your pricing. Rewrite your offer.</p>
+        <p class="font-semibold text-foreground">There is plenty of advice. The problem is that nobody shows you how the pieces fit together.</p>
+        <p>Developer Business Lab gives independent developers practical systems for deciding what to sell, finding better customers, pricing their work, selling projects, delivering professionally, building recurring revenue, and creating business assets beyond client work.</p>
+      </div>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <Button as="a" href="/free/" size="lg" data-event="quickstart_view">Get the Free Quickstart</Button>
+        <Button as="a" href="/products/" variant="outline" size="lg">Explore the Business Systems</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The missing skill set</p>
+      <h2 class="mt-3 max-w-4xl text-4xl font-semibold">You don't need another programming tutorial. You need the business skills nobody taught you.</h2>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">You can learn another framework, add another language, or get better at architecture. None of that automatically answers the questions that determine whether your development skills become a sustainable independent business.</p>
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {businessQuestions.map((question) => (
+          <div class="rounded-xl border border-border bg-card p-5 font-medium">{question}</div>
+        ))}
+      </div>
+      <p class="mt-8 max-w-3xl text-xl font-semibold text-primary-accent">Those are not coding problems. They are the problems involved in turning development skill into an independent business.</p>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="max-w-4xl">
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Why Developer Business Lab exists</p>
+        <h2 class="mt-3 text-4xl font-semibold">Stop trying to assemble a business from disconnected advice.</h2>
+        <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
+          <p>YouTube can teach you a cold-email tactic. Reddit can show you what another developer charged. A book can teach positioning. A podcast can tell you to productize. Another creator will tell you to niche down, while someone else tells you niches are unnecessary.</p>
+          <p>Most of those ideas are not necessarily wrong. <strong class="text-foreground">They are incomplete.</strong></p>
+          <p>A sustainable developer business is a collection of systems that work together. Developer Business Lab organizes those pieces so you can solve the problem in front of you without losing sight of the business you are trying to build.</p>
+        </div>
+      </div>
+      <ol class="mt-10 grid gap-3 sm:grid-cols-2 md:grid-cols-5">
+        {connectedSystems.map((system, index) => (
+          <li class="rounded-xl border border-border bg-card p-5">
+            <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+            <p class="mt-3 font-semibold">{system}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Start where you are stuck</p>
+      <h2 class="mt-3 text-4xl font-semibold">Start with the problem in front of you.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">You do not need to master the entire business at once. Fix the current bottleneck, then build the next system around it.</p>
+      <div class="mt-10 grid gap-3 md:grid-cols-2">
+        {resolvedPaths.map(({ problem, product }) => (
+          <a
+            href={`/products/${product.data.slug}/`}
+            class="group flex items-center justify-between gap-6 rounded-xl border border-border bg-card p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+            data-event="problem_path"
+            data-product-slug={product.data.slug}
+          >
+            <span>{problem}</span>
+            <span class="shrink-0 text-right text-sm font-semibold text-primary-accent group-hover:translate-x-1 motion-reduce:transform-none">{product.data.title} →</span>
+          </a>
+        ))}
+      </div>
+      <p class="mt-7"><Button as="a" href="/start/" variant="outline">Use the Start Here Guide</Button></p>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Not sure where to begin?</p>
+        <h2 class="mt-3 text-4xl font-semibold">Start by learning how customers actually enter the business.</h2>
+        <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
+          <p>If you have been jumping between marketplaces, cold email, content, networking, referrals, and whatever tactic someone recommended this week, start here.</p>
+          <p><strong class="text-foreground">Developer Marketing Quickstart</strong> gives you a seven-step process for choosing a buyer, identifying a problem worth paying to solve, creating an offer, reaching real prospects, and learning from what happens.</p>
+          <p>It is the first piece of the larger business: a repeatable way to create opportunities instead of waiting for work to appear.</p>
+        </div>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button>
+          <span class="text-sm text-muted-foreground">Free downloadable field guide</span>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-border bg-card p-7">
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The seven-step loop</p>
+        <ol class="mt-5 space-y-3">
+          {["Market", "Problem", "Offer", "Message", "Channel", "Action", "Measurement"].map((step, index) => (
+            <li class="flex items-center gap-4 rounded-lg border border-border bg-background/50 px-4 py-3">
+              <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+              <span class="font-semibold">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">How the systems are built</p>
+      <h2 class="mt-3 text-4xl font-semibold">Executable systems, not disconnected tactics.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Developer Business Lab is not another feed of isolated business tips. Each guide solves a defined part of the independent developer business and connects to the systems around it.</p>
+      <ol class="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {["Learn", "Decide", "Implement", "Execute", "Measure", "Improve"].map((step, index) => (
+          <li class="rounded-xl border border-border bg-card p-5">
+            <span class="font-mono text-xs text-primary-accent">0{index + 1}</span>
+            <p class="mt-3 font-semibold">{step}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The larger path</p>
+      <h2 class="mt-3 text-4xl font-semibold">Build the business one system at a time.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">You do not need one giant course. Build the capability you need now, then add the next system when the business reaches it.</p>
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {families.map((family) => (
+          <Card>
+            <CardHeader><CardTitle>{family.name}</CardTitle></CardHeader>
+            <CardContent>
+              <p class="text-sm leading-6 text-muted-foreground">{family.description}</p>
+              <p class="mt-4 text-xs text-muted-foreground">{products.filter((p) => p.data.family === family.name).length} focused system{products.filter((p) => p.data.family === family.name).length === 1 ? "" : "s"}</p>
+              <a href={`/products/#${family.name.toLowerCase().replaceAll(" ", "-").replaceAll("&", "")}`} class="mt-4 inline-block font-semibold text-primary-accent">Explore {family.name} →</a>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Take the next step</p>
+      <h2 class="mt-3 text-4xl font-semibold">Start building the business around your skills.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Start free with customer acquisition, or begin by turning your development capabilities into an offer buyers can understand and value.</p>
+      <div class="mt-10 grid gap-5 md:grid-cols-2">{nextSteps.map((product) => <ProductCard product={product} />)}</div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button as="a" href="/free/">Get the Free Quickstart</Button>
+        <Button as="a" href="/products/" variant="outline">Browse All Business Systems</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

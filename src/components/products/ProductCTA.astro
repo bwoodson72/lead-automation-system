@@ -1,33 +1,33 @@
 ---
+import { button } from "@/components/starwind/button/variants";
 import { Button } from "@/components/starwind/button";
 import KitForm from "@/components/marketing/KitForm.astro";
 const { product, location = "product" } = Astro.props;
 const d = product.data;
+const checkoutClass = button({ class: "lemonsqueezy-button" });
 ---
 {d.status === "available" && d.free && d.checkoutUrl ? (
-  <Button
-    as="button"
-    type="button"
-    data-ls-checkout-url={d.checkoutUrl}
+  <a
+    href={d.checkoutUrl}
+    class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
     data-cta-location={location}
   >
     Get the Free Quickstart
-  </Button>
+  </a>
 ) : d.status === "available" && d.free ? (
   <Button as="a" href="/free/" data-event="quickstart_view" data-cta-location={location}>Get the Free Quickstart</Button>
 ) : d.status === "available" && d.checkoutUrl && d.price ? (
-  <Button
-    as="button"
-    type="button"
-    data-ls-checkout-url={d.checkoutUrl}
+  <a
+    href={d.checkoutUrl}
+    class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
     data-cta-location={location}
   >
     Get {d.title} — ${d.price}
-  </Button>
+  </a>
 ) : d.status === "coming-soon" ? (
   <KitForm kind="updates" productSlug={d.slug} />
 ) : (

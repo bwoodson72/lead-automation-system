@@ -26,12 +26,14 @@ const lemonSqueezyCheckoutUrl = z.url().superRefine((value, ctx) => {
     });
   }
 });
+
 const products = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "./src/content/products" }),
+  loader: glob({ pattern: "**/*.{json,md,mdx}", base: "./src/content/products" }),
   schema: ({ image }) => z.object({
     title: z.string(), slug: z.string(), status, family: z.string(), path: z.enum(["services", "saas", "both"]),
     audience: z.string(), shortDescription: z.string(), coreOutcome: z.string(), problem: z.string(),
     format: z.string().default("Implementation guide"), difficulty: z.string().optional(), free: z.boolean().default(false), featured: z.boolean().default(false), order: z.number(),
+    contentLayout: z.enum(["generated", "mdx"]).default("generated"),
     coverImage: image().optional(),
     price: z.number().positive().optional(), priceLabel: z.string().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
     situation: z.string(), commonFailure: z.string(), methodology: z.string(), capabilities: z.array(z.string()).min(3), contents: z.array(z.string()).default([]),
@@ -44,6 +46,7 @@ const products = defineCollection({
     if (data.status !== "available" && data.checkoutUrl) ctx.addIssue({ code: "custom", message: "Only available products may have checkoutUrl." });
   }),
 });
+
 const bundles = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/bundles" }),
   schema: z.object({ title: z.string(), slug: z.string(), status, outcome: z.string(), audience: z.string(), order: z.number(), products: z.array(z.string()).default([]), price: z.number().positive().optional(), checkoutUrl: lemonSqueezyCheckoutUrl.optional() }).superRefine((data, ctx) => {

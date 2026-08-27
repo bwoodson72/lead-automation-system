@@ -61,7 +61,7 @@ const ProductContent = renderedProduct?.Content;
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
           <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.price ? ` · $${d.price}` : d.status === "coming-soon" ? " · Final price not yet published" : ""}</p>
         </div>
-        <ProductCover title={d.title} family={d.family} tier={d.tier} image={d.coverImage} />
+        <ProductCover title={d.title} family={d.family} tier={d.tier} image={d.coverImage} imageSrc={d.coverImageSrc} />
       </div>
     </div>
   </section>

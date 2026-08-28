@@ -33,11 +33,17 @@ const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/products/*.{png,jpg,jpeg,webp,avif}",
   { eager: true },
 );
-const coverImageFile = d.coverImageSrc?.split("/").at(-1);
-const coverImageFromSrc = coverImageFile
-  ? productCoverImages[`/src/assets/products/${coverImageFile}`]?.default
+const explicitCoverImageFile = d.coverImageSrc?.split("/").at(-1);
+const explicitCoverImage = explicitCoverImageFile
+  ? productCoverImages[`/src/assets/products/${explicitCoverImageFile}`]?.default
   : undefined;
-const coverImage = d.coverImage ?? coverImageFromSrc;
+const slugCoverImage =
+  productCoverImages[`/src/assets/products/${d.slug}.webp`]?.default ??
+  productCoverImages[`/src/assets/products/${d.slug}.png`]?.default ??
+  productCoverImages[`/src/assets/products/${d.slug}.jpg`]?.default ??
+  productCoverImages[`/src/assets/products/${d.slug}.jpeg`]?.default ??
+  productCoverImages[`/src/assets/products/${d.slug}.avif`]?.default;
+const coverImage = d.coverImage ?? explicitCoverImage ?? slugCoverImage;
 
 const renderedProduct = d.contentLayout === "mdx" ? await render(product) : undefined;
 const ProductContent = renderedProduct?.Content;

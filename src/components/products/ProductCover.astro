@@ -7,22 +7,24 @@ interface Props {
   family: string;
   tier?: number;
   image?: ImageMetadata;
-  imageSrc?: string;
 }
 
-const { title, family, tier, image, imageSrc } = Astro.props;
-const hasImage = Boolean(image || imageSrc);
+const { title, family, tier, image } = Astro.props;
+const hasImage = Boolean(image);
 ---
 <div class="relative flex aspect-4/5 w-full max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${title} cover concept`}>
   <div class="absolute inset-x-0 top-0 h-2 bg-primary"></div>
   <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
-  {hasImage && (
+  {image && (
     <div class="mt-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-muted">
-      {image ? (
-        <Image src={image} alt={`${title} product artwork`} class="h-full w-full object-cover" widths={[320, 480, 640]} sizes="(min-width: 1024px) 28rem, 90vw" />
-      ) : (
-        <img src={imageSrc} alt={`${title} product artwork`} class="h-full w-full object-cover" loading="eager" decoding="async" />
-      )}
+      <Image
+        src={image}
+        alt={`${title} product artwork`}
+        class="h-full w-full object-cover"
+        widths={[320, 480, 640]}
+        sizes="(min-width: 1024px) 28rem, 90vw"
+        priority
+      />
     </div>
   )}
   <div class:list={["my-auto", hasImage && "flex-none py-6"]}>

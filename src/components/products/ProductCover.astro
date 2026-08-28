@@ -10,39 +10,27 @@ interface Props {
 }
 
 const { title, family, tier, image } = Astro.props;
-const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/products/*.{png,jpg,jpeg,webp,avif}",
-  { eager: true },
-);
-const slug = Astro.url.pathname.split("/").filter(Boolean).at(-1);
-const fallbackImage = slug
-  ? productCoverImages[`/src/assets/products/${slug}.webp`]?.default ??
-    productCoverImages[`/src/assets/products/${slug}.png`]?.default ??
-    productCoverImages[`/src/assets/products/${slug}.jpg`]?.default ??
-    productCoverImages[`/src/assets/products/${slug}.jpeg`]?.default ??
-    productCoverImages[`/src/assets/products/${slug}.avif`]?.default
-  : undefined;
-const resolvedImage = image ?? fallbackImage;
-const hasImage = Boolean(resolvedImage);
 ---
-<div class="relative flex aspect-4/5 w-full max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${title} cover concept`}>
-  <div class="absolute inset-x-0 top-0 h-2 bg-primary"></div>
-  <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
-  {resolvedImage && (
-    <div class="mt-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-muted">
-      <Image
-        src={resolvedImage}
-        alt={`${title} product artwork`}
-        class="h-full w-full object-cover"
-        widths={[320, 480, 640]}
-        sizes="(min-width: 1024px) 28rem, 90vw"
-        priority
-      />
-    </div>
-  )}
-  <div class:list={["my-auto", hasImage && "flex-none py-6"]}>
-    <p class="text-sm font-medium text-muted-foreground">{family}{tier ? ` · Tier ${tier}` : ""}</p>
-    <p class:list={["mt-4 font-semibold tracking-tight", hasImage ? "text-3xl" : "text-4xl"]}>{title}</p>
+
+{image ? (
+  <div class="w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
+    <Image
+      src={image}
+      alt={`${title} product cover`}
+      class="block h-auto w-full"
+      widths={[480, 640, 960]}
+      sizes="(min-width: 1024px) 28rem, 90vw"
+      priority
+    />
   </div>
-  <div class="grid grid-cols-5 gap-2" aria-hidden="true">{[1,2,3,4,5].map((n) => <span class:list={["h-2 rounded-full", n < 4 ? "bg-primary" : "bg-muted"]}></span>)}</div>
-</div>
+) : (
+  <div class="relative flex aspect-4/5 w-full max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${title} cover concept`}>
+    <div class="absolute inset-x-0 top-0 h-2 bg-primary"></div>
+    <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
+    <div class="my-auto">
+      <p class="text-sm font-medium text-muted-foreground">{family}{tier ? ` · Tier ${tier}` : ""}</p>
+      <p class="mt-4 text-4xl font-semibold tracking-tight">{title}</p>
+    </div>
+    <div class="grid grid-cols-5 gap-2" aria-hidden="true">{[1,2,3,4,5].map((n) => <span class:list={["h-2 rounded-full", n < 4 ? "bg-primary" : "bg-muted"]}></span>)}</div>
+  </div>
+)}

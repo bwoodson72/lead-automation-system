@@ -1,35 +1,35 @@
 ---
 import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { resolveProductCoverImage } from "@/lib/product-cover-images";
 
 interface Props {
-  title: string;
-  family: string;
-  tier?: number;
-  image?: ImageMetadata;
+  product: CollectionEntry<"products">;
 }
 
-const { title, family, tier, image } = Astro.props;
+const { product } = Astro.props;
+const d = product.data;
+const image = resolveProductCoverImage(d);
 ---
 
 {image ? (
-  <div class="w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
+  <div class="aspect-4/5 w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
     <Image
       src={image}
-      alt={`${title} product cover`}
-      class="block h-auto w-full"
+      alt={`${d.title} product cover`}
+      class="h-full w-full object-contain"
       widths={[480, 640, 960]}
       sizes="(min-width: 1024px) 28rem, 90vw"
       priority
     />
   </div>
 ) : (
-  <div class="relative flex aspect-4/5 w-full max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${title} cover concept`}>
+  <div class="relative flex aspect-4/5 w-full max-w-md flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card p-8 shadow-xl" role="img" aria-label={`${d.title} cover concept`}>
     <div class="absolute inset-x-0 top-0 h-2 bg-primary"></div>
     <p class="font-mono text-xs font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
     <div class="my-auto">
-      <p class="text-sm font-medium text-muted-foreground">{family}{tier ? ` · Tier ${tier}` : ""}</p>
-      <p class="mt-4 text-4xl font-semibold tracking-tight">{title}</p>
+      <p class="text-sm font-medium text-muted-foreground">{d.family}{d.tier ? ` · Tier ${d.tier}` : ""}</p>
+      <p class="mt-4 text-4xl font-semibold tracking-tight">{d.title}</p>
     </div>
     <div class="grid grid-cols-5 gap-2" aria-hidden="true">{[1,2,3,4,5].map((n) => <span class:list={["h-2 rounded-full", n < 4 ? "bg-primary" : "bg-muted"]}></span>)}</div>
   </div>

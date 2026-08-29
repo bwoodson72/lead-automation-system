@@ -1,47 +1,89 @@
 ---
 import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
 import { Badge } from "@/components/starwind/badge";
 import { Button } from "@/components/starwind/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/starwind/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/starwind/card";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
 
-const {
-  product,
-  eventName = "product_view",
-  ctaLabel = "See how it works",
-} = Astro.props;
+interface Props {
+  product: CollectionEntry<"products">;
+  eventName?: string;
+}
+
+const { product, eventName = "product_view" } = Astro.props;
 const d = product.data;
-const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "planned" ? "Planned" : d.free ? "Free" : d.price ? `$${d.price}` : "Available";
+const href = `/products/${d.slug}/`;
 const coverImage = resolveProductCoverImage(d);
+const statusLabel = d.status === "coming-soon"
+  ? "Coming soon"
+  : d.status === "planned"
+    ? "Planned"
+    : d.free
+      ? "Free"
+      : d.price
+        ? `$${d.price}`
+        : "Available";
 ---
 
 <Card class="flex h-full flex-col overflow-hidden border-border bg-card/70">
-  {coverImage && (
-    <a href={`/products/${d.slug}/`} class="block border-b border-border bg-card" aria-label={`View ${d.title}`}>
-      <div class="aspect-4/3 w-full overflow-hidden">
+  <a
+    href={href}
+    class="block border-b border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-outline"
+    aria-label={`View ${d.title}`}
+  >
+    <div class="flex aspect-4/3 w-full items-center justify-center overflow-hidden p-4">
+      {coverImage ? (
         <Image
           src={coverImage}
           alt={`${d.title} product cover`}
-          class="h-full w-full object-contain p-4"
+          class="h-full w-full object-contain"
           widths={[360, 540, 720]}
           sizes="(min-width: 768px) 50vw, 100vw"
         />
-      </div>
-    </a>
-  )}
+      ) : (
+        <div
+          class="relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-border bg-background p-5"
+          role="img"
+          aria-label={`${d.title} product cover placeholder`}
+        >
+          <div class="absolute inset-x-0 top-0 h-1 bg-primary"></div>
+          <p class="font-mono text-[0.65rem] font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
+          <div class="my-auto">
+            <p class="text-xs font-medium text-muted-foreground">{d.family}{d.tier ? ` · Tier ${d.tier}` : ""}</p>
+            <p class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{d.title}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </a>
+
   <CardHeader>
-    <div class="mb-4 flex flex-wrap gap-2">
+    <div class="mb-2 flex flex-wrap gap-2">
       <Badge variant="outline">{d.family}</Badge>
       {d.tier && <Badge variant="outline">Tier {d.tier}</Badge>}
       <Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
     </div>
-    <CardTitle class="text-xl">{d.title}</CardTitle>
+    <CardTitle class="text-xl">
+      <a href={href} class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
+        {d.title}
+      </a>
+    </CardTitle>
+    <CardDescription class="leading-6">{d.shortDescription}</CardDescription>
   </CardHeader>
+
   <CardContent class="flex-1">
-    <p class="leading-7 text-muted-foreground">{d.shortDescription}</p>
-    <p class="mt-5 text-sm"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+    <p class="text-sm leading-6"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
   </CardContent>
+
   <CardFooter>
-    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event={eventName} data-product-slug={d.slug}>{ctaLabel}</Button>
+    <Button as="a" href={href} variant="secondary" data-event={eventName} data-product-slug={d.slug}>See how it works</Button>
   </CardFooter>
 </Card>

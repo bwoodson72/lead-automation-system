@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "Growth & Recurring Revenue",
   "path": "services",
-  "audience": "Independent developers who finish successful projects and keep seeing legitimate ongoing client needs, but handle them through favors, ad hoc invoices, or vague retainers.",
-  "shortDescription": "Turn recurring client needs into a bounded continuing service with a clear outcome, scope, cadence, price logic, and review process.",
-  "coreOutcome": "Leave with a recurring-service model that earns repeat revenue because it continues to solve a real client problem.",
-  "problem": "The project ends, but useful ongoing work remains unstructured, so recurring revenue is either missed or sold as vague access to your time.",
-  "hook": "Recurring revenue should come from recurring value, not a monthly invoice looking for a reason to exist.",
-  "reframe": "A retainer is easy to sell badly. You finish a project, the client wants to keep you around, and both sides agree to a monthly amount without defining what continuing problem the arrangement is supposed to solve. Then the client either underuses it and questions the fee, or overuses it and turns the agreement into unlimited access. The Freelancer Retainer System starts somewhere more concrete: what genuinely continues after the project? It might be conversion improvement, technical maintenance, campaign support, reporting, iterative product work, integration ownership, or a defined block of prioritized development capacity. The recurring need determines the service. From there you define the outcome, included work, response expectations, request process, cadence, exclusions, pricing logic, and review point. The goal is not to force every client into a subscription. It is to recognize the accounts where continuing work creates continuing value and give that work a commercial structure both sides can understand.",
+  "audience": "Independent developers who finish valuable projects, know the client will need more help, and are tired of watching the revenue still reset to zero when the launch is over.",
+  "shortDescription": "Turn genuine continuing client needs into a bounded recurring service so a successful project can create durable revenue instead of a trail of favors and random invoices.",
+  "coreOutcome": "Leave with a recurring-service model that gives the client a clear reason to keep paying and gives you more predictable revenue without selling unlimited access to your time.",
+  "problem": "Useful work continues after the project, but because it has no commercial structure it becomes free favors, scattered invoices, or a vague retainer neither side fully values.",
+  "hook": "A good project should not send your revenue back to zero.",
+  "reframe": "A project can go exactly right and still expose the weakness in a freelance business. You launch, the client is happy, the final invoice gets paid, and next month that entire block of revenue disappears. The strange part is that the client often still needs you. Small improvements, technical maintenance, campaign support, reporting, integrations, product iteration, or ongoing ownership keep showing up.\n\nWithout a structure, that work turns into “quick questions,” favors, ad hoc invoices, or a vague monthly fee for being available. The client either barely uses it and starts questioning the fee, or uses it constantly and turns the retainer into unlimited access. Neither feels like stable recurring revenue.\n\nThe Freelancer Retainer System starts with the continuing problem, not the billing model. You identify what actually recurs, define the ongoing outcome, included work, response expectations, request process, cadence, exclusions, pricing logic, and review point. Some projects should end cleanly. The ones with real continuing value should not have to start from zero every month just because the initial scope is finished.",
   "delivery": {
     "length": "Implementation guide for identifying, designing, selling, operating, and reviewing legitimate recurring development services.",
     "worksheets": "Recurring-need audit, service design, scope and exclusions, request process, cadence, capacity, pricing inputs, review agenda, and renewal decision.",
-    "time": "Use it after a successful project or whenever a client has a recurring need that is currently handled ad hoc."
+    "time": "Use it after a successful project or whenever a client has a recurring need that is currently being handled ad hoc."
   },
   "proof": {
-    "title": "The service starts with an ongoing problem, not a billing model.",
-    "body": "The system forces the continuing client need to be named before the retainer is designed. If the need does not recur, the fee should not recur either.",
+    "title": "Recurring revenue needs a reason to recur.",
+    "body": "The system forces the continuing client need to be named before the fee is designed. If the problem, responsibility, or improvement cycle does not continue, the invoice should not continue either.",
     "before": "Pay me each month and I will be available when you need development help.",
     "after": "Each month I maintain and improve the lead-generation system, review agreed performance signals, complete a bounded priority queue, and report what changed and what comes next."
   },
@@ -27,12 +27,12 @@
   "order": 13,
   "contentLayout": "generated",
   "situation": "Completed projects reveal real ongoing needs, but the work is still being handled as favors, one-off requests, or loosely defined access.",
-  "commonFailure": "Selling a monthly fee before defining continuing value creates either underuse, overuse, or unclear expectations about what the client is paying for.",
+  "commonFailure": "Selling a monthly fee before defining continuing value creates either underuse, overuse, or resentment about what the client is actually paying for.",
   "methodology": "Review the completed engagement, identify recurring needs, choose one worth structuring, define the continuing outcome and boundaries, set the operating cadence, establish commercial terms, deliver visibly, and reassess the relationship at defined intervals.",
   "capabilities": [
-    "Identify client needs that legitimately recur after a project",
-    "Design a bounded recurring service instead of selling unlimited access",
-    "Operate and review the relationship so continuing value stays visible"
+    "Spot the clients and problems where continuing work actually deserves recurring revenue",
+    "Design a bounded service instead of selling unlimited availability",
+    "Keep the value visible enough that renewal is a business decision, not a habit"
   ],
   "contents": [
     "Post-project recurring-need audit",
@@ -45,26 +45,26 @@
     "Worked service models and reusable operating worksheets"
   ],
   "whoItsFor": [
-    "Freelancers with completed projects and genuine ongoing client needs",
-    "Developers currently doing recurring work through ad hoc requests and invoices",
+    "Freelancers whose successful projects keep revealing real ongoing client needs",
+    "Developers currently doing recurring work through favors, Slack messages, and ad hoc invoices",
     "Independent developers who want more predictable revenue without selling unlimited availability"
   ],
   "whoItsNotFor": [
-    "Anyone trying to add recurring fees where no recurring value exists",
+    "Anyone trying to attach recurring fees where no recurring value exists",
     "Anyone looking for a way to sell unlimited access cheaply",
     "Developers who have not yet delivered enough value to understand the client's continuing needs"
   ],
   "workflow": ["Review", "Identify need", "Design service", "Agree cadence", "Deliver", "Reassess"],
   "faqs": [
-    {"question": "Should every completed project become a retainer?", "answer": "No. A recurring service only makes sense when a valuable problem, responsibility, or improvement cycle actually continues."},
-    {"question": "Is a retainer just prepaid hours?", "answer": "It can use capacity as one input, but the service should still define what the client is buying, how requests are handled, and where the boundaries are."},
-    {"question": "What if the client barely uses the service?", "answer": "The review process is designed to catch that. If continuing value is not visible, the service should be changed or ended rather than defended with vague availability."},
-    {"question": "Does this cover renewals and exits?", "answer": "Yes. The system includes review points for renewal, scope reset, pricing reset, and professional exit."
+    {"question": "Should every completed project become a retainer?", "answer": "No. Forcing recurring billing onto a problem that does not recur creates a weak service and a skeptical client. Some projects should simply end well."},
+    {"question": "Is a retainer just prepaid hours?", "answer": "It can use capacity as one input, but the buyer still needs to know what continuing problem, responsibility, or outcome the arrangement exists to handle."},
+    {"question": "What if the client barely uses the service?", "answer": "The review process is designed to surface that. If continuing value is not visible, change the service or end it instead of defending a fee with vague availability."},
+    {"question": "Does this cover renewals and exits?", "answer": "Yes. The system includes review points for renewal, scope reset, pricing reset, and professional exit so recurring does not quietly mean permanent."
     }
   ],
   "relatedProducts": ["developer-sales-playbook", "agency-partnership-playbook"],
   "seo": {
     "title": "Freelancer Retainer System | Developer Business Lab",
-    "description": "Turn genuine ongoing client needs into bounded recurring development services with clear value, scope, cadence, and review."
+    "description": "Stop letting good projects send revenue back to zero. Turn genuine ongoing client needs into bounded recurring services with clear value and scope."
   }
 }

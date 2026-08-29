@@ -9,31 +9,31 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
 
 <BaseLayout
   title="AI Prospecting System | Compare Four Automation Tiers"
-  description="Choose the AI prospecting tier that matches the process you have already proven, the automation you actually need, and the technical system you are prepared to operate."
+  description="Keep prospecting moving without automating bad decisions. Choose the AI prospecting tier that matches the process you have already proven."
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">AI Prospecting System</p>
-      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">Automate only the prospecting decisions you have already learned to trust.</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The four tiers are not a ladder you are supposed to climb. They are different operating models. Start with the lowest level that solves the repetition you actually have.</p>
+      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">Do not automate a prospecting process you do not trust yet.</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The point is not to build the most impressive automation. It is to keep qualified prospecting moving while client work gets busy, without making weak research, fake personalization, duplicate outreach, or bad follow-up happen faster.</p>
     </div>
   </section>
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Choose by constraint</p>
-      <h2 class="mt-3 text-3xl font-semibold">When to automate</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The expensive mistake</p>
+      <h2 class="mt-3 text-3xl font-semibold">Automation multiplies whatever you give it</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>If you are still learning which businesses qualify, which website evidence is trustworthy, which message earns a response, or which stop rules protect the campaign, keep a human in the loop.</p>
-        <p>Once those decisions repeat consistently, scheduling can remove memory work. When tool-to-tool handoffs become the bottleneck, n8n can connect them. When multiple campaigns, concurrency, auditability, recovery, and testing become the bottleneck, the system has earned application architecture.</p>
-        <p>Each tier preserves the same discipline: verify the business, use current evidence, qualify conservatively, keep durable state, respect replies and suppression, and measure what happens.</p>
+        <p>When prospecting is manual, a bad assumption wastes one email. When the same assumption is automated, it can waste a batch, damage sender reputation, annoy good prospects, and fill your tracker with activity that was never worth creating.</p>
+        <p>That is why the four tiers are not a ladder you are supposed to climb. Start with human-controlled work while you learn which businesses qualify, which website evidence is trustworthy, which messages deserve to be sent, and what should make the sequence stop.</p>
+        <p>Once those decisions become boring and repeatable, automate the repetition. Scheduling removes memory work. n8n removes tool-to-tool handoffs. Application architecture becomes useful only when workflow state, concurrency, recovery, testing, and auditability have become real operating problems.</p>
       </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">Compare the tiers</h2>
+      <h2 class="text-3xl font-semibold">Use the lowest tier that gives you back meaningful time</h2>
       <div class="mt-9 overflow-x-auto rounded-xl border border-border">
         <table class="w-full min-w-4xl border-collapse text-left text-sm">
           <caption class="sr-only">Comparison of AI Prospecting tiers</caption>
@@ -58,7 +58,7 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">Choose your tier</h2>
+      <h2 class="text-3xl font-semibold">Choose the burden you are ready to remove</h2>
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         {tiers.map((tier) => (
           <div class="rounded-xl border border-border bg-card p-6">

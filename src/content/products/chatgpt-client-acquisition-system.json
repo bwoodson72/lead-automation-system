@@ -4,22 +4,22 @@
   "status": "coming-soon",
   "family": "AI Prospecting",
   "path": "services",
-  "audience": "Independent developers who have proven a supervised prospecting method and want recurring research, follow-up review, and reporting without building API workflows.",
-  "shortDescription": "Turn a working manual campaign into a scheduled system using ChatGPT and Google Workspace while keeping durable state and human review.",
-  "coreOutcome": "Make prospecting recur on schedule without giving up the review points that keep outreach accurate and appropriate.",
-  "problem": "Your campaign works when you remember to run it, but research, follow-up checks, and reporting still stop whenever client work takes over.",
-  "hook": "Your prospecting process works. The problem is that you still have to remember to start it.",
-  "reframe": "Once the campaign rules are trustworthy, the next bottleneck is repetition. You already know how to define the buyer, verify evidence, qualify a lead, write from approved facts, and stop when the prospect replies or opts out. Repeating those same reviews manually is useful while you are learning, but it becomes unnecessary overhead after the decisions stabilize. The ChatGPT Client Acquisition System moves recurring research, pipeline review, follow-up checks, and reporting onto a schedule while Google Sheets keeps durable state. The important boundary is that scheduled does not mean unsupervised. The system still needs explicit campaign rules, suppression, review checkpoints, and a record of what has already happened. This tier is for the developer who wants the process to show up reliably without jumping straight to n8n, custom APIs, databases, or worker infrastructure.",
+  "audience": "Independent developers whose prospecting process already works but keeps disappearing from the calendar as soon as paid client work gets busy.",
+  "shortDescription": "Keep research, pipeline review, follow-up checks, and reporting moving on schedule without jumping straight to APIs or giving up the human review that protects quality.",
+  "coreOutcome": "Turn a proven manual campaign into a scheduled routine that keeps showing up even during busy delivery weeks, while Google Sheets preserves what happened and what needs attention next.",
+  "problem": "The campaign works when you remember to run it, but the exact weeks when you are busiest are also the weeks that quietly create next month's empty pipeline.",
+  "hook": "Your prospecting system should not stop because client work got busy.",
+  "reframe": "The dangerous thing about a good client month is how easy it is to stop doing the work that creates the next one. Delivery expands, follow-up gets pushed to Friday, Friday disappears, and a few weeks later you are finishing a project with less pipeline than you thought.\n\nIf the underlying campaign is still uncertain, scheduling it only makes uncertainty recur on time. But once you already know how to define the buyer, verify evidence, qualify a lead, write from approved facts, and stop when someone replies or opts out, repeating the same reviews manually becomes memory work.\n\nThe ChatGPT Client Acquisition System moves recurring research, pipeline review, follow-up checks, and reporting onto a schedule while Google Sheets keeps durable state. Scheduled does not mean reckless. Human checkpoints remain where evidence or judgment matters. The payoff is simple: prospecting is less likely to vanish just because the work you won is now consuming your attention.",
   "delivery": {
     "length": "Implementation guide for scheduled, no-API prospecting with ChatGPT and Google Workspace.",
     "worksheets": "Campaign state model, scheduled task definitions, review checkpoints, suppression rules, follow-up states, and reporting setup.",
-    "time": "Implement after Tier 1 rules are stable enough that the same decisions are being repeated consistently."
+    "time": "Implement after Tier 1 rules are stable enough that you are repeating the same decisions consistently."
   },
   "proof": {
-    "title": "Automation begins with a stable state model.",
-    "body": "A scheduled task should know what happened before it runs. Google Sheets stores campaign, lead, activity, follow-up, and suppression state so the next run can continue instead of rediscovering the same work.",
-    "before": "Remember to research new leads, check who needs follow-up, search Gmail for replies, and update the tracker when you have time.",
-    "after": "Run scheduled jobs against durable state, surface the items that need review, update the record, and keep a human checkpoint before sensitive actions."
+    "title": "The next run remembers what the last one already did.",
+    "body": "A schedule is only useful when it continues a campaign instead of rediscovering it. Google Sheets stores campaign, lead, activity, follow-up, and suppression state so recurring work can surface what needs attention next without duplicating yesterday.",
+    "before": "Remember to research new leads, check who needs follow-up, search Gmail for replies, and update the tracker whenever client work leaves enough time.",
+    "after": "Run scheduled jobs against durable state, surface the items that need review, update the record, and keep human approval before sensitive actions."
   },
   "format": "Implementation guide",
   "difficulty": "Beginner to intermediate",
@@ -27,12 +27,12 @@
   "featured": false,
   "order": 7,
   "contentLayout": "generated",
-  "situation": "A validated manual campaign still depends on memory for recurring research, follow-up review, and reporting.",
-  "commonFailure": "Adding schedules without durable state, suppression, and review checkpoints creates duplicate or inappropriate work.",
+  "situation": "A validated campaign still depends on you remembering every recurring research, review, follow-up, and reporting task.",
+  "commonFailure": "Adding schedules without durable state, suppression, and review checkpoints creates duplicate work and makes an inconsistent campaign recur more reliably.",
   "methodology": "Store campaign state in Google Sheets, schedule recurring ChatGPT work, review evidence and outreach decisions, update state after each action, and keep suppression and reporting explicit.",
   "capabilities": [
-    "Schedule recurring prospecting and review jobs",
-    "Maintain durable campaign state across runs",
+    "Keep recurring prospecting work visible during busy client weeks",
+    "Maintain enough state that scheduled runs know what already happened",
     "Supervise follow-up, suppression, and reporting without building an API pipeline"
   ],
   "contents": [
@@ -46,21 +46,21 @@
     "Upgrade boundary for n8n and API-based automation"
   ],
   "whoItsFor": [
-    "Developers with a prospecting campaign whose qualification and evidence rules already work",
-    "Freelancers who want scheduled no-API operation before building workflow automation",
-    "Solo operators who want recurring pipeline work to continue even during busy client weeks"
+    "Developers whose campaign rules already work but whose consistency falls apart during delivery weeks",
+    "Freelancers who want scheduled no-API operation before taking on workflow infrastructure",
+    "Solo operators who want the pipeline to keep moving without holding every recurring task in their head"
   ],
   "whoItsNotFor": [
     "Anyone who has not yet validated the underlying campaign rules",
-    "Builders who need n8n orchestration, custom APIs, or application databases",
+    "Builders who already need n8n orchestration, custom APIs, or application databases",
     "Anyone looking for unattended bulk sending"
   ],
   "workflow": ["Schedule", "Research", "Review", "Update state", "Follow up", "Report"],
   "faqs": [
-    {"question": "Do I need API access?", "answer": "No. This tier is designed around ChatGPT, Google Drive, Google Sheets, Gmail, and recurring tasks."},
-    {"question": "Is this fully autonomous?", "answer": "No. Scheduled work reduces repetition, but human review remains part of the operating model for evidence quality and sensitive actions."},
-    {"question": "Why use Google Sheets as state?", "answer": "At this level, Sheets provides visible durable state without forcing you to build an application database before the campaign needs one."},
-    {"question": "When should I move to Tier 3?", "answer": "Move up when connected workflow automation would materially reduce repeated handoffs and you are ready to manage n8n, APIs, retries, deduplication, and exception handling."}
+    {"question": "Do I need API access?", "answer": "No. This tier is intentionally built around ChatGPT, Google Drive, Google Sheets, Gmail, and recurring tasks so you can remove memory work before taking on API infrastructure."},
+    {"question": "Is this fully autonomous?", "answer": "No. The point is reliable recurrence, not removing judgment. Human review remains part of the operating model where evidence quality or sensitive actions matter."},
+    {"question": "Why use Google Sheets as state?", "answer": "At this level, Sheets gives you visible durable state without forcing a small campaign to become a software project before it needs to."},
+    {"question": "When should I move to Tier 3?", "answer": "Move up when the frustrating part is no longer remembering the work. Move when tool-to-tool handoffs themselves are consuming enough attention to justify n8n, APIs, retries, deduplication, and exception handling."}
   ],
   "relatedProducts": ["ai-prospecting-starter", "automated-lead-engine"],
   "tier": 2,
@@ -72,6 +72,6 @@
   "technicalBoundary": "This tier does not center on n8n orchestration, custom API pipelines, application databases, or worker infrastructure.",
   "seo": {
     "title": "ChatGPT Client Acquisition System | Developer Business Lab",
-    "description": "Turn a proven prospecting campaign into a scheduled system with ChatGPT and Google Workspace while keeping durable state and human review."
+    "description": "Keep a proven prospecting campaign moving during busy client weeks with scheduled ChatGPT work, Google Workspace, durable state, and human review."
   }
 }

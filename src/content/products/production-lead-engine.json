@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "AI Prospecting",
   "path": "services",
-  "audience": "Advanced developers and agencies whose prospecting automation has outgrown a workflow tool and now needs durable state, controlled concurrency, recovery, and auditability.",
-  "shortDescription": "Build the lead engine as software with TypeScript, PostgreSQL, durable jobs, workers, provider boundaries, observability, and production controls.",
-  "coreOutcome": "Replace workflow sprawl with a durable application architecture you can test, operate, recover, and extend.",
-  "problem": "Multiple campaigns, concurrency, recovery, and audit requirements are becoming difficult to govern inside workflow state.",
-  "hook": "When the workflow starts behaving like an application, build it like one.",
-  "reframe": "n8n is useful when a workflow is the right unit of execution. It becomes a poor fit when the system must coordinate multiple campaigns, control concurrency, survive partial failures, preserve an audit trail, enforce provider boundaries, and recover durable jobs without hiding important state inside workflow history. Production Lead Engine is the point where prospecting automation becomes a software system. PostgreSQL becomes the source of truth. Durable jobs define bounded units of work. Workers process those jobs under explicit retry, deduplication, and concurrency policies. Provider adapters isolate external services. Webhooks and observability make replies, failures, and state changes inspectable. Tests protect behavior that was already validated in earlier tiers. This is not extra infrastructure for its own sake. It is the architecture you use when operational requirements have become expensive enough that workflow convenience is no longer the main constraint.",
+  "audience": "Advanced developers and agencies whose prospecting automation has become important enough that hidden workflow state, fragile recovery, and unclear concurrency are now business risks.",
+  "shortDescription": "Move mission-critical prospecting state into a real software system with PostgreSQL, durable jobs, workers, provider boundaries, testing, observability, and recovery you can reason about.",
+  "coreOutcome": "Replace workflow sprawl with an application architecture you can inspect, test, recover, and extend when the lead engine has become too important to live inside execution history.",
+  "problem": "The automation now carries enough campaigns, state, failures, and money that workflow convenience is starting to cost control.",
+  "hook": "When the automation becomes mission-critical, workflow history is not enough.",
+  "reframe": "n8n is useful when a workflow is the right unit of execution. The problem begins when the workflow quietly becomes the system of record for several campaigns, retries, suppression, recovery, concurrency, and business history. At that point, a convenient automation can become difficult to reason about precisely when you most need to trust it.\n\nProduction requirements feel unnecessary until a failure leaves you asking basic questions you cannot answer cleanly. Which lead state is authoritative? Which job is safe to retry? Did two workers touch the same record? Can you reconstruct why this email was sent? Can a provider failure recover without replaying the wrong work?\n\nProduction Lead Engine moves those responsibilities into software built to own them. PostgreSQL becomes the source of truth. Durable jobs define bounded work. Workers run under explicit retry, deduplication, and concurrency policies. Provider adapters isolate external services. Tests protect behavior you already proved in earlier tiers. Observability makes state changes inspectable. This is not infrastructure theater. It is what you build when losing control has become more expensive than adding architecture.",
   "delivery": {
     "length": "Advanced implementation guide for a database-backed prospecting application using TypeScript, PostgreSQL, durable jobs, workers, and production controls.",
     "worksheets": "Domain model, schema map, job policies, provider contracts, concurrency rules, retry and dedupe strategy, observability checklist, and deployment plan.",
-    "time": "Build after a lower-tier campaign has proven both the commercial process and the need for application-level control."
+    "time": "Build only after a lower-tier campaign has proven both the commercial process and the need for application-level control."
   },
   "proof": {
-    "title": "State moves out of the workflow and into the system of record.",
-    "body": "A lead, finding, activity, suppression event, campaign, and job can be inspected independently of the worker currently processing it.",
+    "title": "The campaign can be inspected without asking a workflow what happened.",
+    "body": "A lead, finding, activity, suppression event, campaign, and job exists as durable state independent of the worker currently processing it. Recovery and audit stop depending on reconstructing business history from execution logs.",
     "before": "Workflow execution history is carrying business state, retries, and recovery logic across several campaigns.",
     "after": "PostgreSQL owns durable state, the queue owns job policy, and workers execute bounded responsibilities against explicit records."
   },
@@ -27,13 +27,13 @@
   "featured": false,
   "order": 9,
   "contentLayout": "generated",
-  "situation": "A proven automated pipeline now needs durable state, explicit job policies, provider boundaries, and operational controls.",
-  "commonFailure": "Stretching workflow execution into application state obscures recovery, testing, concurrency, ownership, and auditability.",
+  "situation": "A proven automated pipeline now matters enough that durable recovery, auditability, concurrency, and testing are no longer optional technical niceties.",
+  "commonFailure": "Stretching workflow execution into application state hides ownership, recovery, testing, and concurrency until the system is hardest to change.",
   "methodology": "Model prospecting around PostgreSQL records, durable queue jobs, bounded workers, provider adapters, webhooks, observability, tests, and explicit operational policies.",
   "capabilities": [
-    "Design durable campaign and lead state in PostgreSQL",
-    "Build queue-backed workers with explicit retry and concurrency policies",
-    "Test, deploy, observe, and recover a production prospecting application"
+    "Own campaign and lead state outside workflow execution history",
+    "Recover durable jobs under explicit retry, deduplication, and concurrency policies",
+    "Test, deploy, observe, and operate a lead engine that has become important business infrastructure"
   ],
   "contents": [
     "When a workflow should become an application",
@@ -46,9 +46,9 @@
     "Observability, deployment, maintenance, and production operations"
   ],
   "whoItsFor": [
-    "Advanced developers and agencies with proven prospecting automation and production requirements",
+    "Advanced developers and agencies with prospecting automation important enough to justify production controls",
     "Teams managing multiple campaigns or meaningful concurrency",
-    "Builders who need durable recovery, auditability, tests, and explicit application state"
+    "Builders who are more worried about recovery and auditability than keeping the architecture simple"
   ],
   "whoItsNotFor": [
     "Anyone whose needs are still met by supervised ChatGPT workflows or n8n",
@@ -57,10 +57,10 @@
   ],
   "workflow": ["Discover", "Persist", "Queue", "Process", "Enrich", "Contact", "Observe", "Recover"],
   "faqs": [
-    {"question": "Why not keep extending n8n?", "answer": "You can until the operational cost of hidden state, recovery, concurrency, testing, and auditability becomes greater than the convenience of staying workflow-centered."},
+    {"question": "Why not keep extending n8n?", "answer": "You can until the operational cost of hidden state, recovery, concurrency, testing, and auditability becomes greater than the convenience of staying workflow-centered. This tier is for that point, not before it."},
     {"question": "What is the system of record?", "answer": "PostgreSQL. Workers and services act on durable records rather than treating workflow execution history as business state."},
-    {"question": "Is this a starter product?", "answer": "No. It assumes advanced development ability and a prospecting process already proven at lower levels of automation."},
-    {"question": "Does this cover deployment and operations?", "answer": "Yes. The scope includes testing, observability, deployment, recovery, maintenance, and production controls."
+    {"question": "Is this a starter product?", "answer": "No. If the architecture sounds like more burden than relief, use a lower tier. This product assumes advanced development ability and a prospecting process already proven at lower levels."},
+    {"question": "Does this cover deployment and operations?", "answer": "Yes. The scope includes testing, observability, deployment, recovery, maintenance, and production controls because the point is an operable system, not a code sample."
     }
   ],
   "relatedProducts": ["automated-lead-engine"],
@@ -73,6 +73,6 @@
   "technicalBoundary": "Workers and services orchestrate bounded responsibilities. Database and queue policies own durable state, retries, and deduplication.",
   "seo": {
     "title": "Production Lead Engine | Developer Business Lab",
-    "description": "Build a durable database-backed prospecting application with TypeScript, PostgreSQL, workers, job queues, testing, and production controls."
+    "description": "Move mission-critical prospecting automation out of workflow sprawl and into a durable TypeScript, PostgreSQL, queue, worker, testing, and recovery architecture."
   }
 }

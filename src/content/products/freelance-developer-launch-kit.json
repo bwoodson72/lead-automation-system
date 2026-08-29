@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "Flagship Systems",
   "path": "services",
-  "audience": "Skilled developers who want to launch or rebuild a freelance business as one connected commercial system instead of assembling it from isolated tactics.",
-  "shortDescription": "Connect offer, pricing, positioning, proof, acquisition, sales, onboarding, delivery, referrals, and recurring revenue into one operating model.",
-  "coreOutcome": "Leave with the commercial operating system required to run a focused independent development business from first offer through repeat revenue.",
-  "problem": "You can improve one part of the business at a time, but the gains disappear when the adjacent systems are still undefined.",
-  "hook": "A better cold email cannot fix an unclear offer, and a better offer cannot help if nobody consistently sees it.",
-  "reframe": "The frustrating part of building a freelance business is that the pieces depend on one another. Pricing feels arbitrary when the offer is vague. Outreach performs poorly when the target is broad. Sales calls drift when the problem is not defined. Delivery becomes chaotic when scope and onboarding are improvised. Referrals and retainers stay accidental when there is no post-project process. That is why isolated advice can be technically correct and still fail to change the business. The Freelance Developer Launch Kit is designed for the developer who wants the whole commercial model in one place. You build the sequence in dependency order: market, offer, pricing, positioning, proof, acquisition, sales, onboarding, delivery, referrals, and recurring value. You do not have to perfect every stage before earning revenue, but you do need enough definition at each stage that the next one has something solid to build on. The result is a business with a shape, not a collection of gigs held together by your memory and effort that month.",
+  "audience": "Skilled developers who are tired of improving one piece of the freelance business only to discover the next undefined piece still keeps the whole thing unstable.",
+  "shortDescription": "Connect the offer, price, proof, pipeline, sales, onboarding, delivery, referrals, and recurring revenue into one business that does not have to be reinvented every month.",
+  "coreOutcome": "Leave with a connected commercial model that shows what the business needs before a prospect arrives, while a deal is moving, during delivery, and after the project ends.",
+  "problem": "You keep fixing whichever part hurts today, but isolated improvements do not compound when the systems before and after them are still improvised.",
+  "hook": "You are not trying to collect more tactics. You are trying to build a business that keeps working.",
+  "reframe": "Freelancing can become an exhausting series of local fixes. Rewrite the website because leads are weak. Change the rate because a project was underpriced. Try outreach because referrals slowed down. Build a proposal template because the last deal got messy. Each fix can be sensible and still leave the business feeling fragile.\n\nThe reason is dependency. Pricing is harder when the offer is vague. Outreach is harder when the buyer is broad. Sales calls drift when the problem is not defined. Delivery gets painful when scope and onboarding are improvised. Referrals and retainers remain accidental when the project simply ends. A weakness at one stage keeps leaking into the next.\n\nThe Freelance Developer Launch Kit connects those stages in dependency order. You build enough clarity in market, offer, pricing, positioning, proof, acquisition, sales, onboarding, delivery, referrals, and recurring value for the next stage to stand on something solid. The goal is not a perfect business before you sell. It is a business with a shape, one you can inspect and improve instead of rebuilding from memory whenever something goes wrong.",
   "delivery": {
     "length": "Integrated implementation system covering the commercial path from market and offer through acquisition, delivery, referrals, and recurring revenue.",
     "worksheets": "Business model map, offer and pricing decisions, positioning and proof, acquisition plan, sales and onboarding flow, delivery controls, referral process, and recurring-value design.",
     "time": "Use it to launch a new freelance business or rebuild an existing one in dependency order while continuing to sell and deliver."
   },
   "proof": {
-    "title": "The system shows which problem must be solved before the next tactic can work.",
-    "body": "Instead of optimizing whichever part of the business feels most urgent today, the operating model exposes dependencies. That keeps you from trying to solve a targeting problem with better copy or a scope problem with a higher price.",
+    "title": "The right next move depends on what is broken before it.",
+    "body": "The integrated model exposes dependencies so you stop trying to solve a targeting problem with better copy, a scope problem with a higher price, or an empty pipeline with a prettier portfolio.",
     "before": "Rewrite the website, try outreach, adjust the rate, redesign the portfolio, and hope the pieces eventually add up to a business.",
     "after": "Define the market and offer, set the economics, make the value understandable and believable, create opportunities, sell and deliver consistently, then build repeat and referral systems."
   },
@@ -26,13 +26,13 @@
   "featured": false,
   "order": 14,
   "contentLayout": "generated",
-  "situation": "You can do the technical work but do not yet have an end-to-end commercial operating model connecting how clients find, buy, experience, and continue working with you.",
-  "commonFailure": "Optimizing one tactic while the systems before or after it remain undefined creates short-term improvements that do not compound.",
+  "situation": "The technical work is strong enough, but the business still feels like a collection of projects and tactics held together by your attention.",
+  "commonFailure": "Optimizing one tactic while the systems before or after it remain undefined creates temporary improvements that disappear instead of compounding.",
   "methodology": "Build the freelance business in dependency order, make each stage explicit enough to support the next one, run the system on real opportunities, and improve the actual bottleneck rather than chasing disconnected tactics.",
   "capabilities": [
-    "Connect market, offer, pricing, and positioning into one commercial foundation",
-    "Build acquisition, sales, onboarding, and delivery as a continuous customer path",
-    "Add referrals and recurring value after the core client system works"
+    "See the whole client business from offer through repeat revenue on one operating map",
+    "Fix dependencies in the order that makes later tactics more likely to work",
+    "Replace a month-to-month collection of gigs with business systems you can reuse and improve"
   ],
   "contents": [
     "Market selection and problem definition",
@@ -46,26 +46,26 @@
     "Integrated operating map and implementation sequence"
   ],
   "whoItsFor": [
-    "Developers preparing to launch a freelance business and wanting the commercial pieces in the right order",
-    "Freelancers rebuilding a business that currently depends on inconsistent referrals or marketplaces",
-    "Independent developers who want one operating model connecting the systems they have been learning separately"
+    "Developers preparing to freelance who want the business pieces in an order that makes sense",
+    "Experienced freelancers whose business grew through referrals or marketplaces and still feels improvised",
+    "Independent developers tired of fixing one symptom at a time without making the whole business more dependable"
   ],
   "whoItsNotFor": [
     "Anyone looking for guaranteed revenue or a shortcut around real selling and delivery",
     "Established agencies needing multi-person operations, staffing, and finance systems",
-    "Anyone who only needs one narrow problem fixed and would be better served by a focused guide"
+    "Anyone who only has one narrow bottleneck and would be better served by a focused guide"
   ],
   "workflow": ["Market", "Offer", "Pricing", "Positioning", "Proof", "Acquisition", "Sales", "Onboarding", "Delivery", "Referrals", "Recurring revenue"],
   "faqs": [
-    {"question": "Do I need to complete every stage before I start selling?", "answer": "No. The goal is enough definition for the next stage to function. You can sell while the system is still being refined from real evidence."},
-    {"question": "How is this different from buying the individual guides?", "answer": "The Launch Kit is organized around the integrated operating model and the dependencies between stages. Focused products go deeper on a single bottleneck."},
-    {"question": "Is this only for new freelancers?", "answer": "No. It also fits experienced developers whose business grew through referrals or marketplaces and now needs a deliberate commercial structure."},
-    {"question": "Does it cover recurring revenue?", "answer": "Yes, after the offer, acquisition, sales, and delivery systems are defined well enough to support continuing client value."
+    {"question": "Do I need to complete every stage before I start selling?", "answer": "No. Waiting for the business to feel finished would be another form of avoidance. Build enough definition for the next stage to function, sell, and improve from real evidence."},
+    {"question": "How is this different from buying the individual guides?", "answer": "The Launch Kit is organized around the connected business and the dependencies between stages. Focused products go deeper when one bottleneck deserves more attention."},
+    {"question": "Is this only for new freelancers?", "answer": "No. It also fits experienced developers whose business grew through referrals, marketplaces, and accumulated habits and now needs a deliberate structure."},
+    {"question": "Does it cover recurring revenue?", "answer": "Yes, after the offer, acquisition, sales, and delivery systems are defined well enough that a continuing client relationship has real value to build on."
     }
   ],
   "relatedProducts": ["productize-your-dev-skills", "marketing-for-builders"],
   "seo": {
     "title": "Freelance Developer Launch Kit | Developer Business Lab",
-    "description": "Build a freelance developer business as one connected system from market, offer, and pricing through acquisition, delivery, referrals, and recurring revenue."
+    "description": "Stop collecting disconnected freelance tactics. Build one connected business from offer and pricing through acquisition, delivery, referrals, and recurring revenue."
   }
 }

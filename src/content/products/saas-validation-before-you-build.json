@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "SaaS",
   "path": "saas",
-  "audience": "Independent developers with a plausible SaaS idea who want evidence before committing weeks or months to building it.",
-  "shortDescription": "Test the customer, problem, urgency, and willingness to act before technical momentum turns an assumption into a product roadmap.",
-  "coreOutcome": "Make an evidence-based build, change, or stop decision before heavy development begins.",
-  "problem": "You can build the software, which makes it dangerously easy to treat a plausible idea as validated demand.",
-  "hook": "Being able to build the product quickly is not a reason to skip finding out whether anyone cares.",
-  "reframe": "Technical founders have a specific validation problem: building feels productive, measurable, and familiar. Talking to potential customers feels slower and less certain. That makes it easy to spend a month proving that the software can exist while the riskiest assumptions remain untouched. Who has the problem? How often does it happen? What does it cost them now? Are they already trying to solve it? Will they invest time, access, attention, or money to change the situation? Encouraging comments do not answer those questions. SaaS Validation Before You Build turns the idea into falsifiable assumptions and then looks for behavioral evidence strong enough to justify the next investment. You define the audience and problem narrowly enough to test, run focused conversations and commitment tests, record what people actually do, and decide in advance what evidence means build, revise, or stop. The purpose is not to create certainty. It is to make the cost of being wrong much smaller than building the full product first.",
+  "audience": "Independent developers who can build the SaaS and know that technical confidence is exactly what makes it easy to waste weeks or months on an idea nobody will pay for.",
+  "shortDescription": "Make being wrong cheap. Test the customer, problem, urgency, and willingness to act before a plausible idea turns into two months of code and a launch nobody asked for.",
+  "coreOutcome": "Leave with enough behavioral evidence to make a deliberate build, change, or stop decision before heavy development consumes the time and momentum.",
+  "problem": "Building feels productive and familiar, so a technical founder can spend weeks proving the software can exist while the risk that matters most remains untouched: whether anyone cares enough to act.",
+  "hook": "Do not spend two months proving the software can exist before proving anyone cares.",
+  "reframe": "For a developer, coding is seductive because progress is visible. The database works. The auth flow is done. The dashboard looks real. Customer research is messier. People contradict each other, cancel calls, say something sounds useful, and refuse to tell you what that praise is actually worth.\n\nThat asymmetry makes building feel safer even when it is the more expensive gamble. A month of development can answer “can this exist?” while leaving “will anyone change behavior or pay?” almost completely unanswered. Friendly comments and feature suggestions make the risk worse because they feel like validation without costing the prospect anything.\n\nSaaS Validation Before You Build turns the idea into assumptions that can lose. You identify the customer, problem, urgency, current alternatives, and willingness to act, then choose evidence that would strengthen or weaken the case before you see the result. Conversations, access, introductions, pilots, and payment can all carry different weight. The goal is not certainty. It is making a bad idea cheap enough to abandon before your sunk cost starts arguing with you.",
   "delivery": {
     "length": "Implementation guide for assumption mapping, customer research, problem evidence, commitment tests, and build decisions.",
     "worksheets": "Riskiest-assumption map, interview guide, evidence log, commitment-test design, decision thresholds, and build-change-stop review.",
     "time": "Run the validation process before committing to heavy product development or a large MVP scope."
   },
   "proof": {
-    "title": "Compliments and commitments are recorded differently.",
-    "body": "The system separates statements such as “I would use that” from actions that cost the prospect something, such as giving access to a workflow, joining a pilot, introducing a decision-maker, or paying.",
+    "title": "“I would use that” and “I will do this now” are not the same evidence.",
+    "body": "The system records compliments separately from behavior that costs the prospect something, such as giving access to a workflow, joining a pilot, introducing a decision-maker, investing time, or paying. That makes enthusiasm harder to confuse with demand.",
     "before": "Several people said the idea sounds useful, so start building the MVP.",
     "after": "Define the risky assumption, choose the evidence that would support or weaken it, run the test, record behavior, and make the build decision against a threshold set in advance."
   },
@@ -26,13 +26,13 @@
   "featured": false,
   "order": 15,
   "contentLayout": "generated",
-  "situation": "The idea feels plausible, but customer, problem, urgency, alternatives, and willingness-to-act assumptions remain largely untested.",
-  "commonFailure": "Feature planning, prototype enthusiasm, and friendly feedback can feel like progress without producing evidence that supports a commercial build decision.",
+  "situation": "The idea feels plausible and buildable, but the customer, problem, urgency, alternatives, and willingness to act remain largely assumptions.",
+  "commonFailure": "Feature planning and friendly feedback create the feeling of momentum without reducing the commercial risk that nobody changes behavior or pays.",
   "methodology": "State falsifiable assumptions, identify the riskiest ones, collect problem evidence, test commitment with appropriate asks, record behavior, and compare the results with explicit build, revise, or stop criteria.",
   "capabilities": [
-    "Identify the assumptions most likely to make the product fail commercially",
-    "Run focused customer conversations and commitment tests",
-    "Use evidence thresholds to decide whether to build, change, or stop"
+    "Find the assumption most likely to make months of building commercially irrelevant",
+    "Collect customer behavior that carries more weight than compliments",
+    "Decide to build, change, or stop before sunk cost starts making the decision for you"
   ],
   "contents": [
     "Idea decomposition and riskiest-assumption mapping",
@@ -46,8 +46,8 @@
   ],
   "whoItsFor": [
     "Indie and bootstrapped SaaS builders before heavy development",
-    "Developers who have an idea but little behavioral evidence from potential customers",
-    "Technical founders who want a disciplined reason to build instead of relying on enthusiasm"
+    "Developers with a plausible idea and very little behavioral evidence from potential customers",
+    "Technical founders who know their ability to build quickly can become a reason to validate too slowly"
   ],
   "whoItsNotFor": [
     "Anyone seeking certainty or guaranteed product-market fit",
@@ -56,15 +56,15 @@
   ],
   "workflow": ["Hypothesis", "Audience", "Problem evidence", "Commitment test", "Decision"],
   "faqs": [
-    {"question": "Do I need a prototype first?", "answer": "Not necessarily. Many risky assumptions concern the customer and problem, and those can often be tested before a working product exists."},
-    {"question": "How many interviews prove the idea?", "answer": "No fixed interview count proves demand. The guide focuses on evidence quality, repeated patterns, contradictory evidence, and commitment rather than a magic sample size."},
-    {"question": "Does validation guarantee the SaaS will work?", "answer": "No. It reduces avoidable uncertainty before a larger investment. Product, pricing, acquisition, retention, and execution still have to work afterward."},
-    {"question": "What happens if the evidence is weak?", "answer": "You revise the audience, problem, or proposed approach, run a better test, or stop. A cheap no is a useful result when the alternative is months of building."
+    {"question": "Do I need a prototype first?", "answer": "Not necessarily. Many of the assumptions most likely to kill the business concern the customer and problem, and those can often be tested before a working product exists."},
+    {"question": "How many interviews prove the idea?", "answer": "No fixed interview count proves demand. The system looks at evidence quality, repeated patterns, contradictory evidence, and commitment rather than giving you a magic number that feels safe."},
+    {"question": "Does validation guarantee the SaaS will work?", "answer": "No. It makes one category of expensive mistake less likely. Product, pricing, acquisition, retention, and execution still have to work afterward."},
+    {"question": "What happens if the evidence is weak?", "answer": "You revise the audience, problem, or proposed approach, run a better test, or stop. A cheap no is a good outcome when the alternative is months of building."
     }
   ],
   "relatedProducts": ["micro-saas-launch-system", "the-first-10-saas-customers"],
   "seo": {
     "title": "SaaS Validation Before You Build | Developer Business Lab",
-    "description": "Test the customer, problem, urgency, and willingness to act before committing months to building a SaaS product."
+    "description": "Make being wrong cheap. Test customer demand, problem urgency, alternatives, and willingness to act before committing months to a SaaS build."
   }
 }

@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "SaaS",
   "path": "saas",
-  "audience": "Independent developers who have enough validation to justify building and now need to keep MVP scope, launch, activation, and customer learning connected.",
-  "shortDescription": "Turn validated demand into the smallest useful product, launch it into a real acquisition path, and learn from early customer behavior.",
-  "coreOutcome": "Move from a validated opportunity to a bounded MVP, live launch, initial activation, and evidence for what to build next.",
-  "problem": "You earned the right to build, but the MVP can still expand for months if product scope and go-to-market work are treated as separate projects.",
-  "hook": "Your MVP is not finished when the code works. It is finished when a real customer can reach value.",
-  "reframe": "Validation tells you there is enough evidence to invest in a product. It does not give you permission to build every feature that seems useful. The next risk is turning a validated problem into an open-ended development project while launch, messaging, acquisition, onboarding, and activation wait until the end. That is especially tempting for a technical founder because the backlog is concrete and the market is not. Micro-SaaS Launch System keeps product and go-to-market work on the same track. You translate the validation evidence into a narrow user, job, promise, and minimum useful loop. You decide what the product must do for that loop to work and what can wait. While you build, you prepare the page, acquisition path, onboarding, support, and measures that will tell you whether users are reaching the intended value. Launch is not a date after development. It is the point where the product begins producing customer evidence. The first version succeeds by creating a useful learning loop, not by looking complete.",
+  "audience": "Independent developers who have enough validation to build and know the next danger is disappearing into an MVP backlog while launch, acquisition, and customer learning wait until “later.”",
+  "shortDescription": "Keep the MVP small enough to reach customers while the original evidence is still fresh. Build the shortest useful product loop and the path that gets real users into it.",
+  "coreOutcome": "Move from validated demand to a bounded MVP, live acquisition path, first activation, and customer evidence for what deserves to be built next.",
+  "problem": "A justified build can still expand for months when coding is allowed to become the whole project and launch is treated as something that happens afterward.",
+  "hook": "The MVP is not done when the code works. It is done when a customer reaches value.",
+  "reframe": "Validation gives you permission to spend more, not permission to build everything. The moment you open the editor, the product starts generating plausible reasons to grow: better auth, settings, another integration, a more complete dashboard, edge cases, polish, the features competitors all seem to have. Every addition feels responsible because it makes the software more finished.\n\nThe danger is that the market is not grading completeness. A customer has to discover the product, understand the promise, get through onboarding, do the thing that matters, and feel the value. If those steps are not being built alongside the product, a technically impressive MVP can still reach launch day with no useful path to learning.\n\nMicro-SaaS Launch System keeps product and go-to-market work on the same track. You trace scope back to the validated problem, define the minimum useful customer loop, defer features that do not support it, prepare positioning and acquisition while you build, define the activation event, and launch into a reachable set of users. The first version is not supposed to look complete. It is supposed to get close enough to customers that the next build decision comes from behavior instead of your backlog.",
   "delivery": {
     "length": "Integrated implementation system for MVP scope, positioning, launch preparation, acquisition, activation, support, and early learning.",
     "worksheets": "Validation-to-scope map, minimum useful loop, feature exclusion list, launch checklist, acquisition path, activation event, support plan, and learning review.",
     "time": "Use it after validation has earned a build decision and carry the system through the first live customer-learning cycle."
   },
   "proof": {
-    "title": "Every MVP feature has to earn its place in the first useful loop.",
-    "body": "The scope is traced back to the validated problem and the shortest path to customer value. Features that do not support that path are deferred instead of being added because they seem expected in a SaaS product.",
+    "title": "Every feature has to earn its place in the first useful customer loop.",
+    "body": "The scope traces each feature back to the validated problem and the shortest path to customer value. Features that do not support that path are deferred instead of being added because they make the SaaS look more complete.",
     "before": "Build authentication, dashboards, settings, integrations, billing, reports, and the obvious competitor features, then plan the launch.",
     "after": "Define the first customer, minimum useful outcome, required product loop, acquisition path, activation event, and launch test, then build only what those require."
   },
@@ -26,13 +26,13 @@
   "featured": false,
   "order": 16,
   "contentLayout": "generated",
-  "situation": "The opportunity has enough evidence to build, but product scope and customer acquisition still need to move together.",
+  "situation": "The opportunity has earned development investment, but the product can still consume months before a real customer gets close enough to teach you anything.",
   "commonFailure": "Treating launch as something that happens after development lets the MVP expand without the customer feedback required to shape it.",
   "methodology": "Translate validation into a minimum useful loop, bound the scope, prepare positioning and acquisition alongside development, launch to a reachable customer set, support activation, and use behavior to decide what comes next.",
   "capabilities": [
-    "Bound MVP scope around a validated customer outcome",
-    "Prepare acquisition, onboarding, and activation while the product is being built",
-    "Use early customer behavior to drive the next product decision"
+    "Keep MVP scope tied to the first customer outcome instead of a feature wish list",
+    "Build acquisition and onboarding alongside the product instead of after it",
+    "Use activation and early behavior to decide what deserves the next week of development"
   ],
   "contents": [
     "Validation-to-build handoff and launch assumptions",
@@ -45,9 +45,9 @@
     "Early behavior review, product decisions, and next-build criteria"
   ],
   "whoItsFor": [
-    "Bootstrapped builders with a sufficiently validated opportunity",
-    "Developers who tend to overbuild before exposing a product to customers",
-    "Technical founders who want product and go-to-market work to progress together"
+    "Bootstrapped builders with enough evidence to justify building",
+    "Developers who know they tend to overbuild before exposing a product to customers",
+    "Technical founders who want customer learning to begin before the product feels finished"
   ],
   "whoItsNotFor": [
     "Ideas that have not yet earned a build decision",
@@ -56,8 +56,8 @@
   ],
   "workflow": ["Evidence", "Scope", "Build", "Position", "Launch", "Activate", "Learn"],
   "faqs": [
-    {"question": "How small should the MVP be?", "answer": "Small enough to create the validated customer outcome and produce useful evidence. The guide uses the customer loop, not a feature count, to set the boundary."},
-    {"question": "Do I wait until the product is finished to market it?", "answer": "No. Positioning, acquisition, launch preparation, and early-customer access are developed alongside the product."},
+    {"question": "How small should the MVP be?", "answer": "Small enough to create the validated customer outcome and produce useful evidence. The system uses the customer loop, not an arbitrary feature count, to set the boundary."},
+    {"question": "Do I wait until the product is finished to market it?", "answer": "No. If positioning, acquisition, and access wait until the code feels finished, the most important learning is postponed to the most expensive moment."},
     {"question": "Does this include validation?", "answer": "It assumes validation has already produced enough evidence to justify building. SaaS Validation Before You Build covers that earlier decision."},
     {"question": "What counts as a successful first launch?", "answer": "A launch that gets the product into the hands of appropriate users, shows whether they can reach the intended value, and produces evidence for the next decision."
     }
@@ -65,6 +65,6 @@
   "relatedProducts": ["saas-validation-before-you-build", "the-first-10-saas-customers"],
   "seo": {
     "title": "Micro-SaaS Launch System | Developer Business Lab",
-    "description": "Turn validated SaaS demand into a bounded MVP, live launch, customer activation, and an evidence-driven early product loop."
+    "description": "Keep the MVP from becoming an endless build. Turn validated demand into a bounded product, acquisition path, activation event, and early customer-learning loop."
   }
 }

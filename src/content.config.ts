@@ -28,7 +28,7 @@ const lemonSqueezyCheckoutUrl = z.url().superRefine((value, ctx) => {
 });
 
 const products = defineCollection({
-  loader: glob({ pattern: "**/*.{json,md,mdx}", base: "./src/content/products" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/products" }),
   schema: ({ image }) => z.object({
     title: z.string(),
     slug: z.string(),

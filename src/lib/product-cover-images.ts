@@ -1,4 +1,6 @@
 import type { ImageMetadata } from "astro";
+import developerProposalClosingKitCover from "@/assets/products/developer-proposal-closing-kit.webp";
+import freelancerRetainerSystemCover from "@/assets/products/freelancer-retainer-system.webp";
 
 type ProductCoverData = {
   slug: string;
@@ -11,10 +13,18 @@ const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 
+const explicitProductCovers: Record<string, ImageMetadata> = {
+  "developer-proposal-closing-kit": developerProposalClosingKitCover,
+  "freelancer-retainer-system": freelancerRetainerSystemCover,
+};
+
 const fallbackExtensions = ["webp", "png", "jpg", "jpeg", "avif"] as const;
 
 export function resolveProductCoverImage(data: ProductCoverData): ImageMetadata | undefined {
   if (data.coverImage) return data.coverImage;
+
+  const explicitProductCover = explicitProductCovers[data.slug];
+  if (explicitProductCover) return explicitProductCover;
 
   const explicitCoverImageFile = data.coverImageSrc?.split("/").filter(Boolean).at(-1);
   if (explicitCoverImageFile) {

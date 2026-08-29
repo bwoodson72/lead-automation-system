@@ -38,8 +38,6 @@ const statusLabel = d.status === "coming-soon"
     href={href}
     class="block border-b border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-outline"
     aria-label={`View ${d.title}`}
-    data-event={eventName}
-    data-product-slug={d.slug}
   >
     <div class="flex aspect-4/3 w-full items-center justify-center overflow-hidden p-4">
       {coverImage ? (
@@ -74,7 +72,7 @@ const statusLabel = d.status === "coming-soon"
       <Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
     </div>
     <CardTitle class="text-xl">
-      <a href={href} class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" data-event={eventName} data-product-slug={d.slug}>
+      <a href={href} class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
         {d.title}
       </a>
     </CardTitle>

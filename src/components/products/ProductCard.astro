@@ -5,7 +5,11 @@ import { Button } from "@/components/starwind/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/starwind/card";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
 
-const { product } = Astro.props;
+const {
+  product,
+  eventName = "product_view",
+  ctaLabel = "See how it works",
+} = Astro.props;
 const d = product.data;
 const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "planned" ? "Planned" : d.free ? "Free" : d.price ? `$${d.price}` : "Available";
 const coverImage = resolveProductCoverImage(d);
@@ -38,6 +42,6 @@ const coverImage = resolveProductCoverImage(d);
     <p class="mt-5 text-sm"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
   </CardContent>
   <CardFooter>
-    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>See how it works</Button>
+    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event={eventName} data-product-slug={d.slug}>{ctaLabel}</Button>
   </CardFooter>
 </Card>

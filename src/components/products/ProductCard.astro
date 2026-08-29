@@ -1,44 +1,34 @@
 ---
 import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
 import { Badge } from "@/components/starwind/badge";
 import { Button } from "@/components/starwind/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/starwind/card";
+import { resolveProductCoverImage } from "@/lib/product-cover-images";
 
 const { product } = Astro.props;
 const d = product.data;
 const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "planned" ? "Planned" : d.free ? "Free" : d.price ? `$${d.price}` : "Available";
-
-const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/products/*.{png,jpg,jpeg,webp,avif}",
-  { eager: true },
-);
-const explicitCoverImageFile = d.coverImageSrc?.split("/").at(-1);
-const explicitCoverImage = explicitCoverImageFile
-  ? productCoverImages[`/src/assets/products/${explicitCoverImageFile}`]?.default
-  : undefined;
-const slugCoverImage =
-  productCoverImages[`/src/assets/products/${d.slug}.webp`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.png`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.jpg`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.jpeg`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.avif`]?.default;
-const coverImage = d.coverImage ?? explicitCoverImage ?? slugCoverImage;
+const coverImage = resolveProductCoverImage(d);
 ---
 
-<Card class="flex h-full flex-col border-border bg-card/70">
+<Card class="flex h-full flex-col overflow-hidden border-border bg-card/70">
   {coverImage && (
-    <Image
-      src={coverImage}
-      alt={`${d.title} product cover`}
-      class="block h-auto w-full"
-      widths={[360, 540, 720]}
-      sizes="(min-width: 768px) 50vw, 100vw"
-    />
+    <a href={`/products/${d.slug}/`} class="block border-b border-border bg-card" aria-label={`View ${d.title}`}>
+      <div class="aspect-4/3 w-full overflow-hidden">
+        <Image
+          src={coverImage}
+          alt={`${d.title} product cover`}
+          class="h-full w-full object-contain p-4"
+          widths={[360, 540, 720]}
+          sizes="(min-width: 768px) 50vw, 100vw"
+        />
+      </div>
+    </a>
   )}
   <CardHeader>
     <div class="mb-4 flex flex-wrap gap-2">
       <Badge variant="outline">{d.family}</Badge>
+      {d.tier && <Badge variant="outline">Tier {d.tier}</Badge>}
       <Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
     </div>
     <CardTitle class="text-xl">{d.title}</CardTitle>

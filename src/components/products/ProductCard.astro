@@ -16,9 +16,9 @@ const coverImage = resolveProductCoverImage(d);
 ---
 
 <Card class="flex h-full flex-col overflow-hidden border-border bg-card/70">
-  {coverImage && (
-    <a href={`/products/${d.slug}/`} class="block border-b border-border bg-card" aria-label={`View ${d.title}`}>
-      <div class="aspect-4/3 w-full overflow-hidden">
+  <a href={`/products/${d.slug}/`} class="block border-b border-border bg-card" aria-label={`View ${d.title}`}>
+    <div class="aspect-4/3 w-full overflow-hidden">
+      {coverImage ? (
         <Image
           src={coverImage}
           alt={`${d.title} product cover`}
@@ -26,9 +26,27 @@ const coverImage = resolveProductCoverImage(d);
           widths={[360, 540, 720]}
           sizes="(min-width: 768px) 50vw, 100vw"
         />
-      </div>
-    </a>
-  )}
+      ) : (
+        <div
+          class="relative flex h-full w-full flex-col bg-card p-5"
+          role="img"
+          aria-label={`${d.title} generated product cover`}
+        >
+          <div class="absolute inset-x-0 top-0 h-1.5 bg-primary"></div>
+          <p class="font-mono text-[10px] font-semibold uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
+          <div class="my-auto">
+            <p class="text-xs font-medium text-muted-foreground">{d.family}{d.tier ? ` · Tier ${d.tier}` : ""}</p>
+            <p class="mt-2 text-2xl font-semibold tracking-tight">{d.title}</p>
+          </div>
+          <div class="grid grid-cols-5 gap-1.5" aria-hidden="true">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <span class:list={["h-1.5 rounded-full", n < 4 ? "bg-primary" : "bg-muted"]}></span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </a>
   <CardHeader>
     <div class="mb-4 flex flex-wrap gap-2">
       <Badge variant="outline">{d.family}</Badge>

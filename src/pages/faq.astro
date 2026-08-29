@@ -4,4 +4,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import FAQList from "@/components/ui/FAQList.astro";
 const faqs = (await getCollection("faqs")).sort((a,b) => a.data.order-b.data.order);
 ---
-<BaseLayout title="Frequently Asked Questions | Developer Business Lab" description="Answers about Developer Business Lab products, availability, tools, technical requirements, delivery, and results."><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-4xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Product questions</p><h1 class="mt-4 text-5xl font-semibold tracking-tight">Frequently Asked Questions</h1><p class="mt-6 text-lg text-muted-foreground">Clear answers about the implementation systems, their status, technical requirements, and the AI Prospecting family.</p><div class="mt-12"><FAQList faqs={faqs} /></div></div></section></BaseLayout>
+<BaseLayout title="Frequently Asked Questions | Developer Business Lab" description="Straight answers about Developer Business Lab products, delivery, implementation, results, and the AI Prospecting family.">
+  <section class="px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Before you buy</p>
+      <h1 class="mt-4 text-5xl font-semibold tracking-tight">Questions worth answering before you spend money here</h1>
+      <p class="mt-6 text-lg leading-8 text-muted-foreground">You should know what you are getting, what problem it is meant to solve, what it will require from you, and what it cannot promise. If the answer makes a product a poor fit, that is useful information too.</p>
+      <div class="mt-12"><FAQList faqs={faqs} /></div>
+    </div>
+  </section>
+</BaseLayout>

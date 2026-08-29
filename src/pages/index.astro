@@ -7,15 +7,16 @@ import FAQList from "@/components/ui/FAQList.astro";
 const products = await getCollection("products");
 
 const paths = [
-  ["I can build, but I don't know what to sell", "productize-your-dev-skills"],
-  ["I'm guessing what my work should cost", "web-developer-pricing-system"],
-  ["I'm tired of depending on freelance marketplaces", "client-acquisition-without-upwork"],
-  ["My work is better than the way I market it", "marketing-for-builders"],
-  ["Prospecting keeps stopping when client work gets busy", "ai-prospecting-starter"],
-  ["Prospects talk to me but don't make a decision", "developer-sales-playbook"],
-  ["I want agency work without becoming cheap overflow labor", "agency-partnership-playbook"],
-  ["I'm starting from zero after every project", "freelancer-retainer-system"],
-  ["I want to validate SaaS demand before I spend months building", "saas-validation-before-you-build"],
+  ["Every prospect asks what I do, and I still answer with a list of technologies", "productize-your-dev-skills"],
+  ["I still feel a jolt of uncertainty when someone asks what a project costs", "web-developer-pricing-system"],
+  ["I get busy, stop prospecting, then panic when the current project is almost over", "client-acquisition-without-upwork"],
+  ["I know my work is stronger than the way I look to buyers online", "marketing-for-builders"],
+  ["My prospecting works only when I remember to keep it moving", "ai-prospecting-starter"],
+  ["Sales calls feel productive, then end without a real decision", "developer-sales-playbook"],
+  ["I spend hours on proposals that disappear into inboxes", "developer-proposal-closing-kit"],
+  ["I want repeat agency work without becoming cheap overflow labor", "agency-partnership-playbook"],
+  ["A good project ends and my revenue drops right back to zero", "freelancer-retainer-system"],
+  ["I can build the SaaS, but I do not want to waste months proving nobody wants it", "saas-validation-before-you-build"],
 ];
 
 const resolvedPaths = paths.flatMap(([problem, slug]) => {
@@ -28,28 +29,28 @@ const faqs = [
     data: {
       order: 1,
       question: "Will these systems work with my stack or type of development work?",
-      answer: "They are built around commercial decisions rather than a specific framework. The relevant question is whether you can credibly solve the buyer's problem, not whether you use React, WordPress, Astro, Laravel, or something else.",
+      answer: "Yes, if the business problem fits. The systems are built around buyers, offers, pricing, acquisition, sales, delivery, and recurring value rather than a specific framework. React, WordPress, Astro, Laravel, and other stacks change how you deliver the work, not the need to make the business around that work function.",
     },
   },
   {
     data: {
       order: 2,
-      question: "What if I do not have strong case studies yet?",
-      answer: "You still need honest proof, but proof can start with demonstrations, audits, prototypes, process artifacts, before-and-after work, and relevant personal projects. The products distinguish proof of capability from proof of client outcomes so you do not have to invent authority you do not have.",
+      question: "What if I do not have impressive case studies yet?",
+      answer: "You still need proof, but it does not have to begin with a wall of famous logos. Demonstrations, audits, prototypes, before-and-after work, process artifacts, technical evidence, and relevant personal projects can prove capability honestly while you build stronger client proof over time.",
     },
   },
   {
     data: {
       order: 3,
-      question: "Do I need to build the whole business system at once?",
-      answer: "No. Start with the bottleneck that is creating the most friction now. The Start Here diagnostic helps you identify the next system instead of turning the catalog into a rigid curriculum.",
+      question: "Do I need to fix the whole business at once?",
+      answer: "No. That is exactly what the catalog is designed to avoid. Start with the bottleneck that is costing you the most now, fix enough of it for the next stage to work, then move on when the evidence says another constraint matters more.",
     },
   },
   {
     data: {
       order: 4,
-      question: "Why guides instead of one big course?",
-      answer: "A developer who has a pricing problem does not need twenty hours of acquisition material before getting to it. Each guide is built around one operating problem so you can buy and implement the system you need now.",
+      question: "Why focused guides instead of one giant course?",
+      answer: "Because a pricing problem does not require twenty hours of unrelated acquisition material before you can fix it. Each product is built to solve one commercial problem and leave you with something you can use in the business, not another course you feel guilty about not finishing.",
     },
   },
 ];
@@ -57,37 +58,37 @@ const faqs = [
 
 <BaseLayout
   title="Developer Business Lab | Business Systems for Independent Developers"
-  description="Practical business systems for capable independent developers who want clearer offers, defensible pricing, better client acquisition, stronger sales, and a business that does not restart from zero every month."
+  description="Build the offer, pricing, client acquisition, sales, and recurring-revenue systems that turn strong development skills into a business you can rely on."
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Developer Business Lab</p>
-      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight sm:text-7xl">You are good at the work. You are tired of starting the business from zero every month.</h1>
-      <p class="mt-7 max-w-3xl text-xl leading-8 text-muted-foreground">Practical systems for independent developers who were taught how to build, but never taught how to define an offer, set a price, create demand, run a sales process, or turn successful work into something repeatable.</p>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Business systems for independent developers</p>
+      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight sm:text-7xl">You are good at the work. Your business should not still feel this uncertain.</h1>
+      <p class="mt-7 max-w-3xl text-xl leading-8 text-muted-foreground">Build the offer, pricing, pipeline, sales, and recurring-revenue systems that turn technical skill into a business you can actually rely on.</p>
       <div class="mt-9 flex flex-wrap gap-3">
-        <Button as="a" href="/start/" size="lg">Find the System You Need</Button>
-        <Button as="a" href="/free/" variant="outline" size="lg">Get Developer Marketing Quickstart Free</Button>
+        <Button as="a" href="/start/" size="lg">Find What Is Costing You Most</Button>
+        <Button as="a" href="/free/" variant="outline" size="lg">Get the Free Quickstart</Button>
       </div>
     </div>
   </section>
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The gap</p>
-      <h2 class="mt-3 text-3xl font-semibold">Business is a separate skill</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The frustrating part</p>
+      <h2 class="mt-3 text-3xl font-semibold">Being a better developer does not automatically make this part easier</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>You can be a very good developer and still struggle to explain what you sell, defend a price, keep the pipeline moving, or turn a promising sales call into a signed project. Most developers were never taught those systems. In an agency or in-house role, somebody else may have handled them. In freelancing, they suddenly become your job.</p>
-        <p>That is why the usual advice is so frustrating. One source tells you to niche down. Another gives you a cold-email template. Another tells you to raise your rates. Each idea might be useful, but none tells you what has to be true before that tactic can work or what system comes next.</p>
-        <p>Developer Business Lab breaks the commercial side of independent development into focused operating systems. You start with the problem you already know you have, make the decisions that problem requires, put them into use, and improve them from evidence.</p>
+        <p>You can spend years getting better at architecture, debugging, performance, accessibility, databases, APIs, and shipping production work. Then a prospect asks what you charge and the number still feels like a guess. A project ends and there is nothing behind it. A sales call feels promising, then turns into “send me a proposal” and silence.</p>
+        <p>Meanwhile, developers you know are not better at the actual work can look easier to hire, charge more, and stay busier because the business around their skill is clearer. They know what they sell. Buyers understand why it matters. Their pipeline does not depend entirely on luck, referrals, or remembering to start prospecting after the calendar goes quiet.</p>
+        <p>Developer Business Lab exists to help the business catch up with the technical skill. The goal is not to turn you into a marketer. It is to give you more control over what you sell, what you charge, where opportunities come from, how prospects become clients, and how good work turns into more work instead of another restart.</p>
       </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What is inside</p>
-      <h2 class="mt-3 text-3xl font-semibold">Find your bottleneck</h2>
-      <p class="mt-4 max-w-3xl text-muted-foreground">Each link goes directly to the system for that bottleneck. You do not need to buy or read the catalog in order.</p>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Start with the pain you already feel</p>
+      <h2 class="mt-3 text-3xl font-semibold">What keeps costing you money, time, or confidence?</h2>
+      <p class="mt-4 max-w-3xl text-muted-foreground">You do not need the whole catalog. Pick the problem that sounds most like your business right now and go directly to the system built for it.</p>
       <div class="mt-8 grid gap-3 md:grid-cols-2">
         {resolvedPaths.map(({ problem, product }) => (
           <a
@@ -101,26 +102,26 @@ const faqs = [
           </a>
         ))}
       </div>
-      <p class="mt-7"><Button as="a" href="/products/" variant="outline">Browse Every Business System</Button></p>
+      <p class="mt-7"><Button as="a" href="/products/" variant="outline">Browse Every System</Button></p>
     </div>
   </section>
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
       <div>
-        <h2 class="text-3xl font-semibold">For:</h2>
+        <h2 class="text-3xl font-semibold">You will recognize yourself here if</h2>
         <ul class="mt-6 space-y-3 text-muted-foreground">
-          <li>✓ Independent developers who can deliver the technical work but still improvise parts of the business.</li>
-          <li>✓ Freelancers tired of marketplaces, unpredictable referrals, arbitrary pricing, and rebuilding every sales process from scratch.</li>
-          <li>✓ Developers who want direct instructions, working tools, honest boundaries, and evidence instead of motivational business content.</li>
+          <li>✓ You can deliver the technical work, but parts of the business still get improvised under pressure.</li>
+          <li>✓ You are tired of marketplaces, unpredictable referrals, arbitrary pricing, and dry spells that make every good month feel temporary.</li>
+          <li>✓ You want to be paid and treated like the professional you already are without pretending business results are guaranteed.</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-3xl font-semibold">Not for:</h2>
+        <h2 class="text-3xl font-semibold">This is probably not for you if</h2>
         <ul class="mt-6 space-y-3 text-muted-foreground">
-          <li>× Anyone looking for guaranteed clients, guaranteed revenue, or a passive business that requires no selling or delivery.</li>
-          <li>× Anyone who wants one universal script, price, niche, or growth hack to replace business judgment.</li>
-          <li>× Large agencies looking for enterprise staffing, finance, or multi-team operating systems.</li>
+          <li>× You want guaranteed clients, guaranteed revenue, or a passive business that requires no selling or delivery.</li>
+          <li>× You want one magic script, niche, price, or growth hack to replace judgment.</li>
+          <li>× You are looking for enterprise agency operations rather than a focused independent business.</li>
         </ul>
       </div>
     </div>
@@ -128,8 +129,8 @@ const faqs = [
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete examples</p>
-      <h2 class="mt-3 text-3xl font-semibold">Make it specific</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Small changes with commercial weight</p>
+      <h2 class="mt-3 text-3xl font-semibold">What “more professional” looks like in practice</h2>
       <div class="mt-8 grid gap-4 lg:grid-cols-3">
         <div class="rounded-xl border border-border bg-card p-5">
           <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Offer</p>
@@ -138,13 +139,13 @@ const faqs = [
         </div>
         <div class="rounded-xl border border-border bg-card p-5">
           <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Pricing</p>
-          <p class="mt-3 text-sm text-muted-foreground">Before: estimate coding hours and choose a number that feels safe.</p>
-          <p class="mt-3 font-medium">After: price the whole engagement from your economics, uncertainty, scope, risk, and commercial context.</p>
+          <p class="mt-3 text-sm text-muted-foreground">Before: estimate coding hours, add padding, and hope the number is not too high.</p>
+          <p class="mt-3 font-medium">After: know your floor, price the whole engagement, account for uncertainty, and set terms before pressure starts.</p>
         </div>
         <div class="rounded-xl border border-border bg-card p-5">
           <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Acquisition</p>
-          <p class="mt-3 text-sm text-muted-foreground">Before: “I need clients, so I should try more outreach.”</p>
-          <p class="mt-3 font-medium">After: test one offer for one buyer through one channel and know what result you are measuring.</p>
+          <p class="mt-3 text-sm text-muted-foreground">Before: wait until the pipeline is empty, then scramble for leads.</p>
+          <p class="mt-3 font-medium">After: keep one defined acquisition process moving while client work is still active.</p>
         </div>
       </div>
     </div>
@@ -152,14 +153,14 @@ const faqs = [
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">FAQ</h2>
+      <h2 class="text-3xl font-semibold">Before you spend money here</h2>
       <div class="mt-8"><FAQList faqs={faqs} /></div>
       <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Start with the bottleneck</h2>
-        <p class="mt-4 text-muted-foreground">Use the Start Here diagnostic for a direct recommendation, or build the first acquisition loop with the free Developer Marketing Quickstart.</p>
+        <h2 class="text-3xl font-semibold">Start with the problem that keeps following you</h2>
+        <p class="mt-4 text-muted-foreground">Use Start Here for a direct recommendation. If the basic problem is still “I need a dependable way to create opportunities,” build the first acquisition loop with Developer Marketing Quickstart for free.</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <Button as="a" href="/start/" size="lg">Use the Start Here Diagnostic</Button>
-          <Button as="a" href="/free/" variant="outline" size="lg">Get Developer Marketing Quickstart Free</Button>
+          <Button as="a" href="/start/" size="lg">Find Your Bottleneck</Button>
+          <Button as="a" href="/free/" variant="outline" size="lg">Get the Free Quickstart</Button>
         </div>
       </div>
     </div>

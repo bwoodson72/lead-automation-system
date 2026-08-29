@@ -17,9 +17,9 @@ const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "p
   </CardHeader>
   <CardContent class="flex-1">
     <p class="leading-7 text-muted-foreground">{d.shortDescription}</p>
-    <p class="mt-5 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+    <p class="mt-5 text-sm"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
   </CardContent>
   <CardFooter>
-    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>See {d.title}</Button>
+    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>See how it works</Button>
   </CardFooter>
 </Card>

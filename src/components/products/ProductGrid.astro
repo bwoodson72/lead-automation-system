@@ -1,7 +1,0 @@
----
-import ProductCard from "./ProductCard.astro";
-import type { CollectionEntry } from "astro:content";
-interface Props { products: CollectionEntry<"products">[]; }
-const { products } = Astro.props;
----
-<div class="grid gap-5 md:grid-cols-2 ">{products.map((product) => <ProductCard product={product} />)}</div>

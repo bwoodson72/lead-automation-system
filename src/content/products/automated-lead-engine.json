@@ -4,20 +4,20 @@
   "status": "coming-soon",
   "family": "AI Prospecting",
   "path": "services",
-  "audience": "Independent developers and solo agencies with a proven campaign who want connected, unattended lead processing without building a custom application.",
-  "shortDescription": "Connect a proven prospecting process in n8n with current evidence, qualification, enrichment, outreach state, retries, and exception handling.",
-  "coreOutcome": "Move repetitive lead processing into a workflow while keeping the evidence, state, and stop rules that make the campaign trustworthy.",
-  "problem": "The campaign is proven, but moving every lead through evidence collection, enrichment, outreach state, and follow-up by hand now consumes too much time.",
-  "hook": "You have already proved the prospecting decisions. Now the handoffs are wasting your time.",
-  "reframe": "Workflow automation earns its place after the campaign rules are stable. At that point, manually moving each qualified lead from discovery to evidence collection, enrichment, outreach, follow-up, and state updates becomes the bottleneck. n8n can remove that repetition, but a straight-line workflow is not enough. Real campaigns encounter duplicates, unusable evidence, provider failures, rate limits, replies, bounces, opt-outs, retries, and leads that should stop rather than continue. Automated Lead Engine models those cases explicitly. The workflow carries forward the same evidence-first qualification rules from the lower tiers, adds durable state transitions and exception paths, and treats dry runs, deduplication, suppression, retries, and cost controls as part of the design. This tier is for connecting a method that already works so your attention shifts from moving records between tools to reviewing exceptions and improving the campaign.",
+  "audience": "Independent developers and solo agencies who have already proved a campaign and are tired of spending their own attention moving every qualified lead between research, enrichment, outreach, and follow-up tools.",
+  "shortDescription": "Give the repetitive handoffs to n8n while keeping the evidence rules, lead state, retries, suppression, and failure paths that stop automation from becoming an expensive mess.",
+  "coreOutcome": "Move a proven campaign into connected unattended processing so your attention shifts from shuffling records between tools to reviewing exceptions and improving the work that matters.",
+  "problem": "The prospecting method is no longer the bottleneck. Your time is being consumed by moving each lead through a process you already know how to run.",
+  "hook": "You proved the campaign. Stop spending your own attention moving every lead through it.",
+  "reframe": "There is a point where manual control stops feeling careful and starts feeling wasteful. You already know which businesses qualify, which evidence is usable, when a contact should be enriched, what the outreach can say, and what should make the sequence stop. Yet you are still copying state between tools, checking the same conditions, and babysitting predictable handoffs.\n\nThat is where n8n earns its place. But connecting the happy path is the easy part. Real campaigns contain duplicates, unusable evidence, rate limits, provider failures, replies, bounces, opt-outs, retries, and leads that should die rather than continue. A workflow that ignores those cases does not save attention. It creates a new thing to worry about.\n\nAutomated Lead Engine models the stops and failures as deliberately as the successful path. It carries forward evidence-first qualification, adds explicit state transitions, dry runs, deduplication, suppression, retries, and cost controls, and gives exceptions somewhere to go. The goal is not automation for its own sake. It is getting your attention out of repetition that no longer deserves it.",
   "delivery": {
     "length": "Implementation guide for an n8n-based prospecting pipeline from discovery through outreach state and exception handling.",
     "worksheets": "Workflow map, state transitions, provider boundaries, retry and dedupe rules, dry-run checks, cost controls, suppression, and exception review.",
     "time": "Implement after campaign rules are proven, then test in dry-run and supervised modes before unattended processing."
   },
   "proof": {
-    "title": "A reliable workflow has a defined failure path.",
-    "body": "Duplicate detection, unusable evidence, provider errors, replies, bounces, opt-outs, and cost limits all have explicit outcomes instead of falling through the happy path.",
+    "title": "A workflow you can trust has somewhere for failure to go.",
+    "body": "Duplicate detection, unusable evidence, provider errors, replies, bounces, opt-outs, and cost limits all have explicit outcomes. A lead can continue, reject, retry, suppress, pause for review, or stop instead of sliding down one giant happy path.",
     "before": "One long automation moves every discovered business toward an email unless something crashes.",
     "after": "Each stage can continue, reject, retry, suppress, pause for review, or stop based on recorded state and evidence."
   },
@@ -27,13 +27,13 @@
   "featured": false,
   "order": 8,
   "contentLayout": "generated",
-  "situation": "Your qualification method works and the volume now justifies connected workflow automation.",
-  "commonFailure": "A linear happy-path workflow breaks when duplicates, stale evidence, replies, bounces, provider errors, retries, or cost limits are not modeled.",
+  "situation": "The qualification method works and the repeated handoffs between tools now cost more attention than they deserve.",
+  "commonFailure": "A linear happy-path workflow looks efficient until duplicates, stale evidence, replies, bounces, provider errors, retries, or cost limits start happening in production.",
   "methodology": "Connect discovery, normalization, evidence, qualification, enrichment, outreach, sequence state, suppression, retries, and exception handling in n8n.",
   "capabilities": [
-    "Build unattended n8n workflows around a proven campaign",
-    "Preserve current website evidence and explicit lead state",
-    "Control retries, duplicates, costs, replies, bounces, and suppression"
+    "Move qualified leads through a proven process without manually carrying every handoff",
+    "Preserve current evidence and explicit lead state while the workflow runs unattended",
+    "Control retries, duplicates, costs, replies, bounces, and suppression before they become operational surprises"
   ],
   "contents": [
     "Readiness criteria for automating a campaign that already works",
@@ -46,9 +46,9 @@
     "Dry runs, monitoring, cost controls, and the boundary for a custom application"
   ],
   "whoItsFor": [
-    "Operators with a proven campaign and intermediate automation skills",
-    "Developers whose main prospecting burden is repeated tool-to-tool handoffs",
-    "Builders ready to operate n8n, APIs, retries, and exception handling"
+    "Operators with a proven campaign who are now wasting time on repeated tool-to-tool handoffs",
+    "Developers comfortable enough with automation to own n8n, APIs, retries, and exceptions",
+    "Solo businesses that want unattended processing inside clearly defined campaign limits"
   ],
   "whoItsNotFor": [
     "Beginners who have not validated their qualification and outreach rules",
@@ -57,10 +57,10 @@
   ],
   "workflow": ["Discover", "Normalize", "Collect evidence", "Qualify", "Enrich", "Outreach", "Update state"],
   "faqs": [
-    {"question": "Why not start here?", "answer": "Because automation repeats the decisions you give it. If qualification and evidence rules are weak, this tier only scales the weakness."},
-    {"question": "Is Google Sheets still the primary state store?", "answer": "Yes. At this tier, Sheets remains the visible primary state while n8n owns workflow execution and connected handoffs."},
-    {"question": "Does it support unattended processing?", "answer": "Yes, after testing and only inside defined campaign limits, suppression rules, stop conditions, and monitoring."},
-    {"question": "When should I move to Tier 4?", "answer": "Move up when multiple campaigns, concurrency, auditability, durable recovery, and testing have outgrown a workflow-centered architecture."}
+    {"question": "Why not start here?", "answer": "Because automation repeats the decisions you give it. If qualification and evidence rules are weak, this tier saves time by doing the wrong thing faster."},
+    {"question": "Is Google Sheets still the primary state store?", "answer": "Yes. At this tier, Sheets remains visible primary state while n8n owns workflow execution and connected handoffs."},
+    {"question": "Does it support unattended processing?", "answer": "Yes, after testing and only inside defined campaign limits, suppression rules, stop conditions, and monitoring. Unattended should mean boring, not mysterious."},
+    {"question": "When should I move to Tier 4?", "answer": "Move when multiple campaigns, concurrency, auditability, durable recovery, and testing have made workflow-centered state more expensive to operate than application architecture."}
   ],
   "relatedProducts": ["chatgpt-client-acquisition-system", "production-lead-engine"],
   "tier": 3,
@@ -72,6 +72,6 @@
   "technicalBoundary": "n8n is the primary orchestrator. Workflow logic owns retries and deduplication. This is not a database-backed custom application.",
   "seo": {
     "title": "Automated Lead Engine | Developer Business Lab",
-    "description": "Build an evidence-first n8n prospecting pipeline with qualification, enrichment, outreach state, retries, suppression, and exception handling."
+    "description": "Stop manually moving every lead between tools. Build an evidence-first n8n prospecting pipeline with state, retries, suppression, and exception handling."
   }
 }

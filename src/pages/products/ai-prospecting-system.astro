@@ -60,13 +60,7 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
     <div class="mx-auto max-w-7xl">
       <h2 class="text-3xl font-semibold">Choose the burden you are ready to remove</h2>
       <div class="mt-8 grid gap-5 md:grid-cols-2">
-        {tiers.map((tier) => (
-          <ProductCard
-            product={tier}
-            eventName="family_navigation"
-            ctaLabel={`See Tier ${tier.data.tier}`}
-          />
-        ))}
+        {tiers.map((tier) => <ProductCard product={tier} eventName="family_navigation" />)}
       </div>
     </div>
   </section>

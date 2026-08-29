@@ -71,6 +71,28 @@ const splitParagraphs = (text: string) => {
   return paragraphs;
 };
 
+const problemHeadings: Record<string, string> = {
+  "developer-marketing-quickstart": "Why client acquisition keeps restarting",
+  "productize-your-dev-skills": "Why every project feels custom",
+  "web-developer-pricing-system": "Why every quote feels uncertain",
+  "client-acquisition-without-upwork": "Why the pipeline keeps going quiet",
+  "marketing-for-builders": "Why good work gets undersold",
+  "ai-prospecting-starter": "Why prospecting keeps stopping",
+  "chatgpt-client-acquisition-system": "When manual prospecting stops scaling",
+  "automated-lead-engine": "When handoffs become the bottleneck",
+  "production-lead-engine": "When the workflow becomes software",
+  "developer-sales-playbook": "Why good sales calls still stall",
+  "developer-proposal-closing-kit": "Why proposals create friction",
+  "agency-partnership-playbook": "Why agency work can become a trap",
+  "freelancer-retainer-system": "Why revenue resets after delivery",
+  "freelance-developer-launch-kit": "Why isolated tactics do not compound",
+  "saas-validation-before-you-build": "Why building first is risky",
+  "micro-saas-launch-system": "Why a working MVP is not a launch",
+  "the-first-10-saas-customers": "Why launch day does not create customers",
+  "ai-powered-one-person-dev-business": "Why more AI does not mean more leverage",
+};
+
+const problemHeading = problemHeadings[d.slug] ?? d.problem;
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 ---
@@ -110,7 +132,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">The problem</h2>
+      <h2 class="text-3xl font-semibold">{problemHeading}</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
         {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
@@ -153,8 +175,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
     <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-4xl">
         <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
-        <h2 class="mt-3 text-3xl font-semibold">Example</h2>
-        <p class="mt-4 text-xl font-semibold leading-8">{d.proof.title}</p>
+        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
         <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
           {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
@@ -172,12 +193,12 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
     <div class="mx-auto max-w-4xl">
       {d.faqs.length > 0 && (
         <>
-          <h2 class="text-3xl font-semibold">FAQ</h2>
+          <h2 class="text-3xl font-semibold">{d.status === "available" ? "Questions before you buy" : "Questions before release"}</h2>
           <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
         </>
       )}
       <div class={d.faqs.length > 0 ? "mt-12 border-t border-border pt-10" : ""}>
-        <h2 class="text-3xl font-semibold">{d.status === "available" ? "Get the system" : "Release updates"}</h2>
+        <h2 class="text-3xl font-semibold">{d.status === "available" ? `Get ${d.title}` : `Follow ${d.title}`}</h2>
         <p class="mt-4 leading-7 text-muted-foreground">{d.status === "available" ? d.coreOutcome : "This product is not for sale yet. Join the update list if you want to know when the final contents and release details are ready."}</p>
         <div class="mt-8"><ProductCTA product={product} location="final" /></div>
       </div>

@@ -1,6 +1,6 @@
 ---
-question: Why build this instead of buying prospecting software?
-answer: If you only need company and contact data with basic sequencing, buying an off-the-shelf tool may be faster. Prospect Foundry is for developers who want more control over web-development-specific qualification, current-site evidence, workflow state, provider choice, and automation. Commercial services can still be components inside the process.
+question: Do I need Apollo or another paid prospecting platform?
+answer: No. Commercial tools can be useful for discovery, company data, contact data, enrichment, or sequencing, but the prospecting method is not built around one vendor. In the AI Prospecting family, the provider is a component of the process rather than the thing that gets to define your qualification rules, evidence standards, and campaign state.
 category: Tools
 order: 11
 ---

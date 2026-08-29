@@ -9,6 +9,24 @@ const products = await getCollection("products");
 const product = products.find((item) => item.data.slug === "developer-marketing-quickstart");
 if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
 const d = product.data;
+
+const splitParagraphs = (text: string) => {
+  const sentences = text
+    .match(/[^.!?]+(?:[.!?]+["'’”)]*|$)/g)
+    ?.map((sentence) => sentence.trim())
+    .filter(Boolean);
+
+  if (!sentences || sentences.length < 3) return [text];
+
+  const paragraphs: string[] = [];
+  for (let index = 0; index < sentences.length; index += 2) {
+    paragraphs.push(sentences.slice(index, index + 2).join(" "));
+  }
+  return paragraphs;
+};
+
+const reframeParagraphs = splitParagraphs(d.reframe ?? d.situation);
+const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={Boolean(d.checkoutUrl)}>
@@ -29,15 +47,17 @@ const d = product.data;
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The real problem</p>
-      <h2 class="mt-3 text-3xl font-semibold">Finding clients is still a fresh problem every time the pipeline gets quiet.</h2>
-      <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.reframe}</p>
+      <h2 class="mt-3 text-3xl font-semibold">The problem</h2>
+      <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
+        {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What is inside</p>
-      <h2 class="mt-3 text-3xl font-semibold">A small system you can put in motion this week.</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Contents</p>
+      <h2 class="mt-3 text-3xl font-semibold">What you will build</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
         <ul class="grid gap-3 sm:grid-cols-2">
           {d.contents.map((item) => <li class="rounded-xl border border-border bg-card p-5"><span class="mr-3 text-success">✓</span>{item}</li>)}
@@ -64,8 +84,11 @@ const d = product.data;
     <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-4xl">
         <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
-        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.proof.body}</p>
+        <h2 class="mt-3 text-3xl font-semibold">Example</h2>
+        <p class="mt-4 text-xl font-semibold leading-8">{d.proof.title}</p>
+        <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
+          {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
         <div class="mt-8 grid gap-4 md:grid-cols-2">
           <div class="rounded-xl border border-border bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Before</p><p class="mt-2">{d.proof.before}</p></div>
           <div class="rounded-xl border border-primary/30 bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">After</p><p class="mt-2">{d.proof.after}</p></div>
@@ -76,10 +99,10 @@ const d = product.data;
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">Questions before you download it</h2>
+      <h2 class="text-3xl font-semibold">FAQ</h2>
       <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
       <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Build the first version of your acquisition system.</h2>
+        <h2 class="text-3xl font-semibold">Start here</h2>
         <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with a buyer, offer, channel, first test, and a result you can learn from.</p>
         <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
       </div>

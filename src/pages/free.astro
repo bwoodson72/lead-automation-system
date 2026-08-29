@@ -1,71 +1,87 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
+import FAQList from "@/components/ui/FAQList.astro";
 
 const products = await getCollection("products");
 const product = products.find((item) => item.data.slug === "developer-marketing-quickstart");
-
-if (!product) {
-  throw new Error("Developer Marketing Quickstart product entry was not found.");
-}
-
+if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
 const d = product.data;
-const enableCheckoutOverlay = d.status === "available" && Boolean(d.checkoutUrl);
-const renderedProduct = d.contentLayout === "mdx" ? await render(product) : undefined;
-const ProductContent = renderedProduct?.Content;
 ---
-<BaseLayout
-  title={d.seo.title}
-  description={d.seo.description}
-  enableCheckoutOverlay={enableCheckoutOverlay}
->
-  <section class="px-4 py-20 sm:px-6 lg:px-8">
+
+<BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={Boolean(d.checkoutUrl)}>
+  <section class="border-b border-border px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
       <div>
         <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Free starting point</p>
         <h1 class="mt-4 text-5xl font-semibold tracking-tight">{d.title}</h1>
-        <p class="mt-6 text-2xl font-semibold text-primary-accent">{d.shortDescription}</p>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.coreOutcome}</p>
-        <div class="mt-8">
-          <ProductCTA product={product} location="free-page-hero" />
-        </div>
-        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Lemon Squeezy handles checkout and delivery.</p>
+        <p class="mt-6 text-2xl font-semibold leading-9 text-primary-accent">{d.hook}</p>
+        <p class="mt-6 border-l-2 border-primary pl-4"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+        <div class="mt-8"><ProductCTA product={product} location="free-page-hero" /></div>
+        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Lemon Squeezy handles delivery.</p>
       </div>
-      <ProductCover
-        title={d.title}
-        family="Free Resource"
-        image={d.coverImage}
-        imageSrc={d.coverImageSrc}
-      />
+      <ProductCover title={d.title} family="Free Resource" image={d.coverImage} imageSrc={d.coverImageSrc} />
     </div>
   </section>
 
-  {ProductContent ? (
-    <ProductContent />
-  ) : (
-    <section class="border-t border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <h2 class="text-3xl font-semibold">The seven-step operating loop</h2>
-        <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {d.workflow.map((item, index) => (
-            <li class="rounded-lg border border-border bg-card p-5">
-              <span class="font-mono text-xs text-primary-accent">STEP {index + 1}</span>
-              <p class="mt-2">{item}</p>
-            </li>
-          ))}
-        </ol>
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The real problem</p>
+      <h2 class="mt-3 text-3xl font-semibold">Finding clients is still a fresh problem every time the pipeline gets quiet.</h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.reframe}</p>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What is inside</p>
+      <h2 class="mt-3 text-3xl font-semibold">A small system you can put in motion this week.</h2>
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {d.contents.map((item) => <li class="rounded-xl border border-border bg-card p-5"><span class="mr-3 text-success">✓</span>{item}</li>)}
+        </ul>
+        {d.delivery && (
+          <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
+            <div><dt class="text-sm font-semibold">Format and length</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div>
+            <div><dt class="text-sm font-semibold">Worksheets and tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div>
+            <div><dt class="text-sm font-semibold">Implementation time</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div>
+          </dl>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+      <div><h2 class="text-3xl font-semibold">For:</h2><ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul></div>
+      <div><h2 class="text-3xl font-semibold">Not for:</h2><ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul></div>
+    </div>
+  </section>
+
+  {d.proof && (
+    <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
+        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.proof.body}</p>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-border bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Before</p><p class="mt-2">{d.proof.before}</p></div>
+          <div class="rounded-xl border border-primary/30 bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">After</p><p class="mt-2">{d.proof.after}</p></div>
+        </div>
       </div>
     </section>
   )}
 
-  <section class="border-t border-border px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-4xl text-center">
-      <h2 class="text-3xl font-semibold">Build your first customer-acquisition loop.</h2>
-      <p class="mt-4 text-muted-foreground">Start with the free Quickstart and put the seven-step system into motion.</p>
-      <div class="mt-8">
-        <ProductCTA product={product} location="free-page-final" />
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-semibold">Questions before you download it</h2>
+      <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
+      <div class="mt-12 border-t border-border pt-10">
+        <h2 class="text-3xl font-semibold">Build the first version of your acquisition system.</h2>
+        <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with a buyer, offer, channel, first test, and a result you can learn from.</p>
+        <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
       </div>
     </div>
   </section>

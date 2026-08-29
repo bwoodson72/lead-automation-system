@@ -1,1 +1,70 @@
-{"title":"The First 10 SaaS Customers","slug":"the-first-10-saas-customers","status":"coming-soon","family":"SaaS","path":"saas","audience":"Early SaaS founders who have launched and need a focused customer-learning process.","shortDescription":"Acquire and learn from the first ten paying customers.","coreOutcome":"Create early customer conversations, purchases, and learning loops.","problem":"A launched product does not create its own reliable path to early customers.","format":"Implementation guide","order":17,"situation":"The product exists, but acquisition is still a collection of experiments without disciplined learning.","commonFailure":"Chasing scale too early hides the direct feedback needed to understand why early buyers act or decline.","methodology":"Choose a narrow market, run direct acquisition, support activation, and learn from every decision.","capabilities":["Select an early-customer channel","Run direct founder-led acquisition","Turn early customer behavior into product and message decisions"],"whoItsFor":["Launched SaaS products seeking their earliest paying customers"],"whoItsNotFor":["Anyone interpreting the number ten as a purchase guarantee"],"workflow":["Target","Reach","Converse","Convert","Activate","Learn"],"relatedProducts":["micro-saas-launch-system","marketing-for-builders"],"seo":{"title":"The First 10 SaaS Customers | Prospect Foundry","description":"A focused system for acquiring and learning from a SaaS product's first paying customers."}}
+{
+  "title": "The First 10 SaaS Customers",
+  "slug": "the-first-10-saas-customers",
+  "status": "coming-soon",
+  "family": "SaaS",
+  "path": "saas",
+  "audience": "Independent SaaS builders with a launched product who need a focused way to reach, convert, activate, and learn from the earliest paying customers.",
+  "shortDescription": "Run founder-led acquisition for the first paying customers and turn every yes, no, and failed activation into a better product and message decision.",
+  "coreOutcome": "Create a repeatable early-customer learning loop around targeting, direct outreach, conversion, activation, and customer behavior.",
+  "problem": "The product is live, but acquisition is still a collection of experiments and you do not yet know why the right customer buys, declines, or fails to activate.",
+  "hook": "Launching the product did not answer the next question: who will pay for it first?",
+  "reframe": "Early SaaS acquisition is not the time to hide behind scale. Ads, broad content, automated funnels, and large traffic numbers can create activity while leaving the founder with very little understanding of why a customer acts. The first customers are valuable because their decisions are close enough to inspect. You can learn what problem made them pay attention, which words they use, what nearly stopped the purchase, where onboarding breaks, which behavior predicts value, and what they expected that the product did not deliver. The First 10 SaaS Customers turns that stage into a deliberate founder-led process. You choose a narrow early customer, use a channel that lets you reach them directly, start conversations, make a clear offer, help them reach the intended value, and record what happened. The number ten is a useful operating target, not a promise. The real outcome is a customer-learning system strong enough to improve the message, product, activation, and next acquisition decision from evidence rather than guesswork.",
+  "delivery": {
+    "length": "Implementation guide for early-customer targeting, direct acquisition, conversion, activation, interviews, and learning loops.",
+    "worksheets": "Early-customer profile, channel selection, outreach plan, conversation log, objection record, activation review, customer interview, and learning backlog.",
+    "time": "Use it immediately after launch and continue until the early acquisition and activation patterns are clear enough to guide the next stage."
+  },
+  "proof": {
+    "title": "A no becomes useful when you know why it happened.",
+    "body": "The system records the path from target through conversation, purchase, and activation so a weak result can be traced to a specific stage instead of being dismissed as “nobody wants it.”",
+    "before": "Post the launch, share it in several communities, watch traffic, and keep changing the landing page when sales are slow.",
+    "after": "Target a defined early customer, reach them directly, log the conversation and decision, support activation, then use repeated evidence to change the message, product, or channel."
+  },
+  "format": "Implementation guide",
+  "free": false,
+  "featured": false,
+  "order": 17,
+  "contentLayout": "generated",
+  "situation": "The product exists, but early acquisition and activation are still being tested without a disciplined record of what customers actually do.",
+  "commonFailure": "Chasing scale too early hides the direct feedback needed to understand why early buyers act, decline, or fail to reach value.",
+  "methodology": "Choose a narrow early customer, select a direct channel, start founder-led conversations, make a clear offer, support activation, interview and observe customers, and turn repeated evidence into product and message decisions.",
+  "capabilities": [
+    "Choose and reach a plausible early-customer segment",
+    "Run direct founder-led acquisition and learn from purchase decisions",
+    "Use activation and customer behavior to improve the product and message"
+  ],
+  "contents": [
+    "Early-customer profile and narrow launch segment",
+    "Channel selection for direct founder access",
+    "Founder-led outreach, conversations, demos, and offers",
+    "Objection and no-decision logging",
+    "Purchase handoff, onboarding, and activation support",
+    "Early-customer interviews and behavior review",
+    "Message, offer, product, and channel learning backlog",
+    "Criteria for moving from founder-led learning toward repeatable acquisition"
+  ],
+  "whoItsFor": [
+    "Launched SaaS products seeking their earliest paying customers",
+    "Technical founders who need direct customer evidence before trying to scale acquisition",
+    "Builders who want to understand conversion and activation rather than only count traffic"
+  ],
+  "whoItsNotFor": [
+    "Anyone interpreting ten customers as a purchase guarantee",
+    "Pre-launch ideas that have not yet produced a usable product",
+    "Mature SaaS companies looking for scale-stage demand generation"
+  ],
+  "workflow": ["Target", "Reach", "Converse", "Convert", "Activate", "Learn"],
+  "faqs": [
+    {"question": "Does the system guarantee ten customers?", "answer": "No. Ten is an operating target for focused learning. The system cannot guarantee that a market, offer, product, or channel will convert."},
+    {"question": "Why founder-led instead of paid ads?", "answer": "Direct contact makes early decisions easier to inspect. You can hear the objections, observe activation problems, and learn faster while the product and message are still changing."},
+    {"question": "What if people sign up but do not use the product?", "answer": "That is part of the system. Activation is tracked separately from acquisition so onboarding or product-value problems do not get mistaken for a traffic problem."},
+    {"question": "When do I move beyond the first-customer process?", "answer": "When a defined customer, message, offer, channel, and activation path are repeating well enough that the next constraint is scale rather than basic understanding."
+    }
+  ],
+  "relatedProducts": ["micro-saas-launch-system", "marketing-for-builders"],
+  "seo": {
+    "title": "The First 10 SaaS Customers | Developer Business Lab",
+    "description": "Build a founder-led system for reaching, converting, activating, and learning from the earliest paying SaaS customers."
+  }
+}

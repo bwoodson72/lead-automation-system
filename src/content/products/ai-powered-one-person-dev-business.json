@@ -1,1 +1,70 @@
-{"title":"AI-Powered One-Person Dev Business","slug":"ai-powered-one-person-dev-business","status":"coming-soon","family":"AI Operations","path":"both","audience":"Solo developers who want to increase operating capacity without pretending the business can run itself.","shortDescription":"Use AI to increase the operating capacity of a solo development business.","coreOutcome":"Design responsible AI-assisted operating workflows across the business.","problem":"Isolated prompts save moments; they do not create a dependable operating system.","format":"Integrated implementation system","order":18,"situation":"AI is used ad hoc across research, delivery, sales, and administration without shared context or controls.","commonFailure":"Automating tasks without ownership, review criteria, and state creates hidden errors and fragmented work.","methodology":"Map recurring work, define inputs and outputs, add AI where useful, retain judgment checkpoints, and measure capacity and quality.","capabilities":["Identify high-leverage AI-assisted workflows","Design context and review boundaries","Connect workflows into a coherent solo operating model"],"whoItsFor":["Independent developers with repeatable work worth systematizing"],"whoItsNotFor":["Anyone seeking autonomous business operation or a generic prompt pack"],"workflow":["Map work","Prioritize","Design","Assist","Review","Measure","Improve"],"relatedProducts":["marketing-for-builders","production-lead-engine"],"seo":{"title":"AI-Powered One-Person Dev Business | Prospect Foundry","description":"Build responsible AI-assisted operating systems for a solo development business."}}
+{
+  "title": "AI-Powered One-Person Dev Business",
+  "slug": "ai-powered-one-person-dev-business",
+  "status": "coming-soon",
+  "family": "AI Operations",
+  "path": "both",
+  "audience": "Independent developers with repeatable business work who want AI to increase operating capacity without pretending judgment, ownership, and review can disappear.",
+  "shortDescription": "Use AI inside defined business workflows so research, administration, marketing, sales support, and delivery assistance consume less of your attention.",
+  "coreOutcome": "Design an AI-assisted operating model that increases what one developer can handle while keeping ownership and review explicit.",
+  "problem": "You use AI for useful tasks all day, but isolated prompts save minutes without creating a dependable operating system.",
+  "hook": "Using AI everywhere is not the same as building a business that runs better because of it.",
+  "reframe": "A solo developer can get real leverage from AI, but the leverage disappears when every task starts with a fresh prompt and ends with information that is not connected to the next step. Research lives in one chat. Sales notes live somewhere else. Content ideas are generated without the context that shaped the offer. Administrative work still depends on memory. The result is faster fragments, not more operating capacity. AI-Powered One-Person Dev Business starts with the work, not the model. You map recurring business processes, identify the steps that consume attention, define the input and output each step needs, decide where AI is useful, and preserve a human checkpoint where judgment or risk requires one. Shared context and durable state keep one workflow from contradicting another. Review criteria make “good enough” explicit. Measurement tells you whether the change actually saves time without lowering quality. The goal is not autonomous business operation. It is to remove repeated cognitive and administrative work so your attention stays on decisions, relationships, and technical problems that still need you.",
+  "delivery": {
+    "length": "Integrated implementation system for mapping recurring work and designing AI-assisted workflows across a solo development business.",
+    "worksheets": "Work inventory, leverage score, workflow map, context requirements, review criteria, ownership boundaries, quality checks, and capacity measurement.",
+    "time": "Implement one high-leverage workflow at a time, measure it, then expand only when the operating benefit is clear."
+  },
+  "proof": {
+    "title": "A prompt becomes useful infrastructure only when it has a place in a workflow.",
+    "body": "The system defines what triggers the work, what context is required, what AI produces, who reviews it, where the result is stored, and what happens next.",
+    "before": "Open ChatGPT whenever a task feels tedious and improvise a prompt from memory.",
+    "after": "Run a defined workflow with stable inputs, reusable context, an explicit output, a review standard, durable state, and a measured time or quality benefit."
+  },
+  "format": "Integrated implementation system",
+  "free": false,
+  "featured": false,
+  "order": 18,
+  "contentLayout": "generated",
+  "situation": "AI is already used across research, marketing, sales, delivery, and administration, but the work is still fragmented and highly dependent on personal memory.",
+  "commonFailure": "Automating tasks without ownership, context, state, and review criteria creates hidden errors and moves fragmentation faster.",
+  "methodology": "Map recurring work, score leverage, define inputs and outputs, add AI where it reduces real effort, retain judgment checkpoints, connect durable context and state, and measure capacity and quality before expanding.",
+  "capabilities": [
+    "Identify recurring business work where AI can create meaningful leverage",
+    "Design context, state, ownership, and review boundaries around AI-assisted workflows",
+    "Measure whether automation increases capacity without quietly lowering quality"
+  ],
+  "contents": [
+    "Solo-business work inventory and leverage scoring",
+    "Workflow triggers, inputs, outputs, owners, and review points",
+    "Reusable context and durable state across related workflows",
+    "AI assistance for research, marketing, sales support, administration, and delivery preparation",
+    "Quality criteria, exception handling, and human judgment boundaries",
+    "Connecting workflows without creating brittle chains of automation",
+    "Capacity, time-saved, error-rate, and quality measurement",
+    "Incremental rollout and operating review for a one-person business"
+  ],
+  "whoItsFor": [
+    "Independent developers with repeatable business work worth systematizing",
+    "Solo operators already using AI but frustrated by fragmented prompts and duplicated context",
+    "Developers who want more capacity without immediately hiring a team"
+  ],
+  "whoItsNotFor": [
+    "Anyone seeking autonomous business operation with no human ownership",
+    "Anyone looking for a generic prompt pack disconnected from real workflows",
+    "Businesses whose core processes are still too undefined to automate responsibly"
+  ],
+  "workflow": ["Map work", "Prioritize", "Design", "Assist", "Review", "Measure", "Improve"],
+  "faqs": [
+    {"question": "Is this a prompt library?", "answer": "No. Prompts may be part of a workflow, but the product is about process design, context, state, ownership, review, and measurement."},
+    {"question": "Will it make the business autonomous?", "answer": "No. The objective is greater operating capacity with explicit human ownership, not removing judgment from the business."},
+    {"question": "What should I automate first?", "answer": "Start with recurring work that consumes meaningful time, has clear inputs and outputs, and can be reviewed against an explicit standard."},
+    {"question": "How do I know whether an AI workflow is actually helping?", "answer": "Measure the before and after on time, throughput, error rate, review burden, and output quality instead of assuming automation is an improvement."
+    }
+  ],
+  "relatedProducts": ["marketing-for-builders", "production-lead-engine"],
+  "seo": {
+    "title": "AI-Powered One-Person Dev Business | Developer Business Lab",
+    "description": "Design AI-assisted workflows that increase the operating capacity of a solo developer business while keeping ownership and review explicit."
+  }
+}

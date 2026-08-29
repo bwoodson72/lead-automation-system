@@ -35,7 +35,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
         <div class="mt-8"><ProductCTA product={product} location="free-page-hero" /></div>
         <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Seven days. One real acquisition test.</p>
       </div>
-      <ProductCover title={d.title} family="Free Resource" image={d.coverImage} imageSrc={d.coverImageSrc} />
+      <ProductCover product={product} />
     </div>
   </section>
 

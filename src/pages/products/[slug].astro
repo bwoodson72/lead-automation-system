@@ -1,5 +1,4 @@
 ---
-import type { ImageMetadata } from "astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Badge } from "@/components/starwind/badge";
@@ -26,21 +25,6 @@ const breadcrumbs = canonical ? {
   ],
 } : undefined;
 
-const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/products/*.{png,jpg,jpeg,webp,avif}",
-  { eager: true },
-);
-const explicitCoverImageFile = d.coverImageSrc?.split("/").at(-1);
-const explicitCoverImage = explicitCoverImageFile
-  ? productCoverImages[`/src/assets/products/${explicitCoverImageFile}`]?.default
-  : undefined;
-const slugCoverImage =
-  productCoverImages[`/src/assets/products/${d.slug}.webp`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.png`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.jpg`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.jpeg`]?.default ??
-  productCoverImages[`/src/assets/products/${d.slug}.avif`]?.default;
-const coverImage = d.coverImage ?? explicitCoverImage ?? slugCoverImage;
 const hook = d.hook ?? d.problem;
 const reframe = d.reframe ?? d.situation;
 const delivery = d.delivery ?? {
@@ -170,7 +154,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
           <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.status === "available" && d.price ? ` · $${d.price} one-time` : d.free ? " · Free" : ""}</p>
         </div>
-        <ProductCover title={d.title} family={d.family} tier={d.tier} image={coverImage} />
+        <ProductCover product={product} />
       </div>
     </div>
   </section>

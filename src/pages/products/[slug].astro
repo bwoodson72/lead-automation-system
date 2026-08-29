@@ -1,9 +1,8 @@
 ---
 import type { ImageMetadata } from "astro";
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Badge } from "@/components/starwind/badge";
-import { Button } from "@/components/starwind/button";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
@@ -17,15 +16,13 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 const d = product.data;
-const allProducts = await getCollection("products");
-const related = allProducts.filter((p) => d.relatedProducts.includes(p.data.slug));
 const canonical = Astro.site ? new URL(`/products/${d.slug}/`, Astro.site).toString() : undefined;
 const breadcrumbs = canonical ? {
-  "@context":"https://schema.org",
-  "@type":"BreadcrumbList",
-  itemListElement:[
-    {"@type":"ListItem",position:1,name:"Products",item:new URL("/products/",Astro.site).toString()},
-    {"@type":"ListItem",position:2,name:d.title,item:canonical},
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", Astro.site).toString() },
+    { "@type": "ListItem", position: 2, name: d.title, item: canonical },
   ],
 } : undefined;
 
@@ -44,9 +41,13 @@ const slugCoverImage =
   productCoverImages[`/src/assets/products/${d.slug}.jpeg`]?.default ??
   productCoverImages[`/src/assets/products/${d.slug}.avif`]?.default;
 const coverImage = d.coverImage ?? explicitCoverImage ?? slugCoverImage;
-
-const renderedProduct = d.contentLayout === "mdx" ? await render(product) : undefined;
-const ProductContent = renderedProduct?.Content;
+const hook = d.hook ?? d.problem;
+const reframe = d.reframe ?? d.situation;
+const delivery = d.delivery ?? {
+  length: d.contents.length > 0 ? `${d.contents.length} focused implementation topics` : d.format,
+  worksheets: "Final working assets will be listed when the product is released.",
+  time: d.status === "available" ? "Use it on the next real business decision." : "Final implementation guidance will be published at release.",
+};
 ---
 
 <BaseLayout
@@ -72,83 +73,84 @@ const ProductContent = renderedProduct?.Content;
             <Badge variant="secondary">{d.status === "coming-soon" ? "Coming soon" : d.status}</Badge>
           </div>
           <h1 class="mt-5 text-5xl font-semibold tracking-tight sm:text-6xl">{d.title}</h1>
-          <p class="mt-6 text-2xl font-semibold text-primary-accent">{d.coreOutcome}</p>
-          <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
-          <p class="mt-6 border-l-2 border-primary pl-4"><strong>Designed for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+          <p class="mt-6 max-w-2xl text-2xl font-semibold leading-9 text-primary-accent">{hook}</p>
+          <p class="mt-6 border-l-2 border-primary pl-4"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.price ? ` · $${d.price}` : d.status === "coming-soon" ? " · Final price not yet published" : ""}</p>
+          <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.status === "available" && d.price ? ` · $${d.price}` : d.free ? " · Free" : ""}</p>
         </div>
         <ProductCover title={d.title} family={d.family} tier={d.tier} image={coverImage} />
       </div>
     </div>
   </section>
 
-  {d.contentLayout === "mdx" && ProductContent ? (
-    <ProductContent />
-  ) : (
-    <>
-      <section class="px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
-          <div>
-            <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The situation</p>
-            <h2 class="mt-3 text-3xl font-semibold">The bottleneck is a missing system.</h2>
-            <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.situation}</p>
-          </div>
-          <div class="rounded-xl border border-border bg-card p-7">
-            <h2 class="text-xl font-semibold">Why the obvious approach falls short</h2>
-            <p class="mt-4 leading-7 text-muted-foreground">{d.commonFailure}</p>
-            <h3 class="mt-7 font-semibold">What needs to change</h3>
-            <p class="mt-3 leading-7 text-muted-foreground">{d.methodology}</p>
-          </div>
-        </div>
-      </section>
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-semibold">{d.problem}</h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">{reframe}</p>
+    </div>
+  </section>
 
-      <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl">
-          <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What you will be able to do</p>
-          <h2 class="mt-3 text-3xl font-semibold">Build capability, not just collect information.</h2>
-          <ul class="mt-9 grid gap-4 md:grid-cols-2">
-            {d.capabilities.map((item) => <li class="rounded-xl border border-border bg-card p-5"><span aria-hidden="true" class="mr-3 text-success">✓</span>{item}</li>)}
-          </ul>
-          <h2 class="mt-14 text-3xl font-semibold">The implementation path</h2>
-          <ol class="mt-7 grid gap-3 md:grid-cols-3">
-            {d.workflow.map((step,index) => <li class="rounded-lg border border-border bg-card px-4 py-4"><span class="mr-3 font-mono text-xs text-primary-accent">{String(index+1).padStart(2,"0")}</span>{step}</li>)}
-          </ol>
-        </div>
-      </section>
+  <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What is inside</p>
+      <h2 class="mt-3 text-3xl font-semibold">Inside {d.title}</h2>
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {d.contents.map((item) => (
+            <li class="rounded-xl border border-border bg-card p-5"><span aria-hidden="true" class="mr-3 text-success">✓</span>{item}</li>
+          ))}
+        </ul>
+        <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
+          <div><dt class="text-sm font-semibold">Format and length</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
+          <div><dt class="text-sm font-semibold">Worksheets and templates</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
+          <div><dt class="text-sm font-semibold">Implementation time</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
 
-      {d.tier && (
-        <section class="px-4 py-20 sm:px-6 lg:px-8">
-          <div class="mx-auto max-w-7xl">
-            <h2 class="text-3xl font-semibold">Technical boundary</h2>
-            <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              <div class="rounded-xl border border-border bg-card p-5"><h3 class="font-semibold">Automation</h3><p class="mt-2 text-sm text-muted-foreground">{d.automationLevel}</p></div>
-              <div class="rounded-xl border border-border bg-card p-5"><h3 class="font-semibold">Technical level</h3><p class="mt-2 text-sm text-muted-foreground">{d.technicalLevel}</p></div>
-              <div class="rounded-xl border border-border bg-card p-5"><h3 class="font-semibold">State</h3><p class="mt-2 text-sm text-muted-foreground">{d.stateModel}</p></div>
-              <div class="rounded-xl border border-border bg-card p-5"><h3 class="font-semibold">Supervision</h3><p class="mt-2 text-sm text-muted-foreground">{d.supervision}</p></div>
-            </div>
-            <p class="mt-6 rounded-xl border border-warning/30 bg-warning/10 p-5 text-sm">{d.technicalBoundary}</p>
-            <p class="mt-6 text-sm text-muted-foreground"><strong class="text-foreground">Primary tools:</strong> {d.tools.join(", ")}</p>
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-semibold">For:</h2>
+        <ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul>
+      </div>
+      <div>
+        <h2 class="text-3xl font-semibold">Not for:</h2>
+        <ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  {d.proof && (
+    <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
+        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">{d.proof.body}</p>
+        {(d.proof.before || d.proof.after) && (
+          <div class="mt-8 grid gap-4 md:grid-cols-2">
+            {d.proof.before && <div class="rounded-xl border border-border bg-background p-5"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Before</p><p class="mt-2">{d.proof.before}</p></div>}
+            {d.proof.after && <div class="rounded-xl border border-primary/30 bg-background p-5"><p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">After</p><p class="mt-2">{d.proof.after}</p></div>}
           </div>
-        </section>
-      )}
-
-      <section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-          <div><h2 class="text-3xl font-semibold">This is for</h2><ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul></div>
-          <div><h2 class="text-3xl font-semibold">This is not for</h2><ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul></div>
-        </div>
-      </section>
-    </>
+        )}
+      </div>
+    </section>
   )}
 
-  <section class="px-4 py-20 sm:px-6 lg:px-8">
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">Choose the next honest step.</h2>
-      <p class="mt-4 leading-7 text-muted-foreground">{d.status === "coming-soon" ? "This product is defined but not yet commercially ready. Final contents, price, and delivery details will be published only when they are confirmed." : d.coreOutcome}</p>
-      <div class="mt-8"><ProductCTA product={product} location="final" /></div>
-      {d.faqs.length > 0 && <div class="mt-12"><FAQList faqs={d.faqs.map((faq,index) => ({data:{...faq,order:index}}))} /></div>}
-      {related.length > 0 && <div class="mt-12"><h2 class="text-2xl font-semibold">Related systems</h2><div class="mt-5 flex flex-wrap gap-3">{related.map((item) => <Button as="a" href={`/products/${item.data.slug}/`} variant="outline">{item.data.title}</Button>)}</div></div>}
+      {d.faqs.length > 0 && (
+        <>
+          <h2 class="text-3xl font-semibold">Questions before you buy</h2>
+          <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
+        </>
+      )}
+      <div class={d.faqs.length > 0 ? "mt-12 border-t border-border pt-10" : ""}>
+        <h2 class="text-3xl font-semibold">{d.status === "available" ? `Get ${d.title}` : `Follow ${d.title}`}</h2>
+        <p class="mt-4 leading-7 text-muted-foreground">{d.status === "available" ? d.coreOutcome : "This product is not for sale yet. Join the update list if you want to know when the final contents and release details are ready."}</p>
+        <div class="mt-8"><ProductCTA product={product} location="final" /></div>
+      </div>
     </div>
   </section>
 </BaseLayout>

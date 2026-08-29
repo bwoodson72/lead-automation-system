@@ -2,6 +2,69 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
-const tiers = (await getCollection("products",({data})=>data.family==="AI Prospecting")).sort((a,b)=>(a.data.tier||0)-(b.data.tier||0));
+
+const tiers = (await getCollection("products", ({ data }) => data.family === "AI Prospecting"))
+  .sort((a, b) => (a.data.tier || 0) - (b.data.tier || 0));
 ---
-<BaseLayout title="AI Prospecting System | Compare Four Automation Tiers" description="Choose the lowest evidence-first AI prospecting tier that matches your process, technical ability, and automation needs."><section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">AI Prospecting System</p><h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">Build an evidence-first prospecting system at the level of automation you actually need.</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The right tier is the lowest one that matches your current process, technical ability, and desired automation level. More infrastructure is not automatically a better answer.</p></div></section><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-3xl font-semibold">Tools are not the operating system.</h2><p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Useful prospecting connects discovery to verified current evidence, qualification, contact discovery, relevant outreach, follow-up, durable state, and measurement.</p><ol class="mt-9 grid gap-3 sm:grid-cols-3">{["Discovery","Verification","Website evidence","Qualification","Contact discovery","Outreach","Follow-up","State","Measurement"].map((step,index)=><li class="rounded-lg border border-border bg-card p-4"><span class="mr-3 font-mono text-xs text-primary-accent">0{index+1}</span>{step}</li>)}</ol></div></section><section class="border-y border-border bg-card/30 px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-3xl font-semibold">Compare the four implementation levels.</h2><div class="mt-9 overflow-x-auto rounded-xl border border-border"><table class="w-full min-w-4xl border-collapse text-left text-sm"><caption class="sr-only">Comparison of AI Prospecting tiers</caption><thead class="bg-card"><tr><th class="p-4">Tier</th><th class="p-4">Automation</th><th class="p-4">Technical level</th><th class="p-4">State and supervision</th><th class="p-4">Choose this tier if…</th></tr></thead><tbody>{tiers.map((tier)=><tr class="border-t border-border align-top"><th class="p-4"><a href={`/products/${tier.data.slug}/`} class="text-primary-accent">Tier {tier.data.tier}: {tier.data.title}</a></th><td class="p-4 text-muted-foreground">{tier.data.automationLevel}</td><td class="p-4 text-muted-foreground">{tier.data.technicalLevel}<p class="mt-2">{tier.data.tools.join(", ")}</p></td><td class="p-4 text-muted-foreground">{tier.data.stateModel}<p class="mt-2">{tier.data.supervision}</p></td><td class="p-4 text-muted-foreground">{tier.data.whoItsFor[0]}</td></tr>)}</tbody></table></div></div></section><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-3xl font-semibold">Choose the smallest sufficient system.</h2><div class="mt-8 grid gap-4 md:grid-cols-2">{tiers.map((tier)=><div class="rounded-xl border border-border bg-card p-6"><p class="font-mono text-xs text-primary-accent">TIER {tier.data.tier}</p><h3 class="mt-2 text-xl font-semibold">{tier.data.title}</h3><p class="mt-3 text-sm leading-6 text-muted-foreground">{tier.data.coreOutcome}</p><Button as="a" href={`/products/${tier.data.slug}/`} variant="outline" class="mt-5" data-event="family_navigation">Explore Tier {tier.data.tier}</Button></div>)}</div></div></section></BaseLayout>
+
+<BaseLayout
+  title="AI Prospecting System | Compare Four Automation Tiers"
+  description="Choose the AI prospecting tier that matches the process you have already proven, the automation you actually need, and the technical system you are prepared to operate."
+>
+  <section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">AI Prospecting System</p>
+      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">Automate only the prospecting decisions you have already learned to trust.</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The four tiers are not a ladder you are supposed to climb. They are different operating models. Start with the lowest level that solves the repetition you actually have.</p>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Choose by constraint</p>
+      <h2 class="mt-3 text-3xl font-semibold">More automation is useful only after the underlying campaign stops changing every week.</h2>
+      <p class="mt-5 text-lg leading-8 text-muted-foreground">If you are still learning which businesses qualify, which website evidence is trustworthy, which message earns a response, or which stop rules protect the campaign, keep a human in the loop. Once those decisions repeat consistently, scheduling can remove memory work. When tool-to-tool handoffs become the bottleneck, n8n can connect them. When multiple campaigns, concurrency, auditability, recovery, and testing become the bottleneck, the system has earned application architecture. Each tier preserves the same basic discipline: verify the business, use current evidence, qualify conservatively, keep durable state, respect replies and suppression, and measure what happens.</p>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-3xl font-semibold">Compare the four operating models</h2>
+      <div class="mt-9 overflow-x-auto rounded-xl border border-border">
+        <table class="w-full min-w-4xl border-collapse text-left text-sm">
+          <caption class="sr-only">Comparison of AI Prospecting tiers</caption>
+          <thead class="bg-card">
+            <tr><th class="p-4">Tier</th><th class="p-4">Automation</th><th class="p-4">Technical level</th><th class="p-4">State and supervision</th><th class="p-4">Use it when</th></tr>
+          </thead>
+          <tbody>
+            {tiers.map((tier) => (
+              <tr class="border-t border-border align-top">
+                <th class="p-4"><a href={`/products/${tier.data.slug}/`} class="text-primary-accent">Tier {tier.data.tier}: {tier.data.title}</a></th>
+                <td class="p-4 text-muted-foreground">{tier.data.automationLevel}</td>
+                <td class="p-4 text-muted-foreground">{tier.data.technicalLevel}<p class="mt-2">{tier.data.tools.join(", ")}</p></td>
+                <td class="p-4 text-muted-foreground">{tier.data.stateModel}<p class="mt-2">{tier.data.supervision}</p></td>
+                <td class="p-4 text-muted-foreground">{tier.data.whoItsFor[0]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-3xl font-semibold">Pick the smallest sufficient system</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {tiers.map((tier) => (
+          <div class="rounded-xl border border-border bg-card p-6">
+            <p class="font-mono text-xs text-primary-accent">TIER {tier.data.tier}</p>
+            <h3 class="mt-2 text-xl font-semibold">{tier.data.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted-foreground">{tier.data.shortDescription}</p>
+            <Button as="a" href={`/products/${tier.data.slug}/`} variant="outline" class="mt-5" data-event="family_navigation">See Tier {tier.data.tier}</Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -2,9 +2,61 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCard from "@/components/products/ProductCard.astro";
-const products = (await getCollection("products")).sort((a,b)=>a.data.order-b.data.order);
-const problems = [["Decide what to sell","productize-your-dev-skills"],["Set prices","web-developer-pricing-system"],["Find clients","client-acquisition-without-upwork"],["Automate prospecting","ai-prospecting-starter"],["Improve sales","developer-sales-playbook"],["Create recurring revenue","freelancer-retainer-system"],["Validate SaaS","saas-validation-before-you-build"],["Launch SaaS","micro-saas-launch-system"],["Find early SaaS customers","the-first-10-saas-customers"],["Operate more efficiently with AI","ai-powered-one-person-dev-business"]];
-const families = [...new Set(products.map((p)=>p.data.family))];
-const idFor = (family:string) => family.toLowerCase().replaceAll(" ","-").replaceAll("&","");
+
+const products = (await getCollection("products")).sort((a, b) => a.data.order - b.data.order);
+const problems = [
+  ["I don't know how to explain one clear service I sell", "productize-your-dev-skills"],
+  ["I'm still guessing what projects should cost", "web-developer-pricing-system"],
+  ["I keep restarting client acquisition when work slows down", "client-acquisition-without-upwork"],
+  ["My marketing does not show buyers why my work is worth hiring", "marketing-for-builders"],
+  ["My prospecting process is becoming too repetitive to run manually", "ai-prospecting-starter"],
+  ["Sales conversations are not turning into clear decisions", "developer-sales-playbook"],
+  ["The proposal stage is where scope and closing get messy", "developer-proposal-closing-kit"],
+  ["I want repeat agency work with better boundaries", "agency-partnership-playbook"],
+  ["I want recurring revenue that is tied to real recurring value", "freelancer-retainer-system"],
+  ["I need evidence before I build a SaaS idea", "saas-validation-before-you-build"],
+  ["I have validated demand and need to launch the smallest useful product", "micro-saas-launch-system"],
+  ["The SaaS is live and I need the first paying customers", "the-first-10-saas-customers"],
+  ["I use AI constantly, but it has not become an operating system", "ai-powered-one-person-dev-business"],
+];
+const families = [...new Set(products.map((p) => p.data.family))];
+const idFor = (family: string) => family.toLowerCase().replaceAll(" ", "-").replaceAll("&", "");
 ---
-<BaseLayout title="Products | Prospect Foundry" description="Browse practical business systems for developers by current bottleneck or product family."><section class="px-4 py-20 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The catalog</p><h1 class="mt-4 max-w-4xl text-5xl font-semibold tracking-tight">Find the system that removes your current bottleneck.</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">You do not need to follow a rigid curriculum. Start with the problem constraining the business now.</p><h2 class="mt-14 text-3xl font-semibold">Browse by current problem</h2><div class="mt-7 grid gap-3 md:grid-cols-2">{problems.map(([problem,slug]) => <a href={`/products/${slug}/`} class="rounded-lg border border-border bg-card px-5 py-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" data-event="problem_path">{problem}<span class="float-right text-primary-accent">→</span></a>)}</div></div></section>{families.map((family) => <section id={idFor(family)} class="border-t border-border px-4 py-16 sm:px-6 lg:px-8"><div class="mx-auto max-w-7xl"><h2 class="text-3xl font-semibold">{family}</h2><div class="mt-8 grid gap-5 md:grid-cols-2">{products.filter((p)=>p.data.family===family).map((product)=><ProductCard product={product} />)}</div></div></section>)}</BaseLayout>
+
+<BaseLayout
+  title="Products | Developer Business Lab"
+  description="Browse practical business systems for independent developers by the problem you are trying to solve now."
+>
+  <section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The catalog</p>
+      <h1 class="mt-4 max-w-4xl text-5xl font-semibold tracking-tight">Buy the system for the problem you actually have.</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">There is no required sequence. If your offer is clear but your pricing is not, start with pricing. If the pipeline is empty, start with acquisition. If several problems are true at once, use Start Here to identify the dependency that comes first.</p>
+      <p class="mt-7"><a href="/start/" class="font-semibold text-primary-accent">Use the Start Here diagnostic →</a></p>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-3xl font-semibold">Browse by the problem in your own words</h2>
+      <div class="mt-7 grid gap-3 md:grid-cols-2">
+        {problems.map(([problem, slug]) => (
+          <a href={`/products/${slug}/`} class="rounded-lg border border-border bg-card px-5 py-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" data-event="problem_path">
+            {problem}<span class="float-right text-primary-accent">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {families.map((family) => (
+    <section id={idFor(family)} class="border-t border-border px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <h2 class="text-3xl font-semibold">{family}</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-2">
+          {products.filter((p) => p.data.family === family).map((product) => <ProductCard product={product} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+</BaseLayout>

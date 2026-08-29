@@ -1,1 +1,70 @@
-{"title":"Developer Sales Playbook","slug":"developer-sales-playbook","status":"coming-soon","family":"Sales & Closing","path":"services","audience":"Developers who generate conversations but need a more reliable sales process.","shortDescription":"Turn qualified conversations into signed projects.","coreOutcome":"Run buyer-focused sales conversations from qualification through decision.","problem":"Technical fluency does not automatically create a clear buying decision.","format":"Implementation guide","order":10,"situation":"Good-fit conversations stall, drift into unpaid consulting, or end without a clear next step.","commonFailure":"Explaining the solution too early can hide the business problem, decision process, and fit risks.","methodology":"Qualify the problem, understand consequences and constraints, establish fit, and guide an explicit next step.","capabilities":["Qualify opportunities consistently","Connect technical work to business priorities","Advance or close out each opportunity clearly"],"whoItsFor":["Developers selling consultative project work"],"whoItsNotFor":["Anyone seeking pressure tactics or guaranteed closes"],"workflow":["Prepare","Diagnose","Qualify","Recommend","Decide","Follow up"],"relatedProducts":["developer-proposal-closing-kit","freelancer-retainer-system"],"seo":{"title":"Developer Sales Playbook | Prospect Foundry","description":"A practical sales system for turning qualified development conversations into clear decisions."}}
+{
+  "title": "Developer Sales Playbook",
+  "slug": "developer-sales-playbook",
+  "status": "coming-soon",
+  "family": "Sales & Closing",
+  "path": "services",
+  "audience": "Independent developers who can get good prospects into a conversation but still improvise qualification, discovery, recommendations, and next steps.",
+  "shortDescription": "Run sales conversations that uncover the business problem, qualify fit, connect the work to what matters, and move to a clear decision without pressure tactics.",
+  "coreOutcome": "Leave with a repeatable sales sequence from preparation and diagnosis through qualification, recommendation, decision, and follow-up.",
+  "problem": "Prospects will talk to you, but too many calls turn into free consulting, technical explanations, vague interest, or no clear next step.",
+  "hook": "A good sales call should not end with, “I’ll think about it and get back to you.”",
+  "reframe": "Developers are often comfortable answering technical questions, so a sales conversation can drift into solution design before the commercial problem is understood. The prospect asks what stack you would use, you explain how you would build it, and both sides leave with more technical detail but no clearer buying decision. The missing skill is diagnosis. You need to know why the problem matters now, what happens if it stays unresolved, who is involved in the decision, what constraints could make the project a poor fit, and what the buyer needs to believe before moving forward. The Developer Sales Playbook turns those questions into a sequence you can reuse. It helps you distinguish a real opportunity from a pleasant conversation, recommend only after the situation is understood, and end each qualified discussion with an explicit next step or a clean no. That protects your time and makes the eventual proposal easier because the important commercial decisions were not postponed into a document.",
+  "delivery": {
+    "length": "Implementation guide for preparation, discovery, qualification, recommendation, objections, decision, and follow-up.",
+    "worksheets": "Call preparation, discovery notes, qualification criteria, stakeholder and decision mapping, recommendation planning, objection diagnosis, and follow-up states.",
+    "time": "Build the call structure once, then use the worksheets on live qualified opportunities."
+  },
+  "proof": {
+    "title": "The sales call changes from solution brainstorming to commercial diagnosis.",
+    "body": "A useful conversation separates the business problem from the requested implementation before you recommend a solution.",
+    "before": "The prospect describes a feature list, you explain how you could build it, and you send a proposal afterward.",
+    "after": "You diagnose the problem, consequences, stakeholders, constraints, timing, and fit, then recommend the appropriate next commercial step."
+  },
+  "format": "Implementation guide",
+  "free": false,
+  "featured": false,
+  "order": 10,
+  "contentLayout": "generated",
+  "situation": "Good-fit conversations still stall because discovery, qualification, recommendation, and decision steps are being improvised.",
+  "commonFailure": "Explaining the solution too early hides the business problem, decision process, fit risks, and commercial next step.",
+  "methodology": "Prepare, diagnose the problem, qualify consequences and fit, understand the decision conditions, recommend the next step, resolve genuine objections, and close or advance the opportunity explicitly.",
+  "capabilities": [
+    "Qualify opportunities consistently before investing more sales time",
+    "Connect technical work to the business problem and decision conditions",
+    "Advance, defer, or close out each opportunity with a clear state"
+  ],
+  "contents": [
+    "Sales-call preparation and opportunity context",
+    "Problem, consequence, urgency, stakeholder, and constraint discovery",
+    "Qualification rules for fit, authority, timing, economics, and risk",
+    "Moving from diagnosis to a recommendation without premature solution design",
+    "Decision process, next-step design, and proposal-readiness criteria",
+    "Objection diagnosis for price, trust, timing, scope, and no decision",
+    "Follow-up states, stop rules, and pipeline discipline",
+    "Worked conversations, reusable worksheets, and sales-review process"
+  ],
+  "whoItsFor": [
+    "Developers who generate conversations but do not yet have a repeatable sales process",
+    "Technical consultants who tend to give away solution design before qualification is complete",
+    "Freelancers whose prospects often leave calls interested but without a defined next step"
+  ],
+  "whoItsNotFor": [
+    "Anyone looking for pressure-closing scripts or manipulative objection tactics",
+    "Anyone who does not yet have a credible offer or way to create sales conversations",
+    "Anyone expecting a sales script to make a poor-fit opportunity worth pursuing"
+  ],
+  "workflow": ["Prepare", "Diagnose", "Qualify", "Recommend", "Decide", "Follow up"],
+  "faqs": [
+    {"question": "Is this a sales-script pack?", "answer": "No. It gives you a decision structure for the conversation. The exact wording changes with the buyer and situation."},
+    {"question": "Do I need to be naturally good at sales?", "answer": "No. The system relies on preparation, diagnosis, qualification, and explicit next steps rather than charisma or pressure."},
+    {"question": "Where does the proposal fit?", "answer": "A proposal comes after the opportunity is sufficiently understood and commercially ready. The Developer Proposal & Closing Kit carries the deal from that point through agreement, payment, and handoff."},
+    {"question": "What if the prospect is not a fit?", "answer": "The system is designed to surface that early. A clean no is better than weeks of unpaid sales work or a project that becomes difficult to deliver."
+    }
+  ],
+  "relatedProducts": ["developer-proposal-closing-kit", "freelancer-retainer-system"],
+  "seo": {
+    "title": "Developer Sales Playbook | Developer Business Lab",
+    "description": "Run buyer-focused sales conversations from diagnosis and qualification through recommendation, decision, and follow-up."
+  }
+}

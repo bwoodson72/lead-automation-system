@@ -6,8 +6,20 @@ const { product } = Astro.props;
 const d = product.data;
 const statusLabel = d.status === "coming-soon" ? "Coming soon" : d.status === "planned" ? "Planned" : d.free ? "Free" : d.price ? `$${d.price}` : "Available";
 ---
+
 <Card class="flex h-full flex-col border-border bg-card/70">
-  <CardHeader><div class="mb-4 flex flex-wrap gap-2"><Badge variant="outline">{d.family}</Badge><Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge></div><CardTitle class="text-xl">{d.title}</CardTitle></CardHeader>
-  <CardContent class="flex-1"><p class="leading-7 text-muted-foreground">{d.coreOutcome}</p><p class="mt-5 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p></CardContent>
-  <CardFooter><Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>Explore {d.title}</Button></CardFooter>
+  <CardHeader>
+    <div class="mb-4 flex flex-wrap gap-2">
+      <Badge variant="outline">{d.family}</Badge>
+      <Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
+    </div>
+    <CardTitle class="text-xl">{d.title}</CardTitle>
+  </CardHeader>
+  <CardContent class="flex-1">
+    <p class="leading-7 text-muted-foreground">{d.shortDescription}</p>
+    <p class="mt-5 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+  </CardContent>
+  <CardFooter>
+    <Button as="a" href={`/products/${d.slug}/`} variant="secondary" data-event="product_view" data-product-slug={d.slug}>See {d.title}</Button>
+  </CardFooter>
 </Card>

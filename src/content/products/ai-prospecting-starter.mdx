@@ -4,56 +4,55 @@ slug: ai-prospecting-starter
 status: coming-soon
 family: AI Prospecting
 path: services
-audience: Independent web developers who want a repeatable outbound process without APIs, automation builders, databases, or unattended sending.
-shortDescription: Build a disciplined, evidence-based prospecting workflow with ChatGPT, Google Workspace, and a campaign tracker—then prove the process before you automate it.
-coreOutcome: "Stop prospecting randomly. Leave with a human-controlled system for finding plausible buyers, verifying current website evidence, qualifying conservatively, writing outreach from approved facts, following up safely, and tracking every state."
-problem: Random prospecting creates inconsistent research, weak personalization, duplicate effort, missed follow-ups, and pressure to contact businesses even when the evidence is not strong enough.
+audience: Independent developers who want a repeatable outbound process with ChatGPT and Google Workspace before they add APIs, workflow automation, or unattended sending.
+shortDescription: Build a human-controlled prospecting process with durable state, verified website evidence, conservative qualification, finite follow-up, and clear stop rules.
+coreOutcome: Leave with a prospecting process you can run repeatedly without asking AI to invent a reason to contact every business it finds.
+problem: You can research and write outreach with AI, but the work still falls apart when evidence, qualification, follow-up, and campaign state are handled inconsistently.
+hook: Prospecting should not depend on whether you remember what you did yesterday.
+reframe: >-
+  AI makes individual prospecting tasks faster. It can research a company, summarize a website, help draft an email, and organize notes. The risk appears when those tasks are treated as the system. A model can repeat stale search snippets, misread a redirected domain, describe a website issue that is not actually present, or draft persuasive copy from a weak assumption. If every discovered business must become a lead, the pressure to find something wrong eventually produces bad outreach. AI Prospecting Starter puts the decisions back in order. Discovery can be broad, but qualification is strict. Website findings have to be current and verifiable. Contact discovery happens after the business qualifies. Copy can use only approved evidence. Every send, reply, bounce, opt-out, and stop event is recorded before the next action. The tracker gives the campaign durable state so a busy week of client work does not erase the process. This is the tier for proving that your prospecting rules are trustworthy before you automate them.
+delivery:
+  length: 34-page implementation guide plus the Lead Engine Campaign Tracker.
+  worksheets: Campaign definition, evidence review, 100-point qualification rubric, lead state, findings, activity, suppression, metrics, prompt pack, and tracker data dictionary.
+  time: Use the 14-day launch plan to build and run the first supervised campaign.
+proof:
+  title: The system is allowed to reject the entire batch.
+  body: A business does not qualify because AI found an email address or produced a plausible criticism. A finding becomes usable only when you can verify the current fact and connect it to the campaign you defined.
+  before: Ask AI to find a website problem for every business and personalize an email around whatever it returns.
+  after: Verify the business and current site, reject unsupported findings, qualify against a rubric, then draft only from approved evidence.
 format: 34-page implementation guide + Lead Engine Campaign Tracker
 free: false
 featured: true
 order: 6
-contentLayout: mdx
+contentLayout: generated
 coverImageSrc: /ai-prospecting-starter.webp
 price: 29
 priceLabel: $29 one-time
 difficulty: Beginner
-situation: Every prospecting session starts with the same research, qualification, contact, writing, and follow-up decisions. Without durable state, the work gets repeated, forgotten, or abandoned when client work gets busy.
-commonFailure: Developers often automate too early. They ask AI to find a problem with every site, enrich every company before it qualifies, or schedule outreach before the evidence and stop rules are trustworthy. That makes weak prospecting happen faster.
-methodology: "Discover -> Verify Business -> Inspect Current Website -> Qualify or Reject -> Find/Verify Contact -> Draft from Approved Evidence -> Pre-Send Gate -> Send -> Follow Up -> Stop/Record -> Measure."
+situation: Research, qualification, writing, follow-up, and recordkeeping are repeated manually each time you prospect, so the process is easy to abandon or duplicate.
+commonFailure: Automating discovery and copy before evidence rules and stop conditions are reliable makes weak prospecting happen faster.
+methodology: Discover, verify the business, inspect the current website, qualify or reject, verify the contact, draft from approved evidence, run a pre-send gate, send, follow up, stop, record, and measure.
 capabilities:
-  - Define a bounded campaign with buyer, offer, economics, qualification rules, rejection rules, CTA, send cap, and stop conditions
-  - Set up a legitimate Google Workspace sending identity and understand MX, SPF, DKIM, DMARC, reputation, and suppression
-  - Research businesses in small batches without forcing every candidate to become a prospect
-  - Separate observed facts from interpretation and reject stale, subjective, or unsupported findings
-  - Score leads with a repeatable qualification rubric and route ambiguous cases to manual review
-  - Find public or verified business contacts without guessing addresses
-  - Use Hunter or Apollo as optional contact tools without letting them replace qualification
-  - Write initial outreach and follow-ups using only approved evidence
-  - Use a pre-send gate that blocks duplicates, replies, opt-outs, hard bounces, stale evidence, and over-limit sends
-  - Run a daily and weekly cadence and diagnose results from commercially useful metrics
-  - Use the included Lead Engine Campaign Tracker as durable state for campaigns, leads, findings, activity, suppression, and metrics
+  - Define campaign rules and durable state before outreach begins
+  - Separate verified website facts from interpretation and unsupported model output
+  - Run evidence-constrained outreach with suppression, follow-up, and stop rules
 contents:
-  - System architecture, quick start, and beginner glossary
-  - Google Workspace, MX, SPF, DKIM, DMARC, reputation, and U.S. commercial-email considerations
-  - Campaign design, ICP, qualification rules, rejection rules, CTA, and limits
-  - Lead Engine Campaign Tracker structure and state model
-  - Evidence hierarchy and stale-snippet / hallucination safeguards
+  - Campaign design, ICP, qualification rules, rejection rules, CTA, send caps, and stop conditions
+  - Google Workspace sending identity, MX, SPF, DKIM, DMARC, reputation, and U.S. commercial-email considerations
+  - Lead Engine Campaign Tracker with campaigns, leads, findings, activity, suppression, metrics, and dashboard
+  - Evidence hierarchy, current-site verification, stale-snippet safeguards, and hallucination rejection
   - 100-point qualification rubric with worked examples
-  - Public contact sourcing, email verification, Hunter, and Apollo
-  - Evidence-constrained initial email and four-step follow-up logic
-  - Pre-send gate, stop conditions, daily and weekly procedures
-  - Complete five-candidate worked example
-  - Metrics, troubleshooting, 14-day launch plan, prompt pack, and tracker data dictionary
+  - Public contact sourcing, email verification, Hunter, and Apollo as optional tools
+  - Evidence-constrained initial email, four-step follow-up logic, and pre-send gate
+  - Five-candidate worked example, troubleshooting, 14-day launch plan, prompt pack, and data dictionary
 whoItsFor:
-  - Independent developers who want a prospecting system they can actually run before investing in more automation
-  - Developers tired of beginning every outreach session with a blank page and no reliable state
-  - Freelancers who want AI assistance without giving AI permission to invent website problems or send unattended email
+  - Independent developers who want to prove a prospecting system before investing in more automation
+  - Freelancers who want AI assistance without letting AI invent website problems or send unattended email
   - Developers who need a disciplined way to decide which businesses should not be contacted
 whoItsNotFor:
   - Anyone looking for unattended high-volume sending
   - Anyone who wants AI to manufacture a reason to contact every business it finds
-  - Teams already ready for an n8n/API production pipeline; those needs belong in higher AI Prospecting tiers
-  - Anyone unwilling to verify current website evidence or maintain suppression and activity records
+  - Teams already ready for a database-backed or n8n production pipeline
 workflow:
   - Discover
   - Verify business
@@ -68,118 +67,20 @@ workflow:
   - Measure
 faqs:
   - question: Do I need API access or an automation platform?
-    answer: No. Tier 1 is intentionally human-controlled. It uses ChatGPT, Google Workspace, the included campaign tracker, and optional Hunter or Apollo. APIs, n8n, databases, and unattended processing belong in higher tiers.
+    answer: No. Tier 1 is deliberately human-controlled and uses ChatGPT, Google Workspace, the campaign tracker, and optional contact tools.
   - question: Is this a cold-email blasting system?
-    answer: No. The system is built around small batches, current evidence, conservative qualification, legitimate contact sourcing, explicit send caps, and stop conditions. It is allowed to reject every discovered business in a batch.
+    answer: No. It is built around small batches, current evidence, conservative qualification, legitimate contact sourcing, explicit send caps, and stop conditions.
   - question: What if ChatGPT reports a website problem I cannot verify?
-    answer: Reject the finding. Search snippets, stale pages, redirects, domain mismatches, and model errors can create bad observations. A finding is usable only when you can verify the current fact and cite the exact source.
-  - question: Does the product include the campaign tracker?
-    answer: Yes. The Lead Engine Campaign Tracker includes Campaigns, Leads, Findings, Activity, Suppression, Metrics, validation lists, and a weekly dashboard.
-  - question: Can I use Apollo or Hunter?
-    answer: Yes, but only as optional contact and workflow tools after a business qualifies. Neither platform replaces the evidence-first website qualification method.
-  - question: How do I know when to move to Tier 2?
-    answer: Move up when the campaign definition is stable, you routinely accept and reject leads using the same rules, evidence quality is trustworthy, and the main burden has become repeating tracker reviews, research routines, follow-up checks, and reporting.
+    answer: Reject the finding. The system treats unverifiable evidence as unusable, even if the observation sounds plausible.
+  - question: Does the product include the tracker?
+    answer: Yes. The Lead Engine Campaign Tracker stores campaigns, leads, findings, activity, suppression, metrics, validation lists, and a weekly dashboard.
+  - question: When should I move to Tier 2?
+    answer: Move up when the campaign definition is stable, your accept and reject rules are repeatable, evidence quality is trustworthy, and the main burden is repeating the same research, follow-up review, and reporting work.
 relatedProducts:
   - client-acquisition-without-upwork
   - marketing-for-builders
   - chatgpt-client-acquisition-system
 seo:
   title: AI Prospecting Starter | Developer Business Lab
-  description: Build a human-controlled, evidence-based prospecting workflow with ChatGPT, Google Workspace, and an included campaign tracker.
+  description: Build a supervised, evidence-based prospecting workflow with ChatGPT, Google Workspace, and the Lead Engine Campaign Tracker.
 ---
-
-import ProductSection from "@/components/products/mdx/ProductSection.astro";
-
-<ProductSection eyebrow="Prospecting should not start from zero every morning" title="The hard part is not finding businesses. It is deciding which ones actually deserve an email.">
-
-You can ask AI for a list of companies, inspect a few websites, and write five emails today. Tomorrow you still have to remember what you searched, which businesses you reviewed, what evidence you trusted, who you contacted, which follow-up is due, whether anyone replied, and who must never be contacted again.
-
-That is why prospecting becomes inconsistent. The individual tasks are manageable. **The missing piece is an operating system holding them together.**
-
-AI Prospecting Starter turns the work into a repeatable process you can inspect, trust, and run again even when client work gets busy.
-
-</ProductSection>
-
-<ProductSection eyebrow="Do not automate the mistake" title="A faster bad prospecting process is still a bad prospecting process." tone="muted">
-
-The obvious temptation is to automate first: find fifty companies, force AI to identify a problem with every website, enrich every contact, generate all the emails, and schedule the sequence.
-
-That sounds efficient until the system confidently tells an owner about placeholder text that is not on the site, a broken form that works normally, a performance problem you never measured, or a domain that does not belong to the business you meant to contact.
-
-Then automation has not saved you time. It has scaled an evidence problem.
-
-**Tier 1 takes the opposite approach: first make the decisions reliable, then automate the repetition.**
-
-</ProductSection>
-
-<ProductSection eyebrow="The operating system" title="Every lead passes through the same gates in the same order.">
-
-**Discover -> Verify Business -> Inspect Current Website -> Qualify or Reject -> Find/Verify Contact -> Draft from Approved Evidence -> Pre-Send Gate -> Send -> Follow Up -> Stop/Record -> Measure**
-
-Discovery can be broad. Qualification is intentionally strict. Contact enrichment happens only after the business is worth contacting. Copy can use only approved evidence. Every send, reply, bounce, opt-out, and stop event is recorded before the next action happens.
-
-The system can reject every business in a batch. That is a feature, not a failure.
-
-A business does not qualify because the site looks old, a search snippet hints at a problem, or an enrichment tool found the owner's email. It qualifies when the business fits the campaign **and** you can verify a current issue your service can reasonably improve.
-
-</ProductSection>
-
-<ProductSection eyebrow="Stop selling from opinions" title="Separate what you observed from what you think it means." tone="muted">
-
-A useful finding has layers.
-
-**Observed fact:** a current Request an Estimate button leads to a missing page.
-
-**Interpretation:** someone trying to request an estimate may hit a dead end.
-
-**Sales relevance:** repairing that conversion path is within your service.
-
-**Outreach wording:** mention the broken path and the plausible customer consequence—nothing more.
-
-The guide gives you a simple test for every proposed claim: **if the owner replies, “Where exactly did you see that?” can you answer with a current URL and a clear factual observation?** If not, do not use it.
-
-</ProductSection>
-
-<ProductSection eyebrow="A tracker that actually remembers" title="Your spreadsheet becomes the durable state of the prospecting system.">
-
-Chat history is not a database, and a list of names and emails is not enough.
-
-The included **Lead Engine Campaign Tracker** records Campaign definitions, current Lead state, approved and rejected Findings, exact evidence URLs, contact-source information, Activity history, follow-up timing, replies, bounces, opt-outs, Suppression, and weekly Metrics.
-
-That lets you answer the safety questions before every send: Have we researched this domain already? Which finding was approved? Was a message actually sent? Has the prospect replied? Is the address suppressed? Which follow-up is really due?
-
-</ProductSection>
-
-<ProductSection eyebrow="Outreach comes after qualification" title="Do not spend credits—or create temptation—on companies you should reject." tone="muted">
-
-Once a business passes the evidence gate, you work through a contact-sourcing hierarchy. Start with the company's own site, then credible official profiles and directories. Record where the address came from. If no public address exists, Hunter or Apollo can help after the company is otherwise worth contacting.
-
-What you do not do is invent likely addresses and test them by sending.
-
-The first email is intentionally short: why this business is receiving the message, one verified observation, the plausible customer or business consequence, and one easy CTA. No fake familiarity, invented metrics, fearmongering, or unsolicited five-page audit.
-
-Before Gmail opens, the pre-send gate checks the state again. A scheduled follow-up date never overrides a reply, opt-out, hard bounce, duplicate step, stale finding, or campaign cap.
-
-</ProductSection>
-
-<ProductSection eyebrow="A habit you can keep running" title="Thirty to sixty focused minutes beats another burst-and-abandon cycle.">
-
-The daily routine begins with inbound state, not new lead discovery. Review replies. Update suppression. Process due follow-ups. Then research a small batch, reject weak evidence, verify contacts for qualified businesses, draft from approved findings, send within the cap, and log every external action.
-
-The weekly review looks at qualification rate, valid-contact rate, bounce rate, reply rate, positive replies, consultations, closes, and the lessons hiding inside rejected leads and negative responses.
-
-The guide includes a complete five-candidate example, troubleshooting matrix, prompt pack, tracker data dictionary, and a **14-day Tier 1 launch plan** so you do not have to infer how the pieces fit.
-
-</ProductSection>
-
-<ProductSection eyebrow="Where you end up" title="A prospecting system you understand well enough to automate later." tone="muted">
-
-By the end, you should be able to define a campaign before opening a search tool, inspect current website evidence without forcing a sales angle, reject businesses confidently, source contacts without guessing, write outreach from facts you can defend, stop sequences when state changes, and know exactly what happened with every lead.
-
-You will have the **Lead Engine Campaign Tracker** ready to carry that state and a daily/weekly cadence small enough for a solo developer to operate.
-
-Most importantly, you will know whether the campaign itself works before you spend money and complexity automating it.
-
-**Build the process first. Automate only what you can trust.**
-
-</ProductSection>

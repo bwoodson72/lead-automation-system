@@ -47,7 +47,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The real problem</p>
-      <h2 class="mt-3 text-3xl font-semibold">The problem</h2>
+      <h2 class="mt-3 text-3xl font-semibold">Why client acquisition keeps restarting</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
         {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
@@ -84,8 +84,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
     <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-4xl">
         <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
-        <h2 class="mt-3 text-3xl font-semibold">Example</h2>
-        <p class="mt-4 text-xl font-semibold leading-8">{d.proof.title}</p>
+        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
         <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
           {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
@@ -99,10 +98,10 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">FAQ</h2>
+      <h2 class="text-3xl font-semibold">Questions before you download it</h2>
       <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
       <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Start here</h2>
+        <h2 class="text-3xl font-semibold">Build your first acquisition loop</h2>
         <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with a buyer, offer, channel, first test, and a result you can learn from.</p>
         <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
       </div>

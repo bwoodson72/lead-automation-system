@@ -74,7 +74,7 @@ const faqs = [
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The gap</p>
-      <h2 class="mt-3 text-3xl font-semibold">Technical competence and business competence are different skill sets.</h2>
+      <h2 class="mt-3 text-3xl font-semibold">Business is a separate skill</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
         <p>You can be a very good developer and still struggle to explain what you sell, defend a price, keep the pipeline moving, or turn a promising sales call into a signed project. Most developers were never taught those systems. In an agency or in-house role, somebody else may have handled them. In freelancing, they suddenly become your job.</p>
         <p>That is why the usual advice is so frustrating. One source tells you to niche down. Another gives you a cold-email template. Another tells you to raise your rates. Each idea might be useful, but none tells you what has to be true before that tactic can work or what system comes next.</p>
@@ -86,7 +86,7 @@ const faqs = [
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">What is inside</p>
-      <h2 class="mt-3 text-3xl font-semibold">Start with the sentence that sounds most like your problem.</h2>
+      <h2 class="mt-3 text-3xl font-semibold">Find your bottleneck</h2>
       <p class="mt-4 max-w-3xl text-muted-foreground">Each link goes directly to the system for that bottleneck. You do not need to buy or read the catalog in order.</p>
       <div class="mt-8 grid gap-3 md:grid-cols-2">
         {resolvedPaths.map(({ problem, product }) => (
@@ -129,7 +129,7 @@ const faqs = [
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete examples</p>
-      <h2 class="mt-3 text-3xl font-semibold">The work gets easier to sell when the business decision gets specific.</h2>
+      <h2 class="mt-3 text-3xl font-semibold">Make it specific</h2>
       <div class="mt-8 grid gap-4 lg:grid-cols-3">
         <div class="rounded-xl border border-border bg-card p-5">
           <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Offer</p>
@@ -152,10 +152,10 @@ const faqs = [
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">Questions before you start</h2>
+      <h2 class="text-3xl font-semibold">FAQ</h2>
       <div class="mt-8"><FAQList faqs={faqs} /></div>
       <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Find the problem that is costing you the most right now.</h2>
+        <h2 class="text-3xl font-semibold">Start with the bottleneck</h2>
         <p class="mt-4 text-muted-foreground">Use the Start Here diagnostic for a direct recommendation, or build the first acquisition loop with the free Developer Marketing Quickstart.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <Button as="a" href="/start/" size="lg">Use the Start Here Diagnostic</Button>

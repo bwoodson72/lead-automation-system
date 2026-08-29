@@ -22,14 +22,18 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
       <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Choose by constraint</p>
-      <h2 class="mt-3 text-3xl font-semibold">More automation is useful only after the underlying campaign stops changing every week.</h2>
-      <p class="mt-5 text-lg leading-8 text-muted-foreground">If you are still learning which businesses qualify, which website evidence is trustworthy, which message earns a response, or which stop rules protect the campaign, keep a human in the loop. Once those decisions repeat consistently, scheduling can remove memory work. When tool-to-tool handoffs become the bottleneck, n8n can connect them. When multiple campaigns, concurrency, auditability, recovery, and testing become the bottleneck, the system has earned application architecture. Each tier preserves the same basic discipline: verify the business, use current evidence, qualify conservatively, keep durable state, respect replies and suppression, and measure what happens.</p>
+      <h2 class="mt-3 text-3xl font-semibold">When to automate</h2>
+      <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>If you are still learning which businesses qualify, which website evidence is trustworthy, which message earns a response, or which stop rules protect the campaign, keep a human in the loop.</p>
+        <p>Once those decisions repeat consistently, scheduling can remove memory work. When tool-to-tool handoffs become the bottleneck, n8n can connect them. When multiple campaigns, concurrency, auditability, recovery, and testing become the bottleneck, the system has earned application architecture.</p>
+        <p>Each tier preserves the same discipline: verify the business, use current evidence, qualify conservatively, keep durable state, respect replies and suppression, and measure what happens.</p>
+      </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">Compare the four operating models</h2>
+      <h2 class="text-3xl font-semibold">Compare the tiers</h2>
       <div class="mt-9 overflow-x-auto rounded-xl border border-border">
         <table class="w-full min-w-4xl border-collapse text-left text-sm">
           <caption class="sr-only">Comparison of AI Prospecting tiers</caption>
@@ -54,7 +58,7 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">Pick the smallest sufficient system</h2>
+      <h2 class="text-3xl font-semibold">Choose your tier</h2>
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         {tiers.map((tier) => (
           <div class="rounded-xl border border-border bg-card p-6">

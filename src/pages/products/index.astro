@@ -38,7 +38,7 @@ const idFor = (family: string) => family.toLowerCase().replaceAll(" ", "-").repl
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-3xl font-semibold">Browse by the problem in your own words</h2>
+      <h2 class="text-3xl font-semibold">Browse by problem</h2>
       <div class="mt-7 grid gap-3 md:grid-cols-2">
         {problems.map(([problem, slug]) => (
           <a href={`/products/${slug}/`} class="rounded-lg border border-border bg-card px-5 py-4 hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" data-event="problem_path">

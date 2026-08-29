@@ -7,7 +7,7 @@ export const siteConfig = {
   commerce: { provider: "lemonsqueezy" as const, storeName: "Developer Business Lab" },
   navigation: [
     { label: "Start Here", href: "/start/" }, { label: "Products", href: "/products/" },
-    { label: "AI Prospecting", href: "/products/ai-prospecting-system/" }, { label: "Bundles", href: "/bundles/" },
+    { label: "Bundles", href: "/bundles/" },
     { label: "Articles", href: "/articles/" }, { label: "About", href: "/about/" },
   ],
 };

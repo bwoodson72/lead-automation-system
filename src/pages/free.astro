@@ -11,17 +11,12 @@ if (!product) throw new Error("Developer Marketing Quickstart product entry was 
 const d = product.data;
 
 const splitParagraphs = (text: string) => {
-  const sentences = text
-    .match(/[^.!?]+(?:[.!?]+["'’”)]*|$)/g)
-    ?.map((sentence) => sentence.trim())
-    .filter(Boolean);
-
+  const explicitParagraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  if (explicitParagraphs.length > 1) return explicitParagraphs;
+  const sentences = text.match(/[^.!?]+(?:[.!?]+["'’”)]*|$)/g)?.map((sentence) => sentence.trim()).filter(Boolean);
   if (!sentences || sentences.length < 3) return [text];
-
   const paragraphs: string[] = [];
-  for (let index = 0; index < sentences.length; index += 2) {
-    paragraphs.push(sentences.slice(index, index + 2).join(" "));
-  }
+  for (let index = 0; index < sentences.length; index += 2) paragraphs.push(sentences.slice(index, index + 2).join(" "));
   return paragraphs;
 };
 
@@ -33,12 +28,12 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
   <section class="border-b border-border px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
       <div>
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Free starting point</p>
-        <h1 class="mt-4 text-5xl font-semibold tracking-tight">{d.title}</h1>
-        <p class="mt-6 text-2xl font-semibold leading-9 text-primary-accent">{d.hook}</p>
-        <p class="mt-6 border-l-2 border-primary pl-4"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Free · Developer Marketing Quickstart</p>
+        <h1 class="mt-4 text-5xl font-semibold tracking-tight">{d.hook}</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
+        <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
         <div class="mt-8"><ProductCTA product={product} location="free-page-hero" /></div>
-        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Lemon Squeezy handles delivery.</p>
+        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Seven days. One real acquisition test.</p>
       </div>
       <ProductCover title={d.title} family="Free Resource" image={d.coverImage} imageSrc={d.coverImageSrc} />
     </div>
@@ -46,8 +41,8 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The real problem</p>
-      <h2 class="mt-3 text-3xl font-semibold">Why client acquisition keeps restarting</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The cycle you already know</p>
+      <h2 class="mt-3 text-3xl font-semibold">The worst time to build a pipeline is when you already need one</h2>
       <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
         {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
@@ -56,17 +51,17 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Contents</p>
-      <h2 class="mt-3 text-3xl font-semibold">What you will build</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Inside the guide</p>
+      <h2 class="mt-3 text-3xl font-semibold">Build the first system before you chase another tactic</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
         <ul class="grid gap-3 sm:grid-cols-2">
           {d.contents.map((item) => <li class="rounded-xl border border-border bg-card p-5"><span class="mr-3 text-success">✓</span>{item}</li>)}
         </ul>
         {d.delivery && (
           <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
-            <div><dt class="text-sm font-semibold">Format and length</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div>
-            <div><dt class="text-sm font-semibold">Worksheets and tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div>
-            <div><dt class="text-sm font-semibold">Implementation time</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div>
+            <div><dt class="text-sm font-semibold">What you receive</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div>
+            <div><dt class="text-sm font-semibold">Working tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div>
+            <div><dt class="text-sm font-semibold">How to use it</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div>
           </dl>
         )}
       </div>
@@ -75,15 +70,15 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-      <div><h2 class="text-3xl font-semibold">For:</h2><ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul></div>
-      <div><h2 class="text-3xl font-semibold">Not for:</h2><ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul></div>
+      <div><h2 class="text-3xl font-semibold">This is for you if</h2><ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul></div>
+      <div><h2 class="text-3xl font-semibold">Skip it if</h2><ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul></div>
     </div>
   </section>
 
   {d.proof && (
     <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-4xl">
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">See what changes</p>
         <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
         <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
           {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
@@ -98,11 +93,11 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">Questions before you download it</h2>
+      <h2 class="text-3xl font-semibold">Questions worth answering before you download it</h2>
       <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
       <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Build your first acquisition loop</h2>
-        <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with a buyer, offer, channel, first test, and a result you can learn from.</p>
+        <h2 class="text-3xl font-semibold">Stop waiting for the pipeline to become an emergency</h2>
+        <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with one buyer, one offer, one channel, 25 real prospects, and a result you can learn from.</p>
         <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
       </div>
     </div>

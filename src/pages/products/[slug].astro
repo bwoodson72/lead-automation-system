@@ -72,27 +72,71 @@ const splitParagraphs = (text: string) => {
 };
 
 const problemHeadings: Record<string, string> = {
-  "developer-marketing-quickstart": "Why client acquisition keeps restarting",
-  "productize-your-dev-skills": "Why every project feels custom",
-  "web-developer-pricing-system": "Why every quote feels uncertain",
-  "client-acquisition-without-upwork": "Why the pipeline keeps going quiet",
-  "marketing-for-builders": "Why good work gets undersold",
-  "ai-prospecting-starter": "Why prospecting keeps stopping",
-  "chatgpt-client-acquisition-system": "When manual prospecting stops scaling",
-  "automated-lead-engine": "When handoffs become the bottleneck",
-  "production-lead-engine": "When the workflow becomes software",
-  "developer-sales-playbook": "Why good sales calls still stall",
-  "developer-proposal-closing-kit": "Why proposals create friction",
-  "agency-partnership-playbook": "Why agency work can become a trap",
-  "freelancer-retainer-system": "Why revenue resets after delivery",
-  "freelance-developer-launch-kit": "Why isolated tactics do not compound",
-  "saas-validation-before-you-build": "Why building first is risky",
-  "micro-saas-launch-system": "Why a working MVP is not a launch",
-  "the-first-10-saas-customers": "Why launch day does not create customers",
-  "ai-powered-one-person-dev-business": "Why more AI does not mean more leverage",
+  "developer-marketing-quickstart": "The worst time to build a pipeline is when you already need one",
+  "productize-your-dev-skills": "The buyer should not have to figure out what you sell",
+  "web-developer-pricing-system": "A serious quote should not feel like a gamble",
+  "client-acquisition-without-upwork": "The worst time to restart prospecting is when the work runs out",
+  "marketing-for-builders": "Competence buyers cannot see does not help you win",
+  "ai-prospecting-starter": "A faster bad prospecting process is still bad",
+  "chatgpt-client-acquisition-system": "The system should not disappear when client work gets busy",
+  "automated-lead-engine": "Your time should not be spent moving leads between tools",
+  "production-lead-engine": "Workflow sprawl gets expensive when it starts carrying the business",
+  "developer-sales-playbook": "A pleasant call is not the same as a sales process",
+  "developer-proposal-closing-kit": "A proposal should not be where the sale starts",
+  "agency-partnership-playbook": "Recurring work is only attractive if the economics are good",
+  "freelancer-retainer-system": "The project should not be the last time the client needs you",
+  "freelance-developer-launch-kit": "A freelance business should not depend on whichever fire is burning today",
+  "saas-validation-before-you-build": "A month of coding is an expensive way to discover nobody cares",
+  "micro-saas-launch-system": "Shipping code is not the same as reaching a customer",
+  "the-first-10-saas-customers": "Traffic is not the thing you need most at the beginning",
+  "ai-powered-one-person-dev-business": "Saving five minutes at a time is not leverage",
+};
+
+const insideHeadings: Record<string, string> = {
+  "developer-marketing-quickstart": "Build the first system before you chase another tactic",
+  "productize-your-dev-skills": "Build an offer buyers can understand without an explanation",
+  "web-developer-pricing-system": "Know your floor before the client asks for a number",
+  "client-acquisition-without-upwork": "Build a pipeline before you need one",
+  "marketing-for-builders": "Make your competence visible before the sales call",
+  "ai-prospecting-starter": "Make the rules trustworthy before you automate them",
+  "chatgpt-client-acquisition-system": "Keep the campaign moving when client work takes over",
+  "automated-lead-engine": "Give the repetitive handoffs to the workflow",
+  "production-lead-engine": "Take control back from workflow sprawl",
+  "developer-sales-playbook": "Turn useful conversations into clear decisions",
+  "developer-proposal-closing-kit": "Make the proposal carry decisions forward",
+  "agency-partnership-playbook": "Build repeat work without giving away the economics",
+  "freelancer-retainer-system": "Turn continuing client needs into continuing revenue",
+  "freelance-developer-launch-kit": "Make the pieces reinforce each other",
+  "saas-validation-before-you-build": "Spend conversations before you spend months coding",
+  "micro-saas-launch-system": "Get to customer value before the backlog takes over",
+  "the-first-10-saas-customers": "Learn why people buy before you chase scale",
+  "ai-powered-one-person-dev-business": "Turn scattered AI help into real operating capacity",
+};
+
+const finalHeadings: Record<string, string> = {
+  "developer-marketing-quickstart": "Stop waiting for the pipeline to become an emergency",
+  "productize-your-dev-skills": "Stop rebuilding the offer for every lead",
+  "web-developer-pricing-system": "Price the next project from a system, not a feeling",
+  "client-acquisition-without-upwork": "Give next month's pipeline a head start",
+  "marketing-for-builders": "Make your work easier to understand and easier to choose",
+  "ai-prospecting-starter": "Build the prospecting rules you can trust later",
+  "chatgpt-client-acquisition-system": "Keep prospecting alive without keeping it all in your head",
+  "automated-lead-engine": "Get your attention out of the handoffs",
+  "production-lead-engine": "Build the control your automation has earned",
+  "developer-sales-playbook": "Stop letting good conversations drift",
+  "developer-proposal-closing-kit": "Stop sending proposals and hoping",
+  "agency-partnership-playbook": "Build agency relationships worth repeating",
+  "freelancer-retainer-system": "Stop letting every good project end at zero",
+  "freelance-developer-launch-kit": "Build a business that behaves like one system",
+  "saas-validation-before-you-build": "Make being wrong cheap",
+  "micro-saas-launch-system": "Get the product in front of customers before you polish the wrong thing",
+  "the-first-10-saas-customers": "Learn from the first buyers while you can still talk to every one of them",
+  "ai-powered-one-person-dev-business": "Make AI give you back capacity, not just faster fragments",
 };
 
 const problemHeading = problemHeadings[d.slug] ?? d.problem;
+const insideHeading = insideHeadings[d.slug] ?? "What you get";
+const finalHeading = finalHeadings[d.slug] ?? (d.status === "available" ? `Get ${d.title}` : `Follow ${d.title}`);
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 ---
@@ -119,11 +163,12 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
             {d.tier && <Badge>Tier {d.tier}</Badge>}
             <Badge variant="secondary">{d.status === "coming-soon" ? "Coming soon" : d.status}</Badge>
           </div>
-          <h1 class="mt-5 text-5xl font-semibold tracking-tight sm:text-6xl">{d.title}</h1>
-          <p class="mt-6 max-w-2xl text-2xl font-semibold leading-9 text-primary-accent">{hook}</p>
-          <p class="mt-6 border-l-2 border-primary pl-4"><strong>For:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+          <p class="mt-5 text-sm font-semibold text-primary-accent">{d.title}</p>
+          <h1 class="mt-3 max-w-3xl text-5xl font-semibold tracking-tight sm:text-6xl">{hook}</h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
+          <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.status === "available" && d.price ? ` · $${d.price}` : d.free ? " · Free" : ""}</p>
+          <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.status === "available" && d.price ? ` · $${d.price} one-time` : d.free ? " · Free" : ""}</p>
         </div>
         <ProductCover title={d.title} family={d.family} tier={d.tier} image={coverImage} />
       </div>
@@ -141,8 +186,8 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 
   <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Contents</p>
-      <h2 class="mt-3 text-3xl font-semibold">What you get</h2>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Inside the system</p>
+      <h2 class="mt-3 text-3xl font-semibold">{insideHeading}</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
         <ul class="grid gap-3 sm:grid-cols-2">
           {d.contents.map((item) => (
@@ -150,9 +195,9 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
           ))}
         </ul>
         <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
-          <div><dt class="text-sm font-semibold">Format and length</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
-          <div><dt class="text-sm font-semibold">Worksheets and templates</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
-          <div><dt class="text-sm font-semibold">Implementation time</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
+          <div><dt class="text-sm font-semibold">What you receive</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
+          <div><dt class="text-sm font-semibold">Working tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
+          <div><dt class="text-sm font-semibold">How to use it</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
         </dl>
       </div>
     </div>
@@ -161,11 +206,11 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
       <div>
-        <h2 class="text-3xl font-semibold">For:</h2>
+        <h2 class="text-3xl font-semibold">This is for you if</h2>
         <ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul>
       </div>
       <div>
-        <h2 class="text-3xl font-semibold">Not for:</h2>
+        <h2 class="text-3xl font-semibold">Skip it if</h2>
         <ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul>
       </div>
     </div>
@@ -174,7 +219,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
   {d.proof && (
     <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-4xl">
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Concrete example</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">See what changes</p>
         <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
         <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
           {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
@@ -193,13 +238,13 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
     <div class="mx-auto max-w-4xl">
       {d.faqs.length > 0 && (
         <>
-          <h2 class="text-3xl font-semibold">{d.status === "available" ? "Questions before you buy" : "Questions before release"}</h2>
+          <h2 class="text-3xl font-semibold">{d.status === "available" ? "Questions worth answering before you buy" : "Before you join the release list"}</h2>
           <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
         </>
       )}
       <div class={d.faqs.length > 0 ? "mt-12 border-t border-border pt-10" : ""}>
-        <h2 class="text-3xl font-semibold">{d.status === "available" ? `Get ${d.title}` : `Follow ${d.title}`}</h2>
-        <p class="mt-4 leading-7 text-muted-foreground">{d.status === "available" ? d.coreOutcome : "This product is not for sale yet. Join the update list if you want to know when the final contents and release details are ready."}</p>
+        <h2 class="text-3xl font-semibold">{finalHeading}</h2>
+        <p class="mt-4 leading-7 text-muted-foreground">{d.status === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
         <div class="mt-8"><ProductCTA product={product} location="final" /></div>
       </div>
     </div>

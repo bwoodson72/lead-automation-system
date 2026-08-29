@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Developer Business Lab",
-  description: "Business systems for independent developers who need to find customers, sell valuable work, validate products, and build a more repeatable independent business.",
+  description: "Business systems for capable independent developers who want steadier client pipelines, prices they can defend, stronger sales, and a business that does not restart from zero every month.",
   url: import.meta.env.SITE_URL || "",
   supportEmail: import.meta.env.PUBLIC_SUPPORT_EMAIL || "",
   kit: { quickstartFormUid: import.meta.env.PUBLIC_KIT_QUICKSTART_FORM_UID || "", updatesFormUid: import.meta.env.PUBLIC_KIT_UPDATES_FORM_UID || "" },

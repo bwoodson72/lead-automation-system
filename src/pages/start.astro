@@ -7,23 +7,16 @@ const service = [
   ["I can build the project, but I still feel uncertain when the client asks what it will cost.", "Web Developer Pricing System", "/products/web-developer-pricing-system/"],
   ["I get busy, stop prospecting, then reach the end of the project with an empty pipeline.", "Client Acquisition Without Upwork", "/products/client-acquisition-without-upwork/"],
   ["I know my work is stronger than the way my website, portfolio, and marketing make me look.", "Marketing for Builders", "/products/marketing-for-builders/"],
-  ["My prospecting process works when I run it, but client work keeps pushing it off the calendar.", "AI Prospecting System", "/products/ai-prospecting-system/"],
   ["Prospects like talking to me, but too many calls end with vague interest instead of a decision.", "Developer Sales Playbook", "/products/developer-sales-playbook/"],
   ["I spend too much time writing proposals, then lose control of scope, revisions, price, or the decision itself.", "Developer Proposal & Closing Kit", "/products/developer-proposal-closing-kit/"],
   ["I want agencies to send repeat work without buying my availability at a discount.", "Agency Partnership Playbook", "/products/agency-partnership-playbook/"],
   ["Good projects end, the client still needs help, and I somehow go back to zero anyway.", "Freelancer Retainer System", "/products/freelancer-retainer-system/"],
 ];
-
-const saas = [
-  ["I can build the SaaS. I am more worried about losing two months to an idea nobody will pay for.", "SaaS Validation Before You Build", "/products/saas-validation-before-you-build/"],
-  ["The idea has enough evidence to build, but I know I can turn an MVP into a six-month coding project if I am not careful.", "Micro-SaaS Launch System", "/products/micro-saas-launch-system/"],
-  ["The product is live, but I still do not know which people will actually pay, why they buy, or why they leave.", "The First 10 SaaS Customers", "/products/the-first-10-saas-customers/"],
-];
 ---
 
 <BaseLayout
   title="Start Here | Developer Business Lab"
-  description="Find the freelance or SaaS bottleneck costing you the most right now and go directly to the system built to fix it."
+  description="Find the freelance business bottleneck costing you the most right now and go directly to the system built to fix it."
 >
   <section class="px-4 py-20 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
@@ -31,23 +24,21 @@ const saas = [
       <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">What is costing you the most right now?</h1>
       <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Do not buy a curriculum because several things feel messy. Pick the sentence that sounds uncomfortably familiar. Fix the bottleneck that is taking the most money, time, opportunity, or confidence from the business now.</p>
 
-      <div class="mt-12 grid gap-7 lg:grid-cols-2">
-        {[["I sell development services", service], ["I am building software or SaaS", saas]].map(([title, items]) => (
-          <Card>
-            <CardHeader><CardTitle class="text-2xl">{title}</CardTitle></CardHeader>
-            <CardContent>
-              <ol class="space-y-4">
-                {(items as string[][]).map(([problem, product, href], index) => (
-                  <li class="rounded-xl border border-border bg-background p-5">
-                    <p class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p>
-                    <p class="mt-2 font-semibold">{problem}</p>
-                    <p class="mt-3 text-sm"><a href={href} class="font-semibold text-primary-accent" data-event="start_here_choice">See how {product} fixes it →</a></p>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
-        ))}
+      <div class="mt-12 max-w-5xl">
+        <Card>
+          <CardHeader><CardTitle class="text-2xl">Build a stronger freelance business</CardTitle></CardHeader>
+          <CardContent>
+            <ol class="grid gap-4 md:grid-cols-2">
+              {service.map(([problem, product, href], index) => (
+                <li class="rounded-xl border border-border bg-background p-5">
+                  <p class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p>
+                  <p class="mt-2 font-semibold">{problem}</p>
+                  <p class="mt-3 text-sm"><a href={href} class="font-semibold text-primary-accent" data-event="start_here_choice">See how {product} fixes it →</a></p>
+                </li>
+              ))}
+            </ol>
+          </CardContent>
+        </Card>
       </div>
 
       <div class="mt-12 max-w-4xl rounded-xl border border-border bg-card p-6">

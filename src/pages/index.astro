@@ -3,20 +3,19 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
+import { isPublicProduct } from "@/lib/storefront-visibility";
 
-const products = await getCollection("products");
+const products = (await getCollection("products")).filter(isPublicProduct);
 
 const paths = [
   ["Every prospect asks what I do, and I still answer with a list of technologies", "productize-your-dev-skills"],
   ["I still feel a jolt of uncertainty when someone asks what a project costs", "web-developer-pricing-system"],
   ["I get busy, stop prospecting, then panic when the current project is almost over", "client-acquisition-without-upwork"],
   ["I know my work is stronger than the way I look to buyers online", "marketing-for-builders"],
-  ["My prospecting works only when I remember to keep it moving", "ai-prospecting-starter"],
   ["Sales calls feel productive, then end without a real decision", "developer-sales-playbook"],
   ["I spend hours on proposals that disappear into inboxes", "developer-proposal-closing-kit"],
   ["I want repeat agency work without becoming cheap overflow labor", "agency-partnership-playbook"],
   ["A good project ends and my revenue drops right back to zero", "freelancer-retainer-system"],
-  ["I can build the SaaS, but I do not want to waste months proving nobody wants it", "saas-validation-before-you-build"],
 ];
 
 const resolvedPaths = paths.flatMap(([problem, slug]) => {

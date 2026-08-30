@@ -3,24 +3,27 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Badge } from "@/components/starwind/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
-const bundles = (await getCollection("bundles")).sort((a, b) => a.data.order - b.data.order);
+import { isPublicBundle } from "@/lib/storefront-visibility";
+
+const bundles = (await getCollection("bundles"))
+  .filter(isPublicBundle)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
   title="Bundles | Developer Business Lab"
-  description="Planned Developer Business Lab bundles for developers ready to connect several business systems into one stronger operating model."
+  description="Developer Business Lab bundles for independent developers ready to connect several freelance business systems into one stronger operating model."
 >
   <section class="px-4 py-20 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Planned bundles</p>
-      <h1 class="mt-4 max-w-4xl text-5xl font-semibold">Eventually, fixing one bottleneck is not enough.</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A clear offer helps less if nobody sees it. Better acquisition helps less if the sales process leaks. A great project still leaves you exposed if every dollar of revenue ends when delivery ends. The planned bundles connect the systems that need to reinforce one another when you are ready to build more than one piece.</p>
-      <p class="mt-5 max-w-3xl text-muted-foreground">They are not for sale yet. Contents, prices, savings, and release dates will be published only when they are final.</p>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Business system bundles</p>
+      <h1 class="mt-4 max-w-4xl text-5xl font-semibold">When one bottleneck is no longer the whole problem.</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A clear offer helps less if nobody sees it. Better acquisition helps less if the sales process leaks. A great project still leaves you exposed if every dollar of revenue ends when delivery ends. These bundles group the freelance systems that are designed to reinforce one another.</p>
       <div class="mt-12 grid gap-5 md:grid-cols-2">
         {bundles.map((bundle) => (
           <Card>
             <CardHeader>
-              <Badge variant="secondary" class="mb-3 w-fit">Planned</Badge>
+              <Badge variant="secondary" class="mb-3 w-fit">Bundle</Badge>
               <CardTitle>{bundle.data.title}</CardTitle>
             </CardHeader>
             <CardContent>

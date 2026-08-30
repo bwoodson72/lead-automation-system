@@ -2,36 +2,36 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCard from "@/components/products/ProductCard.astro";
+import { isPublicProduct } from "@/lib/storefront-visibility";
 
-const products = (await getCollection("products")).sort((a, b) => a.data.order - b.data.order);
+const products = (await getCollection("products"))
+  .filter(isPublicProduct)
+  .sort((a, b) => a.data.order - b.data.order);
+
 const problems = [
   ["Prospects still make me explain what I actually sell", "productize-your-dev-skills"],
   ["Every serious quote still feels partly made up", "web-developer-pricing-system"],
   ["My pipeline disappears whenever client work gets busy", "client-acquisition-without-upwork"],
   ["Less capable competitors look easier to hire than I do", "marketing-for-builders"],
-  ["Prospecting depends too much on my memory and manual effort", "ai-prospecting-starter"],
   ["Good sales calls keep ending without a real decision", "developer-sales-playbook"],
   ["I spend too much time on proposals that do not close cleanly", "developer-proposal-closing-kit"],
   ["I want repeat agency work without discounting myself into a bad deal", "agency-partnership-playbook"],
   ["Successful projects end and my revenue resets anyway", "freelancer-retainer-system"],
-  ["I do not want to spend months building a SaaS nobody wants", "saas-validation-before-you-build"],
-  ["I need to keep the MVP from becoming an endless build", "micro-saas-launch-system"],
-  ["The SaaS is live and I need to understand who will actually pay", "the-first-10-saas-customers"],
-  ["AI saves me minutes, but the business is still held together by my attention", "ai-powered-one-person-dev-business"],
 ];
+
 const families = [...new Set(products.map((p) => p.data.family))];
 const idFor = (family: string) => family.toLowerCase().replaceAll(" ", "-").replaceAll("&", "");
 ---
 
 <BaseLayout
   title="Products | Developer Business Lab"
-  description="Fix the freelance or SaaS bottleneck that is costing you money, time, opportunity, or confidence with a focused implementation system."
+  description="Business systems for independent developers who want clearer offers, stronger pricing, dependable client acquisition, better sales, and more recurring revenue."
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The catalog</p>
+      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Business systems for independent developers</p>
       <h1 class="mt-4 max-w-4xl text-5xl font-semibold tracking-tight">Fix the bottleneck before you buy another tactic.</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">You do not need every product. If pricing is the thing making you hesitate, fix pricing. If the project is ending and the pipeline is empty, fix acquisition. Buy the smallest system that solves the problem you actually have.</p>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Fix the parts of freelancing that technical skill alone does not solve: what you sell, what you charge, how clients find you, how you sell the work, and how good projects become a more stable business.</p>
       <p class="mt-7"><a href="/start/" class="font-semibold text-primary-accent">Not sure where to start? Find the bottleneck →</a></p>
     </div>
   </section>

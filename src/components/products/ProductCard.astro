@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/starwind/card";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
-import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 interface Props {
   product: CollectionEntry<"products">;
@@ -21,21 +21,16 @@ interface Props {
 
 const { product, eventName = "product_view" } = Astro.props;
 const d = product.data;
-const commerce = getLemonProduct(d);
-const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
+const commerce = resolveProductCommerce(d);
 const href = `/products/${d.slug}/`;
-const coverImage = resolveProductCoverImage(d);
-const statusLabel = d.status === "coming-soon"
+const coverImage = resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
+const statusLabel = commerce.effectiveStatus === "coming-soon"
   ? "Coming soon"
-  : d.status === "planned"
+  : commerce.effectiveStatus === "planned"
     ? "Planned"
-    : canCheckout && d.free
+    : d.free
       ? "Free"
-      : canCheckout && commerce
-        ? commerce.priceFormatted
-        : d.status === "available"
-          ? "Unavailable"
-          : "Available";
+      : commerce.priceFormatted ?? "Available";
 ---
 
 <Card class="flex h-full flex-col overflow-hidden border-border bg-card/70">
@@ -74,7 +69,7 @@ const statusLabel = d.status === "coming-soon"
     <div class="mb-2 flex flex-wrap gap-2">
       <Badge variant="outline">{d.family}</Badge>
       {d.tier && <Badge variant="outline">Tier {d.tier}</Badge>}
-      <Badge variant={d.status === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
+      <Badge variant={commerce.effectiveStatus === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
     </div>
     <CardTitle class="text-xl">
       <a href={href} class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">

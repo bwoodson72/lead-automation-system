@@ -5,10 +5,12 @@ import { Badge } from "@/components/starwind/badge";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
+import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 export async function getStaticPaths() {
-  return (await getCollection("products")).map((product) => ({
+  const products = await getCollection("products");
+  reportProductCatalogCoverage(products.map((product) => product.data));
+  return products.map((product) => ({
     params: { slug: product.data.slug },
     props: { product },
   }));
@@ -16,8 +18,8 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 const d = product.data;
-const commerce = getLemonProduct(d);
-const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
+const commerce = resolveProductCommerce(d);
+const effectiveStatus = commerce.effectiveStatus;
 const canonical = Astro.site ? new URL(`/products/${d.slug}/`, Astro.site).toString() : undefined;
 const breadcrumbs = canonical ? {
   "@context": "https://schema.org",
@@ -33,7 +35,7 @@ const reframe = d.reframe ?? d.situation;
 const delivery = d.delivery ?? {
   length: d.contents.length > 0 ? `${d.contents.length} focused implementation topics` : d.format,
   worksheets: "Final working assets will be listed when the product is released.",
-  time: d.status === "available" ? "Use it on the next real business decision." : "Final implementation guidance will be published at release.",
+  time: effectiveStatus === "available" ? "Use it on the next real business decision." : "Final implementation guidance will be published at release.",
 };
 
 const splitParagraphs = (text: string) => {
@@ -123,7 +125,7 @@ const finalHeadings: Record<string, string> = {
 
 const problemHeading = problemHeadings[d.slug] ?? d.problem;
 const insideHeading = insideHeadings[d.slug] ?? "What you get";
-const finalHeading = finalHeadings[d.slug] ?? (d.status === "available" ? `Get ${d.title}` : `Follow ${d.title}`);
+const finalHeading = finalHeadings[d.slug] ?? (effectiveStatus === "available" ? `Get ${d.title}` : `Follow ${d.title}`);
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 ---
@@ -131,8 +133,8 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 <BaseLayout
   title={d.seo.title}
   description={d.seo.description}
-  noindex={d.status === "planned"}
-  enableCheckoutOverlay={canCheckout}
+  noindex={effectiveStatus === "planned"}
+  enableCheckoutOverlay={commerce.purchasable}
 >
   {breadcrumbs && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />}
 
@@ -148,14 +150,14 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
           <div class="flex flex-wrap gap-2">
             <Badge variant="outline">{d.family}</Badge>
             {d.tier && <Badge>Tier {d.tier}</Badge>}
-            <Badge variant="secondary">{d.status === "coming-soon" ? "Coming soon" : d.status}</Badge>
+            <Badge variant="secondary">{effectiveStatus === "coming-soon" ? "Coming soon" : effectiveStatus}</Badge>
           </div>
           <p class="mt-5 text-sm font-semibold text-primary-accent">{d.title}</p>
           <h1 class="mt-3 max-w-3xl text-5xl font-semibold tracking-tight sm:text-6xl">{hook}</h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
           <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 text-sm text-muted-foreground">{d.format}{canCheckout && commerce ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : d.free ? " · Free" : ""}</p>
+          <p class="mt-4 text-sm text-muted-foreground">{d.format}{commerce.purchasable ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : ""}</p>
         </div>
         <ProductCover product={product} />
       </div>
@@ -225,13 +227,13 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
     <div class="mx-auto max-w-4xl">
       {d.faqs.length > 0 && (
         <>
-          <h2 class="text-3xl font-semibold">{d.status === "available" ? "Questions worth answering before you buy" : "Before you join the release list"}</h2>
+          <h2 class="text-3xl font-semibold">{effectiveStatus === "available" ? "Questions worth answering before you buy" : "Before you join the release list"}</h2>
           <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
         </>
       )}
       <div class={d.faqs.length > 0 ? "mt-12 border-t border-border pt-10" : ""}>
         <h2 class="text-3xl font-semibold">{finalHeading}</h2>
-        <p class="mt-4 leading-7 text-muted-foreground">{d.status === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
+        <p class="mt-4 leading-7 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
         <div class="mt-8"><ProductCTA product={product} location="final" /></div>
       </div>
     </div>

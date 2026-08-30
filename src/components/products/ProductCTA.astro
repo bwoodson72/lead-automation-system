@@ -2,16 +2,15 @@
 import { button } from "@/components/starwind/button/variants";
 import { Button } from "@/components/starwind/button";
 import KitForm from "@/components/marketing/KitForm.astro";
-import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 const { product, location = "product" } = Astro.props;
 const d = product.data;
-const commerce = getLemonProduct(d);
-const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
+const commerce = resolveProductCommerce(d);
 const checkoutClass = button({ class: "lemonsqueezy-button" });
 ---
-{canCheckout && d.free && commerce ? (
+{commerce.purchasable && d.free ? (
   <a
-    href={commerce.checkoutUrl}
+    href={commerce.checkoutUrl!}
     class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
@@ -19,11 +18,11 @@ const checkoutClass = button({ class: "lemonsqueezy-button" });
   >
     Get {d.title} Free
   </a>
-) : d.status === "available" && d.free ? (
+) : commerce.effectiveStatus === "available" && d.free ? (
   <Button as="a" href="/free/" data-event="quickstart_view" data-cta-location={location}>Get {d.title} Free</Button>
-) : canCheckout && commerce ? (
+) : commerce.purchasable ? (
   <a
-    href={commerce.checkoutUrl}
+    href={commerce.checkoutUrl!}
     class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
@@ -31,9 +30,7 @@ const checkoutClass = button({ class: "lemonsqueezy-button" });
   >
     Get {d.title} for {commerce.priceFormatted}
   </a>
-) : d.status === "available" ? (
-  <p class="rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning">Purchasing is temporarily unavailable. Please check back shortly.</p>
-) : d.status === "coming-soon" ? (
+) : commerce.effectiveStatus === "coming-soon" ? (
   <KitForm kind="updates" productSlug={d.slug} />
 ) : (
   <p class="rounded-lg border border-border bg-muted px-4 py-3 text-sm text-muted-foreground">This system is planned. There is no purchase or interest form yet.</p>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 interface Props {
   product: CollectionEntry<"products">;
@@ -9,7 +10,8 @@ interface Props {
 
 const { product } = Astro.props;
 const d = product.data;
-const image = resolveProductCoverImage(d);
+const commerce = resolveProductCommerce(d);
+const image = resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
 ---
 
 {image ? (
@@ -20,7 +22,7 @@ const image = resolveProductCoverImage(d);
       class="h-full w-full object-contain"
       widths={[480, 640, 960]}
       sizes="(min-width: 1024px) 28rem, 90vw"
-      priority
+      priority={true}
     />
   </div>
 ) : (

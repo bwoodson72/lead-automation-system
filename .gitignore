@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# build-time Lemon Squeezy catalog and images
+src/generated/lemon-catalog.json
+src/assets/generated/lemon/

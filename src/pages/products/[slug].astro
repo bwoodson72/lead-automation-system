@@ -5,6 +5,7 @@ import { Badge } from "@/components/starwind/badge";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
+import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
 
 export async function getStaticPaths() {
   return (await getCollection("products")).map((product) => ({
@@ -15,6 +16,8 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 const d = product.data;
+const commerce = getLemonProduct(d);
+const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
 const canonical = Astro.site ? new URL(`/products/${d.slug}/`, Astro.site).toString() : undefined;
 const breadcrumbs = canonical ? {
   "@context": "https://schema.org",
@@ -129,7 +132,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
   title={d.seo.title}
   description={d.seo.description}
   noindex={d.status === "planned"}
-  enableCheckoutOverlay={d.status === "available" && Boolean(d.checkoutUrl)}
+  enableCheckoutOverlay={canCheckout}
 >
   {breadcrumbs && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />}
 
@@ -152,7 +155,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
           <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
           <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 text-sm text-muted-foreground">{d.format}{d.status === "available" && d.price ? ` · $${d.price} one-time` : d.free ? " · Free" : ""}</p>
+          <p class="mt-4 text-sm text-muted-foreground">{d.format}{canCheckout && commerce ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : d.free ? " · Free" : ""}</p>
         </div>
         <ProductCover product={product} />
       </div>

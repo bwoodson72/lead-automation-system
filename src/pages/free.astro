@@ -4,11 +4,14 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
+import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
 
 const products = await getCollection("products");
 const product = products.find((item) => item.data.slug === "developer-marketing-quickstart");
 if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
 const d = product.data;
+const commerce = getLemonProduct(d);
+const canCheckout = isLemonProductPurchasable(commerce);
 
 const splitParagraphs = (text: string) => {
   const explicitParagraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
@@ -24,7 +27,7 @@ const reframeParagraphs = splitParagraphs(d.reframe ?? d.situation);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 ---
 
-<BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={Boolean(d.checkoutUrl)}>
+<BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={canCheckout}>
   <section class="border-b border-border px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
       <div>

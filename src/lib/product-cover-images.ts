@@ -4,9 +4,15 @@ import freelancerRetainerSystemCover from "@/assets/products/freelancer-retainer
 
 type ProductCoverData = {
   slug: string;
+  lemonProductId?: string;
   coverImage?: ImageMetadata;
   coverImageSrc?: string;
 };
+
+const generatedLemonCovers = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/generated/lemon/*.{png,jpg,jpeg,webp,avif}",
+  { eager: true },
+);
 
 const productCoverImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/products/*.{png,jpg,jpeg,webp,avif}",
@@ -21,6 +27,13 @@ const explicitProductCovers: Record<string, ImageMetadata> = {
 const fallbackExtensions = ["webp", "png", "jpg", "jpeg", "avif"] as const;
 
 export function resolveProductCoverImage(data: ProductCoverData): ImageMetadata | undefined {
+  if (data.lemonProductId) {
+    const generatedCoverPath = Object.keys(generatedLemonCovers).find((filePath) =>
+      filePath.match(new RegExp(`/${data.lemonProductId}\\.(?:png|jpe?g|webp|avif)$`)),
+    );
+    return generatedCoverPath ? generatedLemonCovers[generatedCoverPath]?.default : undefined;
+  }
+
   if (data.coverImage) return data.coverImage;
 
   const explicitProductCover = explicitProductCovers[data.slug];

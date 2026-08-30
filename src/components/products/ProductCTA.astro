@@ -2,13 +2,16 @@
 import { button } from "@/components/starwind/button/variants";
 import { Button } from "@/components/starwind/button";
 import KitForm from "@/components/marketing/KitForm.astro";
+import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
 const { product, location = "product" } = Astro.props;
 const d = product.data;
+const commerce = getLemonProduct(d);
+const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
 const checkoutClass = button({ class: "lemonsqueezy-button" });
 ---
-{d.status === "available" && d.free && d.checkoutUrl ? (
+{canCheckout && d.free && commerce ? (
   <a
-    href={d.checkoutUrl}
+    href={commerce.checkoutUrl}
     class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
@@ -18,16 +21,18 @@ const checkoutClass = button({ class: "lemonsqueezy-button" });
   </a>
 ) : d.status === "available" && d.free ? (
   <Button as="a" href="/free/" data-event="quickstart_view" data-cta-location={location}>Get {d.title} Free</Button>
-) : d.status === "available" && d.checkoutUrl && d.price ? (
+) : canCheckout && commerce ? (
   <a
-    href={d.checkoutUrl}
+    href={commerce.checkoutUrl}
     class={checkoutClass}
     data-event="checkout_click"
     data-product-slug={d.slug}
     data-cta-location={location}
   >
-    Get {d.title} for ${d.price}
+    Get {d.title} for {commerce.priceFormatted}
   </a>
+) : d.status === "available" ? (
+  <p class="rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning">Purchasing is temporarily unavailable. Please check back shortly.</p>
 ) : d.status === "coming-soon" ? (
   <KitForm kind="updates" productSlug={d.slug} />
 ) : (

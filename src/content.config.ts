@@ -60,6 +60,7 @@ const products = defineCollection({
     contentLayout: z.enum(["generated", "mdx"]).default("generated"),
     coverImage: image().optional(),
     coverImageSrc: z.string().startsWith("/").optional(),
+    lemonProductId: z.string().regex(/^\d+$/).optional(),
     price: z.number().positive().optional(),
     priceLabel: z.string().optional(),
     checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
@@ -82,8 +83,8 @@ const products = defineCollection({
     technicalBoundary: z.string().optional(),
     seo: z.object({ title: z.string(), description: z.string() }),
   }).superRefine((data, ctx) => {
-    if (data.status === "available" && !data.free && (!data.price || !data.checkoutUrl)) {
-      ctx.addIssue({ code: "custom", message: "Available paid products require price and checkoutUrl." });
+    if (data.status === "available" && !data.lemonProductId) {
+      ctx.addIssue({ code: "custom", message: "Available products require a lemonProductId." });
     }
     if (data.status !== "available" && data.checkoutUrl) {
       ctx.addIssue({ code: "custom", message: "Only available products may have checkoutUrl." });

@@ -7,8 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "check": "astro check",
+    "sync:catalog": "node --env-file-if-exists=.env scripts/sync-lemon-catalog.mjs",
+    "build": "npm run sync:catalog && astro build",
+    "check": "npm run sync:catalog && astro check",
     "preview": "astro preview",
     "astro": "astro"
   },

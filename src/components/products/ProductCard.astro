@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/starwind/card";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
+import { getLemonProduct, isLemonProductPurchasable } from "@/lib/lemon-squeezy";
 
 interface Props {
   product: CollectionEntry<"products">;
@@ -20,17 +21,21 @@ interface Props {
 
 const { product, eventName = "product_view" } = Astro.props;
 const d = product.data;
+const commerce = getLemonProduct(d);
+const canCheckout = d.status === "available" && isLemonProductPurchasable(commerce);
 const href = `/products/${d.slug}/`;
 const coverImage = resolveProductCoverImage(d);
 const statusLabel = d.status === "coming-soon"
   ? "Coming soon"
   : d.status === "planned"
     ? "Planned"
-    : d.free
+    : canCheckout && d.free
       ? "Free"
-      : d.price
-        ? `$${d.price}`
-        : "Available";
+      : canCheckout && commerce
+        ? commerce.priceFormatted
+        : d.status === "available"
+          ? "Unavailable"
+          : "Available";
 ---
 
 <Card class="flex h-full flex-col overflow-hidden border-border bg-card/70">

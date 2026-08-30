@@ -92,12 +92,12 @@ const faqs = [
         {resolvedPaths.map(({ problem, product }) => (
           <a
             href={`/products/${product.data.slug}/`}
-            class="group flex items-center justify-between gap-6 rounded-xl border border-border bg-card p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+            class="group flex flex-col items-start gap-3 rounded-xl border border-border bg-card p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:flex-row sm:items-center sm:justify-between sm:gap-6"
             data-event="problem_path"
             data-product-slug={product.data.slug}
           >
             <span>{problem}</span>
-            <span class="shrink-0 text-right text-sm font-semibold text-primary-accent">{product.data.title} →</span>
+            <span class="text-left text-sm font-semibold text-primary-accent sm:shrink-0 sm:text-right">{product.data.title} →</span>
           </a>
         ))}
       </div>

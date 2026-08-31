@@ -1,9 +1,11 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.webp";
 import { isPublicProduct } from "@/lib/storefront-visibility";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
@@ -56,7 +58,16 @@ const faqs = [
   description="Build the offer, pricing, client acquisition, sales, and recurring-revenue systems that turn strong development skills into a business you can rely on."
 >
   <section class="relative isolate min-h-[72vh] overflow-hidden border-b border-border bg-black lg:min-h-[78vh]">
-    <img src="/images/developer-business-lab-hero.webp" alt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace" width="1536" height="864" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-center" />
+    <Image
+      src={heroImage}
+      alt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+      widths={[768, 1024, 1280, 1536]}
+      sizes="100vw"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-center"
+    />
     <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,6,5,.98)_0%,rgba(5,6,5,.93)_28%,rgba(5,6,5,.55)_48%,rgba(5,6,5,.08)_73%,rgba(5,6,5,.05)_100%)]"></div>
     <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-background to-transparent"></div>
     <div class="relative mx-auto flex min-h-[72vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:min-h-[78vh] lg:px-8">

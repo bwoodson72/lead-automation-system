@@ -1,0 +1,158 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Button } from "@/components/starwind/button";
+---
+
+<BaseLayout
+  title="Affiliate Program | Developer Business Lab"
+  description="Earn 30% promoting practical business systems for independent developers through the Developer Business Lab affiliate program."
+>
+  <section class="relative overflow-hidden border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(212,138,23,.13),transparent_30rem)]"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
+      <div class="max-w-3xl">
+        <p class="editorial-kicker">Developer Business Lab Affiliate Program</p>
+        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">Help independent developers build better businesses. Earn 30% when they buy.</h1>
+        <p class="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">Recommend practical systems for pricing, positioning, client acquisition, sales, proposals, agency partnerships, and recurring revenue to an audience already trying to solve those problems.</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <Button as="a" href="#apply" size="lg">Apply to Become an Affiliate</Button>
+          <Button as="a" href="#program" variant="outline" size="lg">See How It Works</Button>
+        </div>
+        <p class="mt-7 text-sm text-muted-foreground">30% standard commission <span class="mx-2 text-primary-accent">·</span> 30-day referral window <span class="mx-2 text-primary-accent">·</span> Manual approval</p>
+      </div>
+
+      <div class="publisher-panel p-7 sm:p-9">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary-accent">Program economics</p>
+        <dl class="mt-7 divide-y divide-border border-y border-border">
+          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Standard commission</dt><dd class="text-2xl font-semibold">30%</dd></div>
+          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Referral window</dt><dd class="text-2xl font-semibold">30 days</dd></div>
+          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">High-performer tier</dt><dd class="text-2xl font-semibold">35%</dd></div>
+          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Strategic partners</dt><dd class="text-2xl font-semibold">Up to 40%</dd></div>
+        </dl>
+        <p class="mt-6 text-sm leading-6 text-muted-foreground">Higher rates are earned or offered selectively. The standard program starts at 30%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="program" class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+        <div>
+          <p class="editorial-kicker">A natural fit for relevant audiences</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Recommend the system that matches the problem your audience is already discussing.</h2>
+        </div>
+        <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+          {[
+            ["Freelancing & niching", "Productize Your Dev Skills"],
+            ["Rates & pricing", "Web Developer Pricing System"],
+            ["Getting clients", "Client Acquisition Without Upwork"],
+            ["Marketing", "Marketing for Builders"],
+            ["Sales calls", "Developer Sales Playbook"],
+            ["Proposals & closing", "Developer Proposal & Closing Kit"],
+            ["Agency subcontracting", "Agency Partnership Playbook"],
+            ["Recurring revenue", "Freelancer Retainer System"],
+          ].map(([topic, product]) => (
+            <div class="bg-background p-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{topic}</p>
+              <p class="mt-3 text-lg font-semibold">{product}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="max-w-3xl">
+        <p class="editorial-kicker">Who we want to work with</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Audience fit matters more than audience size.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">A small creator with a concentrated audience of freelancers and independent developers can be more valuable than a large general programming account. We are looking for partners whose audience genuinely encounters the business problems these products solve.</p>
+      </div>
+      <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[
+          "Freelance-development YouTubers",
+          "Developer newsletters",
+          "Coding educators who cover freelancing",
+          "Web-design and agency educators",
+          "Developer communities",
+          "Indie developer and solopreneur creators",
+        ].map((partner) => (
+          <div class="surface-editorial p-6"><p class="font-medium">{partner}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <p class="editorial-kicker">How it works</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">You send the right people. Lemon Squeezy handles the referral infrastructure.</h2>
+        <div class="mt-8 space-y-7">
+          {[
+            ["01", "Apply", "Tell us about your audience, channels, and how you plan to promote Developer Business Lab."],
+            ["02", "Get approved", "We manually review applications so the program stays focused on relevant, trustworthy partners."],
+            ["03", "Share your referral links", "Send people to relevant product pages, useful content, or the Developer Business Lab site rather than forcing every click straight to checkout."],
+            ["04", "Earn on referred purchases", "Qualifying sales attributed through the affiliate program earn the applicable commission rate."],
+          ].map(([number, title, description]) => (
+            <div class="grid grid-cols-[3rem_1fr] gap-4 border-t border-border pt-5">
+              <p class="font-mono text-xs text-primary-accent">{number}</p>
+              <div><h3 class="text-xl font-semibold">{title}</h3><p class="mt-2 leading-7 text-muted-foreground">{description}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p class="editorial-kicker">What we provide</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">You should not have to invent the campaign from scratch.</h2>
+        <div class="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          {[
+            "Product mockups and social graphics",
+            "Key pain points and positioning angles",
+            "Approved product descriptions and CTAs",
+            "Direct links to relevant product pages",
+            "Campaign-ready copy ideas",
+            "Creative assets added over time",
+          ].map((item) => (
+            <div class="bg-background p-6"><p class="font-medium">{item}</p></div>
+          ))}
+        </div>
+        <p class="mt-6 text-sm leading-6 text-muted-foreground">We do not provide fabricated testimonials or scripts that ask you to pretend you have used a product when you have not. Promote the material in a way that accurately reflects your own experience and opinion.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">Program standards</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Promote it like a professional.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Affiliates are expected to represent Developer Business Lab accurately and comply with applicable disclosure and advertising rules. The program is not intended for spam, misleading claims, trademark abuse, fake scarcity, coupon scraping, or self-referral schemes.</p>
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        {[
+          ["Be transparent", "Clearly disclose affiliate relationships where required and do not conceal that you may earn a commission."],
+          ["Make accurate claims", "Do not promise guaranteed clients, revenue, rankings, sales, or outcomes that Developer Business Lab does not promise."],
+          ["Protect the audience", "No unsolicited spam, deceptive redirects, fake reviews, or misleading promotions."],
+          ["Respect the brand", "Do not impersonate Developer Business Lab or bid on brand terms in a way that suggests you are the official site."],
+        ].map(([title, description]) => (
+          <div class="surface-editorial p-6"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{description}</p></div>
+        ))}
+      </div>
+      <p class="mt-8 text-sm text-muted-foreground">Full affiliate terms will govern participation and may be updated as the program develops.</p>
+    </div>
+  </section>
+
+  <section id="apply" class="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(212,138,23,.13),transparent_32rem)]"></div>
+    <div class="relative mx-auto max-w-4xl text-center">
+      <p class="editorial-kicker">Become a partner</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Have an audience of independent developers?</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Apply to promote practical business systems that help technically capable developers become more deliberate about the commercial side of their work.</p>
+      <div class="mt-8">
+        <Button as="a" href="#" size="lg" aria-disabled="true" class="pointer-events-none opacity-60">Affiliate Applications Opening Soon</Button>
+      </div>
+      <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-muted-foreground">The application button will be connected to the Developer Business Lab Lemon Squeezy affiliate application once the program is enabled.</p>
+    </div>
+  </section>
+</BaseLayout>

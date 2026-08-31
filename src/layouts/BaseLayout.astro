@@ -1,5 +1,6 @@
 ---
 import "@/styles/starwind.css";
+import { ClientRouter } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
@@ -24,8 +25,9 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+    <ClientRouter />
   </head>
-  <body>
+  <body transition:animate="fade">
     <a href="#main-content" class="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
     <SiteHeader />
     <main id="main-content"><slot /></main>

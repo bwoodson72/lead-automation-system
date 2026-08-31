@@ -3,8 +3,11 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
+import BundleProgressionCard from "@/components/products/BundleProgressionCard.astro";
 import FAQList from "@/components/ui/FAQList.astro";
+import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -23,6 +26,13 @@ const parsedCommercePrice = commerce.priceFormatted
   ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, ""))
   : undefined;
 const schemaPrice = d.price ?? (Number.isFinite(parsedCommercePrice) ? parsedCommercePrice : undefined);
+
+const publicProducts = (await getCollection("products")).filter(isPublicProduct);
+const publicBundles = (await getCollection("bundles")).filter(isPublicBundle);
+const bundleRecommendation = getBundleRecommendation(d.slug);
+const recommendedBundle = bundleRecommendation
+  ? publicBundles.find((bundle) => bundle.data.slug === bundleRecommendation.slug)
+  : undefined;
 
 const breadcrumbs = {
   "@context": "https://schema.org",
@@ -146,6 +156,10 @@ const finalHeading = effectiveStatus === "available" ? `Put ${d.title} to work` 
         {(d.proof.before || d.proof.after) && <div class="mt-9 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.proof.before && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 break-words text-lg">{d.proof.before}</p></div>}{d.proof.after && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 break-words text-lg">{d.proof.after}</p></div>}</div>}
       </div>
     </section>
+  )}
+
+  {bundleRecommendation && (
+    <BundleProgressionCard currentProduct={product} products={publicProducts} bundle={recommendedBundle} />
   )}
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">

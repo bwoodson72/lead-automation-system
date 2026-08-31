@@ -2,11 +2,20 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
+import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
+import { Button } from "@/components/starwind/button";
 import { isPublicProduct } from "@/lib/storefront-visibility";
 
 const products = (await getCollection("products"))
   .filter(isPublicProduct)
   .sort((a, b) => a.data.order - b.data.order);
+
+const launchKit = products.find((product) => product.data.slug === "freelance-developer-launch-kit");
+const quickstart = products.find((product) => product.data.slug === "developer-marketing-quickstart");
+const focusedProducts = products.filter((product) => ![
+  "freelance-developer-launch-kit",
+  "developer-marketing-quickstart",
+].includes(product.data.slug));
 
 const problems = [
   ["01", "Offer", "Prospects still make me explain what I actually sell", "productize-your-dev-skills"],
@@ -22,25 +31,50 @@ const problems = [
 
 <BaseLayout
   title="Products | Developer Business Lab"
-  description="Business systems for independent developers who want clearer offers, stronger pricing, dependable client acquisition, better sales, and more recurring revenue."
+  description="Start with the complete freelance business system or go directly to a focused guide for the bottleneck you already know needs attention."
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="editorial-kicker">Developer Business Lab systems</p>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Fix the bottleneck before you buy another tactic.</h1>
+        <h1 class="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Start with the whole business, or go straight to the bottleneck.</h1>
         <div>
-          <p class="text-lg leading-8 text-muted-foreground">Focused systems for the parts of freelancing technical skill alone does not solve: offer, pricing, acquisition, sales, closing, partnerships, and recurring revenue.</p>
-          <p class="mt-5"><a href="/start/" class="font-semibold text-primary-accent">Not sure where to start? Find the bottleneck →</a></p>
+          <p class="text-lg leading-8 text-muted-foreground">If several parts of freelancing still feel improvised, the Launch Kit is the starting point. If you already know exactly what is costing you, use a focused system and go deeper on that problem.</p>
+          <p class="mt-5"><a href="/start/" class="font-semibold text-primary-accent">Help me choose the right starting point →</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="border-b border-border bg-card/35 px-4 py-16 sm:px-6 lg:px-8">
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Choose by problem</p>
-      <div class="mt-7 border-t border-border">
+      {launchKit ? (
+        <FlagshipProductFeature
+          product={launchKit}
+          eyebrow="Recommended starting point"
+          heading="The freelance business is a system. Build it in the order the parts depend on one another."
+        />
+      ) : (
+        <div class="surface-editorial p-8 sm:p-10">
+          <p class="editorial-kicker">Recommended starting point</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Freelance Developer Launch Kit</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">The integrated operating system for market, offer, pricing, proof, acquisition, sales, delivery, referrals, and recurring revenue.</p>
+          <p class="mt-7"><a href="/products/freelance-developer-launch-kit/" class="font-semibold text-primary-accent">Start with the Launch Kit →</a></p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-6 lg:grid-cols-[.75fr_1.25fr] lg:items-end">
+        <div>
+          <p class="editorial-kicker">Know what is broken?</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Go deeper on the specific bottleneck.</h2>
+        </div>
+        <p class="max-w-2xl text-lg leading-8 text-muted-foreground">The focused systems are not prerequisites for the Launch Kit. They are specialist guides for the part of the business that deserves more depth right now.</p>
+      </div>
+      <div class="mt-9 border-t border-border">
         {problems.map(([number, stage, problem, slug]) => (
           <a href={`/products/${slug}/`} class="group grid gap-3 border-b border-border py-5 sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="problem_path">
             <span class="font-mono text-xs text-primary-accent">{number}</span>
@@ -56,13 +90,37 @@ const problems = [
   <section class="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <div class="max-w-3xl">
-        <p class="editorial-kicker">The library</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">One focused commercial problem at a time.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Each system is designed to stand on its own. Start where the business is leaking, then add the next system when another constraint becomes more important.</p>
+        <p class="editorial-kicker">Focused deep dives</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">One commercial problem at a time.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">Use these when the larger business is already clear enough and one stage deserves more attention, more tools, or a more detailed implementation system.</p>
       </div>
       <div class="mt-10 grid gap-x-12 lg:grid-cols-2">
-        {products.map((product) => <FeaturedProductCard product={product} />)}
+        {focusedProducts.map((product) => <FeaturedProductCard product={product} />)}
       </div>
     </div>
   </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div class="max-w-3xl">
+        <p class="editorial-kicker">Need depth across a whole stage?</p>
+        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Bundles connect related specialist systems.</h2>
+        <p class="mt-4 text-lg leading-8 text-muted-foreground">Foundation, acquisition, sales and retention, then the complete business. Bundles are for the point where one focused guide is no longer enough.</p>
+      </div>
+      <Button as="a" href="/bundles/" size="lg">Explore the bundle progression</Button>
+    </div>
+  </section>
+
+  {quickstart && (
+    <section class="px-4 py-18 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div class="max-w-3xl">
+          <p class="editorial-kicker">Prefer to start free?</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight">Build one acquisition loop before you buy anything.</h2>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you one buyer, one problem, one offer, one message, one channel, and a first real test.</p>
+        </div>
+        <Button as="a" href="/free/" variant="outline" size="lg">Get the Free Quickstart</Button>
+      </div>
+    </section>
+  )}
 </BaseLayout>

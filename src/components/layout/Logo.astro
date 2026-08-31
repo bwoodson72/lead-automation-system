@@ -1,7 +1,12 @@
 ---
 const { compact = false } = Astro.props;
 ---
-<a href="/" class="inline-flex items-center gap-3 font-semibold tracking-tight text-foreground focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
-  <span aria-hidden="true" class="grid size-9 place-items-center rounded-lg border border-primary/30 bg-primary/10 font-mono text-xs text-primary-accent">DBL</span>
-  {!compact && <span>Developer Business Lab</span>}
+<a href="/" class="group inline-flex items-center gap-3 text-foreground focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
+  <span aria-hidden="true" class="grid size-10 place-items-center border border-primary/55 bg-primary/5 font-mono text-xs font-bold tracking-[0.16em] text-primary-accent transition-colors group-hover:bg-primary/10">DBL</span>
+  {!compact && (
+    <span class="leading-none">
+      <span class="block text-sm font-semibold tracking-tight sm:text-base">Developer Business Lab</span>
+      <span class="mt-1 hidden font-mono text-[0.58rem] font-medium uppercase tracking-[0.17em] text-muted-foreground sm:block">Systems for independent developers</span>
+    </span>
+  )}
 </a>

@@ -22,7 +22,7 @@ const hiddenProductPaths = [
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://example.com',
+  site: process.env.SITE_URL || 'https://developerbusinesslab.com',
   trailingSlash: 'always',
   redirects: {
     '/compare/': { status: 301, destination: '/products/' },

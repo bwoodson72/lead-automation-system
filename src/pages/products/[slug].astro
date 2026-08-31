@@ -16,15 +16,49 @@ const { product } = Astro.props;
 const d = product.data;
 const commerce = resolveProductCommerce(d);
 const effectiveStatus = commerce.effectiveStatus;
-const canonical = Astro.site ? new URL(`/products/${d.slug}/`, Astro.site).toString() : undefined;
-const breadcrumbs = canonical ? {
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL(`/products/${d.slug}/`, siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedCommercePrice = commerce.priceFormatted
+  ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, ""))
+  : undefined;
+const schemaPrice = d.price ?? (Number.isFinite(parsedCommercePrice) ? parsedCommercePrice : undefined);
+
+const breadcrumbs = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", Astro.site).toString() },
+    { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
     { "@type": "ListItem", position: 2, name: d.title, item: canonical },
   ],
-} : undefined;
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `${canonical}#product`,
+  name: d.title,
+  description: d.seo.description,
+  url: canonical,
+  category: d.family,
+  sku: d.slug,
+  brand: { "@id": organizationId },
+  audience: {
+    "@type": "Audience",
+    audienceType: d.audience,
+  },
+  ...(commerce.purchasable && schemaPrice
+    ? {
+        offers: {
+          "@type": "Offer",
+          url: canonical,
+          priceCurrency: "USD",
+          price: schemaPrice.toFixed(2),
+          availability: "https://schema.org/InStock",
+        },
+      }
+    : {}),
+};
 
 const hook = d.hook ?? d.problem;
 const reframe = d.reframe ?? d.situation;
@@ -41,9 +75,7 @@ const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 const finalHeading = effectiveStatus === "available" ? `Put ${d.title} to work` : `Follow ${d.title}`;
 ---
 
-<BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable}>
-  {breadcrumbs && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />}
-
+<BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
   <section class="relative overflow-hidden border-b border-border px-6 py-16 sm:px-6 sm:py-20 lg:px-8">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(212,138,23,.09),transparent_32rem)]"></div>
     <div class="relative mx-auto min-w-0 max-w-7xl">

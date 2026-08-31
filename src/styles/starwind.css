@@ -159,6 +159,14 @@
   p { text-wrap: pretty; }
 }
 
+@media (max-width: 639px) {
+  main > section[class~="px-4"],
+  main > section > div[class~="px-4"] {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
 @layer utilities {
   .editorial-kicker {
     @apply font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary-accent;

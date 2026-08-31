@@ -3,10 +3,23 @@ import { siteConfig } from "@/config";
 import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
 const groups = [
-  { title: "Fix a bottleneck", links: [["Start Here","/start/"],["All Products","/products/"],["Bundles","/bundles/"]] },
-  { title: "Start free", links: [["Developer Marketing Quickstart","/free/"],["Articles","/articles/"],["FAQ","/faq/"]] },
+  { title: "Systems", links: [["Start Here","/start/"],["All Products","/products/"],["Bundles","/bundles/"]] },
+  { title: "Learn", links: [["Developer Marketing Quickstart","/free/"],["Articles","/articles/"],["FAQ","/faq/"]] },
   { title: "Company", links: [["About","/about/"], ...(siteConfig.supportEmail ? [[siteConfig.supportEmail,`mailto:${siteConfig.supportEmail}`]] : [])] },
   { title: "Legal", links: [["Privacy","/privacy/"],["Terms","/terms/"],["Refund Policy","/refund-policy/"]] },
 ];
 ---
-<footer class="border-t border-border bg-card/40"><div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8"><Logo /><p class="mt-5 max-w-xl text-sm leading-6 text-muted-foreground">Make the business around your development skills as deliberate as the work itself.</p><div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{groups.map((group) => <div><h2 class="text-sm font-semibold">{group.title}</h2><ul class="mt-4 space-y-3">{group.links.map(([label,href]) => <li><a href={href} class="text-sm text-muted-foreground hover:text-foreground">{label}</a></li>)}</ul></div>)}</div><p class="mt-12 border-t border-border pt-6 text-sm text-muted-foreground">© {year} Developer Business Lab. All rights reserved.</p></div></footer>
+<footer class="border-t border-border bg-[#090a08]">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <Logo />
+        <p class="mt-6 max-w-md text-sm leading-6 text-muted-foreground">Systems for independent developers building a deliberate business around technical skill.</p>
+      </div>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {groups.map((group) => <div><h2 class="text-xs font-semibold uppercase tracking-[.14em] text-foreground">{group.title}</h2><ul class="mt-5 space-y-3">{group.links.map(([label,href]) => <li><a href={href} class="text-sm text-muted-foreground transition-colors hover:text-primary-accent">{label}</a></li>)}</ul></div>)}
+      </div>
+    </div>
+    <div class="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"><p>© {year} Developer Business Lab. All rights reserved.</p><p class="font-mono text-[.65rem] uppercase tracking-[.14em]">Define · Price · Attract · Sell · Retain</p></div>
+  </div>
+</footer>

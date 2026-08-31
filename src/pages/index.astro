@@ -5,7 +5,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
-import heroImage from "@/assets/brand/developer-business-lab-hero.webp";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { isPublicProduct } from "@/lib/storefront-visibility";
 
 const products = (await getCollection("products")).filter(isPublicProduct);

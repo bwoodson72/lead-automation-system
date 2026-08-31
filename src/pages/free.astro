@@ -11,97 +11,49 @@ const product = products.find((item) => item.data.slug === "developer-marketing-
 if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
 const d = product.data;
 const commerce = resolveProductCommerce(d);
-
-const splitParagraphs = (text: string) => {
-  const explicitParagraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
-  if (explicitParagraphs.length > 1) return explicitParagraphs;
-  const sentences = text.match(/[^.!?]+(?:[.!?]+["'’”)]*|$)/g)?.map((sentence) => sentence.trim()).filter(Boolean);
-  if (!sentences || sentences.length < 3) return [text];
-  const paragraphs: string[] = [];
-  for (let index = 0; index < sentences.length; index += 2) paragraphs.push(sentences.slice(index, index + 2).join(" "));
-  return paragraphs;
-};
-
-const reframeParagraphs = splitParagraphs(d.reframe ?? d.situation);
-const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
+const paragraphs = (d.reframe ?? d.situation).split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+const proofParagraphs = d.proof ? d.proof.body.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean) : [];
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={commerce.purchasable}>
-  <section class="border-b border-border px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
+  <section class="relative overflow-hidden border-b border-border px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(212,138,23,.09),transparent_32rem)]"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
       <div>
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Free · Developer Marketing Quickstart</p>
-        <h1 class="mt-4 text-5xl font-semibold tracking-tight">{d.hook}</h1>
+        <p class="editorial-kicker">Free · Developer Marketing Quickstart</p>
+        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">{d.hook}</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
-        <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+        <div class="mt-7 border-l border-primary/70 pl-5"><p class="text-sm font-semibold uppercase tracking-[.12em] text-muted-foreground">Best for</p><p class="mt-2 leading-7">{d.audience}</p></div>
         <div class="mt-8"><ProductCTA product={product} location="free-page-hero" /></div>
-        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide. Seven days. One real acquisition test.</p>
+        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide · Seven days · One real acquisition test</p>
       </div>
-      <ProductCover product={product} />
+      <div class="gold-glow"><ProductCover product={product} /></div>
     </div>
   </section>
 
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-4xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">The cycle you already know</p>
-      <h2 class="mt-3 text-3xl font-semibold">The worst time to build a pipeline is when you already need one</h2>
-      <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-        {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+      <div><p class="editorial-kicker">The cycle you already know</p><h2 class="mt-4 text-3xl font-semibold">The worst time to build a pipeline is when you already need one.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">{paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
     </div>
   </section>
 
-  <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Inside the guide</p>
-      <h2 class="mt-3 text-3xl font-semibold">Build the first system before you chase another tactic</h2>
-      <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
-        <ul class="grid gap-3 sm:grid-cols-2">
-          {d.contents.map((item) => <li class="rounded-xl border border-border bg-card p-5"><span class="mr-3 text-success">✓</span>{item}</li>)}
-        </ul>
-        {d.delivery && (
-          <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
-            <div><dt class="text-sm font-semibold">What you receive</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div>
-            <div><dt class="text-sm font-semibold">Working tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div>
-            <div><dt class="text-sm font-semibold">How to use it</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div>
-          </dl>
-        )}
+      <p class="editorial-kicker">Inside the guide</p>
+      <div class="mt-4 grid gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16">
+        <div><h2 class="text-4xl font-semibold tracking-tight">Build the first system before you chase another tactic.</h2><ol class="mt-8 border-t border-border">{d.contents.map((item, index) => <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span>{item}</span></li>)}</ol></div>
+        {d.delivery && <aside class="surface-editorial self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 space-y-6"><div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div><div><dt class="font-semibold">Working tools</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div><div><dt class="font-semibold">How to use it</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div></dl></aside>}
       </div>
     </div>
   </section>
 
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-      <div><h2 class="text-3xl font-semibold">This is for you if</h2><ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul></div>
-      <div><h2 class="text-3xl font-semibold">Skip it if</h2><ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul></div>
-    </div>
-  </section>
+  {d.proof && <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-5xl"><p class="editorial-kicker">See what changes</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">{d.proof.title}</h2><div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">{proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div><div class="mt-9 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2"><div class="bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 text-lg">{d.proof.before}</p></div><div class="bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 text-lg">{d.proof.after}</p></div></div></div></section>}
 
-  {d.proof && (
-    <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-4xl">
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">See what changes</p>
-        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
-        <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-          {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
-        <div class="mt-8 grid gap-4 md:grid-cols-2">
-          <div class="rounded-xl border border-border bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Before</p><p class="mt-2">{d.proof.before}</p></div>
-          <div class="rounded-xl border border-primary/30 bg-card p-5"><p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">After</p><p class="mt-2">{d.proof.after}</p></div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
+  <section class="border-t border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">Questions worth answering before you download it</h2>
-      <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
-      <div class="mt-12 border-t border-border pt-10">
-        <h2 class="text-3xl font-semibold">Stop waiting for the pipeline to become an emergency</h2>
-        <p class="mt-4 text-muted-foreground">The guide is free. Use it to replace “I need clients” with one buyer, one offer, one channel, 25 real prospects, and a result you can learn from.</p>
-        <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
-      </div>
+      <p class="editorial-kicker">Before you download it</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
+      <div class="mt-14 border-t border-border pt-12"><p class="editorial-kicker">Start free</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Stop waiting for the pipeline to become an emergency.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Replace “I need clients” with one buyer, one offer, one channel, 25 real prospects, and a result you can learn from.</p><div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div></div>
     </div>
   </section>
 </BaseLayout>

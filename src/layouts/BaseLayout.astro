@@ -4,9 +4,53 @@ import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
-interface Props { title: string; description: string; noindex?: boolean; enableCheckoutOverlay?: boolean; }
-const { title, description, noindex = false, enableCheckoutOverlay = false } = Astro.props;
-const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).toString() : undefined;
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  enableCheckoutOverlay?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  noindex = false,
+  enableCheckoutOverlay = false,
+  structuredData,
+} = Astro.props;
+
+const siteUrl = siteConfig.url || "https://developerbusinesslab.com";
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const websiteId = new URL("/#website", siteUrl).toString();
+
+const globalStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": organizationId,
+    name: siteConfig.name,
+    url: siteUrl,
+    description: siteConfig.description,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: siteUrl,
+    name: siteConfig.name,
+    description: siteConfig.description,
+    publisher: { "@id": organizationId },
+  },
+];
+
+const pageStructuredData = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 ---
 <!doctype html>
 <html lang="en" class="dark">
@@ -16,15 +60,21 @@ const canonical = siteConfig.url ? new URL(Astro.url.pathname, siteConfig.url).t
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+    {globalStructuredData.map((schema) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+    {pageStructuredData.map((schema) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
     <ClientRouter />
   </head>
   <body transition:animate={fade({ duration: "0.55s" })}>

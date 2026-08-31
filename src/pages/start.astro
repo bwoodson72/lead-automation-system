@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Button } from "@/components/starwind/button";
 
 const service = [
   ["01", "Offer", "Every prospect asks what I do, and I still answer with a list of technologies or whatever they happen to need.", "Productize Your Dev Skills", "/products/productize-your-dev-skills/"],
@@ -15,21 +16,49 @@ const service = [
 
 <BaseLayout
   title="Start Here | Developer Business Lab"
-  description="Find the freelance business bottleneck costing you the most right now and go directly to the system built to fix it."
+  description="Choose between the complete freelance business system and a focused guide for the bottleneck you already know needs attention."
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="editorial-kicker">Start here</p>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-        <h1 class="max-w-5xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">What is costing you the most right now?</h1>
-        <p class="text-lg leading-8 text-muted-foreground">Do not buy a curriculum because several things feel messy. Pick the sentence that sounds uncomfortably familiar and fix the constraint taking the most money, time, opportunity, or confidence from the business now.</p>
+        <h1 class="max-w-5xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Do you need the whole business system, or one deeper fix?</h1>
+        <p class="text-lg leading-8 text-muted-foreground">That is the first decision. Do not diagnose eight separate problems if the business as a whole still feels improvised. But do not buy the broad system when you already know one narrow constraint is the thing costing you.</p>
       </div>
     </div>
   </section>
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+      <div class="bg-background p-7 sm:p-9">
+        <p class="editorial-kicker">The whole business feels improvised</p>
+        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Start with the Freelance Developer Launch Kit.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">Build the market, offer, pricing, positioning, proof, acquisition, sales, onboarding, delivery, referrals, and recurring-revenue system in dependency order so you can see what actually needs attention next.</p>
+        <ul class="mt-6 space-y-3 text-sm leading-6 text-muted-foreground">
+          <li><span class="mr-2 text-primary-accent">✓</span>You are starting or rebuilding the freelance business.</li>
+          <li><span class="mr-2 text-primary-accent">✓</span>Several stages feel undefined at the same time.</li>
+          <li><span class="mr-2 text-primary-accent">✓</span>You want one operating map before choosing deeper specialist material.</li>
+        </ul>
+        <p class="mt-8"><Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button></p>
+      </div>
+
+      <div class="bg-card/35 p-7 sm:p-9">
+        <p class="editorial-kicker">I know exactly what is broken</p>
+        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Go directly to the focused system.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">If the rest of the business is functioning well enough and one stage is clearly leaking money, time, opportunity, or confidence, use the specialist guide built for that constraint.</p>
+        <p class="mt-8"><a href="#known-bottleneck" class="font-semibold text-primary-accent">Choose the known bottleneck ↓</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="known-bottleneck" class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8 scroll-mt-24">
     <div class="mx-auto max-w-7xl">
-      <div class="border-t border-border">
+      <div class="max-w-3xl">
+        <p class="editorial-kicker">Known bottleneck</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Which sentence sounds most like the problem you already see?</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">Pick the constraint that is costing you most now. The focused guide goes deeper than the Launch Kit on that one stage.</p>
+      </div>
+      <div class="mt-9 border-t border-border">
         {service.map(([number, stage, problem, product, href]) => (
           <a href={href} class="group grid gap-3 border-b border-border py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="start_here_choice">
             <span class="font-mono text-xs text-primary-accent">{number}</span>
@@ -42,10 +71,10 @@ const service = [
     </div>
   </section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 lg:px-8">
+  <section class="px-4 py-18 sm:px-6 sm:py-20 lg:px-8">
     <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
-      <div><p class="editorial-kicker">Still not sure?</p><h2 class="mt-4 text-3xl font-semibold">“I just need more clients” is still too broad.</h2></div>
-      <div><p class="text-lg leading-8 text-muted-foreground">Start free. Developer Marketing Quickstart turns that pressure into one buyer, one problem, one offer, one message, one channel, and a first real test. You will know what you are trying before you spend money on a deeper system.</p><p class="mt-5"><a href="/free/" class="font-semibold text-primary-accent">Build the first acquisition loop free →</a></p></div>
+      <div><p class="editorial-kicker">Prefer to start free?</p><h2 class="mt-4 text-3xl font-semibold">Build one acquisition loop before you spend anything.</h2></div>
+      <div><p class="text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart turns “I need more clients” into one buyer, one problem, one offer, one message, one channel, and a first real test. It is the lowest-risk way to put the system into motion.</p><p class="mt-5"><a href="/free/" class="font-semibold text-primary-accent">Build the first acquisition loop free →</a></p></div>
     </div>
   </section>
 </BaseLayout>

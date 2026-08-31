@@ -4,6 +4,10 @@ import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
+import heroPart1 from "@/assets/brand/hero-data/part1.txt?raw";
+import heroPart2 from "@/assets/brand/hero-data/part2.txt?raw";
+import heroPart3 from "@/assets/brand/hero-data/part3.txt?raw";
+import heroPart4 from "@/assets/brand/hero-data/part4.txt?raw";
 
 interface Props {
   title: string;
@@ -25,6 +29,11 @@ const siteUrl = siteConfig.url || "https://developerbusinesslab.com";
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();
 const websiteId = new URL("/#website", siteUrl).toString();
+const isHomepage = Astro.url.pathname === "/";
+const homepageHeroData = `${heroPart1}${heroPart2}${heroPart3}${heroPart4}`;
+const homepageHeroStyle = isHomepage
+  ? `--homepage-hero-image:url("data:image/webp;base64,${homepageHeroData}")`
+  : undefined;
 
 const globalStructuredData = [
   {
@@ -76,8 +85,30 @@ const pageStructuredData = structuredData
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
     <ClientRouter />
+    <style is:global>
+      body.homepage-inline-hero #main-content > section:first-child {
+        background-image: var(--homepage-hero-image);
+        background-size: cover;
+        background-position: 68% center;
+        background-repeat: no-repeat;
+      }
+
+      body.homepage-inline-hero #main-content > section:first-child > img:first-child {
+        display: none;
+      }
+
+      @media (min-width: 640px) {
+        body.homepage-inline-hero #main-content > section:first-child {
+          background-position: center;
+        }
+      }
+    </style>
   </head>
-  <body transition:animate={fade({ duration: "0.55s" })}>
+  <body
+    class:list={{ "homepage-inline-hero": isHomepage }}
+    style={homepageHeroStyle}
+    transition:animate={fade({ duration: "0.55s" })}
+  >
     <a href="#main-content" class="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
     <SiteHeader />
     <main id="main-content"><slot /></main>

@@ -1,12 +1,23 @@
 ---
+import { Image } from "astro:assets";
+import logo from "@/assets/brand/developer-business-lab-logo.png";
 const { compact = false } = Astro.props;
 ---
-<a href="/" class="group inline-flex items-center gap-3 text-foreground focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
-  <span aria-hidden="true" class="grid size-10 place-items-center border border-primary/55 bg-primary/5 font-mono text-xs font-bold tracking-[0.16em] text-primary-accent transition-colors group-hover:bg-primary/10">DBL</span>
-  {!compact && (
-    <span class="leading-none">
-      <span class="block text-sm font-semibold tracking-tight sm:text-base">Developer Business Lab</span>
-      <span class="mt-1 hidden font-mono text-[0.58rem] font-medium uppercase tracking-[0.17em] text-muted-foreground sm:block">Systems for independent developers</span>
-    </span>
-  )}
+<a
+  href="/"
+  aria-label="Developer Business Lab home"
+  class="group inline-flex min-w-0 items-center focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+>
+  <Image
+    src={logo}
+    alt="Developer Business Lab"
+    widths={[240, 320, 400, 520]}
+    sizes={compact ? "140px" : "(max-width: 640px) 210px, 250px"}
+    loading="eager"
+    decoding="async"
+    class:list={[
+      "h-auto w-auto object-contain object-left transition-opacity group-hover:opacity-90",
+      compact ? "max-h-9 max-w-[140px]" : "max-h-12 max-w-[210px] sm:max-w-[250px]",
+    ]}
+  />
 </a>

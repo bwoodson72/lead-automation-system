@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { Badge } from "@/components/starwind/badge";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
@@ -10,10 +9,7 @@ import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemo
 export async function getStaticPaths() {
   const products = await getCollection("products");
   reportProductCatalogCoverage(products.map((product) => product.data));
-  return products.map((product) => ({
-    params: { slug: product.data.slug },
-    props: { product },
-  }));
+  return products.map((product) => ({ params: { slug: product.data.slug }, props: { product } }));
 }
 
 const { product } = Astro.props;
@@ -37,203 +33,96 @@ const delivery = d.delivery ?? {
   worksheets: "Final working assets will be listed when the product is released.",
   time: effectiveStatus === "available" ? "Use it on the next real business decision." : "Final implementation guidance will be published at release.",
 };
-
-const splitParagraphs = (text: string) => {
-  const explicitParagraphs = text
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
-
-  if (explicitParagraphs.length > 1) return explicitParagraphs;
-
-  const sentences = text
-    .match(/[^.!?]+(?:[.!?]+["'’”)]*|$)/g)
-    ?.map((sentence) => sentence.trim())
-    .filter(Boolean);
-
-  if (!sentences || sentences.length < 3) return [text];
-
-  const paragraphs: string[] = [];
-  for (let index = 0; index < sentences.length; index += 2) {
-    paragraphs.push(sentences.slice(index, index + 2).join(" "));
-  }
-  return paragraphs;
-};
-
-const problemHeadings: Record<string, string> = {
-  "developer-marketing-quickstart": "The worst time to build a pipeline is when you already need one",
-  "productize-your-dev-skills": "The buyer should not have to figure out what you sell",
-  "web-developer-pricing-system": "A serious quote should not feel like a gamble",
-  "client-acquisition-without-upwork": "The worst time to restart prospecting is when the work runs out",
-  "marketing-for-builders": "Competence buyers cannot see does not help you win",
-  "ai-prospecting-starter": "A faster bad prospecting process is still bad",
-  "chatgpt-client-acquisition-system": "The system should not disappear when client work gets busy",
-  "automated-lead-engine": "Your time should not be spent moving leads between tools",
-  "production-lead-engine": "Workflow sprawl gets expensive when it starts carrying the business",
-  "developer-sales-playbook": "A pleasant call is not the same as a sales process",
-  "developer-proposal-closing-kit": "A proposal should not be where the sale starts",
-  "agency-partnership-playbook": "Recurring work is only attractive if the economics are good",
-  "freelancer-retainer-system": "The project should not be the last time the client needs you",
-  "freelance-developer-launch-kit": "A freelance business should not depend on whichever fire is burning today",
-  "saas-validation-before-you-build": "A month of coding is an expensive way to discover nobody cares",
-  "micro-saas-launch-system": "Shipping code is not the same as reaching a customer",
-  "the-first-10-saas-customers": "Traffic is not the thing you need most at the beginning",
-  "ai-powered-one-person-dev-business": "Saving five minutes at a time is not leverage",
-};
-
-const insideHeadings: Record<string, string> = {
-  "developer-marketing-quickstart": "Build the first system before you chase another tactic",
-  "productize-your-dev-skills": "Build an offer buyers can understand without an explanation",
-  "web-developer-pricing-system": "Know your floor before the client asks for a number",
-  "client-acquisition-without-upwork": "Build a pipeline before you need one",
-  "marketing-for-builders": "Make your competence visible before the sales call",
-  "ai-prospecting-starter": "Make the rules trustworthy before you automate them",
-  "chatgpt-client-acquisition-system": "Keep the campaign moving when client work takes over",
-  "automated-lead-engine": "Give the repetitive handoffs to the workflow",
-  "production-lead-engine": "Take control back from workflow sprawl",
-  "developer-sales-playbook": "Turn useful conversations into clear decisions",
-  "developer-proposal-closing-kit": "Make the proposal carry decisions forward",
-  "agency-partnership-playbook": "Build repeat work without giving away the economics",
-  "freelancer-retainer-system": "Turn continuing client needs into continuing revenue",
-  "freelance-developer-launch-kit": "Make the pieces reinforce each other",
-  "saas-validation-before-you-build": "Spend conversations before you spend months coding",
-  "micro-saas-launch-system": "Get to customer value before the backlog takes over",
-  "the-first-10-saas-customers": "Learn why people buy before you chase scale",
-  "ai-powered-one-person-dev-business": "Turn scattered AI help into real operating capacity",
-};
-
-const finalHeadings: Record<string, string> = {
-  "developer-marketing-quickstart": "Stop waiting for the pipeline to become an emergency",
-  "productize-your-dev-skills": "Stop rebuilding the offer for every lead",
-  "web-developer-pricing-system": "Price the next project from a system, not a feeling",
-  "client-acquisition-without-upwork": "Give next month's pipeline a head start",
-  "marketing-for-builders": "Make your work easier to understand and easier to choose",
-  "ai-prospecting-starter": "Build the prospecting rules you can trust later",
-  "chatgpt-client-acquisition-system": "Keep prospecting alive without keeping it all in your head",
-  "automated-lead-engine": "Get your attention out of the handoffs",
-  "production-lead-engine": "Build the control your automation has earned",
-  "developer-sales-playbook": "Stop letting good conversations drift",
-  "developer-proposal-closing-kit": "Stop sending proposals and hoping",
-  "agency-partnership-playbook": "Build agency relationships worth repeating",
-  "freelancer-retainer-system": "Stop letting every good project end at zero",
-  "freelance-developer-launch-kit": "Build a business that behaves like one system",
-  "saas-validation-before-you-build": "Make being wrong cheap",
-  "micro-saas-launch-system": "Get the product in front of customers before you polish the wrong thing",
-  "the-first-10-saas-customers": "Learn from the first buyers while you can still talk to every one of them",
-  "ai-powered-one-person-dev-business": "Make AI give you back capacity, not just faster fragments",
-};
-
-const problemHeading = problemHeadings[d.slug] ?? d.problem;
-const insideHeading = insideHeadings[d.slug] ?? "What you get";
-const finalHeading = finalHeadings[d.slug] ?? (effectiveStatus === "available" ? `Get ${d.title}` : `Follow ${d.title}`);
+const splitParagraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).length > 1
+  ? text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+  : [text];
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
+const finalHeading = effectiveStatus === "available" ? `Put ${d.title} to work` : `Follow ${d.title}`;
 ---
 
-<BaseLayout
-  title={d.seo.title}
-  description={d.seo.description}
-  noindex={effectiveStatus === "planned"}
-  enableCheckoutOverlay={commerce.purchasable}
->
+<BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable}>
   {breadcrumbs && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />}
 
-  <section class="border-b border-border px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <nav aria-label="Breadcrumb" class="text-sm text-muted-foreground">
-        <a href="/products/" class="hover:text-foreground">Products</a>
-        <span aria-hidden="true"> / </span>
-        <span>{d.title}</span>
-      </nav>
-      <div class="mt-10 grid gap-14 lg:grid-cols-2 lg:items-center">
+  <section class="relative overflow-hidden border-b border-border px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(212,138,23,.09),transparent_32rem)]"></div>
+    <div class="relative mx-auto max-w-7xl">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted-foreground"><a href="/products/" class="hover:text-foreground">Products</a><span aria-hidden="true"> / </span><span>{d.title}</span></nav>
+      <div class="mt-10 grid gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
         <div>
-          <div class="flex flex-wrap gap-2">
-            <Badge variant="outline">{d.family}</Badge>
-            {d.tier && <Badge>Tier {d.tier}</Badge>}
-            <Badge variant="secondary">{effectiveStatus === "coming-soon" ? "Coming soon" : effectiveStatus}</Badge>
-          </div>
+          <p class="editorial-kicker">{d.family}</p>
           <p class="mt-5 text-sm font-semibold text-primary-accent">{d.title}</p>
-          <h1 class="mt-3 max-w-3xl text-5xl font-semibold tracking-tight sm:text-6xl">{hook}</h1>
+          <h1 class="mt-3 max-w-3xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">{hook}</h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
-          <p class="mt-6 border-l-2 border-primary pl-4"><strong>Best for:</strong> <span class="text-muted-foreground">{d.audience}</span></p>
+          <div class="mt-7 border-l border-primary/70 pl-5"><p class="text-sm font-semibold uppercase tracking-[.12em] text-muted-foreground">Best for</p><p class="mt-2 leading-7">{d.audience}</p></div>
           <div class="mt-8"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 text-sm text-muted-foreground">{d.format}{commerce.purchasable ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : ""}</p>
+          <p class="mt-4 text-sm text-muted-foreground">{d.format}{commerce.purchasable ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : ` · ${effectiveStatus === "coming-soon" ? "Coming soon" : "Planned"}`}</p>
         </div>
-        <ProductCover product={product} />
+        <div class="gold-glow"><ProductCover product={product} /></div>
       </div>
     </div>
   </section>
 
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold">{problemHeading}</h2>
-      <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-        {reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+      <div><p class="editorial-kicker">The problem</p><h2 class="mt-4 text-3xl font-semibold">Why this keeps costing you.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
     </div>
   </section>
 
-  <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Inside the system</p>
-      <h2 class="mt-3 text-3xl font-semibold">{insideHeading}</h2>
-      <div class="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
-        <ul class="grid gap-3 sm:grid-cols-2">
-          {d.contents.map((item) => (
-            <li class="rounded-xl border border-border bg-card p-5"><span aria-hidden="true" class="mr-3 text-success">✓</span>{item}</li>
-          ))}
-        </ul>
-        <dl class="space-y-5 rounded-xl border border-border bg-card p-6">
-          <div><dt class="text-sm font-semibold">What you receive</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
-          <div><dt class="text-sm font-semibold">Working tools</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
-          <div><dt class="text-sm font-semibold">How to use it</dt><dd class="mt-1 text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
-        </dl>
+      <p class="editorial-kicker">Inside the system</p>
+      <div class="mt-4 grid gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16">
+        <div>
+          <h2 class="text-4xl font-semibold tracking-tight">What you will work through.</h2>
+          <ol class="mt-8 border-t border-border">
+            {d.contents.map((item, index) => <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span>{item}</span></li>)}
+          </ol>
+        </div>
+        <aside class="surface-editorial self-start p-7">
+          <p class="editorial-kicker">What you receive</p>
+          <dl class="mt-6 space-y-6">
+            <div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
+            <div><dt class="font-semibold">Working tools</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
+            <div><dt class="font-semibold">How to use it</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
+          </dl>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
       <div>
-        <h2 class="text-3xl font-semibold">This is for you if</h2>
-        <ul class="mt-6 space-y-3">{d.whoItsFor.map((item) => <li class="text-muted-foreground">✓ {item}</li>)}</ul>
+        <p class="editorial-kicker">This is for you if</p>
+        <ul class="mt-6 border-t border-border">{d.whoItsFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul>
       </div>
       <div>
-        <h2 class="text-3xl font-semibold">Skip it if</h2>
-        <ul class="mt-6 space-y-3">{d.whoItsNotFor.map((item) => <li class="text-muted-foreground">× {item}</li>)}</ul>
+        <p class="editorial-kicker">Skip it if</p>
+        <ul class="mt-6 border-t border-border">{d.whoItsNotFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul>
       </div>
     </div>
   </section>
 
   {d.proof && (
-    <section class="border-y border-border bg-card/30 px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-4xl">
-        <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">See what changes</p>
-        <h2 class="mt-3 text-3xl font-semibold">{d.proof.title}</h2>
-        <div class="mt-5 space-y-5 text-lg leading-8 text-muted-foreground">
-          {proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
-        {(d.proof.before || d.proof.after) && (
-          <div class="mt-8 grid gap-4 md:grid-cols-2">
-            {d.proof.before && <div class="rounded-xl border border-border bg-background p-5"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Before</p><p class="mt-2">{d.proof.before}</p></div>}
-            {d.proof.after && <div class="rounded-xl border border-primary/30 bg-background p-5"><p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">After</p><p class="mt-2">{d.proof.after}</p></div>}
-          </div>
-        )}
+    <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto max-w-5xl">
+        <p class="editorial-kicker">See what changes</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">{d.proof.title}</h2>
+        <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">{proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+        {(d.proof.before || d.proof.after) && <div class="mt-9 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.proof.before && <div class="bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 text-lg">{d.proof.before}</p></div>}{d.proof.after && <div class="bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 text-lg">{d.proof.after}</p></div>}</div>}
       </div>
     </section>
   )}
 
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      {d.faqs.length > 0 && (
-        <>
-          <h2 class="text-3xl font-semibold">{effectiveStatus === "available" ? "Questions worth answering before you buy" : "Before you join the release list"}</h2>
-          <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
-        </>
-      )}
-      <div class={d.faqs.length > 0 ? "mt-12 border-t border-border pt-10" : ""}>
-        <h2 class="text-3xl font-semibold">{finalHeading}</h2>
-        <p class="mt-4 leading-7 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
+      {d.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}
+      <div class={d.faqs.length > 0 ? "mt-14 border-t border-border pt-12" : ""}>
+        <p class="editorial-kicker">Next step</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">{finalHeading}</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
         <div class="mt-8"><ProductCTA product={product} location="final" /></div>
       </div>
     </div>

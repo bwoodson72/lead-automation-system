@@ -1,8 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { Badge } from "@/components/starwind/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/starwind/card";
 import { isPublicBundle } from "@/lib/storefront-visibility";
 
 const bundles = (await getCollection("bundles"))
@@ -14,25 +12,38 @@ const bundles = (await getCollection("bundles"))
   title="Bundles | Developer Business Lab"
   description="Developer Business Lab bundles for independent developers ready to connect several freelance business systems into one stronger operating model."
 >
-  <section class="px-4 py-20 sm:px-6 lg:px-8">
+  <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Business system bundles</p>
-      <h1 class="mt-4 max-w-4xl text-5xl font-semibold">When one bottleneck is no longer the whole problem.</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A clear offer helps less if nobody sees it. Better acquisition helps less if the sales process leaks. A great project still leaves you exposed if every dollar of revenue ends when delivery ends. These bundles group the freelance systems that are designed to reinforce one another.</p>
-      <div class="mt-12 grid gap-5 md:grid-cols-2">
-        {bundles.map((bundle) => (
-          <Card>
-            <CardHeader>
-              <Badge variant="secondary" class="mb-3 w-fit">Bundle</Badge>
-              <CardTitle>{bundle.data.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p class="leading-7 text-muted-foreground">{bundle.data.outcome}</p>
-              <p class="mt-4 text-sm"><strong>For:</strong> <span class="text-muted-foreground">{bundle.data.audience}</span></p>
-            </CardContent>
-          </Card>
+      <p class="editorial-kicker">Business system bundles</p>
+      <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
+        <h1 class="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">When one bottleneck is no longer the whole problem.</h1>
+        <p class="text-lg leading-8 text-muted-foreground">Bundles connect the systems that naturally reinforce one another, so the offer, acquisition, sales, and recurring-revenue pieces stop behaving like separate projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="border-t border-border">
+        {bundles.map((bundle, index) => (
+          <article class="grid gap-8 border-b border-border py-10 lg:grid-cols-[5rem_.8fr_1.2fr_auto] lg:items-center">
+            <p class="font-mono text-xs text-primary-accent">0{index + 1}</p>
+            <div><p class="editorial-kicker">Bundle</p><h2 class="mt-3 text-3xl font-semibold tracking-tight">{bundle.data.title}</h2></div>
+            <div><p class="text-lg leading-8 text-muted-foreground">{bundle.data.outcome}</p><p class="mt-4 text-sm"><strong>Best for:</strong> <span class="text-muted-foreground">{bundle.data.audience}</span></p></div>
+            <div class="lg:text-right"><span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">In development</span></div>
+          </article>
         ))}
       </div>
+      {bundles.length === 0 && <div class="surface-editorial p-8"><p class="text-lg">Focused bundles are being assembled around the public freelance systems.</p><p class="mt-3 text-muted-foreground">Individual systems remain available while bundle composition and pricing are finalized.</p></div>}
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <p class="editorial-kicker">Not sure you need a bundle?</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Start with the bottleneck, not the biggest package.</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">If one problem is clearly costing you more than the others, fix that first. The complete system only makes sense when several parts of the business need to work together.</p>
+      <p class="mt-7"><a href="/start/" class="font-semibold text-primary-accent">Find your starting point →</a></p>
     </div>
   </section>
 </BaseLayout>

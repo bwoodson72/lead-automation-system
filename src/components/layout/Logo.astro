@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import logo from "@/assets/brand/developer-business-lab-logo.png";
 const { compact = false } = Astro.props;
 ---
 <a
@@ -8,16 +6,39 @@ const { compact = false } = Astro.props;
   aria-label="Developer Business Lab home"
   class="group inline-flex min-w-0 items-center focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
 >
-  <Image
-    src={logo}
-    alt="Developer Business Lab"
-    widths={[240, 320, 400, 520]}
-    sizes={compact ? "140px" : "(max-width: 640px) 210px, 250px"}
-    loading="eager"
-    decoding="async"
+  <svg
+    viewBox="0 0 940 220"
+    role="img"
+    aria-labelledby="dbl-logo-title"
     class:list={[
-      "h-auto w-auto object-contain object-left transition-opacity group-hover:opacity-90",
-      compact ? "max-h-9 max-w-[140px]" : "max-h-12 max-w-[210px] sm:max-w-[250px]",
+      "block w-auto overflow-visible transition-opacity group-hover:opacity-90",
+      compact ? "h-9 max-w-[150px]" : "h-12 max-w-[220px] sm:h-14 sm:max-w-[280px]",
     ]}
-  />
+  >
+    <title id="dbl-logo-title">Developer Business Lab</title>
+    <defs>
+      <linearGradient id="dbl-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffe08a" />
+        <stop offset="0.35" stop-color="#e6ad3e" />
+        <stop offset="0.7" stop-color="#b96e00" />
+        <stop offset="1" stop-color="#efb84d" />
+      </linearGradient>
+    </defs>
+
+    <g fill="none" stroke="url(#dbl-gold)" stroke-width="14" stroke-linejoin="round" stroke-linecap="square">
+      <path d="M28 28h94c47 0 78 27 78 67 0 20-8 37-23 49" />
+      <path d="M28 72h70l92 92" />
+      <path d="M28 72v118h132" />
+      <path d="M28 190l69-70" />
+      <path d="M101 72l79 79" />
+    </g>
+
+    <rect x="225" y="28" width="4" height="164" rx="2" fill="url(#dbl-gold)" />
+
+    <g font-family="Arial, Helvetica, sans-serif">
+      <text x="268" y="83" fill="#f4f1e8" font-size="38" font-weight="700" letter-spacing="15">DEVELOPER</text>
+      <text x="265" y="157" fill="#f4f1e8" font-size="66" font-weight="800" letter-spacing="1">BUSINESS</text>
+      <text x="648" y="157" fill="url(#dbl-gold)" font-size="66" font-weight="800" letter-spacing="1">LAB</text>
+    </g>
+  </svg>
 </a>

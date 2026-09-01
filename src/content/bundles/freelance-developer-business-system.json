@@ -1,1 +1,35 @@
-{"title":"Freelance Developer Business System","slug":"freelance-developer-business-system","status":"planned","outcome":"Build the business around your technical skill so every month is not another collection of improvised decisions. Connect offer, pricing, acquisition, sales, delivery, proof, referrals, and recurring revenue into one system you can inspect and improve.","audience":"Independent developers building or rebuilding a one-person service business that needs to feel more dependable than a sequence of unrelated projects.","order":4,"products":[]}
+{
+  "title": "Freelance Developer Business System",
+  "slug": "freelance-developer-business-system",
+  "status": "planned",
+  "stage": "Complete business",
+  "badge": "Broadest freelance coverage",
+  "hook": "Build the operating map and the specialist systems behind the whole freelance business.",
+  "shortDescription": "Pair the integrated Launch Kit with focused systems for offer, pricing, marketing, acquisition, sales, closing, partnerships, and recurring revenue.",
+  "outcome": "Build the business around your technical skill so every month is not another collection of improvised decisions. Connect offer, pricing, acquisition, sales, delivery, proof, referrals, and recurring revenue into one system you can inspect and improve.",
+  "whyTogether": "The Launch Kit gives you the integrated operating map and dependency order. The focused systems add deeper treatment where the major commercial stages need more tools, examples, and implementation detail. Together they give you both breadth and specialist depth without pretending every problem is solved by one tactic.",
+  "audience": "Independent developers building or rebuilding a one-person service business that needs to feel more dependable than a sequence of unrelated projects.",
+  "order": 4,
+  "products": ["freelance-developer-launch-kit", "productize-your-dev-skills", "web-developer-pricing-system", "marketing-for-builders", "client-acquisition-without-upwork", "developer-sales-playbook", "developer-proposal-closing-kit", "agency-partnership-playbook", "freelancer-retainer-system"],
+  "implementationOrder": [
+    "Use the Launch Kit to map the whole business and identify dependencies.",
+    "Strengthen the offer, pricing, and marketing foundation where those decisions need more depth.",
+    "Build direct acquisition and agency partnerships into a more resilient opportunity system.",
+    "Tighten sales, proposal, and closing so qualified opportunities have a controlled path to a decision.",
+    "Turn successful delivery into proof, referrals, and recurring value where the client genuinely needs it."
+  ],
+  "whoItsFor": [
+    "You are building or rebuilding the whole freelance business rather than fixing one isolated bottleneck.",
+    "You want an integrated operating map plus deeper specialist systems for the major commercial stages.",
+    "You expect to revisit these decisions as the business changes rather than read once and forget them."
+  ],
+  "whoItsNotFor": [
+    "One narrow bottleneck is clearly the only thing that needs attention right now.",
+    "You want guaranteed clients, revenue, or a passive business that requires no judgment or execution."
+  ],
+  "faqs": [
+    {"question":"How is this different from the Launch Kit by itself?","answer":"The Launch Kit is the integrated operating map. This bundle adds the focused specialist systems so you can go substantially deeper at the major commercial stages without losing the overall structure."},
+    {"question":"Do I have to work through every guide immediately?","answer":"No. Start with the operating map, identify the current constraint, and use the focused system when that stage deserves deeper work. The bundle is a library of connected systems, not a requirement to do everything at once."}
+  ],
+  "seo": {"title":"Freelance Developer Business System | Developer Business Lab","description":"Build a connected freelance business with the integrated Launch Kit plus focused systems for the major commercial stages."}
+}

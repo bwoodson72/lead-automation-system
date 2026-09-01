@@ -108,12 +108,20 @@ const bundles = defineCollection({
     audience: z.string(),
     order: z.number(),
     products: z.array(z.string()).default([]),
+    lemonProductId: z.string().regex(/^\d+$/).optional(),
     price: z.number().positive().optional(),
     checkoutUrl: lemonSqueezyCheckoutUrl.optional(),
+    stage: z.string().optional(),
+    hook: z.string().optional(),
+    shortDescription: z.string().optional(),
+    whyTogether: z.string().optional(),
+    implementationOrder: z.array(z.string()).default([]),
+    whoItsFor: z.array(z.string()).default([]),
+    whoItsNotFor: z.array(z.string()).default([]),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+    badge: z.string().optional(),
+    seo: z.object({ title: z.string(), description: z.string() }).optional(),
   }).superRefine((data, ctx) => {
-    if (data.status === "available" && (!data.price || !data.checkoutUrl)) {
-      ctx.addIssue({ code: "custom", message: "Available bundles require price and checkoutUrl." });
-    }
     if (data.status !== "available" && data.checkoutUrl) {
       ctx.addIssue({ code: "custom", message: "Only available bundles may have checkoutUrl." });
     }

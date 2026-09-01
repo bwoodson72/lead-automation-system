@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { Button } from "@/components/starwind/button";
+import BundlePriceComparison from "@/components/products/BundlePriceComparison.astro";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
+
+interface Props {
+  bundle: CollectionEntry<"bundles">;
+  products: CollectionEntry<"products">[];
+  featured?: boolean;
+  location?: string;
+}
+
+const { bundle, products, featured = false, location = "bundle-card" } = Astro.props;
+const merch = getBundleMerchandising(bundle, products);
+---
+
+<article class:list={["flex h-full min-w-0 flex-col overflow-hidden border bg-background", featured ? "border-primary/45" : "border-border"]}>
+  {merch.image && (
+    <div class="aspect-[16/9] overflow-hidden border-b border-border bg-card/35 p-4">
+      <Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="h-full w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 32rem, 90vw" />
+    </div>
+  )}
+  <div class="flex flex-1 flex-col p-6 sm:p-7">
+    <div class="flex flex-wrap items-center gap-3">
+      <p class="font-mono text-xs text-primary-accent">{merch.step} · {merch.stage}</p>
+      {bundle.data.badge && <span class="border border-primary/30 px-2.5 py-1 text-[.65rem] font-semibold uppercase tracking-[.12em] text-primary-accent">{bundle.data.badge}</span>}
+    </div>
+    <h3 class="mt-4 text-2xl font-semibold tracking-tight">{bundle.data.title}</h3>
+    <p class="mt-4 flex-1 text-sm leading-6 text-muted-foreground">{bundle.data.shortDescription ?? bundle.data.outcome}</p>
+    <p class="mt-5 text-sm font-medium">{merch.productCount} connected system{merch.productCount === 1 ? "" : "s"}</p>
+    <div class="mt-6"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} compact /></div>
+    <div class="mt-7">
+      <Button as="a" href={`/bundles/${bundle.data.slug}/`} data-event="bundle_detail_view" data-product-slug={bundle.data.slug} data-cta-location={location}>
+        See {bundle.data.title}
+      </Button>
+    </div>
+  </div>
+</article>

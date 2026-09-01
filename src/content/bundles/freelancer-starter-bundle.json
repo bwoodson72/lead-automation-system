@@ -1,1 +1,32 @@
-{"title":"Freelancer Starter Bundle","slug":"freelancer-starter-bundle","status":"planned","outcome":"Stop looking like a capable developer with a fuzzy business. Connect one clear offer, pricing you can defend, and marketing that makes the value of your work easier for buyers to see.","audience":"Independent developers who can deliver the work but still feel uncertain about what they sell, what to charge, and how to make the expertise visible.","order":1,"products":[]}
+{
+  "title": "Freelancer Starter Bundle",
+  "slug": "freelancer-starter-bundle",
+  "status": "planned",
+  "stage": "Foundation",
+  "hook": "Build the commercial foundation before you ask acquisition to carry it.",
+  "shortDescription": "Connect a clear offer, pricing you can defend, and marketing that makes the value of your work easier for buyers to understand.",
+  "outcome": "Stop looking like a capable developer with a fuzzy business. Connect one clear offer, pricing you can defend, and marketing that makes the value of your work easier for buyers to see.",
+  "whyTogether": "Offer, price, and marketing are not three independent decisions. The offer determines what is being valued, the pricing system determines how you capture that value, and the marketing system makes the value legible before a sales conversation begins.",
+  "audience": "Independent developers who can deliver the work but still feel uncertain about what they sell, what to charge, and how to make the expertise visible.",
+  "order": 1,
+  "products": ["productize-your-dev-skills", "web-developer-pricing-system", "marketing-for-builders"],
+  "implementationOrder": [
+    "Define the offer and the buyer problem it is built around.",
+    "Set pricing rules and a defensible commercial floor for that offer.",
+    "Translate the offer and its value into buyer-facing marketing that makes the work easier to understand and hire."
+  ],
+  "whoItsFor": [
+    "You can do the technical work but still describe the business as a list of capabilities.",
+    "Pricing and positioning still change too much from prospect to prospect.",
+    "Your work is stronger than the way the business currently presents it."
+  ],
+  "whoItsNotFor": [
+    "You already have a clear offer, stable pricing policy, and marketing that reliably communicates the value.",
+    "Your immediate constraint is closing qualified opportunities rather than the business foundation."
+  ],
+  "faqs": [
+    {"question":"Why buy these together?","answer":"Because each decision changes the next one. A clearer offer improves pricing logic, and both determine what your marketing needs to communicate. The bundle is for buyers who need that whole foundation working together."},
+    {"question":"Do I need to finish all three before finding clients?","answer":"No. Use the order as a dependency guide, not a reason to delay contact with the market. You can continue real conversations while tightening the foundation."}
+  ],
+  "seo": {"title":"Freelancer Starter Bundle | Developer Business Lab","description":"Build a clearer freelance offer, defensible pricing, and buyer-facing marketing as one connected foundation system."}
+}

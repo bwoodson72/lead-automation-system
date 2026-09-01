@@ -1,1 +1,32 @@
-{"title":"Freelancer Sales System","slug":"freelancer-sales-system","status":"planned","outcome":"Stop losing control after a prospect finally says yes to a conversation. Connect qualification, sales, proposals, closing, payment, and recurring value so good opportunities have a cleaner path to becoming profitable client relationships.","audience":"Independent developers who can create conversations but want fewer vague next steps, fewer proposal black holes, and more control between first call and continuing client value.","order":3,"products":[]}
+{
+  "title": "Freelancer Sales System",
+  "slug": "freelancer-sales-system",
+  "status": "planned",
+  "stage": "Sales & retention",
+  "hook": "A good opportunity should have a clean path from conversation to continuing value.",
+  "shortDescription": "Connect sales conversations, proposals, closing, and legitimate recurring value so qualified opportunities stop dissolving into vague next steps.",
+  "outcome": "Stop losing control after a prospect finally says yes to a conversation. Connect qualification, sales, proposals, closing, payment, and recurring value so good opportunities have a cleaner path to becoming profitable client relationships.",
+  "whyTogether": "Sales does not end when a call goes well. The decisions made in discovery need to survive the proposal, the proposal needs a controlled path to signature and payment, and successful delivery should create a deliberate decision about whether continuing value exists.",
+  "audience": "Independent developers who can create conversations but want fewer vague next steps, fewer proposal black holes, and more control between first call and continuing client value.",
+  "order": 3,
+  "products": ["developer-sales-playbook", "developer-proposal-closing-kit", "freelancer-retainer-system"],
+  "implementationOrder": [
+    "Run qualification and sales conversations toward a real decision rather than indefinite interest.",
+    "Carry the agreed diagnosis, scope, price, assumptions, and next step into proposal and closing.",
+    "After successful delivery, identify genuine continuing needs and structure recurring value only where it belongs."
+  ],
+  "whoItsFor": [
+    "You can get prospects on calls but too many conversations stall afterward.",
+    "Proposals feel like a second sales process instead of a record of decisions already made.",
+    "Good projects end without a deliberate retention or recurring-value decision."
+  ],
+  "whoItsNotFor": [
+    "Your main problem is not having enough qualified opportunities to sell to.",
+    "You want scripts that pressure buyers or artificial retainers with no continuing client value."
+  ],
+  "faqs": [
+    {"question":"Why is retention included with sales?","answer":"Because recurring value is easier to design when qualification, expectations, delivery, and the ongoing client need are connected. The retainer should be a continuation of real value, not an add-on invented after launch."},
+    {"question":"Do I need a proposal for every project?","answer":"No. The closing system is about choosing the right decision and documentation path for the deal, not forcing every opportunity through the same artifact."}
+  ],
+  "seo": {"title":"Freelancer Sales System | Developer Business Lab","description":"Connect freelance sales, proposals, closing, and recurring client value into one cleaner decision system."}
+}

@@ -1,0 +1,34 @@
+---
+interface Props {
+  bundlePriceFormatted?: string;
+  separateValue?: number;
+  savings?: number;
+  savingsPercent?: number;
+  compact?: boolean;
+}
+
+const { bundlePriceFormatted, separateValue, savings, savingsPercent, compact = false } = Astro.props;
+---
+
+<div class:list={["flex flex-wrap items-end gap-x-5 gap-y-2", compact ? "text-sm" : ""]}>
+  {separateValue && (
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Separately</p>
+      <p class:list={["mt-1 text-muted-foreground line-through", compact ? "text-base" : "text-xl"]}>${separateValue.toFixed(0)}</p>
+    </div>
+  )}
+  {bundlePriceFormatted && (
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Bundle</p>
+      <p class:list={["mt-1 font-semibold", compact ? "text-xl" : "text-3xl"]}>{bundlePriceFormatted}</p>
+    </div>
+  )}
+  {savings && (
+    <div class="border-l border-primary/35 pl-5">
+      <p class="text-xs font-semibold uppercase tracking-[.12em] text-primary-accent">You save</p>
+      <p class:list={["mt-1 font-semibold text-primary-accent", compact ? "text-base" : "text-xl"]}>
+        ${savings.toFixed(0)}{savingsPercent ? ` · ${savingsPercent}%` : ""}
+      </p>
+    </div>
+  )}
+</div>

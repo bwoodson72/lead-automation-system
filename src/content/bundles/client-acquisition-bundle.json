@@ -1,1 +1,32 @@
-{"title":"Client Acquisition Bundle","slug":"client-acquisition-bundle","status":"planned","outcome":"Build enough clarity and pipeline that finding work stops becoming an emergency at the end of every project. Connect the offer, marketing, prospecting, qualification, follow-up, and pipeline pieces that create real opportunities.","audience":"Independent developers who are tired of depending on marketplaces, unpredictable referrals, and last-minute prospecting bursts to fill the calendar.","order":2,"products":[]}
+{
+  "title": "Client Acquisition Bundle",
+  "slug": "client-acquisition-bundle",
+  "status": "planned",
+  "stage": "Acquisition",
+  "hook": "Stop making one channel carry the entire pipeline.",
+  "shortDescription": "Connect buyer-facing marketing, direct acquisition, and agency partnerships so qualified opportunities do not depend on one source.",
+  "outcome": "Build enough clarity and pipeline that finding work stops becoming an emergency at the end of every project. Connect the marketing, direct acquisition, agency-partnership, qualification, follow-up, and pipeline pieces that create real opportunities.",
+  "whyTogether": "A resilient pipeline is stronger when buyers can discover and understand you, when you can create opportunities directly, and when trusted partners can refer or subcontract appropriate work. These systems give each acquisition path a different job instead of forcing one channel to do everything.",
+  "audience": "Independent developers who are tired of depending on marketplaces, unpredictable referrals, and last-minute prospecting bursts to fill the calendar.",
+  "order": 2,
+  "products": ["marketing-for-builders", "client-acquisition-without-upwork", "agency-partnership-playbook"],
+  "implementationOrder": [
+    "Make the offer and value easy to understand before traffic or outreach reaches it.",
+    "Build a repeatable direct-acquisition process for finding, qualifying, contacting, and following up with prospects.",
+    "Add agency partnerships as a second relationship-driven source of qualified opportunities."
+  ],
+  "whoItsFor": [
+    "Your pipeline goes quiet whenever delivery work gets busy.",
+    "You depend too heavily on marketplaces, referrals, or one acquisition channel.",
+    "You want more than one deliberate path to qualified opportunities."
+  ],
+  "whoItsNotFor": [
+    "You already have more qualified opportunities than you can handle.",
+    "Your primary constraint is converting existing opportunities into signed work."
+  ],
+  "faqs": [
+    {"question":"Is this only a cold-outreach bundle?","answer":"No. Direct acquisition is one part. The bundle also covers buyer-facing marketing and agency partnerships so the pipeline is not built around a single channel."},
+    {"question":"Should I run every channel at once?","answer":"No. Build one channel to a useful operating standard, then add the next. The goal is resilience and repeatability, not maximum activity."}
+  ],
+  "seo": {"title":"Client Acquisition Bundle | Developer Business Lab","description":"Build a more resilient freelance pipeline by connecting marketing, direct acquisition, and agency partnerships."}
+}

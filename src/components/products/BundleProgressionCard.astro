@@ -1,8 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Button } from "@/components/starwind/button";
 import TextLink from "@/components/ui/TextLink.astro";
-import { bundleProgression, getBundleRecommendation } from "@/lib/bundle-progression";
-import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import BundlePriceComparison from "@/components/products/BundlePriceComparison.astro";
+import { getBundleRecommendation } from "@/lib/bundle-progression";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
 
 interface Props {
   currentProduct: CollectionEntry<"products">;
@@ -12,111 +14,32 @@ interface Props {
 
 const { currentProduct, products, bundle } = Astro.props;
 const recommendation = getBundleRecommendation(currentProduct.data.slug);
-
-const sourceSlugs = recommendation
-  ? (bundle?.data.products?.length ? bundle.data.products : recommendation.productSlugs)
-  : [];
-const resolvedProducts = sourceSlugs
-  .map((slug) => products.find((product) => product.data.slug === slug))
-  .filter((product): product is CollectionEntry<"products"> => Boolean(product));
-const orderedProducts = recommendation
-  ? [
-      currentProduct,
-      ...resolvedProducts.filter((product) => product.data.slug !== currentProduct.data.slug),
-    ]
-  : [];
-const visibleProducts = orderedProducts.slice(0, 4);
-const missingCount = Math.max(sourceSlugs.length - resolvedProducts.length, 0);
-const hiddenCount = Math.max(resolvedProducts.length - visibleProducts.length, 0);
-const remainingCount = hiddenCount + missingCount;
-
-const bundleTitle = bundle?.data.title ?? recommendation?.title;
-const bundleOutcome = bundle?.data.outcome ?? recommendation?.outcome;
-const bundlePrice = bundle?.data.price;
-const activeStep = recommendation
-  ? bundleProgression.findIndex((entry) => entry.slug === recommendation.slug)
-  : -1;
-
-const resolvedPrices = resolvedProducts.map((product) => {
-  const commerce = resolveProductCommerce(product.data);
-  const formatted = commerce.priceFormatted;
-  if (!formatted) return undefined;
-  const value = Number(formatted.replace(/[^0-9.]/g, ""));
-  return Number.isFinite(value) ? value : undefined;
-});
-const separateValue = sourceSlugs.length > 0 && resolvedProducts.length === sourceSlugs.length && resolvedPrices.every((value) => value !== undefined)
-  ? (resolvedPrices as number[]).reduce((sum, value) => sum + value, 0)
-  : undefined;
-const savings = bundlePrice && separateValue && separateValue > bundlePrice
-  ? separateValue - bundlePrice
-  : undefined;
+const merch = bundle ? getBundleMerchandising(bundle, products) : undefined;
 ---
 
-{recommendation && bundleTitle && bundleOutcome && (
-  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+{recommendation && bundle && merch && (
+  <section class="border-y border-border bg-card/35 px-6 py-10 sm:px-6 sm:py-12 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Continue the business system</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Need the rest of this stage working with it?</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">{recommendation.bridge}</p>
-      </div>
-
-      <article class="mt-10 overflow-hidden border border-primary/30 bg-background">
-        <div class="grid lg:grid-cols-[.72fr_1.28fr]">
-          <div class="relative overflow-hidden border-b border-border bg-[#0b0c0a] p-7 sm:p-9 lg:border-b-0 lg:border-r">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(212,138,23,.16),transparent_24rem)]"></div>
-            <div class="relative flex h-full min-h-72 flex-col">
-              <p class="font-mono text-xs font-semibold uppercase tracking-[.16em] text-primary-accent">Developer Business Lab</p>
-              <div class="my-auto py-10">
-                <p class="text-xs font-semibold uppercase tracking-[.16em] text-white/55">{recommendation.step} · {recommendation.stage}</p>
-                <h3 class="mt-4 max-w-md text-4xl font-semibold tracking-tight text-white">{bundleTitle}</h3>
-                <p class="mt-5 max-w-md text-sm leading-6 text-white/60">A connected system, not a pile of unrelated guides.</p>
-              </div>
-              <div class="grid grid-cols-4 gap-2" aria-label="Bundle progression">
-                {bundleProgression.map((entry, index) => (
-                  <div>
-                    <div class:list={["h-1", index <= activeStep ? "bg-primary" : "bg-white/15"]}></div>
-                    <p class:list={["mt-2 text-[.62rem] font-semibold uppercase tracking-[.1em]", index === activeStep ? "text-primary-accent" : "text-white/35"]}>{entry.stage}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <article class="grid gap-8 border border-primary/35 bg-background p-7 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:p-9">
+        <div class="min-w-0">
+          <p class="editorial-kicker">This guide is included in a larger system</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight">Need the rest of this stage working with it?</h2>
+          <p class="mt-4 max-w-3xl text-lg leading-8 text-muted-foreground">{recommendation.bridge}</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {merch.includedProducts.map((product) => (
+              <span class:list={["border px-3 py-1.5 text-xs", product.data.slug === currentProduct.data.slug ? "border-primary/40 text-primary-accent" : "border-border text-muted-foreground"]}>
+                {product.data.title}{product.data.slug === currentProduct.data.slug ? " · You’re here" : ""}
+              </span>
+            ))}
           </div>
-
-          <div class="min-w-0 p-7 sm:p-9 lg:p-10">
-            <div class="flex flex-col gap-7 xl:flex-row xl:items-start xl:justify-between">
-              <div class="min-w-0 max-w-2xl">
-                <p class="editorial-kicker">This product is included</p>
-                <h3 class="mt-3 break-words text-3xl font-semibold tracking-tight">{bundleTitle}</h3>
-                <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">{bundleOutcome}</p>
-              </div>
-              {bundlePrice && (
-                <div class="shrink-0 border-l border-primary/35 pl-5 xl:text-right">
-                  <p class="text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">Bundle</p>
-                  <p class="mt-2 text-3xl font-semibold">${bundlePrice.toFixed(0)}</p>
-                  {separateValue && <p class="mt-1 text-sm text-muted-foreground">${separateValue.toFixed(0)} separately</p>}
-                  {savings && <p class="mt-1 text-sm font-semibold text-primary-accent">Save ${savings.toFixed(0)}</p>}
-                </div>
-              )}
-            </div>
-
-            <div class="mt-8 border-t border-border">
-              {visibleProducts.map((product) => (
-                <div class="flex min-w-0 items-center justify-between gap-4 border-b border-border py-4">
-                  <span class="min-w-0 break-words text-sm sm:text-base">{product.data.title}</span>
-                  {product.data.slug === currentProduct.data.slug
-                    ? <span class="shrink-0 border border-primary/35 px-2.5 py-1 text-[.65rem] font-semibold uppercase tracking-[.12em] text-primary-accent">You’re here</span>
-                    : <span class="shrink-0 text-primary-accent" aria-hidden="true">✓</span>}
-                </div>
-              ))}
-              {remainingCount > 0 && <p class="py-4 text-sm font-medium text-muted-foreground">+ {remainingCount} more system{remainingCount === 1 ? "" : "s"} in the complete bundle</p>}
-              {visibleProducts.length === 0 && <p class="py-5 text-sm leading-6 text-muted-foreground">The full product list will appear here as the bundle catalog is populated.</p>}
-            </div>
-
-            <div class="mt-8 flex flex-wrap items-center gap-4">
-              <TextLink href={`/bundles/#${recommendation.slug}`}>Explore the complete system →</TextLink>
-              {!bundlePrice && <span class="text-sm text-muted-foreground">Bundle pricing will appear when released.</span>}
-            </div>
+        </div>
+        <div class="min-w-0 border-t border-border pt-7 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
+          <p class="font-mono text-xs uppercase tracking-[.14em] text-primary-accent">{merch.stage}</p>
+          <h3 class="mt-3 text-2xl font-semibold">{bundle.data.title}</h3>
+          <div class="mt-6"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
+          <div class="mt-7 flex flex-wrap items-center gap-4">
+            <Button as="a" href={`/bundles/${bundle.data.slug}/`} data-event="bundle_upsell" data-product-slug={bundle.data.slug} data-cta-location="product-page">See the Complete Bundle</Button>
+            {merch.purchasable && merch.checkoutUrl && <TextLink href={merch.checkoutUrl}>Buy the bundle now →</TextLink>}
           </div>
         </div>
       </article>

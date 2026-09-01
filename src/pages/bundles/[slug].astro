@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import BundlePriceComparison from "@/components/products/BundlePriceComparison.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import { button } from "@/components/starwind/button/variants";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
+import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
+
+export async function getStaticPaths() {
+  const bundles = (await getCollection("bundles")).filter(isPublicBundle);
+  return bundles.map((bundle) => ({ params: { slug: bundle.data.slug }, props: { bundle } }));
+}
+
+const { bundle } = Astro.props;
+const products = (await getCollection("products")).filter(isPublicProduct);
+const merch = getBundleMerchandising(bundle, products);
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL(`/bundles/${bundle.data.slug}/`, siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const title = bundle.data.seo?.title ?? `${bundle.data.title} | Developer Business Lab`;
+const description = bundle.data.seo?.description ?? bundle.data.shortDescription ?? bundle.data.outcome;
+const checkoutClass = button({ class: "lemonsqueezy-button" });
+
+const breadcrumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Bundles", item: new URL("/bundles/", siteUrl).toString() },
+    { "@type": "ListItem", position: 2, name: bundle.data.title, item: canonical },
+  ],
+};
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `${canonical}#bundle`,
+  name: bundle.data.title,
+  description,
+  url: canonical,
+  category: "Business system bundle",
+  brand: { "@id": organizationId },
+  audience: { "@type": "Audience", audienceType: bundle.data.audience },
+  ...(merch.purchasable && merch.bundlePrice
+    ? { offers: { "@type": "Offer", url: canonical, priceCurrency: "USD", price: merch.bundlePrice.toFixed(2), availability: "https://schema.org/InStock" } }
+    : {}),
+};
+---
+
+<BaseLayout title={title} description={description} noindex={merch.effectiveStatus === "planned"} enableCheckoutOverlay={merch.purchasable} structuredData={[breadcrumbs, productSchema]}>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    breadcrumbs={[{ label: "Bundles", href: "/bundles/" }, { label: bundle.data.title }]}
+    eyebrow={`${merch.stage} · ${bundle.data.title}`}
+    title={bundle.data.hook ?? bundle.data.title}
+    description={bundle.data.shortDescription ?? bundle.data.outcome}
+    audience={bundle.data.audience}
+    supportingItems={[`${merch.productCount} connected systems`, merch.savings ? `Save $${merch.savings.toFixed(0)}${merch.savingsPercent ? ` · ${merch.savingsPercent}%` : ""}` : "Built to work as one stage"]}
+  >
+    <div slot="actions" class="flex flex-wrap items-center gap-4">
+      {merch.purchasable && merch.checkoutUrl ? (
+        <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-hero">Get {bundle.data.title}</a>
+      ) : (
+        <a href="#inside" class="font-semibold text-primary-accent">See what is included ↓</a>
+      )}
+    </div>
+    {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
+  </PageHero>
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
+      <div><p class="editorial-kicker">Why these systems belong together</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Solve the stage, not just one symptom.</h2></div>
+      <div><p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p><div class="mt-8"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div></div>
+    </div>
+  </section>
+
+  <section id="inside" class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="editorial-kicker">Inside {bundle.data.title}</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight">Each system has a different job inside the larger outcome.</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        {merch.includedProducts.map((product, index) => (
+          <a href={`/products/${product.data.slug}/`} class="group bg-background p-6 transition-colors hover:bg-card/50" data-event="bundle_included_product" data-product-slug={product.data.slug}>
+            <p class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p>
+            <h3 class="mt-3 text-xl font-semibold group-hover:text-primary-accent">{product.data.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted-foreground">{product.data.shortDescription}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {bundle.data.implementationOrder.length > 0 && (
+    <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+        <div><p class="editorial-kicker">Implementation order</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Use the dependency order. Do not create another pile of material.</h2></div>
+        <ol class="border-t border-border">
+          {bundle.data.implementationOrder.map((step, index) => <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="leading-7 text-muted-foreground">{step}</span></li>)}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  {(bundle.data.whoItsFor.length > 0 || bundle.data.whoItsNotFor.length > 0) && (
+    <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+        <div><p class="editorial-kicker">Buy the bundle if</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul></div>
+        <div><p class="editorial-kicker">Buy one focused system instead if</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsNotFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul></div>
+      </div>
+    </section>
+  )}
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      {bundle.data.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={bundle.data.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}
+      <div class={bundle.data.faqs.length > 0 ? "mt-14 border-t border-border pt-12" : ""}>
+        <p class="editorial-kicker">Get the connected system</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the whole {merch.stage.toLowerCase()} stage with one purchase.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">You receive the included systems through Lemon Squeezy. Eligible purchases are covered by the Developer Business Lab 14-Day Satisfaction Guarantee.</p>
+        <div class="mt-7"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
+        <div class="mt-8">{merch.purchasable && merch.checkoutUrl ? <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-final">Get {bundle.data.title}</a> : <a href="/products/" class="font-semibold text-primary-accent">Browse the included systems →</a>}</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

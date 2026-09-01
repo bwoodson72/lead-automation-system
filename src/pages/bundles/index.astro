@@ -1,167 +1,67 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
+import BundleOfferCard from "@/components/products/BundleOfferCard.astro";
 import { Button } from "@/components/starwind/button";
-import { button } from "@/components/starwind/button/variants";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
-import { bundleProgression } from "@/lib/bundle-progression";
-import { resolveProductCommerce } from "@/lib/lemon-squeezy";
-import { resolveProductCoverImage } from "@/lib/product-cover-images";
-import { isPublicBundle } from "@/lib/storefront-visibility";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
+import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 
-const bundles = (await getCollection("bundles")).filter(isPublicBundle);
-const products = await getCollection("products");
-const checkoutClass = button({ class: "lemonsqueezy-button w-full text-center sm:w-auto" });
-
-const resolvedBundles = bundleProgression.map((definition) => {
-  const bundle = bundles.find((entry) => entry.data.slug === definition.slug);
-  const commerce = bundle ? resolveProductCommerce(bundle.data) : undefined;
-  const sourceSlugs = bundle?.data.products?.length ? bundle.data.products : definition.productSlugs;
-  const included = sourceSlugs
-    .map((slug) => products.find((product) => product.data.slug === slug))
-    .filter(Boolean);
-  const image = bundle && commerce?.product?.id
-    ? resolveProductCoverImage(bundle.data, commerce.product.id)
-    : undefined;
-
-  return {
-    ...definition,
-    title: bundle?.data.title ?? definition.title,
-    outcome: bundle?.data.outcome ?? definition.outcome,
-    status: commerce?.effectiveStatus ?? bundle?.data.status ?? "planned",
-    purchasable: commerce?.purchasable ?? false,
-    priceFormatted: commerce?.priceFormatted,
-    checkoutUrl: commerce?.checkoutUrl,
-    image,
-    included,
-    expectedCount: sourceSlugs.length,
-  };
-});
-
-const hasCheckout = resolvedBundles.some((bundle) => bundle.purchasable);
+const bundles = (await getCollection("bundles")).filter(isPublicBundle).sort((a, b) => a.data.order - b.data.order);
+const products = (await getCollection("products")).filter(isPublicProduct);
+const merchandising = bundles.map((bundle) => ({ bundle, merch: getBundleMerchandising(bundle, products) }));
+const hasCheckout = merchandising.some(({ merch }) => merch.purchasable);
 ---
 
 <BaseLayout
   title="Bundles | Developer Business Lab"
-  description="Developer Business Lab bundles progress from freelance foundations through acquisition, sales and retention, and the complete freelance business system."
+  description="Build the whole stage of your freelance business with connected systems and save compared with buying the included products separately when live pricing permits."
   enableCheckoutOverlay={hasCheckout}
 >
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
     eyebrow="Business system bundles"
-    title="Add depth by stage, not another random pile of tactics."
-    description="The bundle progression follows the freelance business: establish the foundation, build acquisition, strengthen sales and retention, then connect the specialist systems into the complete business."
+    title="Build the whole stage—and pay less than buying the systems one at a time."
+    description="When several business problems depend on one another, solve them together. Choose the bundle that matches the part of your freelance business you are building now."
+    supportingItems={["Connected systems", "Implementation order included", "Live savings shown when available"]}
   />
 
-  <section class="border-b border-border bg-card/35 px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Not sure which stage is broken?</p>
-        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Start with the Freelance Developer Launch Kit.</h2>
-        <p class="mt-4 text-lg leading-8 text-muted-foreground">The Launch Kit is the integrated starting system. It shows how market, offer, pricing, acquisition, sales, delivery, referrals, and recurring revenue depend on one another. Use bundles when you already want deeper specialist coverage across a related stage.</p>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end">
+        <div><p class="editorial-kicker">Choose the scope</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">One stage. One larger outcome. One connected purchase.</h2></div>
+        <p class="max-w-2xl text-lg leading-8 text-muted-foreground">A focused guide is right when one bottleneck is clear. A bundle is right when several decisions inside the same stage need to work together and you expect to use more than one of the systems.</p>
       </div>
-      <Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button>
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {bundles.map((bundle) => <BundleOfferCard bundle={bundle} products={products} featured={bundle.data.slug === "freelance-developer-business-system"} location="bundles-index" />)}
+      </div>
     </div>
   </section>
 
-  <section class="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {resolvedBundles.map((bundle) => (
-          <a href={`#${bundle.slug}`} class="group border border-border bg-card/35 p-5 transition-colors hover:border-primary/35">
-            <p class="font-mono text-xs text-primary-accent">{bundle.step}</p>
-            <p class="mt-2 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{bundle.stage}</p>
-            <p class="mt-3 font-semibold transition-colors group-hover:text-primary-accent">{bundle.title}</p>
+      <p class="editorial-kicker">The bundle progression</p>
+      <h2 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight">Move from foundation to acquisition to sales—or buy the complete freelance system when the scope is broader.</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-4">
+        {merchandising.map(({ bundle, merch }) => (
+          <a href={`/bundles/${bundle.data.slug}/`} class="group bg-background p-6 transition-colors hover:bg-card/50" data-event="bundle_progression" data-product-slug={bundle.data.slug}>
+            <p class="font-mono text-xs text-primary-accent">{merch.step}</p>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{merch.stage}</p>
+            <h3 class="mt-3 text-lg font-semibold group-hover:text-primary-accent">{bundle.data.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted-foreground">{bundle.data.shortDescription ?? bundle.data.outcome}</p>
           </a>
         ))}
       </div>
-
-      <div class="mt-10 border-t border-border">
-        {resolvedBundles.map((bundle) => {
-          const visible = bundle.included.slice(0, 4);
-          const remaining = Math.max(bundle.expectedCount - visible.length, 0);
-          return (
-            <article id={bundle.slug} class="scroll-mt-24 border-b border-border py-10 sm:py-12">
-              <div class="grid gap-8 lg:grid-cols-[5rem_.8fr_1.2fr] lg:items-start">
-                <div>
-                  <p class="font-mono text-sm text-primary-accent">{bundle.step}</p>
-                  <p class="mt-2 text-[.65rem] font-semibold uppercase tracking-[.14em] text-muted-foreground">{bundle.stage}</p>
-                </div>
-
-                <div>
-                  {bundle.image && (
-                    <div class="mb-7 aspect-4/5 w-full max-w-xs overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
-                      <Image
-                        src={bundle.image}
-                        alt={`${bundle.title} bundle mockup`}
-                        class="h-full w-full object-contain"
-                        widths={[320, 480, 640]}
-                        sizes="(min-width: 1024px) 20rem, 80vw"
-                      />
-                    </div>
-                  )}
-                  <p class="editorial-kicker">Bundle</p>
-                  <h2 class="mt-3 text-3xl font-semibold tracking-tight">{bundle.title}</h2>
-                  <p class="mt-5 text-sm leading-6 text-muted-foreground">{bundle.step === "04" ? "The Launch Kit supplies the integrated operating map. The focused systems add deeper specialist guidance at the major commercial stages." : "A focused multi-product system for this stage of the freelance business."}</p>
-                </div>
-
-                <div>
-                  <p class="text-lg leading-8 text-muted-foreground">{bundle.outcome}</p>
-                  <div class="mt-7 border-t border-border">
-                    {visible.map((product: any) => (
-                      <div class="flex items-center justify-between gap-4 border-b border-border py-3.5">
-                        <span class="text-sm sm:text-base">{product.data.title}</span>
-                        <span class="text-primary-accent" aria-hidden="true">✓</span>
-                      </div>
-                    ))}
-                    {remaining > 0 && <p class="py-3.5 text-sm font-medium text-muted-foreground">+ {remaining} more system{remaining === 1 ? "" : "s"}</p>}
-                    {visible.length === 0 && <p class="py-4 text-sm text-muted-foreground">Included products will appear here as the bundle catalog is populated.</p>}
-                  </div>
-
-                  <div class="mt-7 flex flex-wrap items-center gap-4">
-                    {bundle.purchasable ? (
-                      <>
-                        <p class="text-2xl font-semibold">{bundle.priceFormatted}</p>
-                        <a
-                          href={bundle.checkoutUrl!}
-                          class={checkoutClass}
-                          data-event="checkout_click"
-                          data-product-slug={bundle.slug}
-                          data-cta-location="bundles"
-                        >
-                          Get {bundle.title}
-                        </a>
-                      </>
-                    ) : bundle.status === "coming-soon" ? (
-                      <>
-                        <span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">Coming soon</span>
-                        <p class="text-sm text-muted-foreground">Checkout will appear automatically when this bundle is published in Lemon Squeezy.</p>
-                      </>
-                    ) : (
-                      <>
-                        <span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">In development</span>
-                        <p class="text-sm text-muted-foreground">Pricing and checkout will appear automatically when the bundle is released.</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
     </div>
   </section>
 
-  <section class="border-t border-border bg-card/35 px-4 py-20 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-5xl text-center">
-      <p class="editorial-kicker">Choose by scope</p>
-      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Whole business unclear? Launch Kit. One bottleneck? Focused guide. Several related bottlenecks? Bundle.</h2>
-      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">The goal is not to buy the biggest package. It is to use the smallest system that matches the actual scope of the problem.</p>
-      <p class="mt-7"><a href="/start/" class="font-semibold text-primary-accent">Choose the right starting point →</a></p>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+      <div class="bg-background p-7 sm:p-9"><p class="editorial-kicker">Whole business unclear</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Start with the Launch Kit.</h2><p class="mt-4 leading-7 text-muted-foreground">Use the integrated operating map when you first need to understand how the parts of the freelance business depend on one another.</p><p class="mt-7"><Button as="a" href="/products/freelance-developer-launch-kit/">See the Launch Kit</Button></p></div>
+      <div class="bg-background p-7 sm:p-9"><p class="editorial-kicker">One bottleneck</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Buy the focused guide.</h2><p class="mt-4 leading-7 text-muted-foreground">If one constraint is clearly the problem and the surrounding stage already works, go directly to the specialist system.</p><p class="mt-7"><Button as="a" href="/products/" variant="outline">Browse Focused Systems</Button></p></div>
+      <div class="bg-background p-7 sm:p-9"><p class="editorial-kicker">Several connected problems</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Buy the bundle for that stage.</h2><p class="mt-4 leading-7 text-muted-foreground">Use the larger system when you need multiple connected decisions, want the implementation order, and would otherwise buy several included guides separately.</p><p class="mt-7"><Button as="a" href="/start/" variant="outline">Help Me Choose</Button></p></div>
     </div>
   </section>
 </BaseLayout>

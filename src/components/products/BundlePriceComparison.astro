@@ -5,22 +5,32 @@ interface Props {
   savings?: number;
   savingsPercent?: number;
   compact?: boolean;
+  variant?: "default" | "hero";
 }
 
-const { bundlePriceFormatted, separateValue, savings, savingsPercent, compact = false } = Astro.props;
+const {
+  bundlePriceFormatted,
+  separateValue,
+  savings,
+  savingsPercent,
+  compact = false,
+  variant = "default",
+} = Astro.props;
+
+const isHero = variant === "hero";
 ---
 
 <div class:list={["flex flex-wrap items-end gap-x-5 gap-y-2", compact ? "text-sm" : ""]}>
   {separateValue && (
     <div>
-      <p class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Separately</p>
-      <p class:list={["mt-1 text-muted-foreground line-through", compact ? "text-base" : "text-xl"]}>${separateValue.toFixed(0)}</p>
+      <p class:list={["text-xs font-semibold uppercase tracking-[.12em]", isHero ? "text-white/55" : "text-muted-foreground"]}>Separately</p>
+      <p class:list={["mt-1 line-through", isHero ? "text-white/55" : "text-muted-foreground", compact ? "text-base" : "text-xl"]}>${separateValue.toFixed(0)}</p>
     </div>
   )}
   {bundlePriceFormatted && (
     <div>
-      <p class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Bundle</p>
-      <p class:list={["mt-1 font-semibold", compact ? "text-xl" : "text-3xl"]}>{bundlePriceFormatted}</p>
+      <p class:list={["text-xs font-semibold uppercase tracking-[.12em]", isHero ? "text-white/60" : "text-muted-foreground"]}>Bundle</p>
+      <p class:list={["mt-1 font-semibold", isHero ? "text-white" : "", compact ? "text-xl" : "text-3xl"]}>{bundlePriceFormatted}</p>
     </div>
   )}
   {savings && (

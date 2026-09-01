@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import TextLink from "@/components/ui/TextLink.astro";
 import { bundleProgression, getBundleRecommendation } from "@/lib/bundle-progression";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
@@ -113,7 +114,7 @@ const savings = bundlePrice && separateValue && separateValue > bundlePrice
             </div>
 
             <div class="mt-8 flex flex-wrap items-center gap-4">
-              <a href={`/bundles/#${recommendation.slug}`} class="inline-flex min-h-11 items-center justify-center rounded-md bg-foreground px-5 py-2.5 font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">Explore the complete system →</a>
+              <TextLink href={`/bundles/#${recommendation.slug}`}>Explore the complete system →</TextLink>
               {!bundlePrice && <span class="text-sm text-muted-foreground">Bundle pricing will appear when released.</span>}
             </div>
           </div>

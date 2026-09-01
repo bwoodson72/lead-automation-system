@@ -76,6 +76,7 @@ const products = defineCollection({
         intro: z.string(),
         steps: z.array(z.string()).min(3),
       }),
+      outputsTitle: z.string().optional(),
       outputs: z.array(z.string()).min(3),
       stats: z.array(z.object({
         value: z.string(),

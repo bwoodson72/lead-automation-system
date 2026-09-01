@@ -5,6 +5,7 @@ import PageHero from "@/components/layout/PageHero.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
 import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
 import { Button } from "@/components/starwind/button";
+import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { isPublicProduct } from "@/lib/storefront-visibility";
 
@@ -57,7 +58,7 @@ const problems = [
           <p class="editorial-kicker">Recommended starting point</p>
           <h2 class="mt-4 text-4xl font-semibold tracking-tight">Freelance Developer Launch Kit</h2>
           <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">The integrated operating system for market, offer, pricing, proof, acquisition, sales, delivery, referrals, and recurring revenue.</p>
-          <p class="mt-7"><a href="/products/freelance-developer-launch-kit/" class="font-semibold text-primary-accent">Start with the Launch Kit →</a></p>
+          <p class="mt-7"><Button as="a" href="/products/freelance-developer-launch-kit/">Start with the Launch Kit</Button></p>
         </div>
       )}
     </div>
@@ -105,7 +106,7 @@ const problems = [
         <h2 class="mt-4 text-3xl font-semibold tracking-tight">Bundles connect related specialist systems.</h2>
         <p class="mt-4 text-lg leading-8 text-muted-foreground">Foundation, acquisition, sales and retention, then the complete business. Bundles are for the point where one focused guide is no longer enough.</p>
       </div>
-      <Button as="a" href="/bundles/" size="lg">Explore the bundle progression</Button>
+      <TextLink href="/bundles/">Explore the bundle progression →</TextLink>
     </div>
   </section>
 

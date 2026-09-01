@@ -58,14 +58,27 @@ const productSchema = {
     title={bundle.data.hook ?? bundle.data.title}
     description={bundle.data.shortDescription ?? bundle.data.outcome}
     audience={bundle.data.audience}
-    supportingItems={[`${merch.productCount} connected systems`, merch.savings ? `Save $${merch.savings.toFixed(0)}${merch.savingsPercent ? ` · ${merch.savingsPercent}%` : ""}` : "Built to work as one stage"]}
+    supportingItems={[`${merch.productCount} connected systems`, merch.purchasable ? "One-time purchase" : "Built to work as one stage"]}
   >
-    <div slot="actions" class="flex flex-wrap items-center gap-4">
-      {merch.purchasable && merch.checkoutUrl ? (
-        <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-hero">Get {bundle.data.title}</a>
-      ) : (
-        <a href="#inside" class="font-semibold text-primary-accent">See what is included ↓</a>
+    <div slot="actions" class="space-y-5">
+      {merch.purchasable && merch.bundlePriceFormatted && (
+        <BundlePriceComparison
+          bundlePriceFormatted={merch.bundlePriceFormatted}
+          separateValue={merch.separateValue}
+          savings={merch.savings}
+          savingsPercent={merch.savingsPercent}
+          variant="hero"
+        />
       )}
+      <div class="flex flex-wrap items-center gap-4">
+        {merch.purchasable && merch.checkoutUrl ? (
+          <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-hero">
+            Get {bundle.data.title}{merch.bundlePriceFormatted ? ` for ${merch.bundlePriceFormatted}` : ""}
+          </a>
+        ) : (
+          <a href="#inside" class="font-semibold text-primary-accent">See what is included ↓</a>
+        )}
+      </div>
     </div>
     {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
   </PageHero>

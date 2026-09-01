@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
+import TextLink from "@/components/ui/TextLink.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
 import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
@@ -145,7 +146,7 @@ const faqs = [
           <p class="editorial-kicker">Focused deep dives</p>
           <h2 class="mt-3 text-4xl font-semibold tracking-tight">Build the part of the business that is breaking down.</h2>
         </div>
-        <a href="/products/" class="text-sm font-semibold text-primary-accent">View all systems →</a>
+        <TextLink href="/products/" class="text-sm">View all systems →</TextLink>
       </div>
       <div class="grid gap-x-10 lg:grid-cols-2">
         {featured.map((product) => <FeaturedProductCard product={product} />)}
@@ -159,7 +160,7 @@ const faqs = [
         <p class="editorial-kicker">Built to be used, not just read</p>
         <h2 class="mt-4 text-4xl font-semibold tracking-tight">A guide should leave you with a working business asset.</h2>
         <p class="mt-5 text-lg leading-8 text-muted-foreground">The instructional guides explain the system, the decisions that matter, why they matter, and how to execute them. Implementation workbooks turn those decisions into an operating record you can keep using.</p>
-        <p class="mt-8"><Button as="a" href="/products/" variant="outline">See what is inside the systems</Button></p>
+        <p class="mt-8"><TextLink href="/products/">See what is inside the systems →</TextLink></p>
       </div>
       <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
         {["Positioning decision", "Pricing floor", "Qualification score", "Pipeline tracker", "Discovery notes", "Proposal decision", "Retainer structure", "90-day operating plan"].map((artifact) => (
@@ -185,7 +186,10 @@ const faqs = [
           </div>
         ))}
       </div>
-      <div class="mt-10 flex flex-wrap gap-3"><Button as="a" href="/bundles/">Explore Bundles</Button><Button as="a" href="/start/" variant="outline">Choose Your Starting Point</Button></div>
+      <div class="mt-10 flex flex-wrap gap-x-6 gap-y-3">
+        <TextLink href="/bundles/">Explore Bundles →</TextLink>
+        <TextLink href="/start/">Choose Your Starting Point →</TextLink>
+      </div>
     </div>
   </section>
 

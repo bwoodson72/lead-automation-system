@@ -1,10 +1,15 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
+import BundleOfferCard from "@/components/products/BundleOfferCard.astro";
 import { Button } from "@/components/starwind/button";
 import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 
+const products = (await getCollection("products")).filter(isPublicProduct);
+const bundles = (await getCollection("bundles")).filter(isPublicBundle).sort((a, b) => a.data.order - b.data.order);
 const service = [
   ["01", "Offer", "Every prospect asks what I do, and I still answer with a list of technologies or whatever they happen to need.", "Productize Your Dev Skills", "/products/productize-your-dev-skills/"],
   ["02", "Pricing", "I can build the project, but I still feel uncertain when the client asks what it will cost.", "Web Developer Pricing System", "/products/web-developer-pricing-system/"],
@@ -17,65 +22,14 @@ const service = [
 ];
 ---
 
-<BaseLayout
-  title="Start Here | Developer Business Lab"
-  description="Choose between the complete freelance business system and a focused guide for the bottleneck you already know needs attention."
->
-  <PageHero
-    image={heroImage}
-    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-    eyebrow="Start here"
-    title="Do you need the whole business system, or one deeper fix?"
-    description="That is the first decision. Do not diagnose eight separate problems if the business as a whole still feels improvised. But do not buy the broad system when you already know one narrow constraint is the thing costing you."
-  />
+<BaseLayout title="Start Here | Developer Business Lab" description="Choose the scope that matches the actual problem: the integrated Launch Kit, one focused system, or a connected bundle for an entire stage.">
+  <PageHero image={heroImage} imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace" eyebrow="Start here" title="Do you need the whole business map, one focused fix, or a connected stage bundle?" description="Match the scope before you buy. Use the Launch Kit when the business as a whole is unclear, a focused guide when one constraint is obvious, and a bundle when several problems inside the same stage need to work together." />
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
-      <div class="bg-background p-7 sm:p-9">
-        <p class="editorial-kicker">The whole business feels improvised</p>
-        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Start with the Freelance Developer Launch Kit.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Build the market, offer, pricing, positioning, proof, acquisition, sales, onboarding, delivery, referrals, and recurring-revenue system in dependency order so you can see what actually needs attention next.</p>
-        <ul class="mt-6 space-y-3 text-sm leading-6 text-muted-foreground">
-          <li><span class="mr-2 text-primary-accent">✓</span>You are starting or rebuilding the freelance business.</li>
-          <li><span class="mr-2 text-primary-accent">✓</span>Several stages feel undefined at the same time.</li>
-          <li><span class="mr-2 text-primary-accent">✓</span>You want one operating map before choosing deeper specialist material.</li>
-        </ul>
-        <p class="mt-8"><Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button></p>
-      </div>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-border bg-border lg:grid-cols-3"><div class="bg-background p-7 sm:p-9"><p class="editorial-kicker">The whole business feels improvised</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Start with the Launch Kit.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Use the integrated operating map when several stages are undefined and you first need to see how market, offer, pricing, acquisition, sales, delivery, referrals, and recurring revenue depend on one another.</p><p class="mt-8"><Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button></p></div><div class="bg-card/35 p-7 sm:p-9"><p class="editorial-kicker">I know exactly what is broken</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Buy the focused system.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">If the rest of the stage works well enough and one constraint is clearly costing money, time, opportunity, or confidence, go directly to the specialist guide.</p><p class="mt-8"><TextLink href="#known-bottleneck">Choose the bottleneck ↓</TextLink></p></div><div class="bg-background p-7 sm:p-9"><p class="editorial-kicker">Several connected problems share one stage</p><h2 class="mt-4 text-3xl font-semibold tracking-tight">Buy the bundle for that stage.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">If you need multiple systems that depend on one another, use the bundle to get the larger outcome, the implementation order, and the live bundle savings when available.</p><p class="mt-8"><TextLink href="#stage-bundles">Choose the stage ↓</TextLink></p></div></div></section>
 
-      <div class="bg-card/35 p-7 sm:p-9">
-        <p class="editorial-kicker">I know exactly what is broken</p>
-        <h2 class="mt-4 text-3xl font-semibold tracking-tight">Go directly to the focused system.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">If the rest of the business is functioning well enough and one stage is clearly leaking money, time, opportunity, or confidence, use the specialist guide built for that constraint.</p>
-        <p class="mt-8"><TextLink href="#known-bottleneck">Choose the known bottleneck ↓</TextLink></p>
-      </div>
-    </div>
-  </section>
+  <section id="known-bottleneck" class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="max-w-3xl"><p class="editorial-kicker">Known bottleneck</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Which sentence sounds most like the problem you already see?</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Pick the constraint that is costing you most now. The focused guide goes deeper than the Launch Kit on that one stage.</p></div><div class="mt-9 border-t border-border">{service.map(([number, stage, problem, product, href]) => <a href={href} class="group grid gap-3 border-b border-border py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="start_here_choice"><span class="font-mono text-xs text-primary-accent">{number}</span><span class="text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{stage}</span><span class="text-lg leading-7">{problem}</span><span class="text-sm font-semibold text-primary-accent">{product} →</span></a>)}</div></div></section>
 
-  <section id="known-bottleneck" class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8 scroll-mt-24">
-    <div class="mx-auto max-w-7xl">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Known bottleneck</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Which sentence sounds most like the problem you already see?</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Pick the constraint that is costing you most now. The focused guide goes deeper than the Launch Kit on that one stage.</p>
-      </div>
-      <div class="mt-9 border-t border-border">
-        {service.map(([number, stage, problem, product, href]) => (
-          <a href={href} class="group grid gap-3 border-b border-border py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="start_here_choice">
-            <span class="font-mono text-xs text-primary-accent">{number}</span>
-            <span class="text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{stage}</span>
-            <span class="text-lg leading-7">{problem}</span>
-            <span class="text-sm font-semibold text-primary-accent">{product} →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  {bundles.length > 0 && <section id="stage-bundles" class="scroll-mt-24 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end"><div><p class="editorial-kicker">Several connected problems</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Choose the stage that needs to work as one system.</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">Foundation, acquisition, sales and retention, or the complete freelance business. Each bundle page shows what is included, why the systems fit together, implementation order, and current savings.</p></div><div class="mt-10 grid gap-6 lg:grid-cols-2">{bundles.map((bundle) => <BundleOfferCard bundle={bundle} products={products} featured={bundle.data.slug === "freelance-developer-business-system"} location="start-here" />)}</div></div></section>}
 
-  <section class="px-4 py-18 sm:px-6 sm:py-20 lg:px-8">
-    <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
-      <div><p class="editorial-kicker">Prefer to start free?</p><h2 class="mt-4 text-3xl font-semibold">Build one acquisition loop before you spend anything.</h2></div>
-      <div><p class="text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart turns “I need more clients” into one buyer, one problem, one offer, one message, one channel, and a first real test. It is the lowest-risk way to put the system into motion.</p><p class="mt-5"><Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button></p></div>
-    </div>
-  </section>
+  <section class="border-t border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-20 lg:px-8"><div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center"><div><p class="editorial-kicker">Prefer to start free?</p><h2 class="mt-4 text-3xl font-semibold">Build one acquisition loop before you spend anything.</h2></div><div><p class="text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart turns “I need more clients” into one buyer, one problem, one offer, one message, one channel, and a first real test. It is the lowest-risk way to put the system into motion.</p><p class="mt-5"><Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button></p></div></div></section>
 </BaseLayout>

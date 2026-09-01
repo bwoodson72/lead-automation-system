@@ -7,10 +7,12 @@ import FAQList from "@/components/ui/FAQList.astro";
 import TextLink from "@/components/ui/TextLink.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
 import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
+import BundleOfferCard from "@/components/products/BundleOfferCard.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
-import { isPublicProduct } from "@/lib/storefront-visibility";
+import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
+const bundles = (await getCollection("bundles")).filter(isPublicBundle).sort((a, b) => a.data.order - b.data.order);
 const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
 const launchKit = productBySlug("freelance-developer-launch-kit");
 
@@ -56,181 +58,28 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
-  title="Developer Business Lab | Business Systems for Independent Developers"
-  description="Build the freelance business as one connected system, or go deeper on the specific commercial bottleneck costing you most."
->
-  <PageHero
-    image={heroImage}
-    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-    variant="home"
-    eyebrow="Business systems for independent developers"
-    title="You are good at the work. Your business should not still feel this uncertain."
-    description="Build the offer, pricing, pipeline, sales, delivery, and recurring-revenue systems around your technical skill so the business stops depending on improvisation."
-    primaryCta={{ label: "Start with the Launch Kit", href: "/products/freelance-developer-launch-kit/" }}
-    secondaryCta={{ label: "I Know What Is Broken", href: "/start/" }}
-    supportingItems={["Complete operating system", "Focused deep dives", "Implementation workbooks"]}
-  />
+<BaseLayout title="Developer Business Lab | Business Systems for Independent Developers" description="Build the freelance business as one connected system, or go deeper on the specific commercial bottleneck costing you most.">
+  <PageHero image={heroImage} imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace" variant="home" eyebrow="Business systems for independent developers" title="You are good at the work. Your business should not still feel this uncertain." description="Build the offer, pricing, pipeline, sales, delivery, and recurring-revenue systems around your technical skill so the business stops depending on improvisation." primaryCta={{ label: "Start with the Launch Kit", href: "/products/freelance-developer-launch-kit/" }} secondaryCta={{ label: "I Know What Is Broken", href: "/start/" }} supportingItems={["Complete operating system", "Focused deep dives", "Implementation workbooks"]} />
 
-  {launchKit && (
-    <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <FlagshipProductFeature
-          product={launchKit}
-          eyebrow="Recommended starting point"
-          heading="If the whole freelance business still feels improvised, start with the system that connects it."
-        />
-      </div>
-    </section>
-  )}
+  {launchKit && <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><FlagshipProductFeature product={launchKit} eyebrow="Recommended starting point" heading="If the whole freelance business still feels improvised, start with the system that connects it." /></div></section>}
 
-  <section class="border-y border-border bg-card/35 px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Prefer to start free?</p>
-        <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Build one acquisition loop before you spend anything.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you one buyer, one problem, one offer, one message, one channel, and a first real test you can measure and improve.</p>
-        <p class="mt-4 text-sm leading-6 text-muted-foreground">No sprawling course. One practical starting loop you can put to work this week.</p>
-      </div>
-      <div class="lg:text-right">
-        <Button as="a" href="/free/" size="lg" data-event="homepage_free_quickstart">Get the Free Quickstart</Button>
-        <p class="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Free download · email required</p>
-      </div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-14 sm:px-6 sm:py-16 lg:px-8"><div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16"><div class="max-w-3xl"><p class="editorial-kicker">Prefer to start free?</p><h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Build one acquisition loop before you spend anything.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you one buyer, one problem, one offer, one message, one channel, and a first real test you can measure and improve.</p><p class="mt-4 text-sm leading-6 text-muted-foreground">No sprawling course. One practical starting loop you can put to work this week.</p></div><div class="lg:text-right"><Button as="a" href="/free/" size="lg" data-event="homepage_free_quickstart">Get the Free Quickstart</Button><p class="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Free download · email required</p></div></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-        <div>
-          <p class="editorial-kicker">The business behind the code</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Technical skill gets the work done. Business systems determine what happens around it.</h2>
-        </div>
-        <div class="grid gap-0 sm:grid-cols-5 lg:self-end">
-          {stages.map(([stage, description], index) => (
-            <div class="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5 sm:first:border-l-0">
-              <p class="font-mono text-xs text-primary-accent">0{index + 1}</p>
-              <h3 class="mt-2 font-semibold uppercase tracking-[0.12em]">{stage}</h3>
-              <p class="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20"><div><p class="editorial-kicker">The business behind the code</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Technical skill gets the work done. Business systems determine what happens around it.</h2></div><div class="grid gap-0 sm:grid-cols-5 lg:self-end">{stages.map(([stage, description], index) => <div class="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5 sm:first:border-l-0"><p class="font-mono text-xs text-primary-accent">0{index + 1}</p><h3 class="mt-2 font-semibold uppercase tracking-[0.12em]">{stage}</h3><p class="mt-3 text-sm leading-6 text-muted-foreground">{description}</p></div>)}</div></div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Know the bottleneck?</p>
-      <div class="mt-4 grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
-        <h2 class="text-4xl font-semibold tracking-tight">Go directly to the focused system built for it.</h2>
-        <p class="max-w-2xl text-lg leading-8 text-muted-foreground">The Launch Kit gives you the complete operating map. These specialist systems go deeper when one commercial stage is already clearly costing you money, time, opportunity, or confidence.</p>
-      </div>
-      <div class="mt-10 border-t border-border">
-        {resolvedPaths.map(({ number, stage, problem, product }) => (
-          <a href={`/products/${product.data.slug}/`} class="group grid gap-3 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="problem_path" data-product-slug={product.data.slug}>
-            <span class="font-mono text-xs text-primary-accent">{number}</span>
-            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{stage}</span>
-            <span class="text-lg text-foreground/90 transition-colors group-hover:text-foreground">{problem}</span>
-            <span class="text-sm font-semibold text-primary-accent">{product.data.title} →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><p class="editorial-kicker">Know the bottleneck?</p><div class="mt-4 grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end"><h2 class="text-4xl font-semibold tracking-tight">Go directly to the focused system built for it.</h2><p class="max-w-2xl text-lg leading-8 text-muted-foreground">The Launch Kit gives you the complete operating map. These specialist systems go deeper when one commercial stage is already clearly costing you money, time, opportunity, or confidence.</p></div><div class="mt-10 border-t border-border">{resolvedPaths.map(({ number, stage, problem, product }) => <a href={`/products/${product.data.slug}/`} class="group grid gap-3 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[4rem_8rem_1fr_auto] sm:items-center" data-event="problem_path" data-product-slug={product.data.slug}><span class="font-mono text-xs text-primary-accent">{number}</span><span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{stage}</span><span class="text-lg text-foreground/90 transition-colors group-hover:text-foreground">{problem}</span><span class="text-sm font-semibold text-primary-accent">{product.data.title} →</span></a>)}</div></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="flex flex-col gap-5 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p class="editorial-kicker">Focused deep dives</p>
-          <h2 class="mt-3 text-4xl font-semibold tracking-tight">Build the part of the business that is breaking down.</h2>
-        </div>
-        <TextLink href="/products/" class="text-sm">View all systems →</TextLink>
-      </div>
-      <div class="grid gap-x-10 lg:grid-cols-2">
-        {featured.map((product) => <FeaturedProductCard product={product} />)}
-      </div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="flex flex-col gap-5 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between"><div><p class="editorial-kicker">Focused deep dives</p><h2 class="mt-3 text-4xl font-semibold tracking-tight">Build the part of the business that is breaking down.</h2></div><TextLink href="/products/" class="text-sm">View all systems →</TextLink></div><div class="grid gap-x-10 lg:grid-cols-2">{featured.map((product) => <FeaturedProductCard product={product} />)}</div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
-      <div>
-        <p class="editorial-kicker">Built to be used, not just read</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">A guide should leave you with a working business asset.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">The instructional guides explain the system, the decisions that matter, why they matter, and how to execute them. Implementation workbooks turn those decisions into an operating record you can keep using.</p>
-        <p class="mt-8"><TextLink href="/products/">See what is inside the systems →</TextLink></p>
-      </div>
-      <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
-        {["Positioning decision", "Pricing floor", "Qualification score", "Pipeline tracker", "Discovery notes", "Proposal decision", "Retainer structure", "90-day operating plan"].map((artifact) => (
-          <div class="bg-background p-6"><p class="font-medium">{artifact}</p><p class="mt-2 text-sm leading-6 text-muted-foreground">A concrete decision or artifact you can carry into real client work.</p></div>
-        ))}
-      </div>
-    </div>
-  </section>
+  {bundles.length > 0 && <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end"><div><p class="editorial-kicker">When one bottleneck is actually several connected problems</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the whole stage instead of assembling it one guide at a time.</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">Bundles connect the systems that depend on one another, give you the order to implement them, and show live savings when the bundle costs less than buying the included products separately.</p></div><div class="mt-10 grid gap-6 lg:grid-cols-2">{bundles.map((bundle) => <BundleOfferCard bundle={bundle} products={products} featured={bundle.data.slug === "freelance-developer-business-system"} location="homepage" />)}</div><p class="mt-8"><TextLink href="/bundles/">Compare all bundles →</TextLink></p></div></section>}
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">One business, connected systems</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Define → Price → Attract → Sell → Retain</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">The Launch Kit connects the whole progression. Focused products go deeper on one stage. Bundles connect several related specialist systems when one guide is no longer enough.</p>
-      </div>
-      <div class="mt-10 grid gap-4 lg:grid-cols-5">
-        {stages.map(([stage, description], index) => (
-          <div class="surface-editorial p-6">
-            <p class="font-mono text-xs text-primary-accent">0{index + 1}</p>
-            <h3 class="mt-3 text-xl font-semibold">{stage}</h3>
-            <p class="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
-          </div>
-        ))}
-      </div>
-      <div class="mt-10 flex flex-wrap gap-x-6 gap-y-3">
-        <TextLink href="/bundles/">Explore Bundles →</TextLink>
-        <TextLink href="/start/">Choose Your Starting Point →</TextLink>
-      </div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-20"><div><p class="editorial-kicker">Built to be used, not just read</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">A guide should leave you with a working business asset.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">The instructional guides explain the system, the decisions that matter, why they matter, and how to execute them. Implementation workbooks turn those decisions into an operating record you can keep using.</p><p class="mt-8"><TextLink href="/products/">See what is inside the systems →</TextLink></p></div><div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">{["Positioning decision", "Pricing floor", "Qualification score", "Pipeline tracker", "Discovery notes", "Proposal decision", "Retainer structure", "90-day operating plan"].map((artifact) => <div class="bg-background p-6"><p class="font-medium">{artifact}</p><p class="mt-2 text-sm leading-6 text-muted-foreground">A concrete decision or artifact you can carry into real client work.</p></div>)}</div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
-      <div>
-        <p class="editorial-kicker">You will recognize yourself here if</p>
-        <h2 class="mt-4 text-3xl font-semibold">The work is professional. The business still gets improvised.</h2>
-        <ul class="mt-7 space-y-4 text-muted-foreground">
-          <li>— You can deliver technical work, but parts of the business still get rebuilt under pressure.</li>
-          <li>— You are tired of marketplaces, unpredictable referrals, arbitrary pricing, and dry spells.</li>
-          <li>— You want better commercial systems without pretending to become a full-time marketer.</li>
-        </ul>
-      </div>
-      <div>
-        <p class="editorial-kicker">This is probably not for you if</p>
-        <h2 class="mt-4 text-3xl font-semibold">You want certainty without judgment or execution.</h2>
-        <ul class="mt-7 space-y-4 text-muted-foreground">
-          <li>— You want guaranteed clients, guaranteed revenue, or passive income with no selling or delivery.</li>
-          <li>— You want one magic script, niche, price, or growth hack to replace judgment.</li>
-          <li>— You are looking for enterprise agency operations rather than a focused independent business.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="max-w-3xl"><p class="editorial-kicker">One business, connected systems</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Define → Price → Attract → Sell → Retain</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">The Launch Kit connects the whole progression. Focused products go deeper on one stage. Bundles connect several related specialist systems when one guide is no longer enough.</p></div><div class="mt-10 grid gap-4 lg:grid-cols-5">{stages.map(([stage, description], index) => <div class="surface-editorial p-6"><p class="font-mono text-xs text-primary-accent">0{index + 1}</p><h3 class="mt-3 text-xl font-semibold">{stage}</h3><p class="mt-3 text-sm leading-6 text-muted-foreground">{description}</p></div>)}</div><div class="mt-10 flex flex-wrap gap-x-6 gap-y-3"><TextLink href="/bundles/">Explore Bundles →</TextLink><TextLink href="/start/">Choose Your Starting Point →</TextLink></div></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-4xl">
-      <p class="editorial-kicker">Before you spend money here</p>
-      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2>
-      <div class="mt-8"><FAQList faqs={faqs} /></div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20"><div><p class="editorial-kicker">You will recognize yourself here if</p><h2 class="mt-4 text-3xl font-semibold">The work is professional. The business still gets improvised.</h2><ul class="mt-7 space-y-4 text-muted-foreground"><li>— You can deliver technical work, but parts of the business still get rebuilt under pressure.</li><li>— You are tired of marketplaces, unpredictable referrals, arbitrary pricing, and dry spells.</li><li>— You want better commercial systems without pretending to become a full-time marketer.</li></ul></div><div><p class="editorial-kicker">This is probably not for you if</p><h2 class="mt-4 text-3xl font-semibold">You want certainty without judgment or execution.</h2><ul class="mt-7 space-y-4 text-muted-foreground"><li>— You want guaranteed clients, guaranteed revenue, or passive income with no selling or delivery.</li><li>— You want one magic script, niche, price, or growth hack to replace judgment.</li><li>— You are looking for enterprise agency operations rather than a focused independent business.</li></ul></div></div></section>
 
-  <section class="relative overflow-hidden border-t border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(212,138,23,.12),transparent_35rem)]"></div>
-    <div class="relative mx-auto max-w-4xl text-center">
-      <p class="editorial-kicker">Choose the right level of system</p>
-      <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Start broad when the business is unclear. Go narrow when the bottleneck is obvious.</h2>
-      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Use the Launch Kit to build the whole operating model, or go directly to the focused system for the constraint you already know needs attention.</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3"><Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button><Button as="a" href="/start/" variant="outline" size="lg">Find a Focused System</Button></div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-4xl"><p class="editorial-kicker">Before you spend money here</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={faqs} /></div></div></section>
+
+  <section class="relative overflow-hidden border-t border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8"><div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(212,138,23,.12),transparent_35rem)]"></div><div class="relative mx-auto max-w-4xl text-center"><p class="editorial-kicker">Choose the right level of system</p><h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Whole business unclear? Launch Kit. One bottleneck? Focused guide. Several connected problems? Bundle.</h2><p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Choose the smallest system that matches the real scope of the problem, then go deeper only where the business needs it.</p><div class="mt-8 flex flex-wrap justify-center gap-3"><Button as="a" href="/start/" size="lg">Choose the Right Scope</Button><Button as="a" href="/bundles/" variant="outline" size="lg">Compare Bundles</Button></div></div></section>
 </BaseLayout>

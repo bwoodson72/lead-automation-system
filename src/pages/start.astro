@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
+import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 
 const service = [
@@ -46,7 +47,7 @@ const service = [
         <p class="editorial-kicker">I know exactly what is broken</p>
         <h2 class="mt-4 text-3xl font-semibold tracking-tight">Go directly to the focused system.</h2>
         <p class="mt-5 text-lg leading-8 text-muted-foreground">If the rest of the business is functioning well enough and one stage is clearly leaking money, time, opportunity, or confidence, use the specialist guide built for that constraint.</p>
-        <p class="mt-8"><a href="#known-bottleneck" class="font-semibold text-primary-accent">Choose the known bottleneck ↓</a></p>
+        <p class="mt-8"><TextLink href="#known-bottleneck">Choose the known bottleneck ↓</TextLink></p>
       </div>
     </div>
   </section>
@@ -74,7 +75,7 @@ const service = [
   <section class="px-4 py-18 sm:px-6 sm:py-20 lg:px-8">
     <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
       <div><p class="editorial-kicker">Prefer to start free?</p><h2 class="mt-4 text-3xl font-semibold">Build one acquisition loop before you spend anything.</h2></div>
-      <div><p class="text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart turns “I need more clients” into one buyer, one problem, one offer, one message, one channel, and a first real test. It is the lowest-risk way to put the system into motion.</p><p class="mt-5"><a href="/free/" class="font-semibold text-primary-accent">Build the first acquisition loop free →</a></p></div>
+      <div><p class="text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart turns “I need more clients” into one buyer, one problem, one offer, one message, one channel, and a first real test. It is the lowest-risk way to put the system into motion.</p><p class="mt-5"><Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button></p></div>
     </div>
   </section>
 </BaseLayout>

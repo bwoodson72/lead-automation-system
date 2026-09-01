@@ -16,9 +16,9 @@ reframe: |-
 
   A capable developer should not have to price serious work by anxiety. The Web Developer Pricing System starts with what your one-person business must earn, then accounts for the work clients do not see: discovery, meetings, research, project management, revisions, deployment, delays, support, uncertainty, risk, and sales time. You build rules for pricing models, payment, discounts, change requests, retainers, and minimum project size before negotiation pressure starts. The result is not one magic rate. It is knowing what the project has to be worth for the business to make sense.
 delivery:
-  length: Practical implementation guide covering solo economics, estimating, uncertainty, pricing models, scope protection, payments, retainers, and post-project review.
-  worksheets: Minimum Sustainable Rate calculation, Project Pricing Worksheet, Personal Pricing Policy, worked scenarios, and AI pricing prompts.
-  time: Build the pricing policy once, then use the project worksheet whenever a qualified opportunity reaches pricing.
+  length: 72-page implementation guide covering solo economics, whole-engagement estimating, uncertainty, pricing models, scope protection, payments, retainers, and post-project review.
+  worksheets: Minimum Sustainable Rate calculation, economic-floor calculator, risk review, Project Pricing Worksheet, Personal Pricing Policy, worked developer scenarios, client-facing language, and AI pricing prompts.
+  time: Build the pricing policy once, then use the project worksheet whenever a qualified opportunity reaches pricing and update the policy from actual delivery evidence.
 proof:
   title: The profitable-looking project can change once the hidden work becomes visible.
   body: |-
@@ -27,7 +27,101 @@ proof:
     The worksheet pulls that hidden effort into the decision before it quietly comes out of your margin.
   before: Estimate the coding, add a little buffer, choose a number that feels high but still likely to get a yes.
   after: Estimate the whole engagement, assess uncertainty, establish the economic floor, choose the pricing model, then set the commercial price and terms.
-format: Practical implementation guide
+proofPackage:
+  previewTitle: See the pricing system turn assumptions into a defensible quote.
+  previewIntro: These previews reproduce the guide’s actual decision tools and worked examples. They show the pricing chain from business economics through risk allocation, project-level commercial judgment, and post-project learning.
+  previews:
+    - image: web-developer-pricing-system/minimum-sustainable-rate.svg
+      alt: Minimum Sustainable Rate example calculated from required annual business revenue and realistic revenue-producing hours
+      label: Guide p. 13 · Minimum Sustainable Rate
+      caption: The guide separates internal economics from the client-facing price. In the illustrative example, $114,000 of required annual business revenue divided by 1,104 realistic revenue-producing hours produces a $103.26 internal threshold—not a public hourly rate.
+    - image: web-developer-pricing-system/worked-website-scenario.svg
+      alt: Worked pricing scenario for a productized lead-generation website moving from a 105 dollar MSR to a 6000 dollar floor and 7500 dollar commercial price
+      label: Guide p. 55 · Worked Developer Scenario
+      caption: The transparent website scenario carries MSR, total effort, direct costs, risk, pricing model, commercial price, payment structure, and boundaries through one decision. It is explicitly presented as a worked example, not a claimed case study.
+    - image: web-developer-pricing-system/risk-model-decision.svg
+      alt: Pricing risk matrix for requirements technology dependencies stakeholders content data and legacy code with a response ladder
+      label: Guide p. 32 · Technical Uncertainty
+      caption: Uncertainty is not handled by adding a generic percentage. The system distinguishes normal contingency from targeted allowances, paid discovery, T&M or hybrid work, and situations where a fixed commitment should be declined.
+    - image: web-developer-pricing-system/project-pricing-worksheet.svg
+      alt: Project Pricing Worksheet connecting scope economic floor risk model commercial context price payment and post-project evidence
+      label: Guide pp. 61–62 · Project Pricing Worksheet
+      caption: The reusable worksheet records how the Personal Pricing Policy was applied to one opportunity—from deliverables and assumptions through the floor, risk, model, commercial price, terms, actual effort, effective rate, and what changes next time.
+    - image: web-developer-pricing-system/complete-quote-walkthrough.svg
+      alt: Eleven-step complete quote walkthrough from business economics through post-project review
+      label: Guide pp. 64–71 · Complete Quote Walkthrough
+      caption: One fictional opportunity is carried through 11 connected decisions: economics, scope, a 63-hour estimate, a $6,900 floor, model selection, an $8,500 fixed price, payment terms, budget objection, change control, 68 actual hours, and targeted policy updates.
+  workedExample:
+    title: Watch a quote move from “What should I charge?” to an evidence-backed commercial decision.
+    intro: The Northstar Heating & Air walkthrough carries one fictional lead-generation website from the buyer’s first pricing question through delivery review. The numbers are illustrative; the proof is that every number and boundary has a visible reason underneath it.
+    disclaimer: This is an instructional worked example from the guide, not a customer result, market-rate recommendation, revenue claim, or promise that another project should use the same numbers.
+    steps:
+      - label: Establish the business constraint
+        value: The example starts with $114,000 required annual business revenue, 1,104 revenue-producing hours, an internally rounded $105 Minimum Sustainable Rate, and a $2,500 minimum project size. The MSR remains an internal threshold rather than a client-facing rate.
+      - label: Define the thing being priced
+        value: Five core pages, two service-area templates, CMS editing, an estimate form, analytics, QA, redirects, and launch are included. Copywriting, photography, ecommerce, unknown CRM work, and other uncertain additions are explicitly separated.
+      - label: Estimate the whole engagement
+        value: Discovery, architecture, implementation, communication, QA, revisions, launch, and known contingency total 63 expected hours. The estimate includes the commercial work around coding rather than pretending implementation is the whole project.
+      - label: Calculate the floor and choose the risk structure
+        value: Sixty-three hours at the $105 MSR plus $285 of direct costs produces a $6,900 economic floor. Risk review resolves the main dependency before quoting, so fixed price is appropriate instead of pushing unknown work into a padded number.
+      - label: Make the commercial decision
+        value: Estimate confidence, residual risk, finite capacity, value context, specialization, proof, and market plausibility support an $8,500 fixed quote above the floor. The guide explicitly rejects a universal markup as the mechanism.
+      - label: Protect the deal and learn from delivery
+        value: Payment is staged 40/30/30, revision and change rules are explicit, a budget objection is answered by changing scope rather than blindly discounting, and actual delivery of 68 hours produces a $125 effective project rate plus two targeted improvements for the next quote.
+    conclusion: The system does not produce one magic number. It creates a traceable chain from business economics to scope, estimate, floor, risk, pricing model, commercial judgment, payment structure, change control, and delivery evidence.
+  system:
+    title: One pricing chain from business requirements to a smarter next quote.
+    intro: The guide treats pricing as a business-design system. Internal economics set constraints, project evidence determines what can be responsibly promised, the pricing model allocates uncertainty, and post-project variance improves the next decision.
+    steps:
+      - Calculate required annual business revenue and realistic revenue-producing capacity
+      - Convert those inputs into a Minimum Sustainable Rate for internal decision-making
+      - Define scope, exclusions, assumptions, client responsibilities, acceptance conditions, and change rules
+      - Estimate the entire engagement including discovery, communication, QA, revisions, launch, and contingency
+      - Calculate the project economic floor from expected total effort, MSR, and direct project costs
+      - Review requirements, technology, dependencies, stakeholders, content/data, and legacy-system risk
+      - Choose fixed price, T&M, paid discovery, retainer, or hybrid based on what can actually be known
+      - Move from the floor to a commercial price using risk, opportunity cost, value context, specialization, proof, and market plausibility
+      - Structure deposits, milestones, revisions, changes, add-ons, discounts, rush work, and retainer boundaries
+      - Track actual effort and effective project rate after delivery
+      - Update the Personal Pricing Policy from repeated evidence rather than arbitrary price changes
+  outputsTitle: Build rules you can use when a prospect is waiting for a number.
+  outputs:
+    - Annual capacity model based on realistic working weeks, weekly hours, and revenue-producing utilization
+    - Minimum Sustainable Rate calculated from the economics of the one-person business
+    - Project economic-floor calculator that includes the whole engagement and direct costs
+    - Five-model pricing decision framework covering fixed price, T&M, paid discovery, retainers, and hybrid structures
+    - Risk review for requirements, technology, dependencies, stakeholders, content/data, and inherited systems
+    - Scope framework covering deliverables, exclusions, assumptions, client responsibilities, acceptance criteria, and change mechanisms
+    - Whole-engagement estimate that forces discovery, planning, communication, QA, revisions, launch, and contingency into view
+    - Commercial Price Builder that moves above the floor without relying on a universal markup
+    - Payment, deposit, milestone, discount, rush-work, revision, change-request, add-on, and retainer policies
+    - Client-facing pricing language for fixed price, discovery, budget objections, changes, deposits, and situations where fixed price is inappropriate
+    - Personal Pricing Policy that turns repeated commercial decisions into reusable rules
+    - Project Pricing Worksheet for applying the policy to a specific opportunity and recording the result
+    - Post-project review using actual effort, effective project rate, variance sources, and targeted changes to the next quote
+  stats:
+    - value: "72"
+      label: guide pages
+      detail: A complete pricing sequence from solo economics and scope through commercial terms, evidence, and the next quote.
+    - value: "32"
+      label: core chapters
+      detail: Six parts cover stopping guesswork, knowing the floor, matching price to risk, pricing the actual project, structuring the deal, and improving the system.
+    - value: "5"
+      label: pricing models
+      detail: Fixed price, time and materials, paid discovery, retainers, and hybrid structures are treated as different ways to allocate uncertainty.
+    - value: "11"
+      label: walkthrough decisions
+      detail: The complete fictional quote moves from business economics through scope, price, terms, changes, delivery evidence, and policy updates.
+    - value: "8"
+      label: AI pricing prompts
+      detail: AI is used to inspect assumptions, risks, scope, quote logic, changes, variance, and client-facing explanations—not to invent a plausible-sounding price.
+    - value: "2"
+      label: reusable operating tools
+      detail: The Personal Pricing Policy stores the general rules; the Project Pricing Worksheet records how those rules were applied to one opportunity.
+  principle:
+    title: A quote should be the output of a system, not the number you can say without feeling nervous.
+    body: The floor is a constraint, not the answer. The pricing model is a risk decision, not a status symbol. The commercial price is a judgment grounded in economics, scope, uncertainty, capacity, value context, proof, and market plausibility—and the next quote should be smarter because the last project left behind evidence.
+format: 72-page implementation guide
 free: false
 lemonProductId: "1323787"
 featured: true

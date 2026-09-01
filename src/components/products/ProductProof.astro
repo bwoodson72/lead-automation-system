@@ -36,6 +36,7 @@ type ProofPackage = {
     intro: string;
     steps: string[];
   };
+  outputsTitle?: string;
   outputs: string[];
   stats: Stat[];
   principle?: {
@@ -156,7 +157,9 @@ const previews = proof.previews
   <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
     <div class="min-w-0">
       <p class="editorial-kicker">What you'll build</p>
-      <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Not notes. A reusable agency operating system.</h2>
+      <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">
+        {proof.outputsTitle ?? "Not notes. A reusable agency operating system."}
+      </h2>
       <ul class="mt-8 min-w-0 border-t border-border">
         {proof.outputs.map((output) => (
           <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 border-b border-border py-4 text-muted-foreground">

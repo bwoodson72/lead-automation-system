@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import TextLink from "@/components/ui/TextLink.astro";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
@@ -23,7 +24,7 @@ const price = d.free ? "Free" : commerce.priceFormatted ?? (commerce.effectiveSt
     <p class="mt-3 max-w-xl leading-7 text-muted-foreground">{d.shortDescription}</p>
     <div class="mt-5 flex items-center justify-between gap-4">
       <p class="text-lg font-semibold">{price}</p>
-      <a href={`/products/${d.slug}/`} class="text-sm font-semibold text-primary-accent">Explore the system →</a>
+      <TextLink href={`/products/${d.slug}/`} class="text-sm">Explore the system →</TextLink>
     </div>
   </div>
 </article>

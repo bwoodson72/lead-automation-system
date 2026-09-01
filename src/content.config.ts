@@ -52,6 +52,41 @@ const products = defineCollection({
       before: z.string().optional(),
       after: z.string().optional(),
     }).optional(),
+    proofPackage: z.object({
+      previewTitle: z.string().optional(),
+      previewIntro: z.string().optional(),
+      previews: z.array(z.object({
+        image: z.string(),
+        alt: z.string(),
+        label: z.string(),
+        caption: z.string(),
+      })).min(3).max(5),
+      workedExample: z.object({
+        title: z.string(),
+        intro: z.string(),
+        disclaimer: z.string(),
+        steps: z.array(z.object({
+          label: z.string(),
+          value: z.string(),
+        })).min(3),
+        conclusion: z.string(),
+      }),
+      system: z.object({
+        title: z.string(),
+        intro: z.string(),
+        steps: z.array(z.string()).min(3),
+      }),
+      outputs: z.array(z.string()).min(3),
+      stats: z.array(z.object({
+        value: z.string(),
+        label: z.string(),
+        detail: z.string().optional(),
+      })).min(3),
+      principle: z.object({
+        title: z.string(),
+        body: z.string(),
+      }).optional(),
+    }).optional(),
     format: z.string().default("Implementation guide"),
     difficulty: z.string().optional(),
     free: z.boolean().default(false),

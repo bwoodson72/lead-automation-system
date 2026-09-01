@@ -1,0 +1,187 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+type Preview = {
+  image: string;
+  alt: string;
+  label: string;
+  caption: string;
+};
+
+type WorkedExampleStep = {
+  label: string;
+  value: string;
+};
+
+type Stat = {
+  value: string;
+  label: string;
+  detail?: string;
+};
+
+type ProofPackage = {
+  previewTitle?: string;
+  previewIntro?: string;
+  previews: Preview[];
+  workedExample: {
+    title: string;
+    intro: string;
+    disclaimer: string;
+    steps: WorkedExampleStep[];
+    conclusion: string;
+  };
+  system: {
+    title: string;
+    intro: string;
+    steps: string[];
+  };
+  outputs: string[];
+  stats: Stat[];
+  principle?: {
+    title: string;
+    body: string;
+  };
+};
+
+interface Props {
+  proof: ProofPackage;
+}
+
+const { proof } = Astro.props;
+const proofImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/product-proofs/**/*.{png,jpg,jpeg,webp}",
+  { eager: true },
+);
+const resolveImage = (image: string) => proofImages[`/src/assets/product-proofs/${image}`]?.default;
+const previews = proof.previews
+  .map((preview) => ({ ...preview, src: resolveImage(preview.image) }))
+  .filter((preview): preview is Preview & { src: ImageMetadata } => Boolean(preview.src));
+---
+
+<section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto min-w-0 max-w-7xl">
+    <p class="editorial-kicker">See inside the system</p>
+    <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+      <div class="min-w-0">
+        <h2 class="break-words text-4xl font-semibold tracking-tight">
+          {proof.previewTitle ?? "Real pages. Real operating tools."}
+        </h2>
+      </div>
+      <p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">
+        {proof.previewIntro ?? "These previews come directly from the guide and workbook so you can judge the depth of the system before you buy."}
+      </p>
+    </div>
+
+    <div class="mt-10 grid min-w-0 gap-6 md:grid-cols-2">
+      {previews.map((preview) => (
+        <figure class="surface-editorial min-w-0 overflow-hidden">
+          <div class="min-w-0 border-b border-border bg-background/60 p-3 sm:p-4">
+            <Image
+              src={preview.src}
+              alt={preview.alt}
+              loading="lazy"
+              class="h-auto w-full rounded-md border border-border object-contain"
+            />
+          </div>
+          <figcaption class="min-w-0 p-5 sm:p-6">
+            <p class="editorial-kicker">{preview.label}</p>
+            <p class="mt-3 break-words text-sm leading-6 text-muted-foreground">{preview.caption}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto min-w-0 max-w-7xl">
+    <p class="editorial-kicker">See the method work</p>
+    <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+      <div class="min-w-0">
+        <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.workedExample.title}</h2>
+      </div>
+      <div class="min-w-0 space-y-4">
+        <p class="break-words text-lg leading-8 text-muted-foreground">{proof.workedExample.intro}</p>
+        <p class="break-words border-l-2 border-primary-accent pl-4 text-sm leading-6 text-muted-foreground">
+          {proof.workedExample.disclaimer}
+        </p>
+      </div>
+    </div>
+
+    <ol class="mt-10 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-5">
+      {proof.workedExample.steps.map((step, index) => (
+        <li class="surface-editorial min-w-0 p-5">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+            <p class="font-semibold">{step.label}</p>
+          </div>
+          <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{step.value}</p>
+        </li>
+      ))}
+    </ol>
+
+    <p class="mt-7 max-w-4xl break-words text-lg leading-8 text-muted-foreground">
+      {proof.workedExample.conclusion}
+    </p>
+  </div>
+</section>
+
+<section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto min-w-0 max-w-7xl">
+    <p class="editorial-kicker">The complete system</p>
+    <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+      <div class="min-w-0">
+        <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.system.title}</h2>
+      </div>
+      <p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{proof.system.intro}</p>
+    </div>
+
+    <ol class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+      {proof.system.steps.map((step, index) => (
+        <li class="grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)] gap-3 bg-background p-5">
+          <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+          <span class="min-w-0 break-words text-sm leading-6">{step}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+    <div class="min-w-0">
+      <p class="editorial-kicker">What you'll build</p>
+      <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Not notes. A reusable agency operating system.</h2>
+      <ul class="mt-8 min-w-0 border-t border-border">
+        {proof.outputs.map((output) => (
+          <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 border-b border-border py-4 text-muted-foreground">
+            <span class="text-primary-accent">→</span>
+            <span class="min-w-0 break-words">{output}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="min-w-0">
+      <p class="editorial-kicker">Product depth</p>
+      <div class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+        {proof.stats.map((stat) => (
+          <div class="min-w-0 bg-background p-6">
+            <p class="break-words text-3xl font-semibold tracking-tight text-primary-accent">{stat.value}</p>
+            <p class="mt-2 break-words font-semibold">{stat.label}</p>
+            {stat.detail && <p class="mt-2 break-words text-sm leading-6 text-muted-foreground">{stat.detail}</p>}
+          </div>
+        ))}
+      </div>
+
+      {proof.principle && (
+        <aside class="surface-editorial mt-8 min-w-0 p-7">
+          <p class="editorial-kicker">A principle you can use now</p>
+          <h3 class="mt-4 break-words text-2xl font-semibold">{proof.principle.title}</h3>
+          <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{proof.principle.body}</p>
+        </aside>
+      )}
+    </div>
+  </div>
+</section>

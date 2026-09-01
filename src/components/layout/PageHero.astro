@@ -27,6 +27,7 @@ interface Props {
   primaryCta?: Cta;
   secondaryCta?: Cta;
   variant?: "home" | "page";
+  imageTreatment?: "standard" | "detail";
 }
 
 const {
@@ -42,9 +43,11 @@ const {
   primaryCta,
   secondaryCta,
   variant = "page",
+  imageTreatment = "standard",
 } = Astro.props;
 
 const isHome = variant === "home";
+const isDetailImage = imageTreatment === "detail";
 const hasActionsSlot = Astro.slots.has("actions");
 const hasVisualSlot = Astro.slots.has("visual");
 ---
@@ -63,10 +66,27 @@ const hasVisualSlot = Astro.slots.has("visual");
     loading="eager"
     decoding="async"
     fetchpriority="high"
-    class="absolute inset-0 h-full w-full object-cover object-center"
+    class:list={[
+      "absolute inset-0 h-full w-full object-cover",
+      isDetailImage
+        ? "object-[72%_center] brightness-110 sm:object-[68%_center] lg:object-[62%_center]"
+        : "object-center",
+    ]}
   />
-  <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,6,5,.82)_0%,rgba(5,6,5,.62)_32%,rgba(5,6,5,.24)_60%,rgba(5,6,5,.06)_84%,transparent_100%)]"></div>
-  <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background/70 to-transparent"></div>
+  <div
+    class:list={[
+      "absolute inset-0",
+      isDetailImage
+        ? "bg-[linear-gradient(90deg,rgba(5,6,5,.72)_0%,rgba(5,6,5,.48)_34%,rgba(5,6,5,.16)_58%,rgba(5,6,5,.03)_76%,transparent_92%)]"
+        : "bg-[linear-gradient(90deg,rgba(5,6,5,.82)_0%,rgba(5,6,5,.62)_32%,rgba(5,6,5,.24)_60%,rgba(5,6,5,.06)_84%,transparent_100%)]",
+    ]}
+  ></div>
+  <div
+    class:list={[
+      "absolute inset-x-0 bottom-0 bg-linear-to-t to-transparent",
+      isDetailImage ? "h-16 from-background/30" : "h-24 from-background/70",
+    ]}
+  ></div>
 
   <div
     class:list={[

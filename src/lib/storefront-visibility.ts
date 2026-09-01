@@ -11,10 +11,7 @@ export const hiddenProductSlugs = new Set([
   "ai-powered-one-person-dev-business",
 ]);
 
-export const hiddenBundleSlugs = new Set([
-  "complete-builder-business-library",
-  "independent-saas-founder-system",
-]);
+export const hiddenBundleSlugs = new Set<string>();
 
 export const isPublicProduct = (product: CollectionEntry<"products">) =>
   !hiddenProductSlugs.has(product.data.slug);
@@ -22,4 +19,4 @@ export const isPublicProduct = (product: CollectionEntry<"products">) =>
 export const isPublicProductSlug = (slug: string) => !hiddenProductSlugs.has(slug);
 
 export const isPublicBundle = (bundle: CollectionEntry<"bundles">) =>
-  !hiddenBundleSlugs.has(bundle.data.slug) && bundle.data.products.every(isPublicProductSlug);
+  !hiddenBundleSlugs.has(bundle.data.slug);

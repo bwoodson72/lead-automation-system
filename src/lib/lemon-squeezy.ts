@@ -12,7 +12,7 @@ export type CommerceProductData = {
 
 export type ProductCommerceResolution = {
   product?: LemonProduct;
-  match: "id" | "name" | "missing" | "ambiguous";
+  match: "id" | "slug" | "name" | "missing" | "ambiguous";
   effectiveStatus: ProductStatus;
   purchasable: boolean;
   priceFormatted?: string;
@@ -20,6 +20,7 @@ export type ProductCommerceResolution = {
 };
 
 const productsById = new Map(catalog.products.map((product) => [product.id, product]));
+const productsBySlug = new Map(catalog.products.map((product) => [product.slug, product]));
 
 export function normalizeProductTitle(value: string): string {
   return value
@@ -51,12 +52,17 @@ export function resolveProductCommerce(data: CommerceProductData): ProductCommer
     product = productsById.get(data.lemonProductId);
     match = product ? "id" : "missing";
   } else {
-    const candidates = productsByNormalizedName.get(normalizeProductTitle(data.title)) ?? [];
-    if (candidates.length === 1) {
-      [product] = candidates;
-      match = "name";
+    product = productsBySlug.get(data.slug);
+    if (product) {
+      match = "slug";
     } else {
-      match = candidates.length > 1 ? "ambiguous" : "missing";
+      const candidates = productsByNormalizedName.get(normalizeProductTitle(data.title)) ?? [];
+      if (candidates.length === 1) {
+        [product] = candidates;
+        match = "name";
+      } else {
+        match = candidates.length > 1 ? "ambiguous" : "missing";
+      }
     }
   }
 

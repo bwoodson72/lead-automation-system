@@ -1,42 +1,57 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/starwind/button";
+import { button } from "@/components/starwind/button/variants";
 import { bundleProgression } from "@/lib/bundle-progression";
-import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { resolveProductCoverImage } from "@/lib/product-cover-images";
+import { isPublicBundle } from "@/lib/storefront-visibility";
 
 const bundles = (await getCollection("bundles")).filter(isPublicBundle);
-const products = (await getCollection("products")).filter(isPublicProduct);
+const products = await getCollection("products");
+const checkoutClass = button({ class: "lemonsqueezy-button w-full text-center sm:w-auto" });
 
 const resolvedBundles = bundleProgression.map((definition) => {
   const bundle = bundles.find((entry) => entry.data.slug === definition.slug);
+  const commerce = bundle ? resolveProductCommerce(bundle.data) : undefined;
   const sourceSlugs = bundle?.data.products?.length ? bundle.data.products : definition.productSlugs;
   const included = sourceSlugs
     .map((slug) => products.find((product) => product.data.slug === slug))
     .filter(Boolean);
+  const image = bundle && commerce?.product?.id
+    ? resolveProductCoverImage(bundle.data, commerce.product.id)
+    : undefined;
 
   return {
     ...definition,
     title: bundle?.data.title ?? definition.title,
     outcome: bundle?.data.outcome ?? definition.outcome,
-    status: bundle?.data.status ?? "planned",
-    price: bundle?.data.price,
+    status: commerce?.effectiveStatus ?? bundle?.data.status ?? "planned",
+    purchasable: commerce?.purchasable ?? false,
+    priceFormatted: commerce?.priceFormatted,
+    checkoutUrl: commerce?.checkoutUrl,
+    image,
     included,
     expectedCount: sourceSlugs.length,
   };
 });
+
+const hasCheckout = resolvedBundles.some((bundle) => bundle.purchasable);
 ---
 
 <BaseLayout
   title="Bundles | Developer Business Lab"
-  description="Developer Business Lab bundles progress from freelance foundations through acquisition, sales and retention, and the complete freelance business system."
+  description="Developer Business Lab bundles progress from freelance foundations through acquisition, sales and retention, SaaS, and the complete builder library."
+  enableCheckoutOverlay={hasCheckout}
 >
   <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="editorial-kicker">Business system bundles</p>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
         <h1 class="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Add depth by stage, not another random pile of tactics.</h1>
-        <p class="text-lg leading-8 text-muted-foreground">The bundle progression follows the business: establish the foundation, build acquisition, strengthen sales and retention, then connect the specialist systems into the complete freelance business.</p>
+        <p class="text-lg leading-8 text-muted-foreground">The bundle progression follows the business: establish the foundation, build acquisition, strengthen sales and retention, validate and launch SaaS, then connect the broader builder library.</p>
       </div>
     </div>
   </section>
@@ -54,8 +69,8 @@ const resolvedBundles = bundleProgression.map((definition) => {
 
   <section class="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-3 sm:grid-cols-4">
-        {resolvedBundles.map((bundle, index) => (
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {resolvedBundles.map((bundle) => (
           <a href={`#${bundle.slug}`} class="group border border-border bg-card/35 p-5 transition-colors hover:border-primary/35">
             <p class="font-mono text-xs text-primary-accent">{bundle.step}</p>
             <p class="mt-2 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{bundle.stage}</p>
@@ -77,9 +92,20 @@ const resolvedBundles = bundleProgression.map((definition) => {
                 </div>
 
                 <div>
+                  {bundle.image && (
+                    <div class="mb-7 aspect-4/5 w-full max-w-xs overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
+                      <Image
+                        src={bundle.image}
+                        alt={`${bundle.title} bundle mockup`}
+                        class="h-full w-full object-contain"
+                        widths={[320, 480, 640]}
+                        sizes="(min-width: 1024px) 20rem, 80vw"
+                      />
+                    </div>
+                  )}
                   <p class="editorial-kicker">Bundle</p>
                   <h2 class="mt-3 text-3xl font-semibold tracking-tight">{bundle.title}</h2>
-                  <p class="mt-5 text-sm leading-6 text-muted-foreground">{bundle.step === "04" ? "The Launch Kit supplies the integrated operating map. The focused systems add deeper specialist guidance at the major commercial stages." : "A focused multi-product system for this stage of the freelance business."}</p>
+                  <p class="mt-5 text-sm leading-6 text-muted-foreground">{bundle.step === "04" ? "The Launch Kit supplies the integrated operating map. The focused systems add deeper specialist guidance at the major commercial stages." : "A focused multi-product system for this stage of the builder business."}</p>
                 </div>
 
                 <div>
@@ -92,12 +118,35 @@ const resolvedBundles = bundleProgression.map((definition) => {
                       </div>
                     ))}
                     {remaining > 0 && <p class="py-3.5 text-sm font-medium text-muted-foreground">+ {remaining} more system{remaining === 1 ? "" : "s"}</p>}
-                    {visible.length === 0 && <p class="py-4 text-sm text-muted-foreground">Included products will appear here as the bundle catalog is populated.</p>}
+                    {visible.length === 0 && bundle.purchasable && <p class="py-4 text-sm text-muted-foreground">Broad catalog access across the current builder-business library.</p>}
+                    {visible.length === 0 && !bundle.purchasable && <p class="py-4 text-sm text-muted-foreground">Included products will appear here as the bundle catalog is populated.</p>}
                   </div>
 
                   <div class="mt-7 flex flex-wrap items-center gap-4">
-                    {bundle.price ? <p class="text-2xl font-semibold">${bundle.price.toFixed(0)}</p> : <span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">In development</span>}
-                    {!bundle.price && <p class="text-sm text-muted-foreground">The structure is set; pricing and checkout will appear when the bundle is released.</p>}
+                    {bundle.purchasable ? (
+                      <>
+                        <p class="text-2xl font-semibold">{bundle.priceFormatted}</p>
+                        <a
+                          href={bundle.checkoutUrl!}
+                          class={checkoutClass}
+                          data-event="checkout_click"
+                          data-product-slug={bundle.slug}
+                          data-cta-location="bundles"
+                        >
+                          Get {bundle.title}
+                        </a>
+                      </>
+                    ) : bundle.status === "coming-soon" ? (
+                      <>
+                        <span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">Coming soon</span>
+                        <p class="text-sm text-muted-foreground">Checkout will appear automatically when this bundle is published in Lemon Squeezy.</p>
+                      </>
+                    ) : (
+                      <>
+                        <span class="inline-flex border border-primary/35 px-4 py-2 text-xs font-semibold uppercase tracking-[.14em] text-primary-accent">In development</span>
+                        <p class="text-sm text-muted-foreground">Pricing and checkout will appear automatically when the bundle is released.</p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import BundleProgressionCard from "@/components/products/BundleProgressionCard.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import heroImage from "@/assets/brand/neutral-hero.png";
 import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
@@ -72,7 +72,7 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
 <BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
   <PageHero
     image={heroImage}
-    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
     breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
     eyebrow={`${d.family} · ${d.title}`}
     title={hook}

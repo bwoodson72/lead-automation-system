@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { Badge } from "@/components/starwind/badge";
-import { Button } from "@/components/starwind/button";
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/starwind/card";
+import TextLink from "@/components/ui/TextLink.astro";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
@@ -84,6 +84,6 @@ const statusLabel = commerce.effectiveStatus === "coming-soon"
   </CardContent>
 
   <CardFooter>
-    <Button as="a" href={href} variant="secondary" data-event={eventName} data-product-slug={d.slug}>See how it works</Button>
+    <TextLink href={href} data-event={eventName} data-product-slug={d.slug}>See how it works →</TextLink>
   </CardFooter>
 </Card>

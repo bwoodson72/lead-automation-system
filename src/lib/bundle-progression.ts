@@ -66,27 +66,6 @@ export const bundleProgression: BundleProgressionDefinition[] = [
       "freelancer-retainer-system",
     ],
   },
-  {
-    slug: "independent-saas-founder-system",
-    step: "05",
-    stage: "SaaS",
-    title: "Independent SaaS Founder System",
-    outcome: "Make the expensive SaaS mistakes cheaper and the useful customer signals easier to see. Move from validation to a bounded launch, early paying customers, activation, and marketing shaped by what real buyers actually do.",
-    productSlugs: [
-      "saas-validation-before-you-build",
-      "micro-saas-launch-system",
-      "the-first-10-saas-customers",
-      "marketing-for-builders",
-    ],
-  },
-  {
-    slug: "complete-builder-business-library",
-    step: "06",
-    stage: "Library",
-    title: "Complete Builder Business Library",
-    outcome: "Keep the business knowledge you need as the work expands from freelance services into repeat revenue, automation, products, and SaaS. One connected library instead of relearning the commercial side every time the business changes shape.",
-    productSlugs: [],
-  },
 ];
 
 const recommendationByProduct: Record<string, { bundleSlug: string; bridge: string }> = {

@@ -83,17 +83,20 @@ const productSchema = {
     {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
   </PageHero>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
-      <div><p class="editorial-kicker">Why these systems belong together</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Solve the stage, not just one symptom.</h2></div>
-      <div><p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p><div class="mt-8"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div></div>
-    </div>
-  </section>
-
-  <section id="inside" class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <section id="inside" class="scroll-mt-24 border-b border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Inside {bundle.data.title}</p>
-      <h2 class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight">Each system has a different job inside the larger outcome.</h2>
+      <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+        <div>
+          <p class="editorial-kicker">What you get</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">
+            {merch.productCount} connected systems that build the {merch.stage.toLowerCase()} stage together.
+          </h2>
+        </div>
+        <div>
+          <p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p>
+        </div>
+      </div>
+
       <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
         {merch.includedProducts.map((product, index) => (
           <a href={`/products/${product.data.slug}/`} class="group bg-background p-6 transition-colors hover:bg-card/50" data-event="bundle_included_product" data-product-slug={product.data.slug}>
@@ -102,6 +105,20 @@ const productSchema = {
             <p class="mt-3 text-sm leading-6 text-muted-foreground">{product.data.shortDescription}</p>
           </a>
         ))}
+      </div>
+
+      <div class="mt-10 flex flex-col gap-7 border-t border-border pt-8 lg:flex-row lg:items-end lg:justify-between">
+        <BundlePriceComparison
+          bundlePriceFormatted={merch.bundlePriceFormatted}
+          separateValue={merch.separateValue}
+          savings={merch.savings}
+          savingsPercent={merch.savingsPercent}
+        />
+        {merch.purchasable && merch.checkoutUrl && (
+          <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-inclusions">
+            Get all {merch.productCount} systems{merch.bundlePriceFormatted ? ` for ${merch.bundlePriceFormatted}` : ""}
+          </a>
+        )}
       </div>
     </div>
   </section>

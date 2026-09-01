@@ -1,9 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 const products = await getCollection("products");
@@ -16,20 +18,18 @@ const proofParagraphs = d.proof ? d.proof.body.split(/\n\s*\n/).map((p) => p.tri
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={commerce.purchasable}>
-  <section class="relative overflow-hidden border-b border-border px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(212,138,23,.09),transparent_32rem)]"></div>
-    <div class="relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
-      <div>
-        <p class="editorial-kicker">Free · Developer Marketing Quickstart</p>
-        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">{d.hook}</h1>
-        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
-        <div class="mt-7 border-l border-primary/70 pl-5"><p class="text-sm font-semibold uppercase tracking-[.12em] text-muted-foreground">Best for</p><p class="mt-2 leading-7">{d.audience}</p></div>
-        <div class="mt-8"><ProductCTA product={product} location="free-page-hero" /></div>
-        <p class="mt-4 text-sm text-muted-foreground">Free downloadable field guide · Seven days · One real acquisition test</p>
-      </div>
-      <div class="gold-glow"><ProductCover product={product} /></div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="Free · Developer Marketing Quickstart"
+    title={d.hook}
+    description={d.shortDescription}
+    audience={d.audience}
+    supportingItems={["Free downloadable field guide", "Seven days", "One real acquisition test"]}
+  >
+    <div slot="actions"><ProductCTA product={product} location="free-page-hero" /></div>
+    <div slot="visual" class="gold-glow"><ProductCover product={product} /></div>
+  </PageHero>
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">

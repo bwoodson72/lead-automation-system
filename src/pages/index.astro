@@ -1,7 +1,7 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
 import FeaturedProductCard from "@/components/products/FeaturedProductCard.astro";
@@ -59,32 +59,17 @@ const faqs = [
   title="Developer Business Lab | Business Systems for Independent Developers"
   description="Build the freelance business as one connected system, or go deeper on the specific commercial bottleneck costing you most."
 >
-  <section class="relative isolate min-h-[72vh] overflow-hidden border-b border-border bg-black lg:min-h-[78vh]">
-    <Image
-      src={heroImage}
-      alt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-      widths={[768, 1024, 1280, 1536, 1920]}
-      sizes="100vw"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-      class="absolute inset-0 h-full w-full object-cover object-center"
-    />
-    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,6,5,.78)_0%,rgba(5,6,5,.58)_30%,rgba(5,6,5,.20)_58%,rgba(5,6,5,.04)_82%,transparent_100%)]"></div>
-    <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background/70 to-transparent"></div>
-    <div class="relative mx-auto flex min-h-[72vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:min-h-[78vh] lg:px-8">
-      <div class="max-w-2xl">
-        <p class="editorial-kicker">Business systems for independent developers</p>
-        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">You are good at the work. Your business should not still feel this uncertain.</h1>
-        <p class="mt-7 max-w-xl text-lg leading-8 text-white/70 sm:text-xl">Build the offer, pricing, pipeline, sales, delivery, and recurring-revenue systems around your technical skill so the business stops depending on improvisation.</p>
-        <div class="mt-9 flex flex-wrap gap-3">
-          <Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button>
-          <Button as="a" href="/start/" variant="outline" size="lg" class="border-white/25 bg-black/20 text-white hover:bg-white/10">I Know What Is Broken</Button>
-        </div>
-        <p class="mt-7 text-sm text-white/55">Complete operating system <span class="mx-2 text-primary-accent">·</span> Focused deep dives <span class="mx-2 text-primary-accent">·</span> Implementation workbooks</p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    variant="home"
+    eyebrow="Business systems for independent developers"
+    title="You are good at the work. Your business should not still feel this uncertain."
+    description="Build the offer, pricing, pipeline, sales, delivery, and recurring-revenue systems around your technical skill so the business stops depending on improvisation."
+    primaryCta={{ label: "Start with the Launch Kit", href: "/products/freelance-developer-launch-kit/" }}
+    secondaryCta={{ label: "I Know What Is Broken", href: "/start/" }}
+    supportingItems={["Complete operating system", "Focused deep dives", "Implementation workbooks"]}
+  />
 
   {launchKit && (
     <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">

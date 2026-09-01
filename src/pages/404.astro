@@ -1,5 +1,17 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { Button } from "@/components/starwind/button";
+import PageHero from "@/components/layout/PageHero.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 ---
-<BaseLayout title="Page Not Found | Developer Business Lab" description="The requested page could not be found." noindex={true}><section class="grid min-h-[60vh] place-items-center px-4 py-20 text-center"><div><p class="font-mono text-sm text-primary-accent">404 · NOT FOUND</p><h1 class="mt-4 text-5xl font-semibold">This path does not lead anywhere useful.</h1><p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">The page may have moved. The business problem you came here to solve probably has not.</p><div class="mt-8 flex justify-center gap-3"><Button as="a" href="/start/">Find Your Bottleneck</Button><Button as="a" href="/products/" variant="outline">Browse Products</Button></div></div></section></BaseLayout>
+
+<BaseLayout title="Page Not Found | Developer Business Lab" description="The requested page could not be found." noindex={true}>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="404 · Not found"
+    title="This path does not lead anywhere useful."
+    description="The page may have moved. The business problem you came here to solve probably has not."
+    primaryCta={{ label: "Find Your Bottleneck", href: "/start/" }}
+    secondaryCta={{ label: "Browse Products", href: "/products/" }}
+  />
+</BaseLayout>

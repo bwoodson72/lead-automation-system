@@ -1,10 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import BundleProgressionCard from "@/components/products/BundleProgressionCard.astro";
 import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
@@ -83,27 +85,27 @@ const splitParagraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.tri
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 const finalHeading = effectiveStatus === "available" ? `Put ${d.title} to work` : `Follow ${d.title}`;
+const heroCommerce = commerce.purchasable
+  ? `${commerce.priceFormatted}${d.free ? "" : " one-time"}`
+  : effectiveStatus === "coming-soon"
+    ? "Coming soon"
+    : "Planned";
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
-  <section class="relative overflow-hidden border-b border-border px-6 py-16 sm:px-6 sm:py-20 lg:px-8">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(212,138,23,.09),transparent_32rem)]"></div>
-    <div class="relative mx-auto min-w-0 max-w-7xl">
-      <nav aria-label="Breadcrumb" class="min-w-0 break-words text-sm text-muted-foreground"><a href="/products/" class="hover:text-foreground">Products</a><span aria-hidden="true"> / </span><span>{d.title}</span></nav>
-      <div class="mt-10 grid min-w-0 gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
-        <div class="min-w-0">
-          <p class="editorial-kicker">{d.family}</p>
-          <p class="mt-5 break-words text-sm font-semibold text-primary-accent">{d.title}</p>
-          <h1 class="mt-3 max-w-3xl break-words text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">{hook}</h1>
-          <p class="mt-6 max-w-2xl break-words text-lg leading-8 text-muted-foreground">{d.shortDescription}</p>
-          <div class="mt-7 min-w-0 border-l border-primary/70 pl-5"><p class="text-sm font-semibold uppercase tracking-[.12em] text-muted-foreground">Best for</p><p class="mt-2 break-words leading-7">{d.audience}</p></div>
-          <div class="mt-8 min-w-0"><ProductCTA product={product} location="hero" /></div>
-          <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{d.format}{commerce.purchasable ? ` · ${commerce.priceFormatted}${d.free ? "" : " one-time"}` : ` · ${effectiveStatus === "coming-soon" ? "Coming soon" : "Planned"}`}</p>
-        </div>
-        <div class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow={`${d.family} · ${d.title}`}
+    title={hook}
+    description={d.shortDescription}
+    audience={d.audience}
+    supportingItems={[d.format, heroCommerce]}
+  >
+    <div slot="actions"><ProductCTA product={product} location="hero" /></div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">

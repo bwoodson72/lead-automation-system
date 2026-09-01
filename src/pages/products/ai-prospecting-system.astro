@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import ProductCard from "@/components/products/ProductCard.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 
 const tiers = (await getCollection("products", ({ data }) => data.family === "AI Prospecting"))
   .sort((a, b) => (a.data.tier || 0) - (b.data.tier || 0));
@@ -11,13 +13,13 @@ const tiers = (await getCollection("products", ({ data }) => data.family === "AI
   title="AI Prospecting System | Compare Four Automation Tiers"
   description="Keep prospecting moving without automating bad decisions. Choose the AI prospecting tier that matches the process you have already proven."
 >
-  <section class="border-b border-border px-4 py-20 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">AI Prospecting System</p>
-      <h1 class="mt-4 max-w-5xl text-5xl font-semibold tracking-tight">Do not automate a prospecting process you do not trust yet.</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The point is not to build the most impressive automation. It is to keep qualified prospecting moving while client work gets busy, without making weak research, fake personalization, duplicate outreach, or bad follow-up happen faster.</p>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="AI Prospecting System"
+    title="Do not automate a prospecting process you do not trust yet."
+    description="The point is not to build the most impressive automation. It is to keep qualified prospecting moving while client work gets busy, without making weak research, fake personalization, duplicate outreach, or bad follow-up happen faster."
+  />
 
   <section class="px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl">

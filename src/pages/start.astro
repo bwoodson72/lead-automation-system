@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 
 const service = [
   ["01", "Offer", "Every prospect asks what I do, and I still answer with a list of technologies or whatever they happen to need.", "Productize Your Dev Skills", "/products/productize-your-dev-skills/"],
@@ -18,15 +20,13 @@ const service = [
   title="Start Here | Developer Business Lab"
   description="Choose between the complete freelance business system and a focused guide for the bottleneck you already know needs attention."
 >
-  <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Start here</p>
-      <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-        <h1 class="max-w-5xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Do you need the whole business system, or one deeper fix?</h1>
-        <p class="text-lg leading-8 text-muted-foreground">That is the first decision. Do not diagnose eight separate problems if the business as a whole still feels improvised. But do not buy the broad system when you already know one narrow constraint is the thing costing you.</p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="Start here"
+    title="Do you need the whole business system, or one deeper fix?"
+    description="That is the first decision. Do not diagnose eight separate problems if the business as a whole still feels improvised. But do not buy the broad system when you already know one narrow constraint is the thing costing you."
+  />
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">

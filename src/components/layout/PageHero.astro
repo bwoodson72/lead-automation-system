@@ -1,0 +1,150 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { Button } from "@/components/starwind/button";
+
+interface Cta {
+  label: string;
+  href: string;
+  event?: string;
+}
+
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  image: ImageMetadata;
+  imageAlt: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  audience?: string;
+  audienceLabel?: string;
+  supportingItems?: string[];
+  breadcrumbs?: Breadcrumb[];
+  primaryCta?: Cta;
+  secondaryCta?: Cta;
+  variant?: "home" | "page";
+}
+
+const {
+  image,
+  imageAlt,
+  eyebrow,
+  title,
+  description,
+  audience,
+  audienceLabel = "Best for",
+  supportingItems = [],
+  breadcrumbs = [],
+  primaryCta,
+  secondaryCta,
+  variant = "page",
+} = Astro.props;
+
+const isHome = variant === "home";
+const hasActionsSlot = Astro.slots.has("actions");
+const hasVisualSlot = Astro.slots.has("visual");
+---
+
+<section
+  class:list={[
+    "relative isolate overflow-hidden border-b border-border bg-black",
+    isHome ? "min-h-[72vh] lg:min-h-[78vh]" : "min-h-[52vh] lg:min-h-[58vh]",
+  ]}
+>
+  <Image
+    src={image}
+    alt={imageAlt}
+    widths={[768, 1024, 1280, 1536, 1920]}
+    sizes="100vw"
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,6,5,.82)_0%,rgba(5,6,5,.62)_32%,rgba(5,6,5,.24)_60%,rgba(5,6,5,.06)_84%,transparent_100%)]"></div>
+  <div class="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background/70 to-transparent"></div>
+
+  <div
+    class:list={[
+      "relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8",
+      isHome ? "min-h-[72vh] lg:min-h-[78vh]" : "min-h-[52vh] lg:min-h-[58vh]",
+      hasVisualSlot
+        ? "grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20"
+        : "flex items-center",
+    ]}
+  >
+    <div class:list={["min-w-0", hasVisualSlot ? "max-w-3xl" : isHome ? "max-w-2xl" : "max-w-3xl"]}>
+      {breadcrumbs.length > 0 && (
+        <nav aria-label="Breadcrumb" class="mb-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/55">
+          {breadcrumbs.map((crumb, index) => (
+            <span class="contents">
+              {crumb.href ? <a href={crumb.href} class="hover:text-white">{crumb.label}</a> : <span>{crumb.label}</span>}
+              {index < breadcrumbs.length - 1 && <span aria-hidden="true">/</span>}
+            </span>
+          ))}
+        </nav>
+      )}
+
+      {eyebrow && <p class="editorial-kicker">{eyebrow}</p>}
+      <h1
+        class:list={[
+          "font-semibold tracking-[-0.04em] text-white",
+          eyebrow ? "mt-5" : "mt-0",
+          isHome ? "text-5xl sm:text-6xl lg:text-7xl" : "text-4xl sm:text-5xl lg:text-6xl",
+        ]}
+      >
+        {title}
+      </h1>
+
+      {description && (
+        <p class="mt-7 max-w-2xl text-lg leading-8 text-white/70 sm:text-xl">{description}</p>
+      )}
+
+      {audience && (
+        <div class="mt-7 max-w-2xl border-l border-primary/70 pl-5">
+          <p class="text-sm font-semibold uppercase tracking-[.12em] text-white/55">{audienceLabel}</p>
+          <p class="mt-2 leading-7 text-white/80">{audience}</p>
+        </div>
+      )}
+
+      {hasActionsSlot ? (
+        <div class="mt-9"><slot name="actions" /></div>
+      ) : (primaryCta || secondaryCta) && (
+        <div class="mt-9 flex flex-wrap gap-3">
+          {primaryCta && (
+            <Button as="a" href={primaryCta.href} size="lg" data-event={primaryCta.event}>{primaryCta.label}</Button>
+          )}
+          {secondaryCta && (
+            <Button
+              as="a"
+              href={secondaryCta.href}
+              variant="outline"
+              size="lg"
+              class="border-white/25 bg-black/20 text-white hover:bg-white/10"
+              data-event={secondaryCta.event}
+            >
+              {secondaryCta.label}
+            </Button>
+          )}
+        </div>
+      )}
+
+      {supportingItems.length > 0 && (
+        <p class="mt-7 flex flex-wrap items-center text-sm text-white/55">
+          {supportingItems.map((item, index) => (
+            <span class="inline-flex items-center">
+              <span>{item}</span>
+              {index < supportingItems.length - 1 && <span class="mx-2 text-primary-accent">·</span>}
+            </span>
+          ))}
+        </p>
+      )}
+    </div>
+
+    {hasVisualSlot && <div class="relative min-w-0 lg:justify-self-end lg:w-full"><slot name="visual" /></div>}
+  </div>
+</section>

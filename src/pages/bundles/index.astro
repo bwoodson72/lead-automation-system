@@ -2,8 +2,10 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
 import { button } from "@/components/starwind/button/variants";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { bundleProgression } from "@/lib/bundle-progression";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { resolveProductCoverImage } from "@/lib/product-cover-images";
@@ -46,15 +48,13 @@ const hasCheckout = resolvedBundles.some((bundle) => bundle.purchasable);
   description="Developer Business Lab bundles progress from freelance foundations through acquisition, sales and retention, and the complete freelance business system."
   enableCheckoutOverlay={hasCheckout}
 >
-  <section class="border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Business system bundles</p>
-      <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">Add depth by stage, not another random pile of tactics.</h1>
-        <p class="text-lg leading-8 text-muted-foreground">The bundle progression follows the freelance business: establish the foundation, build acquisition, strengthen sales and retention, then connect the specialist systems into the complete business.</p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="Business system bundles"
+    title="Add depth by stage, not another random pile of tactics."
+    description="The bundle progression follows the freelance business: establish the foundation, build acquisition, strengthen sales and retention, then connect the specialist systems into the complete business."
+  />
 
   <section class="border-b border-border bg-card/35 px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

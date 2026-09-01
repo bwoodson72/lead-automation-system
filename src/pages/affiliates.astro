@@ -1,38 +1,35 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 ---
 
 <BaseLayout
   title="Affiliate Program | Developer Business Lab"
   description="Earn 30% promoting practical business systems for independent developers through the Developer Business Lab affiliate program."
 >
-  <section class="relative overflow-hidden border-b border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(212,138,23,.13),transparent_30rem)]"></div>
-    <div class="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Developer Business Lab Affiliate Program</p>
-        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">Help independent developers build better businesses. Earn 30% when they buy.</h1>
-        <p class="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">Recommend practical systems for pricing, positioning, client acquisition, sales, proposals, agency partnerships, and recurring revenue to an audience already trying to solve those problems.</p>
-        <div class="mt-9 flex flex-wrap gap-3">
-          <Button as="a" href="#apply" size="lg">Apply to Become an Affiliate</Button>
-          <Button as="a" href="#program" variant="outline" size="lg">See How It Works</Button>
-        </div>
-        <p class="mt-7 text-sm text-muted-foreground">30% standard commission <span class="mx-2 text-primary-accent">·</span> 30-day referral window <span class="mx-2 text-primary-accent">·</span> Manual approval</p>
-      </div>
-
-      <div class="publisher-panel p-7 sm:p-9">
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary-accent">Program economics</p>
-        <dl class="mt-7 divide-y divide-border border-y border-border">
-          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Standard commission</dt><dd class="text-2xl font-semibold">30%</dd></div>
-          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Referral window</dt><dd class="text-2xl font-semibold">30 days</dd></div>
-          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">High-performer tier</dt><dd class="text-2xl font-semibold">35%</dd></div>
-          <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Strategic partners</dt><dd class="text-2xl font-semibold">Up to 40%</dd></div>
-        </dl>
-        <p class="mt-6 text-sm leading-6 text-muted-foreground">Higher rates are earned or offered selectively. The standard program starts at 30%.</p>
-      </div>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    eyebrow="Developer Business Lab Affiliate Program"
+    title="Help independent developers build better businesses. Earn 30% when they buy."
+    description="Recommend practical systems for pricing, positioning, client acquisition, sales, proposals, agency partnerships, and recurring revenue to an audience already trying to solve those problems."
+    primaryCta={{ label: "Apply to Become an Affiliate", href: "#apply" }}
+    secondaryCta={{ label: "See How It Works", href: "#program" }}
+    supportingItems={["30% standard commission", "30-day referral window", "Manual approval"]}
+  >
+    <div slot="visual" class="publisher-panel p-7 sm:p-9">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary-accent">Program economics</p>
+      <dl class="mt-7 divide-y divide-border border-y border-border">
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Standard commission</dt><dd class="text-2xl font-semibold">30%</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Referral window</dt><dd class="text-2xl font-semibold">30 days</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">High-performer tier</dt><dd class="text-2xl font-semibold">35%</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Strategic partners</dt><dd class="text-2xl font-semibold">Up to 40%</dd></div>
+      </dl>
+      <p class="mt-6 text-sm leading-6 text-muted-foreground">Higher rates are earned or offered selectively. The standard program starts at 30%.</p>
     </div>
-  </section>
+  </PageHero>
 
   <section id="program" class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">

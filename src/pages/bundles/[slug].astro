@@ -6,7 +6,7 @@ import PageHero from "@/components/layout/PageHero.astro";
 import BundlePriceComparison from "@/components/products/BundlePriceComparison.astro";
 import FAQList from "@/components/ui/FAQList.astro";
 import { button } from "@/components/starwind/button/variants";
-import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import heroImage from "@/assets/brand/developer-business-lab-detail-hero.webp";
 import { getBundleMerchandising } from "@/lib/bundle-merchandising";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 
@@ -52,13 +52,18 @@ const productSchema = {
 <BaseLayout title={title} description={description} noindex={merch.effectiveStatus === "planned"} enableCheckoutOverlay={merch.purchasable} structuredData={[breadcrumbs, productSchema]}>
   <PageHero
     image={heroImage}
-    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    variant="detail"
     breadcrumbs={[{ label: "Bundles", href: "/bundles/" }, { label: bundle.data.title }]}
     eyebrow={`${merch.stage} · ${bundle.data.title}`}
     title={bundle.data.hook ?? bundle.data.title}
     description={bundle.data.shortDescription ?? bundle.data.outcome}
     audience={bundle.data.audience}
-    supportingItems={[`${merch.productCount} connected systems`, merch.savings ? `Save $${merch.savings.toFixed(0)}${merch.savingsPercent ? ` · ${merch.savingsPercent}%` : ""}` : "Built to work as one stage"]}
+    supportingItems={[
+      merch.bundlePriceFormatted ? `${merch.bundlePriceFormatted} bundle` : `${merch.productCount} connected systems`,
+      merch.separateValue ? `$${merch.separateValue.toFixed(0)} separately` : `${merch.productCount} connected systems`,
+      merch.savings ? `Save $${merch.savings.toFixed(0)}${merch.savingsPercent ? ` · ${merch.savingsPercent}%` : ""}` : "Built to work as one stage",
+    ]}
   >
     <div slot="actions" class="flex flex-wrap items-center gap-4">
       {merch.purchasable && merch.checkoutUrl ? (
@@ -67,13 +72,23 @@ const productSchema = {
         <a href="#inside" class="font-semibold text-primary-accent">See what is included ↓</a>
       )}
     </div>
-    {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
   </PageHero>
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
-      <div><p class="editorial-kicker">Why these systems belong together</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Solve the stage, not just one symptom.</h2></div>
-      <div><p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p><div class="mt-8"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div></div>
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:items-start lg:gap-20">
+      <div class="min-w-0">
+        {merch.image && (
+          <div class="mb-10 max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card p-4 shadow-xl">
+            <Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 28rem, 90vw" />
+          </div>
+        )}
+        <p class="editorial-kicker">Why these systems belong together</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Solve the stage, not just one symptom.</h2>
+      </div>
+      <div>
+        <p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p>
+        <div class="mt-8"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
+      </div>
     </div>
   </section>
 

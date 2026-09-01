@@ -6,7 +6,7 @@ import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
 import BundleProgressionCard from "@/components/products/BundleProgressionCard.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import heroImage from "@/assets/brand/developer-business-lab-detail-hero.webp";
 import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
@@ -24,13 +24,17 @@ const effectiveStatus = commerce.effectiveStatus;
 const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
 const canonical = new URL(`/products/${d.slug}/`, siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();
-const parsedCommercePrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+const parsedCommercePrice = commerce.priceFormatted
+  ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, ""))
+  : undefined;
 const schemaPrice = d.price ?? (Number.isFinite(parsedCommercePrice) ? parsedCommercePrice : undefined);
 
 const publicProducts = (await getCollection("products")).filter(isPublicProduct);
 const publicBundles = (await getCollection("bundles")).filter(isPublicBundle);
 const bundleRecommendation = getBundleRecommendation(d.slug);
-const recommendedBundle = bundleRecommendation ? publicBundles.find((bundle) => bundle.data.slug === bundleRecommendation.slug) : undefined;
+const recommendedBundle = bundleRecommendation
+  ? publicBundles.find((bundle) => bundle.data.slug === bundleRecommendation.slug)
+  : undefined;
 
 const breadcrumbs = {
   "@context": "https://schema.org",
@@ -51,8 +55,21 @@ const productSchema = {
   category: d.family,
   sku: d.slug,
   brand: { "@id": organizationId },
-  audience: { "@type": "Audience", audienceType: d.audience },
-  ...(commerce.purchasable && schemaPrice ? { offers: { "@type": "Offer", url: canonical, priceCurrency: "USD", price: schemaPrice.toFixed(2), availability: "https://schema.org/InStock" } } : {}),
+  audience: {
+    "@type": "Audience",
+    audienceType: d.audience,
+  },
+  ...(commerce.purchasable && schemaPrice
+    ? {
+        offers: {
+          "@type": "Offer",
+          url: canonical,
+          priceCurrency: "USD",
+          price: schemaPrice.toFixed(2),
+          availability: "https://schema.org/InStock",
+        },
+      }
+    : {}),
 };
 
 const hook = d.hook ?? d.problem;
@@ -62,17 +79,24 @@ const delivery = d.delivery ?? {
   worksheets: "Final working assets will be listed when the product is released.",
   time: effectiveStatus === "available" ? "Use it on the next real business decision." : "Final implementation guidance will be published at release.",
 };
-const splitParagraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).length > 1 ? text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean) : [text];
+const splitParagraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).length > 1
+  ? text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+  : [text];
 const reframeParagraphs = splitParagraphs(reframe);
 const proofParagraphs = d.proof ? splitParagraphs(d.proof.body) : [];
 const finalHeading = effectiveStatus === "available" ? `Put ${d.title} to work` : `Follow ${d.title}`;
-const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free ? "" : " one-time"}` : effectiveStatus === "coming-soon" ? "Coming soon" : "Planned";
+const heroCommerce = commerce.purchasable
+  ? `${commerce.priceFormatted}${d.free ? "" : " one-time"}`
+  : effectiveStatus === "coming-soon"
+    ? "Coming soon"
+    : "Planned";
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
   <PageHero
     image={heroImage}
-    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    variant="detail"
     breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
     eyebrow={`${d.family} · ${d.title}`}
     title={hook}
@@ -81,18 +105,78 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
     supportingItems={[d.format, heroCommerce]}
   >
     <div slot="actions"><ProductCTA product={product} location="hero" /></div>
-    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
   </PageHero>
 
-  {bundleRecommendation && recommendedBundle && <BundleProgressionCard currentProduct={product} products={publicProducts} bundle={recommendedBundle} />}
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:items-start lg:gap-20">
+      <div class="min-w-0">
+        <div class="gold-glow mx-auto mb-10 max-w-sm lg:mx-0"><ProductCover product={product} /></div>
+        <p class="editorial-kicker">The problem</p>
+        <h2 class="mt-4 break-words text-3xl font-semibold">Why this keeps costing you.</h2>
+      </div>
+      <div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+    </div>
+  </section>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">The problem</p><h2 class="mt-4 break-words text-3xl font-semibold">Why this keeps costing you.</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto min-w-0 max-w-7xl">
+      <p class="editorial-kicker">Inside the system</p>
+      <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16">
+        <div class="min-w-0">
+          <h2 class="break-words text-4xl font-semibold tracking-tight">What you will work through.</h2>
+          <ol class="mt-8 min-w-0 border-t border-border">
+            {d.contents.map((item, index) => <li class="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="min-w-0 break-words">{item}</span></li>)}
+          </ol>
+        </div>
+        <aside class="surface-editorial min-w-0 self-start p-7">
+          <p class="editorial-kicker">What you receive</p>
+          <dl class="mt-6 min-w-0 space-y-6">
+            <div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div>
+            <div><dt class="font-semibold">Working tools</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div>
+            <div><dt class="font-semibold">How to use it</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-7xl"><p class="editorial-kicker">Inside the system</p><div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16"><div class="min-w-0"><h2 class="break-words text-4xl font-semibold tracking-tight">What you will work through.</h2><ol class="mt-8 min-w-0 border-t border-border">{d.contents.map((item, index) => <li class="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="min-w-0 break-words">{item}</span></li>)}</ol></div><aside class="surface-editorial min-w-0 self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 min-w-0 space-y-6"><div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div><div><dt class="font-semibold">Working tools</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div><div><dt class="font-semibold">How to use it</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div></dl></aside></div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="min-w-0">
+        <p class="editorial-kicker">This is for you if</p>
+        <ul class="mt-6 min-w-0 border-t border-border">{d.whoItsFor.map((item) => <li class="break-words border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul>
+      </div>
+      <div class="min-w-0">
+        <p class="editorial-kicker">Skip it if</p>
+        <ul class="mt-6 min-w-0 border-t border-border">{d.whoItsNotFor.map((item) => <li class="break-words border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">This is for you if</p><ul class="mt-6 min-w-0 border-t border-border">{d.whoItsFor.map((item) => <li class="break-words border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul></div><div class="min-w-0"><p class="editorial-kicker">Skip it if</p><ul class="mt-6 min-w-0 border-t border-border">{d.whoItsNotFor.map((item) => <li class="break-words border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul></div></div></section>
+  {d.proof && (
+    <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto min-w-0 max-w-5xl">
+        <p class="editorial-kicker">See what changes</p>
+        <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{d.proof.title}</h2>
+        <div class="mt-6 min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+        {(d.proof.before || d.proof.after) && <div class="mt-9 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.proof.before && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 break-words text-lg">{d.proof.before}</p></div>}{d.proof.after && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 break-words text-lg">{d.proof.after}</p></div>}</div>}
+      </div>
+    </section>
+  )}
 
-  {d.proof && <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-5xl"><p class="editorial-kicker">See what changes</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{d.proof.title}</h2><div class="mt-6 min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>{(d.proof.before || d.proof.after) && <div class="mt-9 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.proof.before && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 break-words text-lg">{d.proof.before}</p></div>}{d.proof.after && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 break-words text-lg">{d.proof.after}</p></div>}</div>}</div></section>}
+  {bundleRecommendation && (
+    <BundleProgressionCard currentProduct={product} products={publicProducts} bundle={recommendedBundle} />
+  )}
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-4xl">{d.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}<div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}><p class="editorial-kicker">Next step</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{finalHeading}</h2><p class="mt-5 break-words text-lg leading-8 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p><div class="mt-8 min-w-0"><ProductCTA product={product} location="final" /></div></div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto min-w-0 max-w-4xl">
+      {d.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}
+      <div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}>
+        <p class="editorial-kicker">Next step</p>
+        <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{finalHeading}</h2>
+        <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>
+        <div class="mt-8 min-w-0"><ProductCTA product={product} location="final" /></div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

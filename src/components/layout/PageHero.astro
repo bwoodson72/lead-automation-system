@@ -26,7 +26,7 @@ interface Props {
   breadcrumbs?: Breadcrumb[];
   primaryCta?: Cta;
   secondaryCta?: Cta;
-  variant?: "home" | "page";
+  variant?: "home" | "page" | "detail";
 }
 
 const {
@@ -45,6 +45,7 @@ const {
 } = Astro.props;
 
 const isHome = variant === "home";
+const isDetail = variant === "detail";
 const hasActionsSlot = Astro.slots.has("actions");
 const hasVisualSlot = Astro.slots.has("visual");
 ---
@@ -94,7 +95,11 @@ const hasVisualSlot = Astro.slots.has("visual");
         class:list={[
           "font-semibold tracking-[-0.04em] text-white",
           eyebrow ? "mt-5" : "mt-0",
-          isHome ? "text-5xl sm:text-6xl lg:text-7xl" : "text-4xl sm:text-5xl lg:text-6xl",
+          isHome
+            ? "text-5xl sm:text-6xl lg:text-7xl"
+            : isDetail
+              ? "text-4xl sm:text-5xl lg:text-5xl"
+              : "text-4xl sm:text-5xl lg:text-6xl",
         ]}
       >
         {title}

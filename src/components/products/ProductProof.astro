@@ -50,7 +50,7 @@ interface Props {
 
 const { proof } = Astro.props;
 const proofImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/product-proofs/**/*.{png,jpg,jpeg,webp}",
+  "/src/assets/product-proofs/**/*.{png,jpg,jpeg,webp,svg}",
   { eager: true },
 );
 const resolveImage = (image: string) => proofImages[`/src/assets/product-proofs/${image}`]?.default;

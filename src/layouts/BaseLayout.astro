@@ -4,6 +4,7 @@ import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
   title: string;
@@ -83,5 +84,6 @@ const pageStructuredData = structuredData
     <main id="main-content"><slot /></main>
     <SiteFooter />
     {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
+    <SpeedInsights />
   </body>
 </html>

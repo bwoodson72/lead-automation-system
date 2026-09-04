@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ArticleCard from "@/components/articles/ArticleCard.astro";
+import ArticleSidebar from "@/components/articles/ArticleSidebar.astro";
+import ArticlePagination from "@/components/articles/ArticlePagination.astro";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import {
+  ARTICLES_PER_PAGE,
+  articleMatchesTopic,
+  getTopicLinks,
+  sortArticles,
+} from "@/lib/articleTopics";
+
+export async function getStaticPaths() {
+  const allArticles = sortArticles(await getCollection("articles", ({ data }) => !data.draft));
+  const topics = getTopicLinks(allArticles);
+
+  return topics.flatMap((topic) => {
+    const matchingArticles = allArticles.filter((article) => articleMatchesTopic(article, topic));
+    const totalPages = Math.ceil(matchingArticles.length / ARTICLES_PER_PAGE);
+
+    return Array.from({ length: Math.max(totalPages - 1, 0) }, (_, index) => {
+      const currentPage = index + 2;
+      const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+
+      return {
+        params: { topic: topic.slug, page: String(currentPage) },
+        props: {
+          topic,
+          articles: matchingArticles.slice(start, start + ARTICLES_PER_PAGE),
+          currentPage,
+          totalPages,
+          topics,
+        },
+      };
+    });
+  });
+}
+
+const { topic, articles, currentPage, totalPages, topics } = Astro.props;
+const basePath = `/articles/topics/${topic.slug}/`;
+---
+
+<BaseLayout
+  title={`${topic.label} Articles — Page ${currentPage}`}
+  description={topic.description}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
+    breadcrumbs={[{ label: "Articles", href: "/articles/" }, { label: topic.label, href: basePath }, { label: `Page ${currentPage}` }]}
+    eyebrow="Article topic"
+    title={`${topic.label} Articles`}
+    description={topic.description}
+  />
+
+  <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-10 lg:grid-cols-4 lg:items-start">
+        <main class="lg:col-span-3">
+          <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Browse by topic</p>
+              <h2 class="mt-2 text-3xl font-semibold text-foreground">{topic.label}</h2>
+            </div>
+            <p class="text-sm text-muted-foreground">Page {currentPage} of {totalPages}</p>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {articles.map((article) => <ArticleCard article={article} />)}
+          </div>
+
+          <ArticlePagination currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
+        </main>
+
+        <ArticleSidebar topics={topics} activeTopic={topic.slug} showQuickstart />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

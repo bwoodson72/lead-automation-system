@@ -3,22 +3,50 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ArticleCard from "@/components/articles/ArticleCard.astro";
+import ArticleSidebar from "@/components/articles/ArticleSidebar.astro";
+import ArticlePagination from "@/components/articles/ArticlePagination.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import { ARTICLES_PER_PAGE, getTopicLinks, sortArticles } from "@/lib/articleTopics";
 
-const articles = (await getCollection("articles", ({data}) => !data.draft)).sort((a,b) => b.data.publishedAt.valueOf()-a.data.publishedAt.valueOf());
+const articles = sortArticles(await getCollection("articles", ({ data }) => !data.draft));
+const visibleArticles = articles.slice(0, ARTICLES_PER_PAGE);
+const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
+const topics = getTopicLinks(articles);
 ---
 
-<BaseLayout title="Client Acquisition Systems for Web Developers" description="Practical articles about prospecting, qualification, outreach, automation, and client-acquisition infrastructure.">
+<BaseLayout
+  title="Freelance Developer Business Articles"
+  description="Practical articles for freelance developers about client acquisition, pricing, positioning, sales, delivery, retention, and business systems."
+>
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
     eyebrow="Educational articles"
-    title="Client Acquisition Systems for Web Developers"
-    description="Practical guides to prospecting, qualification, outreach, automation, and the infrastructure behind a repeatable web-development sales pipeline."
+    title="Freelance Developer Business Articles"
+    description="Practical guidance for finding clients, pricing work, selling projects, managing delivery, and building a more repeatable freelance development business."
   />
+
   <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{articles.map((article) => <ArticleCard article={article} />)}</div>
+      <div class="grid gap-10 lg:grid-cols-4 lg:items-start">
+        <main class="lg:col-span-3">
+          <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Article library</p>
+              <h2 class="mt-2 text-3xl font-semibold text-foreground">Latest articles</h2>
+            </div>
+            <p class="text-sm text-muted-foreground">{articles.length} {articles.length === 1 ? "article" : "articles"}</p>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {visibleArticles.map((article) => <ArticleCard article={article} />)}
+          </div>
+
+          <ArticlePagination currentPage={1} totalPages={totalPages} />
+        </main>
+
+        <ArticleSidebar topics={topics} showQuickstart />
+      </div>
     </div>
   </section>
 </BaseLayout>

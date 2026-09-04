@@ -1,0 +1,63 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath?: string;
+}
+
+const { currentPage, totalPages, basePath = "/articles/" } = Astro.props;
+
+const pageHref = (page: number) => {
+  if (page === 1) return basePath;
+  return `${basePath}page/${page}/`;
+};
+
+const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+---
+
+{totalPages > 1 && (
+  <nav aria-label="Article pagination" class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
+    <div>
+      {currentPage > 1 ? (
+        <a
+          href={pageHref(currentPage - 1)}
+          rel="prev"
+          class="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary-accent hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+        >
+          ← Previous
+        </a>
+      ) : <span />}
+    </div>
+
+    <ol class="flex flex-wrap items-center justify-center gap-2">
+      {pages.map((page) => (
+        <li>
+          <a
+            href={pageHref(page)}
+            aria-current={page === currentPage ? "page" : undefined}
+            class:list={[
+              "inline-flex size-9 items-center justify-center rounded-md border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline",
+              page === currentPage
+                ? "border-primary-accent bg-primary/10 text-primary-accent"
+                : "border-border text-muted-foreground hover:border-primary-accent hover:text-foreground",
+            ]}
+          >
+            {page}
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <div>
+      {currentPage < totalPages ? (
+        <a
+          href={pageHref(currentPage + 1)}
+          rel="next"
+          class="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary-accent hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+        >
+          Next →
+        </a>
+      ) : <span />}
+    </div>
+  </nav>
+)}

@@ -4,29 +4,30 @@
   "status": "planned",
   "stage": "Acquisition",
   "hook": "Stop making one channel carry the entire pipeline.",
-  "shortDescription": "Connect buyer-facing marketing, direct acquisition, and agency partnerships so qualified opportunities do not depend on one source.",
-  "outcome": "Build enough clarity and pipeline that finding work stops becoming an emergency at the end of every project. Connect the marketing, direct acquisition, agency-partnership, qualification, follow-up, and pipeline pieces that create real opportunities.",
-  "whyTogether": "A resilient pipeline is stronger when buyers can discover and understand you, when you can create opportunities directly, and when trusted partners can refer or subcontract appropriate work. These systems give each acquisition path a different job instead of forcing one channel to do everything.",
-  "audience": "Independent developers who are tired of depending on marketplaces, unpredictable referrals, and last-minute prospecting bursts to fill the calendar.",
+  "shortDescription": "Connect buyer-facing marketing, social acquisition, direct prospecting, and agency partnerships so qualified opportunities do not depend on one source.",
+  "outcome": "Build enough clarity and pipeline that finding work stops becoming an emergency at the end of every project. Connect buyer-facing marketing, social acquisition, direct acquisition, agency partnerships, qualification, follow-up, and pipeline measurement into a more resilient opportunity system.",
+  "whyTogether": "A resilient pipeline is stronger when buyers can discover and understand you, when social activity builds familiarity and trust, when you can create opportunities directly, and when trusted partners can refer or subcontract appropriate work. These systems give each acquisition path a different job instead of forcing one channel to do everything.",
+  "audience": "Independent developers who are tired of depending on marketplaces, unpredictable referrals, one social platform, or last-minute prospecting bursts to fill the calendar.",
   "order": 2,
-  "products": ["marketing-for-builders", "client-acquisition-without-upwork", "agency-partnership-playbook"],
+  "products": ["marketing-for-builders", "social-media-client-acquisition-system", "client-acquisition-without-upwork", "agency-partnership-playbook"],
   "implementationOrder": [
-    "Make the offer and value easy to understand before traffic or outreach reaches it.",
+    "Make the offer, positioning, proof, and buyer value easy to understand before traffic or outreach reaches them.",
+    "Build a social acquisition system that creates buyer familiarity, trust, relationship context, and qualified conversation opportunities.",
     "Build a repeatable direct-acquisition process for finding, qualifying, contacting, and following up with prospects.",
-    "Add agency partnerships as a second relationship-driven source of qualified opportunities."
+    "Add agency partnerships as a relationship-driven source of qualified opportunities and subcontracting work."
   ],
   "whoItsFor": [
     "Your pipeline goes quiet whenever delivery work gets busy.",
-    "You depend too heavily on marketplaces, referrals, or one acquisition channel.",
-    "You want more than one deliberate path to qualified opportunities."
+    "You depend too heavily on marketplaces, referrals, one social platform, or one acquisition channel.",
+    "You want multiple deliberate paths to qualified opportunities that can reinforce one another."
   ],
   "whoItsNotFor": [
     "You already have more qualified opportunities than you can handle.",
     "Your primary constraint is converting existing opportunities into signed work."
   ],
   "faqs": [
-    {"question":"Is this only a cold-outreach bundle?","answer":"No. Direct acquisition is one part. The bundle also covers buyer-facing marketing and agency partnerships so the pipeline is not built around a single channel."},
-    {"question":"Should I run every channel at once?","answer":"No. Build one channel to a useful operating standard, then add the next. The goal is resilience and repeatability, not maximum activity."}
+    {"question":"Is this only a cold-outreach bundle?","answer":"No. Direct acquisition is one part. The bundle also covers buyer-facing marketing, social client acquisition, and agency partnerships so the pipeline is not built around a single channel."},
+    {"question":"Should I run every channel at once?","answer":"No. Build the commercial foundation first, then bring each channel to a useful operating standard before adding complexity. The goal is resilience and repeatability, not maximum activity."}
   ],
-  "seo": {"title":"Client Acquisition Bundle | Developer Business Lab","description":"Build a more resilient freelance pipeline by connecting marketing, direct acquisition, and agency partnerships."}
+  "seo": {"title":"Client Acquisition Bundle | Developer Business Lab","description":"Build a more resilient freelance pipeline by connecting buyer-facing marketing, social acquisition, direct acquisition, and agency partnerships."}
 }

@@ -29,9 +29,10 @@ export const bundleProgression: BundleProgressionDefinition[] = [
     step: "02",
     stage: "Acquisition",
     title: "Client Acquisition Bundle",
-    outcome: "Create more than one dependable path to qualified opportunities by connecting buyer-facing marketing, direct acquisition, and agency partnerships.",
+    outcome: "Create more than one dependable path to qualified opportunities by connecting buyer-facing marketing, social acquisition, direct acquisition, and agency partnerships.",
     productSlugs: [
       "marketing-for-builders",
+      "social-media-client-acquisition-system",
       "client-acquisition-without-upwork",
       "agency-partnership-playbook",
     ],
@@ -59,6 +60,7 @@ export const bundleProgression: BundleProgressionDefinition[] = [
       "productize-your-dev-skills",
       "web-developer-pricing-system",
       "marketing-for-builders",
+      "social-media-client-acquisition-system",
       "client-acquisition-without-upwork",
       "developer-sales-playbook",
       "developer-proposal-closing-kit",
@@ -81,13 +83,17 @@ const recommendationByProduct: Record<string, { bundleSlug: string; bridge: stri
     bundleSlug: "freelancer-starter-bundle",
     bridge: "Marketing works better when the offer and pricing behind it are already deliberate. The Starter Bundle connects those foundation decisions.",
   },
+  "social-media-client-acquisition-system": {
+    bundleSlug: "client-acquisition-bundle",
+    bridge: "Social acquisition is strongest when it sits beside clear buyer-facing marketing, deliberate direct acquisition, and relationship-driven agency partnerships. The Client Acquisition Bundle connects those channels into one broader pipeline.",
+  },
   "client-acquisition-without-upwork": {
     bundleSlug: "client-acquisition-bundle",
-    bridge: "Direct acquisition is one channel. The Client Acquisition Bundle adds the marketing and agency-partnership systems that give you more than one way to keep qualified opportunities coming.",
+    bridge: "Direct acquisition is one channel. The Client Acquisition Bundle adds buyer-facing marketing, social acquisition, and agency partnerships so qualified opportunities do not depend on one source.",
   },
   "agency-partnership-playbook": {
     bundleSlug: "client-acquisition-bundle",
-    bridge: "Agency relationships are strongest as one acquisition channel inside a broader pipeline. The Client Acquisition Bundle connects partnerships to your marketing and direct acquisition systems.",
+    bridge: "Agency relationships are strongest as one acquisition channel inside a broader pipeline. The Client Acquisition Bundle connects partnerships to your marketing, social acquisition, and direct acquisition systems.",
   },
   "developer-sales-playbook": {
     bundleSlug: "freelancer-sales-system",

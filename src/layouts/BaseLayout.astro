@@ -4,6 +4,8 @@ import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import { siteConfig } from "@/config";
+import brandLogo from "@/assets/brand/developer-business-lab-logo.png";
+import brandHero from "@/assets/brand/developer-business-lab-hero.png";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 interface Props {
@@ -22,10 +24,12 @@ const {
   structuredData,
 } = Astro.props;
 
-const siteUrl = siteConfig.url || "https://developerbusinesslab.com";
+const siteUrl = siteConfig.url || "https://www.developerbusinesslab.com";
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();
 const websiteId = new URL("/#website", siteUrl).toString();
+const organizationLogo = new URL(brandLogo.src, siteUrl).toString();
+const defaultContentImage = new URL(brandHero.src, siteUrl).toString();
 
 const globalStructuredData = [
   {
@@ -35,6 +39,10 @@ const globalStructuredData = [
     name: siteConfig.name,
     url: siteUrl,
     description: siteConfig.description,
+    logo: {
+      "@type": "ImageObject",
+      url: organizationLogo,
+    },
   },
   {
     "@context": "https://schema.org",
@@ -47,11 +55,19 @@ const globalStructuredData = [
   },
 ];
 
-const pageStructuredData = structuredData
+const rawPageStructuredData = structuredData
   ? Array.isArray(structuredData)
     ? structuredData
     : [structuredData]
   : [];
+
+const pageStructuredData = rawPageStructuredData.map((schema) => {
+  const schemaType = schema["@type"];
+  if ((schemaType === "Article" || schemaType === "Product") && !schema.image) {
+    return { ...schema, image: defaultContentImage };
+  }
+  return schema;
+});
 ---
 <!doctype html>
 <html lang="en" class="dark">
@@ -68,7 +84,9 @@ const pageStructuredData = structuredData
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={defaultContentImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={defaultContentImage} />
     <title>{title}</title>
     {globalStructuredData.map((schema) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

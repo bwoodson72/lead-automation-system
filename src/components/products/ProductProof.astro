@@ -78,20 +78,35 @@ const previews = proof.previews
       </p>
     </div>
 
-    <div class="mt-10 grid min-w-0 gap-6 md:grid-cols-2">
+    <div class="mt-12 min-w-0 space-y-10">
       {previews.map((preview) => (
-        <figure class="surface-editorial min-w-0 overflow-hidden">
-          <div class="min-w-0 border-b border-border bg-background/60 p-3 sm:p-4">
+        <figure class="surface-editorial grid min-w-0 overflow-hidden lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,.65fr)]">
+          <a
+            href={preview.src.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group min-w-0 border-b border-border bg-background/60 p-3 sm:p-5 lg:border-b-0 lg:border-r"
+            aria-label={`Open ${preview.label} proof at full size`}
+          >
             <Image
               src={preview.src}
               alt={preview.alt}
               loading="lazy"
-              class="h-auto w-full rounded-md border border-border object-contain"
+              class="h-auto w-full rounded-md border border-border object-contain shadow-sm transition group-hover:border-primary/60"
             />
-          </div>
-          <figcaption class="min-w-0 p-5 sm:p-6">
+          </a>
+          <figcaption class="flex min-w-0 flex-col justify-center p-6 sm:p-8">
             <p class="editorial-kicker">{preview.label}</p>
-            <p class="mt-3 break-words text-sm leading-6 text-muted-foreground">{preview.caption}</p>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-foreground">What this proves</p>
+            <p class="mt-3 break-words text-base leading-7 text-muted-foreground">{preview.caption}</p>
+            <a
+              href={preview.src.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary-accent hover:underline"
+            >
+              Open full-size proof <span aria-hidden="true">↗</span>
+            </a>
           </figcaption>
         </figure>
       ))}
@@ -114,7 +129,7 @@ const previews = proof.previews
       </div>
     </div>
 
-    <ol class="mt-10 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-5">
+    <ol class="mt-10 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-3">
       {proof.workedExample.steps.map((step, index) => (
         <li class="surface-editorial min-w-0 p-5">
           <div class="flex items-center gap-3">

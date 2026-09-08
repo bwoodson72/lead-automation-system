@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+  <rect width="1600" height="1120" fill="#F7F7F5"/>
+  <rect width="1600" height="14" fill="#D6A13A"/>
+  <text x="72" y="74" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#9A641C">CLIENT ACQUISITION WITHOUT UPWORK | WORKBOOK</text>
+  <text x="72" y="137" font-family="Arial, sans-serif" font-size="50" font-weight="700" fill="#171717">Stage Movement + Funnel Diagnosis</text>
+  <text x="72" y="182" font-family="Arial, sans-serif" font-size="24" fill="#666661">Measure with explicit denominators, then diagnose the earliest meaningful loss of movement.</text>
+
+  <text x="72" y="244" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#171717">Completed Alex review cohort</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="72" y="270" width="1456" height="76" fill="#242424"/>
+    <text x="94" y="318" font-size="20" font-weight="700" fill="#F4F4F2">Stage</text>
+    <text x="580" y="318" font-size="20" font-weight="700" fill="#F4F4F2">Count</text>
+    <text x="780" y="318" font-size="20" font-weight="700" fill="#F4F4F2">Rate / denominator</text>
+    <text x="1100" y="318" font-size="20" font-weight="700" fill="#F4F4F2">Interpretation</text>
+
+    <g font-size="20" fill="#242424">
+      <rect x="72" y="346" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="384">Candidates reviewed</text><text x="580" y="384" font-weight="700">32</text><text x="780" y="384">Baseline</text><text x="1100" y="384">Case cohort only</text>
+      <rect x="72" y="406" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="444">Qualified prospects</text><text x="580" y="444" font-weight="700">18</text><text x="780" y="444">18 / 32 = 56.3%</text><text x="1100" y="444">Not a stable benchmark</text>
+      <rect x="72" y="466" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="504">Verified contactable</text><text x="580" y="504" font-weight="700">15</text><text x="780" y="504">15 / 18 = 83.3%</text><text x="1100" y="504">3 lacked a verified route</text>
+      <rect x="72" y="526" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="564">Successfully contacted</text><text x="580" y="564" font-weight="700">14</text><text x="780" y="564">14 / 15 = 93.3%</text><text x="1100" y="564">1 route failed</text>
+      <rect x="72" y="586" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="624">Replies</text><text x="580" y="624" font-weight="700">5</text><text x="780" y="624">5 / 14 = 35.7%</text><text x="1100" y="624">Reply is not opportunity</text>
+      <rect x="72" y="646" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="684">Meaningful conversations</text><text x="580" y="684" font-weight="700">2</text><text x="780" y="684">2 / 14 = 14.3%</text><text x="1100" y="684">Commercially relevant</text>
+      <rect x="72" y="706" width="1456" height="60" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="744">Qualified opportunities</text><text x="580" y="744" font-weight="700">1</text><text x="780" y="744">1 / 14 = 7.1%</text><text x="1100" y="744">One sales handoff</text>
+    </g>
+
+    <rect x="72" y="816" width="1456" height="228" rx="10" fill="#FFFFFF" stroke="#D6A13A" stroke-width="2"/>
+    <text x="104" y="860" font-size="24" font-weight="700" fill="#171717">Completed Alex diagnosis</text>
+    <text x="104" y="900" font-size="20" font-weight="700" fill="#9A641C">Observed result</text><text x="360" y="900" font-size="20" fill="#242424">14 contacted → 5 replies → 2 meaningful conversations → 1 qualified opportunity.</text>
+    <text x="104" y="938" font-size="20" font-weight="700" fill="#9A641C">Leading hypothesis</text><text x="360" y="938" font-size="20" fill="#242424">Visible issue without stronger timing/change evidence may be a weak reason-now condition.</text>
+    <text x="104" y="976" font-size="20" font-weight="700" fill="#9A641C">Competing hypothesis</text><text x="360" y="976" font-size="20" fill="#242424">Some low-movement accounts may also have weaker stakeholder selection.</text>
+    <text x="104" y="1014" font-size="20" font-weight="700" fill="#9A641C">Next bounded test</text><text x="360" y="1014" font-size="20" fill="#242424">Tighten Contact Ready for the next local cohort; keep other major elements broadly stable.</text>
+  </g>
+  <text x="72" y="1092" font-family="Arial, sans-serif" font-size="18" fill="#666661">Fictional cohort. Small and immature by design. The product teaches interpretation, not universal response benchmarks.</text>
+</svg>

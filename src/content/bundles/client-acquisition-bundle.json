@@ -3,31 +3,33 @@
   "slug": "client-acquisition-bundle",
   "status": "planned",
   "stage": "Acquisition",
-  "hook": "Stop making one channel carry the entire pipeline.",
-  "shortDescription": "Connect buyer-facing marketing, social acquisition, direct prospecting, and agency partnerships so qualified opportunities do not depend on one source.",
-  "outcome": "Build enough clarity and pipeline that finding work stops becoming an emergency at the end of every project. Connect buyer-facing marketing, social acquisition, direct acquisition, agency partnerships, qualification, follow-up, and pipeline measurement into a more resilient opportunity system.",
-  "whyTogether": "A resilient pipeline is stronger when buyers can discover and understand you, when social activity builds familiarity and trust, when you can create opportunities directly, and when trusted partners can refer or subcontract appropriate work. These systems give each acquisition path a different job instead of forcing one channel to do everything.",
-  "audience": "Independent developers who are tired of depending on marketplaces, unpredictable referrals, one social platform, or last-minute prospecting bursts to fill the calendar.",
+  "hook": "Build the operating spine first. Then deepen the channels that deserve it.",
+  "shortDescription": "Connect one acquisition operating system to deeper buyer-facing marketing, social acquisition, and agency-partnership systems so several access paths can be managed without becoming disconnected tactics.",
+  "outcome": "Build a more resilient acquisition stage by combining the Client Acquisition Operating System with deeper specialist systems for buyer-facing marketing, social client acquisition, and agency partnerships. Use one qualification, evidence, pipeline, measurement, and diagnosis spine while giving each access mechanism the depth its role requires.",
+  "whyTogether": "Client Acquisition Without Upwork provides the operating spine: pursuable-account criteria, sources and signals, stakeholder/contactability, channel roles, research, outreach, nurture, opportunity qualification, CRM stages, measurement, economics, and diagnosis. Marketing for Builders deepens how the business becomes understandable and credible to buyers. Social Media Client Acquisition deepens social listening, relationships, publishing, and pipeline influence. Agency Partnership Playbook deepens relationship-driven partner access and commercial boundaries. The bundle is for buyers who need several of those connected mechanisms at specialist depth, not merely one acquisition bottleneck.",
+  "audience": "Independent developers who already know acquisition is the constraint and need several connected buyer-access mechanisms to work together under one operating system rather than as separate tactics.",
   "order": 2,
   "products": ["marketing-for-builders", "social-media-client-acquisition-system", "client-acquisition-without-upwork", "agency-partnership-playbook"],
   "implementationOrder": [
-    "Make the offer, positioning, proof, and buyer value easy to understand before traffic or outreach reaches them.",
-    "Build a social acquisition system that creates buyer familiarity, trust, relationship context, and qualified conversation opportunities.",
-    "Build a repeatable direct-acquisition process for finding, qualifying, contacting, and following up with prospects.",
-    "Add agency partnerships as a relationship-driven source of qualified opportunities and subcontracting work."
+    "Use buyer-facing marketing to make the offer, positioning, proof, and next step understandable before additional attention reaches the business.",
+    "Use Client Acquisition Without Upwork as the operating spine for account selection, sources and signals, stakeholder/contactability, channel roles, research, outreach, pipeline state, measurement, economics, and diagnosis.",
+    "Deepen social client acquisition where buyers, referrers, and relationship context make social a justified access mechanism.",
+    "Deepen agency partnerships where trusted intermediaries can create appropriate referral or subcontracting access under explicit commercial boundaries."
   ],
   "whoItsFor": [
-    "Your pipeline goes quiet whenever delivery work gets busy.",
-    "You depend too heavily on marketplaces, referrals, one social platform, or one acquisition channel.",
-    "You want multiple deliberate paths to qualified opportunities that can reinforce one another."
+    "You already know acquisition is the bottleneck, but several connected access mechanisms need specialist depth.",
+    "Your pipeline becomes fragmented because marketing, social activity, direct acquisition, and partner relationships are being run as separate tactics.",
+    "You want one evidence and pipeline spine while still giving different acquisition mechanisms distinct roles, constraints, and operating depth."
   ],
   "whoItsNotFor": [
-    "You already have more qualified opportunities than you can handle.",
-    "Your primary constraint is converting existing opportunities into signed work."
+    "You only need to repair one acquisition subsystem and would be better served by the relevant specialist product alone.",
+    "Your whole freelance business is still unclear and you need the integrated Freelance Developer Launch Kit before choosing a stage bundle.",
+    "Your primary constraint is converting existing qualified opportunities into signed work rather than creating and managing buyer access."
   ],
   "faqs": [
-    {"question":"Is this only a cold-outreach bundle?","answer":"No. Direct acquisition is one part. The bundle also covers buyer-facing marketing, social client acquisition, and agency partnerships so the pipeline is not built around a single channel."},
-    {"question":"Should I run every channel at once?","answer":"No. Build the commercial foundation first, then bring each channel to a useful operating standard before adding complexity. The goal is resilience and repeatability, not maximum activity."}
+    {"question":"Is this only a cold-outreach bundle?","answer":"No. Client Acquisition Without Upwork includes direct and relationship access inside the broader operating system, while the bundle adds deeper buyer-facing marketing, social client acquisition, and agency-partnership systems. Direct outreach is one mechanism, not the bundle's definition."},
+    {"question":"Why not buy only Client Acquisition Without Upwork?","answer":"Buy the specialist alone when acquisition is the clear bottleneck and you primarily need the operating spine for qualification, buyer access, outreach, pipeline state, measurement, economics, and diagnosis. The bundle makes more sense when marketing, social acquisition, and agency partnerships also need deeper specialist treatment."},
+    {"question":"Should I run every acquisition mechanism at once?","answer":"No. Give each mechanism a deliberate role, respect capacity and lag, and add depth only where the evidence justifies it. The goal is a managed portfolio, not maximum activity."}
   ],
-  "seo": {"title":"Client Acquisition Bundle | Developer Business Lab","description":"Build a more resilient freelance pipeline by connecting buyer-facing marketing, social acquisition, direct acquisition, and agency partnerships."}
+  "seo": {"title":"Client Acquisition Bundle | Developer Business Lab","description":"Connect a client-acquisition operating system with deeper marketing, social-acquisition, and agency-partnership systems for a more resilient freelance pipeline."}
 }

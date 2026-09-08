@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160">
+  <rect width="1600" height="1160" fill="#F7F7F5"/>
+  <rect width="1600" height="14" fill="#D6A13A"/>
+  <text x="72" y="74" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#9A641C">CLIENT ACQUISITION WITHOUT UPWORK | WORKBOOK</text>
+  <text x="72" y="137" font-family="Arial, sans-serif" font-size="50" font-weight="700" fill="#171717">Redwood Research Record + Contact Premise</text>
+  <text x="72" y="182" font-family="Arial, sans-serif" font-size="24" fill="#666661">Research is proportional to value, uncertainty, and the cost of being wrong.</text>
+
+  <rect x="72" y="224" width="1456" height="96" rx="10" fill="#171717"/>
+  <text x="100" y="265" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#F5C75B">RESEARCH DECISION</text>
+  <text x="100" y="298" font-family="Arial, sans-serif" font-size="21" fill="#F4F4F2">Can Alex responsibly contact Redwood about the mobile inquiry path in the context of the verified county expansion?</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="72" y="360" width="1456" height="610" rx="10" fill="#FFFFFF" stroke="#D8D8D3" stroke-width="2"/>
+    <text x="104" y="410" font-size="22" font-weight="700" fill="#9A641C">ACCOUNT FACT</text>
+    <text x="420" y="410" font-size="22" fill="#242424">Established regional roofing company; public announcement of expansion into a neighboring county.</text>
+    <line x1="104" y1="438" x2="1496" y2="438" stroke="#E4E4DF"/>
+
+    <text x="104" y="486" font-size="22" font-weight="700" fill="#9A641C">OBSERVED CONDITION</text>
+    <text x="420" y="486" font-size="22" fill="#242424">Mobile quote form requires eleven fields; phone option is not prominent on that path.</text>
+    <line x1="104" y1="514" x2="1496" y2="514" stroke="#E4E4DF"/>
+
+    <text x="104" y="562" font-size="22" font-weight="700" fill="#9A641C">SOURCE / DATE</text>
+    <text x="420" y="562" font-size="22" fill="#242424">Saved expansion source plus live website path inspected on the case research date.</text>
+    <line x1="104" y1="590" x2="1496" y2="590" stroke="#E4E4DF"/>
+
+    <text x="104" y="638" font-size="22" font-weight="700" fill="#9A641C">STAKEHOLDER / ROUTE</text>
+    <text x="420" y="638" font-size="22" fill="#242424">Named owner is current and plausible as a first route; general business email is published.</text>
+    <text x="420" y="670" font-size="20" fill="#666661">Problem ownership remains unconfirmed.</text>
+    <line x1="104" y1="696" x2="1496" y2="696" stroke="#E4E4DF"/>
+
+    <text x="104" y="744" font-size="22" font-weight="700" fill="#9A641C">INFERENCE</text>
+    <text x="420" y="744" font-size="22" fill="#242424">The inquiry path creates additional visitor work; expansion may make the path more commercially relevant.</text>
+    <line x1="104" y1="772" x2="1496" y2="772" stroke="#E4E4DF"/>
+
+    <text x="104" y="820" font-size="22" font-weight="700" fill="#9A641C">UNKNOWNS</text>
+    <text x="420" y="820" font-size="21" fill="#242424">Conversion rate, traffic mix, ad spend, revenue impact, redesign intent, budget, issue owner, timing.</text>
+    <line x1="104" y1="848" x2="1496" y2="848" stroke="#E4E4DF"/>
+
+    <text x="104" y="896" font-size="22" font-weight="700" fill="#9A641C">PROHIBITED CLAIM</text>
+    <text x="420" y="896" font-size="22" fill="#242424">“This is costing you leads/revenue” or any unverified paid-search claim.</text>
+    <line x1="104" y1="924" x2="1496" y2="924" stroke="#E4E4DF"/>
+
+    <text x="104" y="962" font-size="22" font-weight="700" fill="#9A641C">DECISION</text>
+    <text x="420" y="962" font-size="22" font-weight="700" fill="#171717">Contact through the verified business route; preserve uncertainty.</text>
+  </g>
+
+  <rect x="72" y="1012" width="1456" height="92" rx="10" fill="#FFF8E8" stroke="#D6A13A" stroke-width="2"/>
+  <text x="100" y="1052" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#9A641C">CONTACT PREMISE</text>
+  <text x="100" y="1084" font-family="Arial, sans-serif" font-size="21" fill="#242424">Verified reason for contact → plausible relevance → concise credibility → low-friction next step.</text>
+  <text x="72" y="1140" font-family="Arial, sans-serif" font-size="18" fill="#666661">Fictional worked example. Facts, inferences, buyer-side commercial facts, and unknowns remain separate.</text>
+</svg>

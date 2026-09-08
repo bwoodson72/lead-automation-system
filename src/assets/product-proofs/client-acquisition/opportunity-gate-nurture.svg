@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+  <rect width="1600" height="1080" fill="#F7F7F5"/>
+  <rect width="1600" height="14" fill="#D6A13A"/>
+  <text x="72" y="74" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#9A641C">CLIENT ACQUISITION WITHOUT UPWORK | WORKBOOK</text>
+  <text x="72" y="137" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#171717">Opportunity Gate</text>
+  <text x="72" y="182" font-family="Arial, sans-serif" font-size="24" fill="#666661">A positive reply is not automatically a qualified opportunity.</text>
+
+  <rect x="72" y="226" width="1456" height="92" rx="10" fill="#171717"/>
+  <text x="100" y="267" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#F5C75B">PROMOTION RULE</text>
+  <text x="100" y="299" font-family="Arial, sans-serif" font-size="21" fill="#F4F4F2">Move to sales only when most dimensions have positive evidence, no hard stop dominates, and deeper sales time is justified.</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="72" y="360" width="1456" height="76" fill="#242424"/>
+    <text x="94" y="407" font-size="20" font-weight="700" fill="#F4F4F2">Dimension</text>
+    <text x="520" y="407" font-size="20" font-weight="700" fill="#F4F4F2">What must be evidenced</text>
+    <text x="1225" y="407" font-size="20" font-weight="700" fill="#F4F4F2">Status</text>
+
+    <g font-size="20" fill="#242424">
+      <rect x="72" y="436" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="475">Credible need / desired change</text><text x="520" y="475">Buyer-side evidence, not seller inference alone</text><text x="1225" y="475" font-weight="700">Positive / Weak / Stop</text>
+      <rect x="72" y="498" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="537">Relevant stakeholder access</text><text x="520" y="537">Correct role or responsible route</text><text x="1225" y="537" font-weight="700">Positive / Weak / Stop</text>
+      <rect x="72" y="560" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="599">Service fit</text><text x="520" y="599">Problem and obligation plausibly fit Alex's service</text><text x="1225" y="599" font-weight="700">Positive / Weak / Stop</text>
+      <rect x="72" y="622" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="661">Economic plausibility</text><text x="520" y="661">Enough commercial context to justify sales time</text><text x="1225" y="661" font-weight="700">Positive / Weak / Stop</text>
+      <rect x="72" y="684" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="723">Timing / decision condition</text><text x="520" y="723">A real reason to act, wait, or defer</text><text x="1225" y="723" font-weight="700">Positive / Weak / Stop</text>
+      <rect x="72" y="746" width="1456" height="62" fill="#FFFFFF" stroke="#E4E4DF"/><text x="94" y="785">Real next step</text><text x="520" y="785">Specific mutually understood sales action</text><text x="1225" y="785" font-weight="700">Positive / Weak / Stop</text>
+    </g>
+
+    <text x="72" y="862" font-size="24" font-weight="700" fill="#171717">Completed three-case decision</text>
+    <rect x="72" y="888" width="450" height="128" rx="10" fill="#FFFFFF" stroke="#D8D8D3"/>
+    <text x="96" y="926" font-size="21" font-weight="700" fill="#171717">Courtesy reply</text>
+    <text x="96" y="958" font-size="19" fill="#666661">No confirmed need, role, timing,</text><text x="96" y="985" font-size="19" fill="#666661">or next step.</text>
+    <text x="96" y="1010" font-size="19" font-weight="700" fill="#9A641C">Response only. Close or defer.</text>
+
+    <rect x="575" y="888" width="450" height="128" rx="10" fill="#FFF8E8" stroke="#D6A13A" stroke-width="2"/>
+    <text x="599" y="926" font-size="21" font-weight="700" fill="#171717">Redwood Roofing</text>
+    <text x="599" y="958" font-size="19" fill="#666661">Issue acknowledged; timing is</text><text x="599" y="985" font-size="19" fill="#666661">explicitly poor; no active buying step.</text>
+    <text x="599" y="1010" font-size="19" font-weight="700" fill="#9A641C">Nurture, not opportunity.</text>
+
+    <rect x="1078" y="888" width="450" height="128" rx="10" fill="#FFFFFF" stroke="#D8D8D3"/>
+    <text x="1102" y="926" font-size="21" font-weight="700" fill="#171717">Cedar Ridge HVAC</text>
+    <text x="1102" y="958" font-size="19" fill="#666661">Need, team, timing, service fit,</text><text x="1102" y="985" font-size="19" fill="#666661">and constraints call are evidenced.</text>
+    <text x="1102" y="1010" font-size="19" font-weight="700" fill="#9A641C">Qualified opportunity. Sales handoff.</text>
+  </g>
+  <text x="72" y="1058" font-family="Arial, sans-serif" font-size="18" fill="#666661">All businesses and figures shown here are fictional worked examples, not customer results or benchmarks.</text>
+</svg>

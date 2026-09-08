@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+  <rect width="1600" height="1050" fill="#F7F7F5"/>
+  <rect x="0" y="0" width="1600" height="14" fill="#D6A13A"/>
+  <text x="72" y="74" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#9A641C">CLIENT ACQUISITION WITHOUT UPWORK | WORKBOOK</text>
+  <text x="72" y="137" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#171717">Qualification and Prioritization Record</text>
+  <text x="72" y="182" font-family="Arial, sans-serif" font-size="24" fill="#666661">Cheap qualification before deep research. Scores, if used, remain local heuristics.</text>
+
+  <rect x="72" y="230" width="1456" height="116" rx="10" fill="#171717"/>
+  <text x="100" y="275" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#F5C75B">DECISION RULE</text>
+  <text x="100" y="313" font-family="Arial, sans-serif" font-size="23" fill="#F4F4F2">A hard disqualifier stops the record regardless of score. Missing evidence may justify deeper research.</text>
+
+  <rect x="72" y="390" width="690" height="532" rx="10" fill="#FFFFFF" stroke="#D8D8D3" stroke-width="2"/>
+  <text x="104" y="438" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#171717">Northstar | STOP</text>
+  <text x="104" y="478" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#9A641C">Hard stop</text>
+  <text x="104" y="512" font-family="Arial, sans-serif" font-size="21" fill="#242424">Corporate control prevents the local branch from</text>
+  <text x="104" y="542" font-family="Arial, sans-serif" font-size="21" fill="#242424">owning the required custom-site obligation.</text>
+  <line x1="104" y1="574" x2="730" y2="574" stroke="#E4E4DF"/>
+  <text x="104" y="616" font-family="Arial, sans-serif" font-size="20" fill="#666661">Problem / goal fit</text><text x="680" y="616" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">2</text>
+  <text x="104" y="656" font-family="Arial, sans-serif" font-size="20" fill="#666661">Solution fit</text><text x="680" y="656" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">0</text>
+  <text x="104" y="696" font-family="Arial, sans-serif" font-size="20" fill="#666661">Stakeholder access</text><text x="680" y="696" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">1</text>
+  <text x="104" y="736" font-family="Arial, sans-serif" font-size="20" fill="#666661">Economic plausibility</text><text x="680" y="736" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">1</text>
+  <text x="104" y="776" font-family="Arial, sans-serif" font-size="20" fill="#666661">Timing</text><text x="680" y="776" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">0</text>
+  <text x="104" y="816" font-family="Arial, sans-serif" font-size="20" fill="#666661">Credibility context</text><text x="680" y="816" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">2</text>
+  <text x="104" y="874" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">Capacity saved: no deep research or outreach.</text>
+
+  <rect x="838" y="390" width="690" height="532" rx="10" fill="#FFFFFF" stroke="#D6A13A" stroke-width="3"/>
+  <text x="870" y="438" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#171717">Redwood Roofing | PRIORITIZE</text>
+  <text x="870" y="478" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#9A641C">Evidence behind the decision</text>
+  <text x="870" y="516" font-family="Arial, sans-serif" font-size="20" fill="#242424">Expansion plus an observed mobile quote-path condition.</text>
+  <line x1="870" y1="548" x2="1496" y2="548" stroke="#E4E4DF"/>
+  <text x="870" y="590" font-family="Arial, sans-serif" font-size="20" fill="#666661">Problem / goal fit</text><text x="1446" y="590" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">2</text>
+  <text x="870" y="630" font-family="Arial, sans-serif" font-size="20" fill="#666661">Solution fit</text><text x="1446" y="630" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">2</text>
+  <text x="870" y="670" font-family="Arial, sans-serif" font-size="20" fill="#666661">Stakeholder access</text><text x="1446" y="670" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">1</text>
+  <text x="870" y="710" font-family="Arial, sans-serif" font-size="20" fill="#666661">Economic plausibility</text><text x="1446" y="710" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">1</text>
+  <text x="870" y="750" font-family="Arial, sans-serif" font-size="20" fill="#666661">Timing</text><text x="1446" y="750" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">2</text>
+  <text x="870" y="790" font-family="Arial, sans-serif" font-size="20" fill="#666661">Credibility context</text><text x="1446" y="790" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">1</text>
+  <text x="870" y="840" font-family="Arial, sans-serif" font-size="20" fill="#666661">Hard stop: none. Budget and ownership remain unknown.</text>
+  <text x="870" y="882" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#171717">Decision: deeper research is worth the next unit of capacity.</text>
+
+  <text x="72" y="995" font-family="Arial, sans-serif" font-size="19" fill="#666661">Fictional worked example. Ratings compress recorded evidence; they do not estimate purchase probability.</text>
+</svg>

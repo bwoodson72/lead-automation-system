@@ -29,7 +29,7 @@ export const bundleProgression: BundleProgressionDefinition[] = [
     step: "02",
     stage: "Acquisition",
     title: "Client Acquisition Bundle",
-    outcome: "Create more than one dependable path to qualified opportunities by connecting buyer-facing marketing, social acquisition, direct acquisition, and agency partnerships.",
+    outcome: "Use one acquisition operating spine for qualification, buyer access, pipeline evidence, and diagnosis, then add deeper marketing, social-acquisition, and agency-partnership systems where those channels need specialist depth.",
     productSlugs: [
       "marketing-for-builders",
       "social-media-client-acquisition-system",
@@ -85,15 +85,15 @@ const recommendationByProduct: Record<string, { bundleSlug: string; bridge: stri
   },
   "social-media-client-acquisition-system": {
     bundleSlug: "client-acquisition-bundle",
-    bridge: "Social acquisition is strongest when it sits beside clear buyer-facing marketing, deliberate direct acquisition, and relationship-driven agency partnerships. The Client Acquisition Bundle connects those channels into one broader pipeline.",
+    bridge: "Social acquisition becomes easier to interpret when qualification, stage definitions, and the wider acquisition system are already explicit. The Client Acquisition Bundle connects social depth to the operating spine plus buyer-facing marketing and agency partnerships.",
   },
   "client-acquisition-without-upwork": {
     bundleSlug: "client-acquisition-bundle",
-    bridge: "Direct acquisition is one channel. The Client Acquisition Bundle adds buyer-facing marketing, social acquisition, and agency partnerships so qualified opportunities do not depend on one source.",
+    bridge: "Client Acquisition Without Upwork gives you the acquisition operating spine: qualification, channel roles, research, outreach, pipeline evidence, economics, and diagnosis. The Client Acquisition Bundle adds deeper marketing, social-acquisition, and agency-partnership systems when several connected buyer-access mechanisms need specialist depth.",
   },
   "agency-partnership-playbook": {
     bundleSlug: "client-acquisition-bundle",
-    bridge: "Agency relationships are strongest as one acquisition channel inside a broader pipeline. The Client Acquisition Bundle connects partnerships to your marketing, social acquisition, and direct acquisition systems.",
+    bridge: "Agency partnerships are one relationship-driven access mechanism. The Client Acquisition Bundle connects partnership depth to the broader acquisition operating spine plus buyer-facing marketing and social acquisition.",
   },
   "developer-sales-playbook": {
     bundleSlug: "freelancer-sales-system",

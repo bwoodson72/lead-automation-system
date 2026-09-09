@@ -73,7 +73,7 @@ export const bundleProgression: BundleProgressionDefinition[] = [
 const recommendationByProduct: Record<string, { bundleSlug: string; bridge: string }> = {
   "productize-your-dev-skills": {
     bundleSlug: "freelancer-starter-bundle",
-    bridge: "You are defining what the business sells. The Starter Bundle connects that decision to pricing and buyer-facing marketing so the foundation works as one system.",
+    bridge: "You are defining one evidence-backed, bounded offer. The Starter Bundle connects that commercial definition to pricing and buyer-facing marketing so the foundation works as one system.",
   },
   "web-developer-pricing-system": {
     bundleSlug: "freelancer-starter-bundle",

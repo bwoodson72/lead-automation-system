@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1240" viewBox="0 0 1600 1240" role="img" aria-labelledby="title desc">
+  <title id="title">Completed Productization Fit Review</title>
+  <desc id="desc">Seven-factor nonnumeric evidence review for Maya Chen's fictional Expansion-Ready Website System, with five Strong factors, two Mixed factors, and a route to productized implementation with discovery for material unknowns.</desc>
+  <rect width="1600" height="1240" fill="#f4f4f2"/>
+  <rect width="1600" height="178" fill="#0a0a0a"/>
+  <rect y="174" width="1600" height="4" fill="#d6a13a"/>
+  <text x="72" y="58" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#d6a13a">PRODUCTIZE YOUR DEV SKILLS · WORKBOOK PP. 11–13</text>
+  <text x="72" y="112" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="#f4f4f2">Completed Productization Fit Review</text>
+  <text x="72" y="148" font-family="Arial,sans-serif" font-size="22" fill="#c7c7c3">A route decision from evidence patterns, not a score or threshold.</text>
+
+  <g font-family="Arial,sans-serif">
+    <rect x="72" y="224" width="1456" height="58" fill="#242424"/>
+    <text x="94" y="261" font-size="19" font-weight="700" fill="#f4f4f2">FACTOR</text>
+    <text x="724" y="261" font-size="19" font-weight="700" fill="#f4f4f2">MARK</text>
+    <text x="908" y="261" font-size="19" font-weight="700" fill="#f4f4f2">EVIDENCE / REASONING</text>
+
+    <g font-size="20" fill="#171717">
+      <rect x="72" y="282" width="1456" height="106" fill="#ffffff" stroke="#c7c7c3"/>
+      <text x="94" y="326" font-weight="700">Problem evidence &amp; consequence</text>
+      <rect x="724" y="304" width="118" height="42" rx="21" fill="#ede3c7" stroke="#d6a13a"/><text x="754" y="332" font-weight="700">Strong</text>
+      <text x="908" y="322">Trigger-linked publishing, migration, measurement,</text><text x="908" y="351">and vendor friction appear in buyer/public evidence.</text>
+
+      <rect x="72" y="388" width="1456" height="106" fill="#eeeeeb" stroke="#c7c7c3"/>
+      <text x="94" y="432" font-weight="700">Buyer pattern &amp; reachability</text>
+      <rect x="724" y="410" width="118" height="42" rx="21" fill="#ede3c7" stroke="#d6a13a"/><text x="754" y="438" font-weight="700">Strong</text>
+      <text x="908" y="428">Established regional operators and marketing leads</text><text x="908" y="457">can be identified and contacted.</text>
+
+      <rect x="72" y="494" width="1456" height="106" fill="#ffffff" stroke="#c7c7c3"/>
+      <text x="94" y="538" font-weight="700">Outcome clarity</text>
+      <rect x="724" y="516" width="118" height="42" rx="21" fill="#ede3c7" stroke="#d6a13a"/><text x="754" y="544" font-weight="700">Strong</text>
+      <text x="908" y="534">A launch-ready, measurable, client-operable site state</text><text x="908" y="563">can be defined and tested.</text>
+
+      <rect x="72" y="600" width="1456" height="106" fill="#eeeeeb" stroke="#c7c7c3"/>
+      <text x="94" y="644" font-weight="700">Core delivery repetition</text>
+      <rect x="724" y="622" width="118" height="42" rx="21" fill="#ede3c7" stroke="#d6a13a"/><text x="754" y="650" font-weight="700">Strong</text>
+      <text x="908" y="640">Architecture, templates, lead capture, analytics,</text><text x="908" y="669">migration, QA, and handoff recur.</text>
+
+      <rect x="72" y="706" width="1456" height="106" fill="#ffffff" stroke="#c7c7c3"/>
+      <text x="94" y="750" font-weight="700">Effort predictability</text>
+      <rect x="724" y="728" width="106" height="42" rx="21" fill="#f1eee6" stroke="#9a641c"/><text x="752" y="756" font-weight="700">Mixed</text>
+      <text x="908" y="746">Content volume and migration condition vary;</text><text x="908" y="775">readiness rules and bounded options contain part of the risk.</text>
+
+      <rect x="72" y="812" width="1456" height="106" fill="#eeeeeb" stroke="#c7c7c3"/>
+      <text x="94" y="856" font-weight="700">Uncertainty containment</text>
+      <rect x="724" y="834" width="106" height="42" rx="21" fill="#f1eee6" stroke="#9a641c"/><text x="752" y="862" font-weight="700">Mixed</text>
+      <text x="908" y="852">Some integrations and content dependencies require routing;</text><text x="908" y="881">the stable core can still be bounded.</text>
+
+      <rect x="72" y="918" width="1456" height="106" fill="#ffffff" stroke="#c7c7c3"/>
+      <text x="94" y="962" font-weight="700">Systemization leverage</text>
+      <rect x="724" y="940" width="118" height="42" rx="21" fill="#ede3c7" stroke="#d6a13a"/><text x="754" y="968" font-weight="700">Strong</text>
+      <text x="908" y="958">Reusable checklists, templates, components, test plans,</text><text x="908" y="987">and handoff artifacts materially help.</text>
+    </g>
+
+    <rect x="72" y="1062" width="1456" height="112" rx="8" fill="#171717"/>
+    <text x="94" y="1102" font-size="19" font-weight="700" fill="#d6a13a">ROUTE DECISION</text>
+    <text x="94" y="1138" font-size="23" font-weight="700" fill="#f4f4f2">Productized implementation</text>
+    <text x="420" y="1138" font-size="21" fill="#c7c7c3">with discovery or separate scoping for material integration and migration unknowns.</text>
+    <text x="94" y="1164" font-size="16" fill="#c7c7c3">No total score. The evidence pattern determines the route.</text>
+  </g>
+</svg>

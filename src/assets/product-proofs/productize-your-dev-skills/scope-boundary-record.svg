@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1420" viewBox="0 0 1600 1420" role="img" aria-labelledby="title desc">
+  <title id="title">Completed Qualification and Scope Boundary Record</title>
+  <desc id="desc">Completed fictional Maya Chen scope record showing fit conditions, exclusions, client responsibilities, acceptance, uncertainty routing, and change handling for the Expansion-Ready Website System.</desc>
+  <rect width="1600" height="1420" fill="#f4f4f2"/>
+  <rect width="1600" height="178" fill="#0a0a0a"/>
+  <rect y="174" width="1600" height="4" fill="#d6a13a"/>
+  <text x="72" y="58" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#d6a13a">PRODUCTIZE YOUR DEV SKILLS · WORKBOOK PP. 17–20</text>
+  <text x="72" y="112" font-family="Arial,sans-serif" font-size="44" font-weight="700" fill="#f4f4f2">Qualification &amp; Scope Boundary Record</text>
+  <text x="72" y="148" font-family="Arial,sans-serif" font-size="22" fill="#c7c7c3">The commercial boundary is designed before the proposal has to defend it.</text>
+
+  <g font-family="Arial,sans-serif" fill="#171717">
+    <text x="72" y="230" font-size="24" font-weight="700">Qualification gate</text>
+    <rect x="72" y="252" width="1456" height="52" fill="#242424"/>
+    <text x="94" y="285" font-size="18" font-weight="700" fill="#f4f4f2">AREA</text>
+    <text x="356" y="285" font-size="18" font-weight="700" fill="#f4f4f2">FIT CONDITION</text>
+    <text x="944" y="285" font-size="18" font-weight="700" fill="#f4f4f2">DISQUALIFIER / ALTERNATE ROUTE</text>
+
+    <g font-size="19">
+      <rect x="72" y="304" width="1456" height="82" fill="#fff" stroke="#c7c7c3"/><text x="94" y="341" font-weight="700">Problem</text><text x="356" y="341">Real transition exposes website operating constraints</text><text x="944" y="341">Cosmetic redesign with no fit to the system</text>
+      <rect x="72" y="386" width="1456" height="82" fill="#eeeeeb" stroke="#c7c7c3"/><text x="94" y="423" font-weight="700">Trigger / timing</text><text x="356" y="423">Expansion, campaign, rebrand, or vendor transition</text><text x="944" y="423">Impossible deadline that prevents agreed QA/approval</text>
+      <rect x="72" y="468" width="1456" height="82" fill="#fff" stroke="#c7c7c3"/><text x="94" y="505" font-weight="700">Technical</text><text x="356" y="505">Supported marketing-site and integration patterns</text><text x="944" y="505">Customer portal or unknown application obligation</text>
+      <rect x="72" y="550" width="1456" height="82" fill="#eeeeeb" stroke="#c7c7c3"/><text x="94" y="587" font-weight="700">Stakeholders</text><text x="356" y="587">Named decision owner and access to required facts</text><text x="944" y="587">No owner for approvals or required information</text>
+      <rect x="72" y="632" width="1456" height="82" fill="#fff" stroke="#c7c7c3"/><text x="94" y="669" font-weight="700">Dependencies</text><text x="356" y="669">Approved facts, content, accounts, and vendor access available</text><text x="944" y="669">Required access or authorized content unavailable</text>
+      <rect x="72" y="714" width="1456" height="82" fill="#eeeeeb" stroke="#c7c7c3"/><text x="94" y="751" font-weight="700">Commercial</text><text x="356" y="751">Buyer accepts defined scope and change process</text><text x="944" y="751">Unlimited revisions or open-ended work expected</text>
+    </g>
+
+    <text x="72" y="856" font-size="24" font-weight="700">Scope boundary</text>
+    <g font-size="19">
+      <rect x="72" y="880" width="1456" height="94" fill="#fff" stroke="#c7c7c3"/>
+      <text x="94" y="915" font-weight="700">Included</text>
+      <text x="356" y="915">Architecture, approved content implementation, service/location templates, lead capture, CRM handoff, analytics,</text><text x="356" y="945">migration, QA, deployment, documentation, and stabilization.</text>
+
+      <rect x="72" y="974" width="1456" height="94" fill="#eeeeeb" stroke="#c7c7c3"/>
+      <text x="94" y="1009" font-weight="700">Excluded</text>
+      <text x="356" y="1009">Customer portal, custom CRM, paid-media management, ongoing SEO campaign, brand identity, and unreviewed</text><text x="356" y="1039">custom financing integration.</text>
+
+      <rect x="72" y="1068" width="1456" height="94" fill="#fff" stroke="#c7c7c3"/>
+      <text x="94" y="1103" font-weight="700">Client responsibilities</text>
+      <text x="356" y="1103">One decision owner, approved business facts/content, account access, legal/compliance approval, and timely reviews.</text>
+
+      <rect x="72" y="1162" width="1456" height="94" fill="#eeeeeb" stroke="#c7c7c3"/>
+      <text x="94" y="1197" font-weight="700">Acceptance</text>
+      <text x="356" y="1197">Agreed functions deployed; form, analytics, and migration tests pass; critical agreed defects resolved;</text><text x="356" y="1227">handoff delivered.</text>
+    </g>
+
+    <rect x="72" y="1290" width="1456" height="86" rx="8" fill="#171717"/>
+    <text x="94" y="1325" font-size="18" font-weight="700" fill="#d6a13a">CHANGE RULE</text>
+    <text x="94" y="1356" font-size="20" fill="#f4f4f2">Clarification, defects, and agreed revisions stay in their original category. Changed requirements or new obligations receive an explicit trade-off.</text>
+  </g>
+</svg>

@@ -3,30 +3,37 @@
   "slug": "freelancer-sales-system",
   "status": "planned",
   "stage": "Sales & retention",
-  "hook": "A good opportunity should have a clean path from conversation to continuing value.",
-  "shortDescription": "Connect sales conversations, proposals, closing, and legitimate recurring value so qualified opportunities stop dissolving into vague next steps.",
-  "outcome": "Stop losing control after a prospect finally says yes to a conversation. Connect qualification, sales, proposals, closing, payment, and recurring value so good opportunities have a cleaner path to becoming profitable client relationships.",
-  "whyTogether": "Sales does not end when a call goes well. The decisions made in discovery need to survive the proposal, the proposal needs a controlled path to signature and payment, and successful delivery should create a deliberate decision about whether continuing value exists.",
-  "audience": "Independent developers who can create conversations but want fewer vague next steps, fewer proposal black holes, and more control between first call and continuing client value.",
+  "hook": "If a good sales call still turns into a vague proposal and an uncertain close, the sale is breaking between decisions.",
+  "shortDescription": "Connect qualification, sales conversations, proposal and closing decisions, and legitimate recurring value so qualified opportunities have a clear path instead of dissolving into follow-up limbo.",
+  "outcome": "Build a controlled path from first serious conversation to a documented commercial decision, clean close, and deliberate post-project retention choice. The goal is not to pressure prospects harder. It is to stop losing the decisions already made as the opportunity moves from discovery to proposal to payment to future work.",
+  "whyTogether": "These are not separate moments. A useful sales conversation should establish the problem, stakes, fit, decision process, and remaining unknowns. A proposal should carry those decisions forward rather than restart the sale in a document. Closing should make signature, payment, ownership, timing, and next actions explicit. And after delivery, recurring work should exist only when there is a real continuing client need worth packaging. The bundle connects those handoffs so fewer qualified opportunities disappear into ambiguity between stages.",
+  "audience": "Independent developers who can create qualified conversations but lose control after the first good call: next steps become vague, proposals carry too much selling work, closing drags, or successful projects end without a deliberate decision about legitimate continuing value.",
   "order": 3,
   "products": ["developer-sales-playbook", "developer-proposal-closing-kit", "freelancer-retainer-system"],
   "implementationOrder": [
-    "Run qualification and sales conversations toward a real decision rather than indefinite interest.",
-    "Carry the agreed diagnosis, scope, price, assumptions, and next step into proposal and closing.",
-    "After successful delivery, identify genuine continuing needs and structure recurring value only where it belongs."
+    "Start with Developer Sales Playbook. Qualify the opportunity, understand the business problem and stakes, identify decision-makers and decision criteria, surface material unknowns, and end each conversation with a real next decision instead of generic interest.",
+    "Move only decision-ready opportunities into Developer Proposal & Closing Kit. Carry the diagnosis, scope, assumptions, price, responsibilities, acceptance conditions, and decision process into the proposal so the document confirms the sale rather than trying to create it from scratch.",
+    "Use the closing process to make commitment explicit: signature, payment, timing, ownership, dependencies, and what happens next. Treat silence, delay, and unresolved conditions as information to diagnose rather than reasons to keep chasing indefinitely.",
+    "After successful delivery, use Freelancer Retainer System to identify whether a legitimate continuing business need remains. Package recurring work only when the client receives ongoing value and the obligation can be bounded economically and operationally.",
+    "Review where opportunities actually stall. If prospects are unqualified, fix sales qualification. If strong calls become proposal black holes, fix proposal readiness and decision continuity. If projects end cleanly but suitable ongoing needs are being missed, improve the retention decision rather than adding retainers indiscriminately."
   ],
   "whoItsFor": [
-    "You can get prospects on calls but too many conversations stall afterward.",
-    "Proposals feel like a second sales process instead of a record of decisions already made.",
-    "Good projects end without a deliberate retention or recurring-value decision."
+    "You can get qualified prospects into sales conversations, but too many calls end with phrases like 'send me something' instead of a defined next decision.",
+    "Your proposals still have to explain, persuade, scope, price, and close all at once because too much was left unresolved in discovery.",
+    "You lose visibility after sending the proposal and are unsure whether to follow up, revise, wait, or disqualify the opportunity.",
+    "Good projects end successfully, but you do not have a consistent way to decide whether continuing client value exists and whether it belongs in a retainer or another defined engagement."
   ],
   "whoItsNotFor": [
-    "Your main problem is not having enough qualified opportunities to sell to.",
-    "You want scripts that pressure buyers or artificial retainers with no continuing client value."
+    "Your main problem is not having enough qualified opportunities to sell to; fix acquisition before optimizing a sales process with too little input.",
+    "Your offer, positioning, or pricing is still so unclear that prospects cannot understand what they are evaluating; strengthen the commercial foundation first.",
+    "Only one sales subsystem is weak. If discovery is strong and proposals are the isolated problem, or recurring work alone needs attention, buy the focused product instead.",
+    "You want pressure scripts, artificial urgency, manipulative closing tactics, or retainers invented only to make revenue recurring."
   ],
   "faqs": [
-    {"question":"Why is retention included with sales?","answer":"Because recurring value is easier to design when qualification, expectations, delivery, and the ongoing client need are connected. The retainer should be a continuation of real value, not an add-on invented after launch."},
-    {"question":"Do I need a proposal for every project?","answer":"No. The closing system is about choosing the right decision and documentation path for the deal, not forcing every opportunity through the same artifact."}
+    {"question":"Why combine sales, proposals, closing, and retention?","answer":"Because the buyer's decision should survive each handoff. Discovery establishes the commercial understanding. The proposal records it. Closing turns it into an explicit commitment. After delivery, retention asks whether a legitimate continuing need remains. Treating those as unrelated activities creates places for good opportunities and good client relationships to lose continuity."},
+    {"question":"Do I need a proposal for every project?","answer":"No. The system is about choosing the right decision and documentation path for the opportunity. Some engagements may need a formal proposal; others may be handled with a simpler scope-and-agreement process. The important part is that the commercial decisions are clear before commitment."},
+    {"question":"Will this teach me how to pressure hesitant prospects into buying?","answer":"No. The goal is a clearer decision process, not coercion. You will work on qualification, discovery, decision readiness, explicit next steps, and responsible follow-up so you can tell the difference between a real opportunity, an unresolved one, and one that should be closed out."},
+    {"question":"Why is retention included in a sales bundle?","answer":"Because successful delivery can create a new commercial decision. When a genuine ongoing need exists, the relationship should move into a deliberately scoped next engagement rather than drifting into unpaid support or an artificial retainer. Retention is the continuation of real value, not a bolt-on revenue tactic."}
   ],
-  "seo": {"title":"Freelancer Sales System | Developer Business Lab","description":"Connect freelance sales, proposals, closing, and recurring client value into one cleaner decision system."}
+  "seo": {"title":"Freelancer Sales System | Sales, Proposals & Retention | Developer Business Lab","description":"Connect freelance sales conversations, proposals, closing, and legitimate recurring value so qualified opportunities move through a clearer commercial decision process."}
 }

@@ -4,32 +4,58 @@
   "status": "planned",
   "stage": "Complete business",
   "badge": "Broadest freelance coverage",
-  "hook": "Build the operating map and the specialist systems behind the whole freelance business.",
-  "shortDescription": "Pair the integrated Launch Kit with focused systems for offer, pricing, marketing, acquisition, sales, closing, partnerships, and recurring revenue.",
-  "outcome": "Build the business around your technical skill so every month is not another collection of improvised decisions. Connect offer, pricing, acquisition, sales, delivery, proof, referrals, and recurring revenue into one system you can inspect and improve.",
-  "whyTogether": "The Launch Kit gives you the integrated operating map and dependency order. The focused systems add deeper treatment where the major commercial stages need more tools, examples, and implementation detail. Together they give you both breadth and specialist depth without pretending every problem is solved by one tactic.",
-  "audience": "Independent developers building or rebuilding a one-person service business that needs to feel more dependable than a sequence of unrelated projects.",
+  "hook": "If the whole business still depends on you remembering what to do next, you do not have a complete operating system yet.",
+  "shortDescription": "Build the complete freelance business around your development skills, then go deeper on offer, pricing, marketing, acquisition, sales, proposals, partnerships, and recurring work without losing the connections between them.",
+  "outcome": "Move from a business held together by memory, habit, and one-off decisions to a connected operating system you can use to define what you sell, price the obligation, create demand, sell responsibly, deliver under control, create proof, manage capacity, and decide what deserves improvement next.",
+  "whyTogether": "The Freelance Developer Launch Kit is the complete first operating system and is designed to stand on its own. It shows how the major commercial decisions depend on one another and gives you a practical way to run the business as one system. The specialist products do not repair missing pieces in the Launch Kit. They add substantially deeper treatment when a specific constraint deserves more tools, examples, decision rules, and implementation work. That distinction is what makes this bundle useful: you get a complete foundation first, then a connected library for going deeper without turning the business back into separate tactics.",
+  "audience": "Independent developers who are building or rebuilding the entire freelance business and already know they will need both a complete operating foundation and deeper specialist systems as different commercial constraints emerge.",
   "order": 4,
   "products": ["freelance-developer-launch-kit", "productize-your-dev-skills", "web-developer-pricing-system", "marketing-for-builders", "client-acquisition-without-upwork", "developer-sales-playbook", "developer-proposal-closing-kit", "agency-partnership-playbook", "freelancer-retainer-system"],
   "implementationOrder": [
-    "Use the Launch Kit to map the whole business and identify dependencies.",
-    "Strengthen the offer, pricing, and marketing foundation where those decisions need more depth.",
-    "Build direct acquisition and agency partnerships into a more resilient opportunity system.",
-    "Tighten sales, proposal, and closing so qualified opportunities have a controlled path to a decision.",
-    "Turn successful delivery into proof, referrals, and recurring value where the client genuinely needs it."
+    "Start with the Freelance Developer Launch Kit. Build the minimum complete operating system first so market, offer, pricing, demand, sales, delivery, cash, capacity, proof, and management decisions have one dependency structure instead of competing as separate projects.",
+    "Use the first operating cycle to expose the actual constraint. Do not open every specialist guide because you own it. Look at where the business is creating repeated uncertainty, weak evidence, stalled decisions, lost margin, or avoidable rework.",
+    "If the commercial foundation is weak, go deeper with Productize Your Dev Skills, Web Developer Pricing System, and Marketing for Builders so the offer, economics, and buyer-facing explanation reinforce one another.",
+    "If demand is the constraint, use Client Acquisition Without Upwork as the acquisition backbone and add Agency Partnership Playbook where relationship-based intermediary access fits your market and capacity.",
+    "If qualified opportunities are entering the pipeline but failing to become controlled engagements, deepen the sales and closing stage with Developer Sales Playbook and Developer Proposal & Closing Kit.",
+    "After successful delivery, use Freelancer Retainer System where a genuine continuing client need exists and can be turned into a bounded, economically responsible recurring obligation.",
+    "Repeat the cycle. Let evidence from buyers, projects, cash, capacity, delivery, and pipeline performance decide which specialist system deserves attention next instead of trying to optimize the entire business at once."
   ],
   "whoItsFor": [
-    "You are building or rebuilding the whole freelance business rather than fixing one isolated bottleneck.",
-    "You want an integrated operating map plus deeper specialist systems for the major commercial stages.",
-    "You expect to revisit these decisions as the business changes rather than read once and forget them."
+    "You are building or materially rebuilding the whole freelance business, and several commercial areas are still being handled from memory, habit, or improvised judgment.",
+    "You want one complete foundation first, but you also expect to need deeper work on specific constraints such as offer design, pricing, marketing, acquisition, sales, proposals, agency relationships, or recurring client value.",
+    "You want the business decisions to remain connected. You do not want nine separate tactics that each make sense alone but conflict when you try to operate them together.",
+    "You expect to keep using the material as the business changes, revisiting the relevant system when evidence shows that a different constraint has become important."
   ],
   "whoItsNotFor": [
-    "One narrow bottleneck is clearly the only thing that needs attention right now.",
-    "You want guaranteed clients, revenue, or a passive business that requires no judgment or execution."
+    "One clear problem is the only part of the business that needs attention right now. Buy the focused product for that constraint instead of paying for the entire library.",
+    "You need a complete first business system but do not yet know whether you will use the specialist material. Start with the Freelance Developer Launch Kit by itself; it is designed to function without this bundle.",
+    "Your business already has stable demand, controlled delivery, reliable economics, clear positioning, and a working management rhythm. A specialist product is more likely to match the next problem than a complete-system purchase.",
+    "You want guaranteed clients, guaranteed revenue, a universal niche or rate, or a passive business that removes the need for commercial judgment and execution."
   ],
   "faqs": [
-    {"question":"How is this different from the Launch Kit by itself?","answer":"The Launch Kit is the integrated operating map. This bundle adds the focused specialist systems so you can go substantially deeper at the major commercial stages without losing the overall structure."},
-    {"question":"Do I have to work through every guide immediately?","answer":"No. Start with the operating map, identify the current constraint, and use the focused system when that stage deserves deeper work. The bundle is a library of connected systems, not a requirement to do everything at once."}
+    {
+      "question": "Is the Launch Kit incomplete without the specialist products?",
+      "answer": "No. The Launch Kit is the minimum complete freelance-business operating system and is designed to be usable on its own. The specialist products add depth when a diagnosed subsystem deserves more detailed treatment; they are not required to fill deliberate holes in the flagship."
+    },
+    {
+      "question": "Why buy the complete bundle instead of adding specialist products later?",
+      "answer": "Buy the complete bundle when you already expect to use substantial specialist depth across several parts of the business and want the full connected library available from the start. If you are still unsure which deeper systems you will actually need, the Launch Kit alone is the more disciplined purchase."
+    },
+    {
+      "question": "Do I have to work through all nine systems in order?",
+      "answer": "No. Start with the Launch Kit because it establishes the complete operating foundation and dependency order. After that, use evidence from the business to choose the specialist system that matches the current constraint. Ownership of the whole library is not a reason to implement everything at once."
+    },
+    {
+      "question": "Is this meant only for brand-new freelancers?",
+      "answer": "No. It can also fit an experienced developer whose business grew through referrals, marketplaces, subcontracting, or one-off projects and now needs a more deliberate operating structure. The key question is whether several commercial parts of the business still need to be connected and strengthened, not how long you have been freelancing."
+    },
+    {
+      "question": "Will this tell me exactly what niche, price, acquisition channel, or sales script to use?",
+      "answer": "No. The systems help you make those decisions from evidence, economics, buyer understanding, constraints, and testing. They are designed to improve judgment and execution, not replace them with universal answers."
+    }
   ],
-  "seo": {"title":"Freelance Developer Business System | Developer Business Lab","description":"Build a connected freelance business with the integrated Launch Kit plus focused systems for the major commercial stages."}
+  "seo": {
+    "title": "Freelance Developer Business System | Complete Freelance Business Library | Developer Business Lab",
+    "description": "Build a complete freelance operating system with the Launch Kit, then go deeper with connected specialist systems for offer, pricing, marketing, acquisition, sales, proposals, partnerships, and recurring work."
+  }
 }

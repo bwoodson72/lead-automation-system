@@ -3,30 +3,51 @@
   "slug": "freelancer-starter-bundle",
   "status": "planned",
   "stage": "Foundation",
-  "hook": "Build the commercial foundation before you ask acquisition to carry it.",
-  "shortDescription": "Connect one evidence-backed, bounded offer to pricing you can defend and marketing that makes the value of your work easier for buyers to understand.",
-  "outcome": "Stop looking like a capable developer with a fuzzy business. Connect one evidence-backed offer, pricing you can defend, and buyer-facing marketing into a commercial foundation you can test and improve.",
-  "whyTogether": "Offer, price, and marketing are not three independent decisions. The offer defines the buyer, obligation, boundaries, and uncertainty that must be priced. The pricing system determines how you turn that commercial definition into a defensible price. The marketing system makes the offer and its value legible before a sales conversation begins.",
-  "audience": "Independent developers who can deliver the work but still feel uncertain about what they sell, what to charge, and how to make the expertise visible.",
+  "hook": "If what you sell, what you charge, and how you explain the value keep changing, the foundation is not settled yet.",
+  "shortDescription": "Build one clear freelance offer, price the actual obligation behind it, and make the value easier for the right buyer to understand before every inquiry turns into another reinvention.",
+  "outcome": "Leave with a commercial foundation you can actually operate: one evidence-backed offer with explicit boundaries, a pricing method tied to the economics and uncertainty of that offer, and buyer-facing marketing that communicates why the work matters. The goal is not to make every future decision permanent. It is to stop rebuilding these three decisions independently every time a prospect appears.",
+  "whyTogether": "These are not three unrelated marketing tasks. Your offer determines who the work is for, what responsibility you are accepting, what is included, where uncertainty remains, and what the buyer is actually evaluating. Pricing has to work from that defined obligation rather than from a generic hourly guess or a copied market rate. Marketing then has to make the same offer, judgment, proof, and value understandable before the sales conversation begins. If those three decisions contradict one another, fixing only one tends to move the confusion somewhere else. This bundle is for the developer who needs the foundation to line up as one commercial system.",
+  "audience": "Independent developers who can already deliver professional work but still find themselves redefining the service, recalculating the price from scratch, or struggling to explain why the work is worth hiring them for.",
   "order": 1,
   "products": ["productize-your-dev-skills", "web-developer-pricing-system", "marketing-for-builders"],
   "implementationOrder": [
-    "Build one evidence-backed, bounded offer and record what remains provisional.",
-    "Set pricing rules and a defensible commercial floor for that defined obligation.",
-    "Translate the offer and its value into buyer-facing marketing that makes the work easier to understand and hire."
+    "Start with Productize Your Dev Skills. Use evidence from work you can actually deliver to define one buyer-facing offer, its outcome, inclusions, boundaries, assumptions, and what still needs to be tested.",
+    "Move that defined obligation into Web Developer Pricing System. Work out what the engagement must cover economically, which uncertainties affect the pricing mechanism, and the internal floor you need before testing a commercial price.",
+    "Use Marketing for Builders to translate the offer and pricing logic into buyer-facing positioning, proof, messages, and assets that make the work easier to understand before a sales call.",
+    "Take the resulting foundation back into real buyer conversations. Record where prospects misunderstand the offer, resist the price, or fail to see the value, then revise the relevant decision instead of rebuilding everything at once."
   ],
   "whoItsFor": [
-    "You can do the technical work but still describe the business as a list of capabilities.",
-    "Pricing and positioning still change too much from prospect to prospect.",
-    "Your work is stronger than the way the business currently presents it."
+    "You can do the technical work, but when a prospect asks what you sell the answer still turns into a list of technologies, capabilities, or whatever they happen to request.",
+    "You can estimate development effort, but serious pricing still feels like a fresh negotiation with yourself because the commercial obligation is not defined consistently.",
+    "Your portfolio shows that you can build, but a buyer still has to do too much work to understand the business problem you solve, why your approach fits, or why your price deserves consideration.",
+    "You expect to work on offer, pricing, and marketing together and want the three systems to use the same commercial assumptions rather than treating them as separate projects."
   ],
   "whoItsNotFor": [
-    "You already have a clear offer, stable pricing policy, and marketing that reliably communicates the value.",
-    "Your immediate constraint is closing qualified opportunities rather than the business foundation."
+    "Your offer is already clear, your pricing policy is stable enough to use under pressure, and your marketing consistently communicates the value to the buyers you want.",
+    "Your immediate constraint is creating more qualified opportunities; in that case, use the Client Acquisition material rather than rebuilding a foundation that is already working.",
+    "You are already getting qualified opportunities but losing control in discovery, proposals, or closing; the Freelancer Sales System is the better fit for that problem.",
+    "Several parts of the entire freelance business are still unclear and you cannot yet tell whether the foundation is the real constraint; start with the Freelance Developer Launch Kit instead."
   ],
   "faqs": [
-    {"question":"Why buy these together?","answer":"Because each decision changes the next one. A bounded offer gives pricing something specific to price, and both determine what your marketing needs to communicate. The bundle is for buyers who need that whole foundation working together."},
-    {"question":"Do I need to finish all three before finding clients?","answer":"No. Use the order as a dependency guide, not a reason to delay contact with the market. You can continue real conversations while tightening the foundation."}
+    {
+      "question": "Why buy these three together instead of starting with one guide?",
+      "answer": "Buy one guide when one constraint is clearly isolated. Buy this bundle when offer, pricing, and marketing are feeding the same problem. The offer gives pricing a real obligation to price, and both give marketing something coherent to communicate. The value of the bundle is the connected implementation path, not simply having more files."
+    },
+    {
+      "question": "Do I need to finish all three systems before I start looking for clients?",
+      "answer": "No. The implementation order is a dependency guide, not a reason to disappear into preparation. Build a usable first version, put it in front of real buyers, and use what happens to decide what deserves another pass."
+    },
+    {
+      "question": "Will this tell me the one niche, price, or positioning statement I should use?",
+      "answer": "No. The systems help you make those decisions from evidence, economics, boundaries, buyer understanding, and testing. They do not replace judgment with a universal answer that would be wrong for many developers."
+    },
+    {
+      "question": "How is this different from the Freelance Developer Launch Kit?",
+      "answer": "The Launch Kit is the complete first operating system for the freelance business and is the better starting point when several areas are still unclear. The Freelancer Starter Bundle goes deeper on one connected foundation: offer, pricing, and buyer-facing marketing."
+    }
   ],
-  "seo": {"title":"Freelancer Starter Bundle | Developer Business Lab","description":"Build an evidence-backed freelance offer, defensible pricing, and buyer-facing marketing as one connected foundation system."}
+  "seo": {
+    "title": "Freelancer Starter Bundle | Offer, Pricing & Marketing | Developer Business Lab",
+    "description": "Build a clearer freelance offer, defensible pricing, and buyer-facing marketing as one connected commercial foundation for your development business."
+  }
 }

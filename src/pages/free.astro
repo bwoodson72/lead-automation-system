@@ -4,7 +4,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
 import ProductCover from "@/components/products/ProductCover.astro";
-import ProductProof from "@/components/products/ProductProof.astro";
 import FAQList from "@/components/ui/FAQList.astro";
 import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
@@ -14,7 +13,61 @@ const product = products.find((item) => item.data.slug === "developer-marketing-
 if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
 const d = product.data;
 const commerce = resolveProductCommerce(d);
-const paragraphs = (d.reframe ?? d.situation).split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+
+const betterState = [
+  "I know which buyer I am testing.",
+  "I have evidence for the problem I am approaching them about.",
+  "I know what I am offering and what is outside the scope.",
+  "I know which businesses deserve my attention first.",
+  "I have a legitimate reason to contact them.",
+  "I know what happened in the first cycle and what the evidence gives me a reason to test next.",
+];
+
+const buildSteps = [
+  {
+    title: "Choose a buyer you can investigate",
+    body: "Compare several plausible business buyers instead of declaring a niche because it sounded promising. Look at whether the businesses are identifiable, whether the problem appears commercially relevant, whether you can reach the market, and whether there is enough evidence to justify a first test. You are not choosing a forever niche. You are choosing where to investigate first.",
+  },
+  {
+    title: "Build the offer around a problem you can defend",
+    body: "Gather real observations before you build an offer around an assumption. Separate what you can see from what you are inferring, look for evidence that challenges the idea, and turn the strongest problem into a bounded first offer. Then work through the delivery burden and basic economics so the first commercial decision is not a number invented under pressure.",
+  },
+  {
+    title: "Turn a list of companies into a qualified First 25",
+    body: "Finding a company is easy. Knowing whether there is a legitimate reason to contact it is harder. Build a small set of identifiable businesses where you can explain why each deserves further attention, who is likely to care about the problem, and how you can legitimately reach them. The goal is a prospect set you can explain, not a spreadsheet full of email addresses.",
+  },
+  {
+    title: "Work a real first acquisition cycle",
+    body: "Decide what each contact attempt is supposed to accomplish before you send it. Define when another touch makes sense, when to stop, and what must be recorded. Work in reviewable batches so you can still notice when the original assumption is weak instead of scaling a bad idea because the list happens to contain 25 names.",
+  },
+  {
+    title: "Use the response to choose one reasoned next move",
+    body: "A weak result does not automatically mean the market is wrong. Check whether the process worked mechanically, where prospects stopped progressing, what buyers actually said, what remains unknown, and which explanation the evidence supports best. Then choose one meaningful change to test next instead of replacing the whole strategy.",
+  },
+];
+
+const proofItems = [
+  {
+    title: "Choose the first market without guessing",
+    artifact: "Candidate Market Decision Record",
+    body: "Compare possible buyers and document why one deserves the first test, what is still uncertain, and what would cause you to reconsider it. The result is a testable market decision rather than a niche chosen on instinct alone.",
+  },
+  {
+    title: "Know whether the offer works for your business before you sell it",
+    artifact: "Offer Decision Record",
+    body: "Break the work into concrete tasks, estimate what the engagement is likely to demand, look at the delivery capacity you actually have, and work out what the engagement needs to support economically before deciding whether to quote, narrow the work, or investigate further.",
+  },
+  {
+    title: "Know why a business deserves outreach",
+    artifact: "First 25 Prospect Record",
+    body: "Preserve the fit and problem evidence behind each prospect, identify the likely stakeholder, mark uncertainty instead of pretending it is certainty, verify a legitimate route, and prioritize the businesses where the reason for contact is strongest.",
+  },
+  {
+    title: "Know what to do after a weak result",
+    artifact: "Diagnostic Decision Record",
+    body: "Separate mechanical problems from buyer response, compare competing explanations, record what the evidence actually supports, and choose the next bounded test instead of changing everything at once.",
+  },
+];
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} enableCheckoutOverlay={commerce.purchasable}>
@@ -25,7 +78,7 @@ const paragraphs = (d.reframe ?? d.situation).split(/\n\s*\n/).map((p) => p.trim
     title={d.hook}
     description={d.shortDescription}
     audience={d.audience}
-    supportingItems={["30-page guide + 16-page workbook", "Seven-day first execution", "Qualified First 25 + diagnostic loop"]}
+    supportingItems={["64-page implementation guide + 45-page workbook", "Seven-day activation sequence", "Qualified First 25 + diagnostic review"]}
   >
     <div slot="actions"><ProductCTA product={product} location="free-page-hero" /></div>
     <div slot="visual" class="gold-glow"><ProductCover product={product} /></div>
@@ -33,27 +86,149 @@ const paragraphs = (d.reframe ?? d.situation).split(/\n\s*\n/).map((p) => p.trim
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
-      <div><p class="editorial-kicker">The problem underneath the tactics</p><h2 class="mt-4 text-3xl font-semibold">More activity does not fix a customer-acquisition loop you cannot diagnose.</h2></div>
-      <div class="space-y-5 text-lg leading-8 text-muted-foreground">{paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+      <div>
+        <p class="editorial-kicker">When the pipeline gets quiet</p>
+        <h2 class="mt-4 text-3xl font-semibold">Client acquisition becomes urgent again because nothing was moving behind the current work.</h2>
+      </div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You finish a project, or realize the current one has only a few weeks left, and suddenly you need another client.</p>
+        <p>So you start looking for something that might work: outreach, more posting, referrals, a website rewrite, a marketplace, content, or automation. None of those tactics is automatically wrong.</p>
+        <p>The problem is that when the decisions underneath them are still unclear, you can put a lot of effort into marketing and learn almost nothing from the result. A weak response does not tell you whether the buyer was wrong, the problem was weak, the offer was vague, the businesses were poor fits, the message missed, or the execution broke down.</p>
+        <p>So the next time work gets thin, you change everything and start again.</p>
+      </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <p class="editorial-kicker">Inside the Quickstart system</p>
-      <div class="mt-4 grid gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16">
-        <div><h2 class="text-4xl font-semibold tracking-tight">Build one connected acquisition loop from market choice to the next experiment.</h2><ol class="mt-8 border-t border-border">{d.contents.map((item, index) => <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span>{item}</span></li>)}</ol></div>
-        {d.delivery && <aside class="surface-editorial self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 space-y-6"><div><dt class="font-semibold">Guide</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.length}</dd></div><div><dt class="font-semibold">Workbook</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.worksheets}</dd></div><div><dt class="font-semibold">First execution</dt><dd class="mt-2 text-sm leading-6 text-muted-foreground">{d.delivery.time}</dd></div></dl></aside>}
+      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+        <div>
+          <p class="editorial-kicker">A better first goal</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Build one acquisition process that is clear enough to teach you something.</h2>
+        </div>
+        <div class="max-w-3xl space-y-5 text-lg leading-8 text-muted-foreground">
+          <p>You do not need to know the perfect niche, create the perfect offer, or predict which prospect will buy before you start.</p>
+          <p>You need a first process that is concrete enough to show you what you actually tested and what the result gives you a reason to examine next.</p>
+        </div>
+      </div>
+      <ul class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        {betterState.map((item) => (
+          <li class="grid grid-cols-[1.5rem_1fr] gap-3 bg-background p-6 text-muted-foreground">
+            <span class="text-primary-accent" aria-hidden="true">→</span>
+            <span class="leading-7">{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-8 max-w-3xl text-lg leading-8 text-muted-foreground">That does not make the market predictable. It does mean you stop going back to zero every time the first attempt is imperfect.</p>
+    </div>
+  </section>
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="max-w-3xl">
+        <p class="editorial-kicker">What you build</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Finish with more than ideas about marketing.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">The Quickstart walks you through the decisions in the order they depend on one another, then makes you put the first version into contact with the market.</p>
+      </div>
+      <div class="mt-10 divide-y divide-border border-y border-border">
+        {buildSteps.map((step, index) => (
+          <article class="grid gap-5 py-8 lg:grid-cols-[5rem_.7fr_1.3fr] lg:gap-8">
+            <p class="pt-1 font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p>
+            <h3 class="text-xl font-semibold leading-8">{step.title}</h3>
+            <p class="leading-7 text-muted-foreground">{step.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  {d.proofPackage && <ProductProof proof={d.proofPackage} />}
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+        <div>
+          <p class="editorial-kicker">Inspect the work</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">See the decisions the workbook makes you produce.</h2>
+        </div>
+        <p class="max-w-3xl text-lg leading-8 text-muted-foreground">The workbook is not a stack of blank reflection prompts. Each section leaves behind a decision or operating record that the next part of the acquisition cycle actually uses.</p>
+      </div>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        {proofItems.map((item) => (
+          <article class="bg-background p-7">
+            <p class="editorial-kicker">{item.artifact}</p>
+            <h3 class="mt-3 text-xl font-semibold">{item.title}</h3>
+            <p class="mt-4 leading-7 text-muted-foreground">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+      <div>
+        <p class="editorial-kicker">One connected example</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Follow one developer from the first guess to the next decision.</h2>
+      </div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>The guide follows Maya, a fictional freelance web developer who knows how to deliver projects but does not have a dependable acquisition process.</p>
+        <p>She compares possible markets, investigates one, finds evidence that supports some assumptions and weakens others, narrows the problem, builds an offer, works through the economics, chooses an account-addressable first route, qualifies the First 25, runs the first cycle, and then decides what the evidence actually justifies doing next.</p>
+        <p>The same buyer, problem, offer, message, prospect decisions, and results carry through the product. You are not shown a different convenient example every time a new concept appears.</p>
+        <p class="text-sm leading-6">Maya, the businesses, prices, responses, activity counts, and outcomes are fictional teaching examples. They are not customer results or performance benchmarks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <p class="editorial-kicker">Guide + workbook</p>
+          <h2 class="mt-4 text-3xl font-semibold">The guide teaches the reasoning. The workbook turns it into your business.</h2>
+          <p class="mt-5 leading-7 text-muted-foreground">The 64-page guide explains the decisions behind the acquisition cycle, shows how they connect, and demonstrates how Maya works through them.</p>
+          <p class="mt-4 leading-7 text-muted-foreground">The 45-page workbook makes you perform the same work for your own business so you finish with your own buyer decision, problem evidence, offer, message, channel choice, qualified First 25, execution record, diagnostic decision, and one-page acquisition record.</p>
+        </div>
+        <div>
+          <p class="editorial-kicker">Seven-day activation</p>
+          <h2 class="mt-4 text-3xl font-semibold">Put the first version into motion before planning turns into another delay.</h2>
+          <p class="mt-5 leading-7 text-muted-foreground">The seven-day sequence is there to move the work from theory into contact with the market. It is not a promise that a client appears by the end of the week.</p>
+          <p class="mt-4 leading-7 text-muted-foreground">Follow-up may still be underway. Responses may arrive later. You may need more evidence before you can make a strong diagnosis. The first-week goal is to make the decisions, build the records, start the cycle, and know what happens next.</p>
+        </div>
+      </div>
+      <div class="mt-10"><ProductCTA product={product} location="free-page-mid" /></div>
+    </div>
+  </section>
+
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <p class="editorial-kicker">This is for you if</p>
+        <h2 class="mt-4 text-3xl font-semibold">The technical work is not the problem, but the path to the next client still is.</h2>
+        <ul class="mt-6 border-t border-border">
+          {d.whoItsFor.map((item) => <li class="border-b border-border py-4 leading-7 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="editorial-kicker">Use something else if</p>
+        <h2 class="mt-4 text-3xl font-semibold">Your acquisition problem needs a different execution model.</h2>
+        <ul class="mt-6 border-t border-border">
+          {d.whoItsNotFor.map((item) => <li class="border-b border-border py-4 leading-7 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <section class="border-t border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <p class="editorial-kicker">Before you download it</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
-      <div class="mt-14 border-t border-border pt-12"><p class="editorial-kicker">Start free</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Put one real acquisition loop into motion.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Finish with a defined buyer, evidence-backed problem, provisional offer price, buyer-first message, one channel, a qualified First 25, an execution cadence, and a next experiment you can explain.</p><div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div></div>
+      <p class="editorial-kicker">Before you download it</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2>
+      <div class="mt-8"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
+      <div class="mt-14 border-t border-border pt-12">
+        <p class="editorial-kicker">Start the first cycle</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Don't wait until you need the next client to start figuring out how to find one.</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">Build one buyer decision, one problem you have evidence for, one offer you can responsibly test, one qualified First 25, and one acquisition cycle you can learn from. Then make the next decision from what actually happened.</p>
+        <div class="mt-8"><ProductCTA product={product} location="free-page-final" /></div>
+        <p class="mt-4 text-sm text-muted-foreground">Free guide + workbook · Email required</p>
+      </div>
     </div>
   </section>
 </BaseLayout>

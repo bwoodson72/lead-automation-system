@@ -1,1 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1185" viewBox="0 0 1600 1185"><rect width="100%" height="100%" fill="white"/><text x="28" y="55" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#b98118">Running example: Brightline Creative</text><rect x="28" y="92" width="1544" height="330" fill="#e9f3ec"/><text x="50" y="140" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#081a33">Applied example</text><text x="50" y="185" font-family="Georgia, serif" font-size="34" font-weight="400" fill="#111"><tspan x="50" dy="0">Brightline has six employees: two designers, one strategist, one account manager, one</tspan><tspan x="50" dy="43.52">paid-media specialist, and the founder. It sells websites and campaigns but has no permanent</tspan><tspan x="50" dy="43.52">developer. Some months it needs almost no code; other months two website builds and three</tspan><tspan x="50" dy="43.52">landing pages overlap. Jordan's opportunity is not 'Brightline needs a developer.' It is</tspan><tspan x="50" dy="43.52">'Brightline has irregular implementation demand that is too important to improvise and too</tspan><tspan x="50" dy="43.52">uneven to justify full-time headcount.'</tspan></text><text x="28" y="520" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#b98118">Agency Demand Map</text><text x="28" y="585" font-family="Georgia, serif" font-size="33" font-weight="400" fill="#111"><tspan x="28" dy="0">Translate an agency service into the technical demand and operating reason outside</tspan><tspan x="28" dy="39.6">capacity could exist.</tspan></text><rect x="28" y="650" width="390" height="92" fill="#081a33" stroke="#111" stroke-width="2"/><text x="42" y="698" font-family="Georgia, serif" font-size="28" font-weight="700" fill="white"><tspan x="42" dy="0">Agency service</tspan></text><rect x="418" y="650" width="390" height="92" fill="#081a33" stroke="#111" stroke-width="2"/><text x="432" y="698" font-family="Georgia, serif" font-size="28" font-weight="700" fill="white"><tspan x="432" dy="0">Technical work created</tspan></text><rect x="808" y="650" width="390" height="92" fill="#081a33" stroke="#111" stroke-width="2"/><text x="822" y="698" font-family="Georgia, serif" font-size="28" font-weight="700" fill="white"><tspan x="822" dy="0">Why demand varies</tspan></text><rect x="1198" y="650" width="374" height="92" fill="#081a33" stroke="#111" stroke-width="2"/><text x="1212" y="698" font-family="Georgia, serif" font-size="28" font-weight="700" fill="white"><tspan x="1212" dy="0">Potential partner role</tspan></text><rect x="28" y="742" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="42" y="784" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="42" dy="0">Brand + website design</tspan></text><rect x="418" y="742" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="432" y="784" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="432" dy="0">Production website</tspan><tspan x="432" dy="33.6">implementation</tspan></text><rect x="808" y="742" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="822" y="784" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="822" dy="0">Project-based sales</tspan><tspan x="822" dy="33.6">create uneven build</tspan><tspan x="822" dy="33.6">volume</tspan></text><rect x="1198" y="742" width="374" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="1212" y="784" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="1212" dy="0">Design-to-code</tspan><tspan x="1212" dy="33.6">implementation partner</tspan></text><rect x="28" y="872" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="42" y="914" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="42" dy="0">SEO retainers</tspan></text><rect x="418" y="872" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="432" y="914" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="432" dy="0">Technical fixes,</tspan><tspan x="432" dy="33.6">templates, migrations</tspan></text><rect x="808" y="872" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="822" y="914" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="822" dy="0">Findings appear across</tspan><tspan x="822" dy="33.6">client portfolios</tspan></text><rect x="1198" y="872" width="374" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="1212" y="914" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="1212" dy="0">Technical SEO</tspan><tspan x="1212" dy="33.6">implementation</tspan><tspan x="1212" dy="33.6">specialist</tspan></text><rect x="28" y="1002" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="42" y="1044" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="42" dy="0">PPC/campaigns</tspan></text><rect x="418" y="1002" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="432" y="1044" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="432" dy="0">Landing pages, forms,</tspan><tspan x="432" dy="33.6">analytics</tspan></text><rect x="808" y="1002" width="390" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="822" y="1044" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="822" dy="0">Campaign launches</tspan><tspan x="822" dy="33.6">create deadline spikes</tspan></text><rect x="1198" y="1002" width="374" height="130" fill="white" stroke="#111" stroke-width="2"/><text x="1212" y="1044" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#111"><tspan x="1212" dy="0">Landing-page capacity</tspan><tspan x="1212" dy="33.6">partner</tspan></text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1600" viewBox="0 0 1400 1600">
+  <rect width="1400" height="1600" fill="#ffffff"/>
+  <rect width="1400" height="150" fill="#0a0a0a"/>
+  <text x="28" y="55" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#d6a13a">DEVELOPER BUSINESS LAB | AGENCY PARTNERSHIP PLAYBOOK</text>
+  <text x="28" y="118" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#f4f4f2">AP03 · Ideal Agency Profile and Prospect Qualification</text>
+  <text x="1035" y="42" font-family="Arial, sans-serif" font-size="17" fill="#c7c7c3">PRODUCTION-FINAL WORKBOOK EXCERPT</text>
+
+  <rect x="28" y="205" width="1344" height="126" rx="16" fill="#f4f4f2" stroke="#d7d7d3"/>
+  <text x="62" y="258" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#171717">Decision before outreach: Pursue, Hold, or Deprioritize?</text>
+  <text x="62" y="302" font-family="Arial, sans-serif" font-size="22" fill="#424242">Use current evidence to decide whether an agency is worth contacting. Unknowns stay unknown.</text>
+
+  <text x="28" y="400" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#7a4f13">WORKED EXAMPLE · BRIGHTLINE CREATIVE</text>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="28" y="445" width="1344" height="112" rx="12" fill="#f7f7f5" stroke="#deded8"/>
+    <text x="58" y="490" font-size="23" font-weight="700" fill="#171717">Responsibility fit</text>
+    <text x="435" y="490" font-size="23" fill="#171717">Strong</text>
+    <text x="435" y="530" font-size="20" fill="#555555">Repeated marketing-site implementation matches Jordan's delivery responsibility.</text>
+
+    <rect x="28" y="574" width="1344" height="112" rx="12" fill="#f7f7f5" stroke="#deded8"/>
+    <text x="58" y="619" font-size="23" font-weight="700" fill="#171717">Repetition evidence</text>
+    <text x="435" y="619" font-size="23" fill="#171717">Recent website launches across several client engagements.</text>
+    <text x="435" y="659" font-size="20" fill="#555555">Enough to justify attention, not enough to prove current need.</text>
+
+    <rect x="28" y="703" width="1344" height="112" rx="12" fill="#f7f7f5" stroke="#deded8"/>
+    <text x="58" y="748" font-size="23" font-weight="700" fill="#171717">Delivery-model plausibility</text>
+    <text x="435" y="748" font-size="23" fill="#171717">Plausible outside capacity.</text>
+    <text x="435" y="788" font-size="20" fill="#555555">Current staffing arrangement remains unknown.</text>
+
+    <rect x="28" y="832" width="1344" height="112" rx="12" fill="#f7f7f5" stroke="#deded8"/>
+    <text x="58" y="877" font-size="23" font-weight="700" fill="#171717">Evidence quality</text>
+    <text x="435" y="877" font-size="23" fill="#171717">Moderate</text>
+    <text x="435" y="917" font-size="20" fill="#555555">Service and portfolio evidence are strong; internal staffing is not verified.</text>
+
+    <rect x="28" y="961" width="1344" height="112" rx="12" fill="#f7f7f5" stroke="#deded8"/>
+    <text x="58" y="1006" font-size="23" font-weight="700" fill="#171717">Route to buyer</text>
+    <text x="435" y="1006" font-size="23" fill="#171717">Founder</text>
+    <text x="58" y="1047" font-size="23" font-weight="700" fill="#171717">Hard disqualifier</text>
+    <text x="435" y="1047" font-size="23" fill="#171717">None observed</text>
+
+    <rect x="28" y="1090" width="1344" height="190" rx="16" fill="#eef4ed" stroke="#bad0b8"/>
+    <text x="62" y="1147" font-size="25" font-weight="700" fill="#285b2d">DECISION: PURSUE</text>
+    <text x="62" y="1193" font-size="22" fill="#171717">Enough evidence to justify a conversation, not enough evidence to assume a need.</text>
+    <text x="62" y="1237" font-size="20" fill="#555555">A Pursue decision means “worth contacting.” It does not mean “safe to partner with.”</text>
+
+    <rect x="28" y="1335" width="1344" height="175" rx="16" fill="#fff7df" stroke="#d6a13a"/>
+    <text x="62" y="1390" font-size="23" font-weight="700" fill="#7a4f13">WHY THIS MATTERS</text>
+    <text x="62" y="1436" font-size="21" fill="#171717">The playbook separates public evidence from facts that can only be learned in discovery or paid work.</text>
+    <text x="62" y="1476" font-size="21" fill="#171717">You contact the agency because the evidence supports a conversation, not because you invented internal pain.</text>
+  </g>
+</svg>

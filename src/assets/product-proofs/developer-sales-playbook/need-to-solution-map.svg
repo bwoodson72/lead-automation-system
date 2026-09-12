@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220"><rect width="100%" height="100%" fill="#fff"/><text x="64" y="68" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#c79a42">DEVELOPER SALES PLAYBOOK  |  WORKBOOK WB C24-X · P. 66</text><text x="64" y="126" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#0b1f33">Need-to-Solution Map</text><text x="64" y="176" font-family="Georgia, serif" font-size="26" fill="#34495e">Every major component should have a buyer-confirmed reason and an explicit tradeoff.</text><rect x="64" y="220" width="1472" height="72" fill="#0b1f33"/><line x1="390" y1="220" x2="390" y2="812" stroke="#c8d0d7" stroke-width="2"/><line x1="760" y1="220" x2="760" y2="812" stroke="#c8d0d7" stroke-width="2"/><line x1="1120" y1="220" x2="1120" y2="812" stroke="#c8d0d7" stroke-width="2"/><g font-family="Georgia, serif" font-size="22" font-weight="700" fill="#fff"><text x="82" y="264">Confirmed need</text><text x="408" y="264">Recommendation</text><text x="778" y="264">Practical effect</text><text x="1138" y="264">Tradeoff</text></g><g fill="#fff" stroke="#c8d0d7" stroke-width="2"><rect x="64" y="292" width="1472" height="130"/><rect x="64" y="422" width="1472" height="130"/><rect x="64" y="552" width="1472" height="130"/><rect x="64" y="682" width="1472" height="130"/></g><g font-family="Georgia, serif" font-size="21" fill="#101820"><text x="82" y="338" font-weight="700">Marketing needs</text><text x="82" y="368" font-weight="700">location control</text><text x="408" y="338">Structured CMS</text><text x="778" y="338">Staff publishes approved location/service</text><text x="778" y="368">content</text><text x="1138" y="338">Requires editor training and</text><text x="1138" y="368">governance</text><text x="82" y="468" font-weight="700">Paid traffic needs</text><text x="82" y="498" font-weight="700">focused destinations</text><text x="408" y="468">Campaign landing system</text><text x="778" y="468">Campaigns can use purpose-built pages</text><text x="1138" y="468">More content and QA</text><text x="1138" y="498">responsibility</text><text x="82" y="598" font-weight="700">Lead routing works today</text><text x="408" y="598">Preserve CRM integration</text><text x="778" y="598">Avoids disrupting sales workflow</text><text x="1138" y="598">API/access must be verified</text><text x="82" y="728" font-weight="700">September expansion</text><text x="82" y="758" font-weight="700">deadline</text><text x="408" y="728">Phased launch plan</text><text x="778" y="728">Core market launches first</text><text x="1138" y="728">Lower-priority content may</text><text x="1138" y="758">launch later</text></g><rect x="64" y="856" width="1472" height="180" rx="10" fill="#edf6ee" stroke="#5f9a73" stroke-width="2"/><text x="92" y="908" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#356b45">THE “BECAUSE” TEST</text><text x="92" y="956" font-family="Georgia, serif" font-size="23" fill="#101820">I recommend X because you told me Y, and the practical effect is Z.</text><text x="92" y="990" font-family="Georgia, serif" font-size="23" fill="#101820">If you cannot complete that sentence, question whether the component belongs.</text><text x="64" y="1156" font-family="Arial, sans-serif" font-size="18" fill="#7b8791">Workbook excerpt recreated as vector text for legible product-page preview.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1260" viewBox="0 0 1600 1260">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="64" y="68" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#c79a42">DEVELOPER SALES PLAYBOOK | WORKBOOK MODULE 11</text>
+<text x="64" y="126" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#0b1f33">Need-to-Solution Recommendation Map</text>
+<text x="64" y="176" font-family="Georgia, serif" font-size="26" fill="#34495e">Every recommendation must trace to a confirmed need and expose the tradeoff.</text>
+<rect x="64" y="214" width="1472" height="52" rx="6" fill="#edf6ee"/>
+<text x="84" y="248" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#356b45">FICTIONAL SUMMIT AIR AND HEAT CURRENT-EDITION EXCERPT</text>
+<g font-family="Georgia, serif" fill="#101820">
+<text x="82" y="324" font-size="22" font-weight="700">Confirmed need</text>
+<text x="390" y="324" font-size="22">A real multi-location operating structure as the second market opens.</text>
+<text x="82" y="376" font-size="22" font-weight="700">Recommended action</text>
+<text x="390" y="376" font-size="22">Create a reusable multi-location/service content structure.</text>
+<text x="82" y="428" font-size="22" font-weight="700">Why it fits</text>
+<text x="390" y="428" font-size="22">The problem is recurring structural dependence and weak fit with the new operating model,</text>
+<text x="390" y="458" font-size="22">not merely visual age.</text>
+<text x="82" y="520" font-size="22" font-weight="700">Practical effect</text>
+<text x="390" y="520" font-size="22">Locations and services can be represented consistently as Summit expands.</text>
+<text x="82" y="572" font-size="22" font-weight="700">Tradeoff / dependency</text>
+<text x="390" y="572" font-size="22">Requires an agreed content model, migration/access, and Summit content ownership.</text>
+<text x="82" y="674" font-size="22" font-weight="700">Second need</text>
+<text x="390" y="674" font-size="22">Preserve the reliable ServiceTitan lead path while improving inquiry clarity.</text>
+<text x="82" y="726" font-size="22" font-weight="700">Recommended action</text>
+<text x="390" y="726" font-size="22">Preserve and validate the existing ServiceTitan flow rather than replace it by default.</text>
+<text x="82" y="778" font-size="22" font-weight="700">Tradeoff / dependency</text>
+<text x="390" y="778" font-size="22">Existing implementation must be validated; hidden custom behavior could change the path.</text>
+</g>
+<rect x="64" y="858" width="1472" height="180" rx="10" fill="#edf6ee" stroke="#5f9a73" stroke-width="2"/>
+<text x="92" y="912" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#356b45">RECOMMENDATION INTEGRITY</text>
+<text x="92" y="960" font-family="Georgia, serif" font-size="23" fill="#101820">If a major component cannot be traced to a confirmed need, constraint, preservation</text>
+<text x="92" y="994" font-family="Georgia, serif" font-size="23" fill="#101820">requirement, or success condition, question whether it belongs.</text>
+<text x="64" y="1196" font-family="Arial, sans-serif" font-size="18" fill="#7b8791">Faithful current-edition excerpt recomposed for readable web proof.</text>
+</svg>

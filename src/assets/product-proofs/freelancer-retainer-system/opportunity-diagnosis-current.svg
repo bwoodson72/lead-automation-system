@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Current-edition Retainer Opportunity Diagnosis</title>
+  <desc id="desc">Recreated proof panel from the fictional Redwood Roofing case showing which continuing needs belong in recurring service and which remain project work.</desc>
+  <rect width="1600" height="1100" fill="#ffffff"/>
+  <rect width="1600" height="190" fill="#081523"/>
+  <rect y="186" width="1600" height="4" fill="#d6a72a"/>
+  <text x="72" y="62" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#d6a72a">FREELANCER RETAINER SYSTEM · CURRENT PRODUCTION EDITION</text>
+  <text x="72" y="124" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="#ffffff">Retainer Opportunity Diagnosis</text>
+  <text x="72" y="164" font-family="Georgia,serif" font-size="23" fill="#d6dce3">Start with the continuing job, not the monthly package.</text>
+
+  <rect x="72" y="228" width="1456" height="52" rx="6" fill="#edf5ee"/>
+  <text x="92" y="262" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#365f45">REDWOOD ROOFING — FICTIONAL COMPLETED EXAMPLE</text>
+
+  <g font-family="Arial,sans-serif">
+    <text x="88" y="330" font-size="18" font-weight="700" fill="#59636d">CONTINUING NEED</text>
+    <text x="620" y="330" font-size="18" font-weight="700" fill="#59636d">EVIDENCE / PATTERN</text>
+    <text x="1195" y="330" font-size="18" font-weight="700" fill="#59636d">TREATMENT</text>
+  </g>
+
+  <g font-family="Georgia,serif" fill="#111820">
+    <rect x="72" y="352" width="1456" height="130" rx="8" fill="#f5f7f8" stroke="#ccd3d8"/>
+    <text x="92" y="392" font-size="24" font-weight="700">Campaign + analytics implementation</text>
+    <text x="620" y="390" font-size="21">Repeated requests + campaign calendar</text>
+    <text x="620" y="425" font-size="21">Planned and seasonal</text>
+    <text x="1195" y="405" font-size="21" font-weight="700" fill="#365f45">Recurring candidate</text>
+
+    <rect x="72" y="500" width="1456" height="130" rx="8" fill="#f5f7f8" stroke="#ccd3d8"/>
+    <text x="92" y="540" font-size="24" font-weight="700">Stewardship of current production system</text>
+    <text x="620" y="538" font-size="21">Live deployed system; continuing condition</text>
+    <text x="620" y="573" font-size="21">No defined technical owner</text>
+    <text x="1195" y="553" font-size="21" font-weight="700" fill="#365f45">Recurring candidate</text>
+
+    <rect x="72" y="648" width="1456" height="130" rx="8" fill="#f5f7f8" stroke="#ccd3d8"/>
+    <text x="92" y="688" font-size="24" font-weight="700">Covered lead-path production problems</text>
+    <text x="620" y="686" font-size="21">Prior incidents observed; frequency unknown</text>
+    <text x="620" y="721" font-size="21">Incident-driven response need</text>
+    <text x="1195" y="700" font-size="21" font-weight="700" fill="#365f45">Recurring candidate</text>
+    <text x="1195" y="733" font-size="18" fill="#59636d">with uncertainty</text>
+
+    <rect x="72" y="796" width="1456" height="130" rx="8" fill="#fff8e6" stroke="#d6a72a"/>
+    <text x="92" y="836" font-size="24" font-weight="700">CRM replacement, portal, major redesign, new integrations</text>
+    <text x="620" y="834" font-size="21">Episodic, discovery-heavy future work</text>
+    <text x="620" y="869" font-size="21">Requires fresh architecture and scope</text>
+    <text x="1195" y="850" font-size="21" font-weight="700" fill="#8a6508">Project / assessment</text>
+  </g>
+
+  <rect x="72" y="958" width="1456" height="92" rx="8" fill="#081523"/>
+  <text x="96" y="997" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#d6a72a">DECISION</text>
+  <text x="96" y="1033" font-family="Georgia,serif" font-size="25" fill="#ffffff">Offer after redesign: the recurring opportunity is real; the first “hours + support” package is not.</text>
+  <text x="72" y="1080" font-family="Arial,sans-serif" font-size="16" fill="#77818a">Recreated from the current production workbook. Fictional teaching example, not a customer result.</text>
+</svg>

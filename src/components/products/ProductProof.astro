@@ -24,21 +24,21 @@ type ProofPackage = {
   previewTitle?: string;
   previewIntro?: string;
   previews: Preview[];
-  workedExample: {
+  workedExample?: {
     title: string;
     intro: string;
     disclaimer: string;
     steps: WorkedExampleStep[];
     conclusion: string;
   };
-  system: {
+  system?: {
     title: string;
     intro: string;
     steps: string[];
   };
   outputsTitle?: string;
-  outputs: string[];
-  stats: Stat[];
+  outputs?: string[];
+  stats?: Stat[];
   principle?: {
     title: string;
     body: string;
@@ -114,96 +114,110 @@ const previews = proof.previews
   </div>
 </section>
 
-<section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-  <div class="mx-auto min-w-0 max-w-7xl">
-    <p class="editorial-kicker">See the method work</p>
-    <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
-      <div class="min-w-0">
-        <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.workedExample.title}</h2>
+{proof.workedExample && (
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto min-w-0 max-w-7xl">
+      <p class="editorial-kicker">See the method work</p>
+      <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+        <div class="min-w-0">
+          <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.workedExample.title}</h2>
+        </div>
+        <div class="min-w-0 space-y-4">
+          <p class="break-words text-lg leading-8 text-muted-foreground">{proof.workedExample.intro}</p>
+          <p class="break-words border-l-2 border-primary-accent pl-4 text-sm leading-6 text-muted-foreground">
+            {proof.workedExample.disclaimer}
+          </p>
+        </div>
       </div>
-      <div class="min-w-0 space-y-4">
-        <p class="break-words text-lg leading-8 text-muted-foreground">{proof.workedExample.intro}</p>
-        <p class="break-words border-l-2 border-primary-accent pl-4 text-sm leading-6 text-muted-foreground">
-          {proof.workedExample.disclaimer}
-        </p>
-      </div>
-    </div>
 
-    <ol class="mt-10 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {proof.workedExample.steps.map((step, index) => (
-        <li class="surface-editorial min-w-0 p-5">
-          <div class="flex items-center gap-3">
-            <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
-            <p class="font-semibold">{step.label}</p>
-          </div>
-          <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{step.value}</p>
-        </li>
-      ))}
-    </ol>
-
-    <p class="mt-7 max-w-4xl break-words text-lg leading-8 text-muted-foreground">
-      {proof.workedExample.conclusion}
-    </p>
-  </div>
-</section>
-
-<section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-  <div class="mx-auto min-w-0 max-w-7xl">
-    <p class="editorial-kicker">The complete system</p>
-    <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
-      <div class="min-w-0">
-        <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.system.title}</h2>
-      </div>
-      <p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{proof.system.intro}</p>
-    </div>
-
-    <ol class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-      {proof.system.steps.map((step, index) => (
-        <li class="grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)] gap-3 bg-background p-5">
-          <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
-          <span class="min-w-0 break-words text-sm leading-6">{step}</span>
-        </li>
-      ))}
-    </ol>
-  </div>
-</section>
-
-<section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-  <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
-    <div class="min-w-0">
-      <p class="editorial-kicker">What you'll build</p>
-      <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">
-        {proof.outputsTitle ?? "Not notes. A reusable agency operating system."}
-      </h2>
-      <ul class="mt-8 min-w-0 border-t border-border">
-        {proof.outputs.map((output) => (
-          <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 border-b border-border py-4 text-muted-foreground">
-            <span class="text-primary-accent">→</span>
-            <span class="min-w-0 break-words">{output}</span>
+      <ol class="mt-10 grid min-w-0 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {proof.workedExample.steps.map((step, index) => (
+          <li class="surface-editorial min-w-0 p-5">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+              <p class="font-semibold">{step.label}</p>
+            </div>
+            <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{step.value}</p>
           </li>
         ))}
-      </ul>
-    </div>
+      </ol>
 
-    <div class="min-w-0">
-      <p class="editorial-kicker">Product depth</p>
-      <div class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
-        {proof.stats.map((stat) => (
-          <div class="min-w-0 bg-background p-6">
-            <p class="break-words text-3xl font-semibold tracking-tight text-primary-accent">{stat.value}</p>
-            <p class="mt-2 break-words font-semibold">{stat.label}</p>
-            {stat.detail && <p class="mt-2 break-words text-sm leading-6 text-muted-foreground">{stat.detail}</p>}
-          </div>
-        ))}
+      <p class="mt-7 max-w-4xl break-words text-lg leading-8 text-muted-foreground">
+        {proof.workedExample.conclusion}
+      </p>
+    </div>
+  </section>
+)}
+
+{proof.system && (
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto min-w-0 max-w-7xl">
+      <p class="editorial-kicker">The complete system</p>
+      <div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+        <div class="min-w-0">
+          <h2 class="break-words text-4xl font-semibold tracking-tight">{proof.system.title}</h2>
+        </div>
+        <p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{proof.system.intro}</p>
       </div>
 
-      {proof.principle && (
-        <aside class="surface-editorial mt-8 min-w-0 p-7">
-          <p class="editorial-kicker">A principle you can use now</p>
-          <h3 class="mt-4 break-words text-2xl font-semibold">{proof.principle.title}</h3>
-          <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{proof.principle.body}</p>
-        </aside>
+      <ol class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {proof.system.steps.map((step, index) => (
+          <li class="grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)] gap-3 bg-background p-5">
+            <span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span>
+            <span class="min-w-0 break-words text-sm leading-6">{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}
+
+{(proof.outputs || proof.stats || proof.principle) && (
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
+      {proof.outputs && (
+        <div class="min-w-0">
+          <p class="editorial-kicker">What you'll build</p>
+          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">
+            {proof.outputsTitle ?? "A reusable operating system."}
+          </h2>
+          <ul class="mt-8 min-w-0 border-t border-border">
+            {proof.outputs.map((output) => (
+              <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 border-b border-border py-4 text-muted-foreground">
+                <span class="text-primary-accent">→</span>
+                <span class="min-w-0 break-words">{output}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {(proof.stats || proof.principle) && (
+        <div class="min-w-0">
+          {proof.stats && (
+            <>
+              <p class="editorial-kicker">Product depth</p>
+              <div class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+                {proof.stats.map((stat) => (
+                  <div class="min-w-0 bg-background p-6">
+                    <p class="break-words text-3xl font-semibold tracking-tight text-primary-accent">{stat.value}</p>
+                    <p class="mt-2 break-words font-semibold">{stat.label}</p>
+                    {stat.detail && <p class="mt-2 break-words text-sm leading-6 text-muted-foreground">{stat.detail}</p>}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {proof.principle && (
+            <aside class="surface-editorial mt-8 min-w-0 p-7">
+              <p class="editorial-kicker">A principle you can use now</p>
+              <h3 class="mt-4 break-words text-2xl font-semibold">{proof.principle.title}</h3>
+              <p class="mt-4 break-words text-sm leading-6 text-muted-foreground">{proof.principle.body}</p>
+            </aside>
+          )}
+        </div>
       )}
     </div>
-  </div>
-</section>
+  </section>
+)}

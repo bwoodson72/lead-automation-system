@@ -11,7 +11,7 @@ interface Props {
 const { product } = Astro.props;
 const d = product.data;
 const commerce = resolveProductCommerce(d);
-const image = resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
+const image = d.coverImage ?? resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
 ---
 
 {image ? (

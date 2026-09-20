@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#f7f5ef"/>
+<rect width="1600" height="150" fill="#0b0b0c"/>
+<rect y="146" width="1600" height="4" fill="#c99522"/>
+<foreignObject x="0" y="0" width="1600" height="900">
+<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,Helvetica,sans-serif;color:#191919;">
+  <div style="height:150px;box-sizing:border-box;padding:34px 70px 0 70px;color:#fff;">
+    <div style="font-size:24px;font-weight:700;color:#c99522;letter-spacing:.02em;">DEVELOPER BUSINESS LAB</div>
+    <div style="font-size:40px;font-weight:800;line-height:1.05;margin-top:14px;">Market Access Portfolio: completed example</div>
+    <div style="font-size:18px;color:#d7d7d7;margin-top:4px;">Re-composed from Workbook Module 12 for web readability</div>
+  </div>
+  <div style="padding:36px 70px 40px 70px;box-sizing:border-box;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:26px 52px;">
+<div style="padding:20px 22px;border:1px solid #d8d2c5;border-radius:14px;background:#fffdf8;min-height:190px;box-sizing:border-box;">
+<div style="font-size:16px;font-weight:800;color:#c58c12;letter-spacing:.03em;">PRIMARY ROUTE</div>
+<div style="font-size:27px;font-weight:800;line-height:1.15;margin-top:14px;">ERP/IT partner ecosystem</div>
+<div style="font-size:19px;line-height:1.4;color:#555;margin-top:12px;">Supported by the Integration Readiness Checklist, case material, buyer guide, and a concise description of Casey's scope.</div></div>
+<div style="padding:20px 22px;border:1px solid #d8d2c5;border-radius:14px;background:#fffdf8;min-height:190px;box-sizing:border-box;">
+<div style="font-size:16px;font-weight:800;color:#c58c12;letter-spacing:.03em;">SECONDARY ROUTE</div>
+<div style="font-size:27px;font-weight:800;line-height:1.15;margin-top:14px;">Searchable and evergreen discoverability</div>
+<div style="font-size:19px;line-height:1.4;color:#555;margin-top:12px;">Uses the website, service page, case, and buyer guide as buyer-controlled entry points.</div></div>
+<div style="padding:20px 22px;border:1px solid #d8d2c5;border-radius:14px;background:#fffdf8;min-height:190px;box-sizing:border-box;">
+<div style="font-size:16px;font-weight:800;color:#c58c12;letter-spacing:.03em;">SUPPORTING SURFACE</div>
+<div style="font-size:27px;font-weight:800;line-height:1.15;margin-top:14px;">LinkedIn professional-network participation</div>
+<div style="font-size:19px;line-height:1.4;color:#555;margin-top:12px;">Used for familiarity, selective participation, and distribution of deeper evidence, not a daily publishing quota.</div></div>
+<div style="padding:20px 22px;border:1px solid #d8d2c5;border-radius:14px;background:#fffdf8;min-height:190px;box-sizing:border-box;">
+<div style="font-size:16px;font-weight:800;color:#c58c12;letter-spacing:.03em;">PARKED</div>
+<div style="font-size:27px;font-weight:800;line-height:1.15;margin-top:14px;">Industry communities, paid search, broad social content</div>
+<div style="font-size:19px;line-height:1.4;color:#555;margin-top:12px;">Not active because buyer fit, intent, economics, measurement, participation, or production burden do not yet justify capacity.</div></div>
+</div>
+<div style="margin-top:28px;padding:18px 24px;border:2px solid #c99522;border-radius:12px;background:#0b0b0c;color:#fff;">
+<div style="font-size:16px;font-weight:800;color:#c99522;">DECISION RULE</div>
+<div style="font-size:20px;line-height:1.4;margin-top:8px;">No route receives a predictive score. The portfolio stays small enough to operate coherently, and every parked route has a specific reconsideration condition.</div>
+</div></div>
+</div>
+</foreignObject>
+</svg>

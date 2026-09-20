@@ -117,5 +117,39 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
 
   {bundleRecommendation && recommendedBundle && <BundleProgressionCard currentProduct={product} products={publicProducts} bundle={recommendedBundle} />}
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-4xl">{d.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}<div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}><p class="editorial-kicker">Next step</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{finalHeading}</h2><p class="mt-5 break-words text-lg leading-8 text-muted-foreground">{effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p><div class="mt-8 min-w-0"><ProductCTA product={product} location="final" /></div></div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto min-w-0 max-w-4xl">
+      {d.faqs.length > 0 && (
+        <>
+          <p class="editorial-kicker">Before you buy</p>
+          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Questions worth answering first.</h2>
+          <div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
+        </>
+      )}
+      <div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}>
+        <p class="editorial-kicker">Next step</p>
+        <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{finalHeading}</h2>
+        <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">
+          {effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
+        </p>
+        {commerce.purchasable && !d.free && (
+          <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
+            <div class="min-w-0 bg-background p-5">
+              <dt class="text-sm font-semibold">You receive</dt>
+              <dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{d.format}</dd>
+            </div>
+            <div class="min-w-0 bg-background p-5">
+              <dt class="text-sm font-semibold">Delivery</dt>
+              <dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">Digital delivery through Lemon Squeezy after checkout.</dd>
+            </div>
+            <div class="min-w-0 bg-background p-5">
+              <dt class="text-sm font-semibold">Refunds</dt>
+              <dd class="mt-2 text-sm leading-6"><a class="text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy</a></dd>
+            </div>
+          </dl>
+        )}
+        <div class="mt-8 min-w-0"><ProductCTA product={product} location="final" /></div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

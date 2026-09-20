@@ -70,19 +70,19 @@ const products = defineCollection({
           value: z.string(),
         })).min(3),
         conclusion: z.string(),
-      }),
+      }).optional(),
       system: z.object({
         title: z.string(),
         intro: z.string(),
         steps: z.array(z.string()).min(3),
-      }),
+      }).optional(),
       outputsTitle: z.string().optional(),
-      outputs: z.array(z.string()).min(3),
+      outputs: z.array(z.string()).min(3).optional(),
       stats: z.array(z.object({
         value: z.string(),
         label: z.string(),
         detail: z.string().optional(),
-      })).min(3),
+      })).min(3).optional(),
       principle: z.object({
         title: z.string(),
         body: z.string(),

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#f7f5ef"/>
+<rect width="1600" height="150" fill="#0b0b0c"/>
+<rect y="146" width="1600" height="4" fill="#c99522"/>
+<foreignObject x="0" y="0" width="1600" height="900">
+<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,Helvetica,sans-serif;color:#191919;">
+  <div style="height:150px;box-sizing:border-box;padding:34px 70px 0 70px;color:#fff;">
+    <div style="font-size:24px;font-weight:700;color:#c99522;letter-spacing:.02em;">DEVELOPER BUSINESS LAB</div>
+    <div style="font-size:40px;font-weight:800;line-height:1.05;margin-top:14px;">Claim & Evidence Register</div>
+    <div style="font-size:18px;color:#d7d7d7;margin-top:4px;">Re-composed from Workbook Module 7 for web readability</div>
+  </div>
+  <div style="padding:36px 70px 40px 70px;box-sizing:border-box;"><div style="display:grid;grid-template-columns:1.2fr 1fr .9fr 1.2fr;border:1px solid #d8d2c5;font-size:18px;line-height:1.35;">
+<div style="padding:14px;font-weight:800;background:#ede8dc;border-right:1px solid #d8d2c5;">Claim</div><div style="padding:14px;font-weight:800;background:#ede8dc;border-right:1px solid #d8d2c5;">Evidence fit</div><div style="padding:14px;font-weight:800;background:#ede8dc;border-right:1px solid #d8d2c5;">Decision</div><div style="padding:14px;font-weight:800;background:#ede8dc;border-right:1px solid #d8d2c5;">Defensible wording / rule</div>
+<div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Casey builds reliable integrations</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Inadequate as a broad claim</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Remove / narrow</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Replace with specific design and testing practices; do not make a general reliability guarantee.</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Casey's integrations save money or increase revenue</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">None</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Remove</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">No public savings or revenue claim.</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Casey preserves the existing stack</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Partial; replacement can sometimes be better</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Qualify</div><div style="padding:14px;border-top:1px solid #d8d2c5;border-right:1px solid #d8d2c5;">Preservation is stated only when it fits the diagnosed workflow, constraints, and trade-offs.</div>
+</div>
+<div style="margin-top:24px;font-size:16px;font-weight:800;color:#c58c12;letter-spacing:.03em;">PROOF-GAP BACKLOG</div>
+<div style="margin-top:10px;padding:20px 24px;border:2px solid #c99522;border-radius:12px;background:#fffdf8;">
+<div style="font-size:24px;font-weight:800;">Complete market-relevant integration case</div>
+<div style="font-size:19px;color:#555;margin-top:8px;">Missing evidence: reconstructed context, constraints, decisions, delivered state, verification, and publication boundary.</div>
+<div style="font-size:19px;line-height:1.35;margin-top:14px;">Next honest evidence action: rebuild one prior project from source records in Chapter 8. No downstream savings or revenue claim until measurement and credible attribution exist.</div>
+</div></div>
+</div>
+</foreignObject>
+</svg>

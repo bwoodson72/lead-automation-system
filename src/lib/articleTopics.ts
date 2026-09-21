@@ -55,13 +55,6 @@ export const articleTopics: ArticleTopic[] = [
     tags: ["growth", "retention", "referrals", "retainer", "recurring-revenue", "feast-or-famine", "marketing"],
     categories: ["growth", "retention"],
   },
-  {
-    slug: "ai-automation",
-    label: "AI & Automation",
-    description: "Use AI and automation without sacrificing evidence quality, control, or sound prospecting decisions.",
-    tags: ["ai", "automation", "n8n", "architecture", "quality-control", "evidence"],
-    categories: ["automation", "evidence"],
-  },
 ];
 
 export function sortArticles(articles: ArticleEntry[]) {

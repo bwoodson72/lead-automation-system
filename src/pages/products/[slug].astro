@@ -85,7 +85,7 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
     <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
   </PageHero>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">Why this matters</p><h2 class="mt-4 break-words text-3xl font-semibold">What this problem costs the business.</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">Why this matters</p><h2 class="mt-4 break-words text-3xl font-semibold">The business reason to solve this.</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>\n\n  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">The problem in practice</p><h2 class="mt-4 break-words text-3xl font-semibold">What keeps getting in the way.</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto min-w-0 max-w-7xl">
@@ -94,7 +94,7 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
           <p class="editorial-kicker">What better looks like</p>
           <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">Build the capability that changes the commercial decision.</h2>
         </div>
-        <p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{d.coreOutcome}</p>
+        <div class="space-y-5"><p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{d.desiredBusinessState ?? d.coreOutcome}</p><p class="min-w-0 break-words leading-7 text-muted-foreground">{d.coreOutcome}</p></div>
       </div>
       <ul class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
         {d.capabilities.map((capability) => (
@@ -130,7 +130,7 @@ const heroCommerce = commerce.purchasable ? `${commerce.priceFormatted}${d.free 
         <p class="editorial-kicker">Next step</p>
         <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{finalHeading}</h2>
         <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">
-          {effectiveStatus === "available" ? d.coreOutcome : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
+          {effectiveStatus === "available" ? `${d.desiredBusinessState ?? d.coreOutcome} ${d.coreOutcome}` : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
         </p>
         {commerce.purchasable && !d.free && (
           <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">

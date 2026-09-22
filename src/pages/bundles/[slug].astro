@@ -58,7 +58,7 @@ const productSchema = {
     title={bundle.data.hook ?? bundle.data.title}
     description={bundle.data.shortDescription ?? bundle.data.outcome}
     audience={bundle.data.audience}
-    supportingItems={[`${merch.productCount} connected systems`, merch.purchasable ? "One-time purchase" : "Built to work as one stage"]}
+    supportingItems={[`${merch.productCount} connected systems`, "Digital guides + workbooks", merch.purchasable ? "One-time purchase" : "Built to work as one stage"]}
   >
     <div slot="actions" class="space-y-5">
       {merch.purchasable && merch.bundlePriceFormatted && (
@@ -83,17 +83,32 @@ const productSchema = {
     {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt={`${bundle.data.title} bundle mockup`} class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
   </PageHero>
 
+  {bundle.data.pageCopy && (
+    <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+        <div>
+          <p class="editorial-kicker">{bundle.data.pageCopy.problemEyebrow ?? "The problem this bundle solves"}</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">{bundle.data.pageCopy.problemTitle ?? bundle.data.hook ?? bundle.data.title}</h2>
+        </div>
+        <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+          <p>{bundle.data.outcome}</p>
+          {bundle.data.whyTogether && <p>{bundle.data.whyTogether}</p>}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section id="inside" class="scroll-mt-24 border-b border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div>
-          <p class="editorial-kicker">What you get</p>
+          <p class="editorial-kicker">{bundle.data.pageCopy?.includedEyebrow ?? "What you get"}</p>
           <h2 class="mt-4 text-4xl font-semibold tracking-tight">
-            {merch.productCount} connected systems that build the {merch.stage.toLowerCase()} stage together.
+            {bundle.data.pageCopy?.includedTitle ?? `${merch.productCount} connected systems that build the ${merch.stage.toLowerCase()} stage together.`}
           </h2>
         </div>
         <div>
-          <p class="text-lg leading-8 text-muted-foreground">{bundle.data.whyTogether ?? bundle.data.outcome}</p>
+          <p class="text-lg leading-8 text-muted-foreground">{bundle.data.pageCopy?.includedIntro ?? bundle.data.whyTogether ?? bundle.data.outcome}</p>
         </div>
       </div>
 
@@ -126,7 +141,7 @@ const productSchema = {
   {bundle.data.implementationOrder.length > 0 && (
     <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
       <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
-        <div><p class="editorial-kicker">Implementation order</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Use the dependency order. Do not create another pile of material.</h2></div>
+        <div><p class="editorial-kicker">{bundle.data.pageCopy?.implementationEyebrow ?? "Implementation order"}</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">{bundle.data.pageCopy?.implementationTitle ?? "Use the dependency order. Do not create another pile of material."}</h2></div>
         <ol class="border-t border-border">
           {bundle.data.implementationOrder.map((step, index) => <li class="grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="leading-7 text-muted-foreground">{step}</span></li>)}
         </ol>
@@ -137,19 +152,20 @@ const productSchema = {
   {(bundle.data.whoItsFor.length > 0 || bundle.data.whoItsNotFor.length > 0) && (
     <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
       <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
-        <div><p class="editorial-kicker">Buy the bundle if</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul></div>
-        <div><p class="editorial-kicker">Buy one focused system instead if</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsNotFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul></div>
+        <div><p class="editorial-kicker">{bundle.data.pageCopy?.fitForEyebrow ?? "Buy the bundle if"}</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3 text-primary-accent">→</span>{item}</li>)}</ul></div>
+        <div><p class="editorial-kicker">{bundle.data.pageCopy?.fitNotForEyebrow ?? "Buy one focused system instead if"}</p><ul class="mt-6 border-t border-border">{bundle.data.whoItsNotFor.map((item) => <li class="border-b border-border py-4 text-muted-foreground"><span class="mr-3">×</span>{item}</li>)}</ul></div>
       </div>
     </section>
   )}
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      {bundle.data.faqs.length > 0 && <><p class="editorial-kicker">Before you buy</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Questions worth answering first.</h2><div class="mt-8"><FAQList faqs={bundle.data.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}
+      {bundle.data.faqs.length > 0 && <><p class="editorial-kicker">{bundle.data.pageCopy?.faqEyebrow ?? "Before you buy"}</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">{bundle.data.pageCopy?.faqTitle ?? "Questions worth answering first."}</h2><div class="mt-8"><FAQList faqs={bundle.data.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}
       <div class={bundle.data.faqs.length > 0 ? "mt-14 border-t border-border pt-12" : ""}>
-        <p class="editorial-kicker">Get the connected system</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the whole {merch.stage.toLowerCase()} stage with one purchase.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">You receive the included systems through Lemon Squeezy. Eligible purchases are covered by the Developer Business Lab 14-Day Satisfaction Guarantee.</p>
+        <p class="editorial-kicker">{bundle.data.pageCopy?.finalEyebrow ?? "Get the connected system"}</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">{bundle.data.pageCopy?.finalTitle ?? `Build the whole ${merch.stage.toLowerCase()} stage with one purchase.`}</h2>
+        <p class="mt-5 text-lg leading-8 text-muted-foreground">{bundle.data.pageCopy?.finalBody ?? "You receive the included systems digitally through Lemon Squeezy after purchase."}</p>
+        <p class="mt-3 text-sm leading-6 text-muted-foreground">Refund requests are handled under the <a class="text-primary-accent hover:underline" href="/refund-policy/">14-day refund policy</a>.</p>
         <div class="mt-7"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
         <div class="mt-8">{merch.purchasable && merch.checkoutUrl ? <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-final">Get {bundle.data.title}</a> : <a href="/products/" class="font-semibold text-primary-accent">Browse the included systems →</a>}</div>
       </div>

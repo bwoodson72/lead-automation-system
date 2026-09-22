@@ -8,13 +8,13 @@ import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 const faqs = (await getCollection("faqs")).sort((a,b) => a.data.order-b.data.order);
 ---
 
-<BaseLayout title="Frequently Asked Questions | Developer Business Lab" description="Straight answers about Developer Business Lab products, delivery, implementation, results, and the AI Prospecting family.">
+<BaseLayout title="Frequently Asked Questions | Developer Business Lab" description="Straight answers about Developer Business Lab products, fit, delivery, implementation, purchase terms, and how the different freelance business systems relate.">
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
     eyebrow="Before you buy"
     title="Questions worth answering before you spend money here"
-    description="You should know what you are getting, what problem it is meant to solve, what it will require from you, and what it cannot promise. If the answer makes a product a poor fit, that is useful information too."
+    description="You should know what you are getting, which commercial problem it is built to solve, how the material is used, and whether the product is the right scope for your business before you spend money."
   />
   <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
     <div class="mx-auto max-w-4xl"><FAQList faqs={faqs} /></div>

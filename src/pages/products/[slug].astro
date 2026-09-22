@@ -131,7 +131,7 @@ const pageCopy = d.pageCopy ?? {};
         <p class="editorial-kicker">{pageCopy.finalEyebrow ?? "Next step"}</p>
         <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.finalTitle ?? finalHeading}</h2>
         <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">
-          {effectiveStatus === "available" ? `${d.desiredBusinessState ?? d.coreOutcome} ${d.coreOutcome}` : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
+          {effectiveStatus === "available" ? (pageCopy.finalSummary ?? `${d.desiredBusinessState ?? d.coreOutcome} ${d.coreOutcome}`) : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
         </p>
         {commerce.purchasable && !d.free && (
           <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">

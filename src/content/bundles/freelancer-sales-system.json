@@ -1,39 +1,73 @@
 {
   "title": "Freelancer Sales System",
   "slug": "freelancer-sales-system",
-  "status": "planned",
+  "status": "available",
   "stage": "Sales & retention",
-  "hook": "If a good sales call still turns into a vague proposal and an uncertain close, the sale is breaking between decisions.",
-  "shortDescription": "Connect qualification, sales conversations, proposal and closing decisions, and legitimate recurring value so qualified opportunities have a clear path instead of dissolving into follow-up limbo.",
-  "outcome": "Build a controlled path from first serious conversation to a documented commercial decision, clean close, and deliberate post-project retention choice. The goal is not to pressure prospects harder. It is to stop losing the decisions already made as the opportunity moves from discovery to proposal to payment to future work.",
-  "whyTogether": "These are not separate moments. A useful sales conversation should establish the problem, stakes, fit, decision process, and remaining unknowns. A proposal should carry those decisions forward rather than restart the sale in a document. Closing should make signature, payment, ownership, timing, and next actions explicit. And after delivery, recurring work should exist only when there is a real continuing client need worth packaging. The bundle connects those handoffs so fewer qualified opportunities disappear into ambiguity between stages.",
-  "audience": "Independent developers who can create qualified conversations but lose control after the first good call: next steps become vague, proposals carry too much selling work, closing drags, or successful projects end without a deliberate decision about legitimate continuing value.",
+  "hook": "Carry a qualified opportunity all the way to a paid decision—and know what to do after delivery.",
+  "shortDescription": "Connect sales conversations, proposals, closing, and post-project retention so more of the right opportunities reach a clear paid decision and successful client work can create recurring revenue when the need continues.",
+  "outcome": "Build one connected commercial path from the first serious buyer conversation to a signed, paid engagement, then make a deliberate decision about recurring work after delivery. The goal is to preserve the important decisions from one stage to the next so strong opportunities do not lose momentum between discovery, proposal, agreement, payment, and future client value.",
+  "whyTogether": "Each system handles a different point where revenue can stall. Developer Sales Playbook helps you qualify the opportunity, understand the buyer's problem and decision conditions, surface material unknowns, and decide whether the opportunity is ready to advance. Developer Proposal & Closing Kit carries that understanding into scope, price, terms, review, agreement, payment, and project start without rebuilding the deal inside the proposal. Freelancer Retainer System takes over after successful delivery, helping you identify whether a real continuing need exists and whether it can become a bounded, economically sound recurring engagement.",
+  "audience": "Independent developers who already get serious buyer conversations but want a more controlled path from qualified interest to paid work and, where the client has a genuine continuing need, recurring revenue after the project.",
   "order": 3,
-  "products": ["developer-sales-playbook", "developer-proposal-closing-kit", "freelancer-retainer-system"],
+  "products": [
+    "developer-sales-playbook",
+    "developer-proposal-closing-kit",
+    "freelancer-retainer-system"
+  ],
+  "pageCopy": {
+    "problemEyebrow": "Where good opportunities lose momentum",
+    "problemTitle": "A strong sales call is not enough if the next commercial decision is still unclear.",
+    "includedEyebrow": "Three systems, one revenue path",
+    "includedTitle": "Qualify the opportunity. Close the engagement. Build recurring value when the need continues.",
+    "includedIntro": "The three products solve different parts of the same commercial sequence. The Sales Playbook gets a serious opportunity to a defensible next decision. The Proposal & Closing Kit turns a decision-ready opportunity into a controlled agreement and paid start. The Retainer System helps you decide whether successful delivery has created a legitimate recurring service worth offering.",
+    "implementationEyebrow": "How to use the bundle",
+    "implementationTitle": "Keep the buyer decision intact as the opportunity moves from conversation to revenue.",
+    "fitForEyebrow": "This bundle fits when",
+    "fitNotForEyebrow": "A different starting point is better when",
+    "faqEyebrow": "Before you buy",
+    "faqTitle": "Make sure the sales process—not the pipeline—is the problem you need to solve.",
+    "finalEyebrow": "Freelancer Sales System",
+    "finalTitle": "Turn qualified interest into a clearer path to paid work and future client revenue.",
+    "finalBody": "Get Developer Sales Playbook, Developer Proposal & Closing Kit, and Freelancer Retainer System in one purchase. Use them together to control the commercial handoffs between discovery, proposal, commitment, payment, project start, and legitimate recurring work after delivery."
+  },
   "implementationOrder": [
-    "Start with Developer Sales Playbook. Qualify the opportunity, understand the business problem and stakes, identify decision-makers and decision criteria, surface material unknowns, and end each conversation with a real next decision instead of generic interest.",
-    "Move only decision-ready opportunities into Developer Proposal & Closing Kit. Carry the diagnosis, scope, assumptions, price, responsibilities, acceptance conditions, and decision process into the proposal so the document confirms the sale rather than trying to create it from scratch.",
-    "Use the closing process to make commitment explicit: signature, payment, timing, ownership, dependencies, and what happens next. Treat silence, delay, and unresolved conditions as information to diagnose rather than reasons to keep chasing indefinitely.",
-    "After successful delivery, use Freelancer Retainer System to identify whether a legitimate continuing business need remains. Package recurring work only when the client receives ongoing value and the obligation can be bounded economically and operationally.",
-    "Review where opportunities actually stall. If prospects are unqualified, fix sales qualification. If strong calls become proposal black holes, fix proposal readiness and decision continuity. If projects end cleanly but suitable ongoing needs are being missed, improve the retention decision rather than adding retainers indiscriminately."
+    "Start with Developer Sales Playbook. Use serious buyer conversations to establish the problem, stakes, fit, decision process, authority, material uncertainty, and the next decision. An opportunity should earn the right to move forward rather than reaching proposal simply because the conversation felt positive.",
+    "Move decision-ready opportunities into Developer Proposal & Closing Kit. Carry the agreed scope, assumptions, price, responsibilities, review process, payment conditions, and start requirements into the commercial package so the proposal confirms the deal instead of trying to invent it.",
+    "After successful delivery, use Freelancer Retainer System when the client has a continuing business need. Define the recurring service, price the full obligation, protect capacity, establish operating boundaries, and make renewal or resizing decisions from actual use and economics.",
+    "Review the whole path using real opportunities. If conversations fail to reach decisions, improve qualification and discovery. If strong opportunities stall at proposal or payment, fix the closing handoff. If good projects repeatedly create continuing demand, improve the recurring-service decision rather than letting the relationship drift into informal support."
   ],
   "whoItsFor": [
-    "You can get qualified prospects into sales conversations, but too many calls end with phrases like 'send me something' instead of a defined next decision.",
-    "Your proposals still have to explain, persuade, scope, price, and close all at once because too much was left unresolved in discovery.",
-    "You lose visibility after sending the proposal and are unsure whether to follow up, revise, wait, or disqualify the opportunity.",
-    "Good projects end successfully, but you do not have a consistent way to decide whether continuing client value exists and whether it belongs in a retainer or another defined engagement."
+    "You can get serious prospects into conversations, but too many opportunities leave the call with vague interest instead of a defined commercial next step.",
+    "Your proposals still carry too much of the selling, scoping, pricing, and decision work because important questions were not settled before the document was written.",
+    "A verbal yes does not always turn cleanly into signature, payment, access, timing, and a controlled project start.",
+    "Successful client relationships sometimes create continuing work, but you do not yet have a consistent way to decide when that work should become a recurring service and what the obligation is worth."
   ],
   "whoItsNotFor": [
-    "Your main problem is not having enough qualified opportunities to sell to; fix acquisition before optimizing a sales process with too little input.",
-    "Your offer, positioning, or pricing is still so unclear that prospects cannot understand what they are evaluating; strengthen the commercial foundation first.",
-    "Only one sales subsystem is weak. If discovery is strong and proposals are the isolated problem, or recurring work alone needs attention, buy the focused product instead.",
-    "You want pressure scripts, artificial urgency, manipulative closing tactics, or retainers invented only to make revenue recurring."
+    "You do not have enough qualified opportunities entering the pipeline. Client acquisition is the more immediate constraint.",
+    "Your offer, pricing, or marketing foundation is still unclear enough that prospects do not understand what they are evaluating. Fix the commercial foundation first.",
+    "Only one part of the sales path is weak. If discovery is already strong and proposals alone are the problem, or recurring work alone needs attention, buy the focused system instead.",
+    "Several parts of the entire freelance business are still being improvised and you cannot yet tell whether sales is the main constraint. The Freelance Developer Launch Kit is the better starting point."
   ],
   "faqs": [
-    {"question":"Why combine sales, proposals, closing, and retention?","answer":"Because the buyer's decision should survive each handoff. Discovery establishes the commercial understanding. The proposal records it. Closing turns it into an explicit commitment. After delivery, retention asks whether a legitimate continuing need remains. Treating those as unrelated activities creates places for good opportunities and good client relationships to lose continuity."},
-    {"question":"Do I need a proposal for every project?","answer":"No. The system is about choosing the right decision and documentation path for the opportunity. Some engagements may need a formal proposal; others may be handled with a simpler scope-and-agreement process. The important part is that the commercial decisions are clear before commitment."},
-    {"question":"Will this teach me how to pressure hesitant prospects into buying?","answer":"No. The goal is a clearer decision process, not coercion. You will work on qualification, discovery, decision readiness, explicit next steps, and responsible follow-up so you can tell the difference between a real opportunity, an unresolved one, and one that should be closed out."},
-    {"question":"Why is retention included in a sales bundle?","answer":"Because successful delivery can create a new commercial decision. When a genuine ongoing need exists, the relationship should move into a deliberately scoped next engagement rather than drifting into unpaid support or an artificial retainer. Retention is the continuation of real value, not a bolt-on revenue tactic."}
+    {
+      "question": "Why buy these three systems together?",
+      "answer": "Because the commercial decision has to survive several handoffs. The Sales Playbook helps you reach a proposal-ready decision. The Proposal & Closing Kit carries that decision into agreement, payment, and project start. The Retainer System addresses the next commercial decision after successful delivery when a real continuing client need exists."
+    },
+    {
+      "question": "Should I buy this bundle if I mainly need more leads?",
+      "answer": "No. This bundle assumes you can already create serious buyer conversations. If the main problem is not having enough qualified opportunities, the Client Acquisition material is the better place to work first."
+    },
+    {
+      "question": "Do I need a formal proposal for every engagement?",
+      "answer": "No. The Proposal & Closing Kit is about carrying an already-understood commercial decision into the appropriate agreement and close. Some engagements need a formal proposal; others can use a simpler scope and agreement path. The important point is that material scope, price, responsibilities, payment, and start conditions are clear before commitment."
+    },
+    {
+      "question": "Why is a retainer system included in a sales bundle?",
+      "answer": "Because successful delivery can create another revenue decision. If the client has a genuine continuing need, the relationship can move into a deliberately scoped recurring service rather than ending automatically or drifting into unpaid support. The Retainer System helps you decide whether that next engagement makes commercial sense."
+    }
   ],
-  "seo": {"title":"Freelancer Sales System | Sales, Proposals & Retention | Developer Business Lab","description":"Connect freelance sales conversations, proposals, closing, and legitimate recurring value so qualified opportunities move through a clearer commercial decision process."}
+  "seo": {
+    "title": "Freelancer Sales System | Sales, Proposals & Retainers for Developers",
+    "description": "Connect freelance sales conversations, proposals, closing, and recurring client work into one path from qualified opportunity to paid engagement and future client revenue."
+  }
 }

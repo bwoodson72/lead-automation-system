@@ -56,6 +56,7 @@ const products = defineCollection({
       faqTitle: z.string().optional(),
       finalEyebrow: z.string().optional(),
       finalTitle: z.string().optional(),
+      finalSummary: z.string().optional(),
     }).optional(),
     problem: z.string(),
     hook: z.string().optional(),

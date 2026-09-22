@@ -86,14 +86,14 @@ const pageCopy = d.pageCopy ?? {};
     <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
   </PageHero>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.motivationEyebrow ?? d.family}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.motivationTitle ?? "The business reason to solve this."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>\n\n  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.problemEyebrow ?? "The problem in practice"}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.problemTitle ?? "What keeps getting in the way."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.motivationEyebrow ?? d.family}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.motivationTitle ?? "What this can change in your business."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>\n\n  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.problemEyebrow ?? "The problem in practice"}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.problemTitle ?? "The pattern making this harder than it needs to be."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto min-w-0 max-w-7xl">
       <div class="grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
         <div class="min-w-0">
           <p class="editorial-kicker">{pageCopy.desiredEyebrow ?? "What better looks like"}</p>
-          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.desiredTitle ?? "Build the capability that changes the commercial decision."}</h2>
+          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.desiredTitle ?? "What gets easier when you can handle this well."}</h2>
         </div>
         <div class="space-y-5"><p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{d.desiredBusinessState ?? d.coreOutcome}</p><p class="min-w-0 break-words leading-7 text-muted-foreground">{d.coreOutcome}</p></div>
       </div>
@@ -108,7 +108,7 @@ const pageCopy = d.pageCopy ?? {};
     </div>
   </section>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-7xl"><p class="editorial-kicker">{pageCopy.contentsEyebrow ?? "Inside the system"}</p><div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16"><div class="min-w-0"><h2 class="break-words text-4xl font-semibold tracking-tight">{pageCopy.contentsTitle ?? "What you will work through."}</h2><ol class="mt-8 min-w-0 border-t border-border">{d.contents.map((item, index) => <li class="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="min-w-0 break-words">{item}</span></li>)}</ol></div><aside class="surface-editorial min-w-0 self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 min-w-0 space-y-6"><div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div><div><dt class="font-semibold">Working tools</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div><div><dt class="font-semibold">How to use it</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div></dl></aside></div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-7xl"><p class="editorial-kicker">{pageCopy.contentsEyebrow ?? "Inside the system"}</p><div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16"><div class="min-w-0"><h2 class="break-words text-4xl font-semibold tracking-tight">{pageCopy.contentsTitle ?? "What you will use to make that change."}</h2><ol class="mt-8 min-w-0 border-t border-border">{d.contents.map((item, index) => <li class="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="min-w-0 break-words">{item}</span></li>)}</ol></div><aside class="surface-editorial min-w-0 self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 min-w-0 space-y-6"><div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div><div><dt class="font-semibold">Working tools</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div><div><dt class="font-semibold">How to use it</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div></dl></aside></div></div></section>
 
   {d.proofPackage && <ProductProof proof={d.proofPackage} />}
 
@@ -123,7 +123,7 @@ const pageCopy = d.pageCopy ?? {};
       {d.faqs.length > 0 && (
         <>
           <p class="editorial-kicker">{pageCopy.faqEyebrow ?? "Before you buy"}</p>
-          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.faqTitle ?? "Questions worth answering first."}</h2>
+          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.faqTitle ?? "What to know before you choose it."}</h2>
           <div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
         </>
       )}

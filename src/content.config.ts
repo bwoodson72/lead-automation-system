@@ -145,10 +145,10 @@ const products = defineCollection({
     if (data.status !== "available" && data.checkoutUrl) {
       ctx.addIssue({ code: "custom", message: "Only available products may have checkoutUrl." });
     }
-    if (data.status === "available" && (!data.hook || !data.reframe || !data.delivery || !data.proof || !data.buyerMotivation || !data.commercialStakes || !data.desiredBusinessState)) {
+    if (data.status === "available" && (!data.hook || !data.reframe || !data.delivery || !data.proof || !data.buyerMotivation || !data.commercialStakes || !data.desiredBusinessState || !data.pageCopy?.motivationEyebrow)) {
       ctx.addIssue({
         code: "custom",
-        message: "Available products require motivation, commercial stakes, desired business state, hook, reframe, delivery details, and a concrete proof element.",
+        message: "Available products require a product-specific motivation eyebrow, motivation, commercial stakes, desired business state, hook, reframe, delivery details, and a concrete proof element.",
       });
     }
   }),

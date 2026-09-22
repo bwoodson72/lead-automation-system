@@ -131,7 +131,7 @@ const productSchema = {
         />
         {merch.purchasable && merch.checkoutUrl && (
           <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-inclusions">
-            Get all {merch.productCount} systems{merch.bundlePriceFormatted ? ` for ${merch.bundlePriceFormatted}` : ""}
+            Get {bundle.data.title}{merch.bundlePriceFormatted ? ` for ${merch.bundlePriceFormatted}` : ""}
           </a>
         )}
       </div>
@@ -165,7 +165,7 @@ const productSchema = {
         <p class="editorial-kicker">{bundle.data.pageCopy?.finalEyebrow ?? "Get the connected system"}</p>
         <h2 class="mt-4 text-4xl font-semibold tracking-tight">{bundle.data.pageCopy?.finalTitle ?? `Build the whole ${merch.stage.toLowerCase()} stage with one purchase.`}</h2>
         <p class="mt-5 text-lg leading-8 text-muted-foreground">{bundle.data.pageCopy?.finalBody ?? "You receive the included systems digitally through Lemon Squeezy after purchase."}</p>
-        <p class="mt-3 text-sm leading-6 text-muted-foreground">Refund requests are handled under the <a class="text-primary-accent hover:underline" href="/refund-policy/">14-day refund policy</a>.</p>
+        <p class="mt-3 text-sm leading-6 text-muted-foreground">One-time purchase. Digital delivery through Lemon Squeezy after checkout. Includes the listed digital guides and companion workbooks. Refund requests are handled under the <a class="text-primary-accent hover:underline" href="/refund-policy/">14-day refund policy</a>.</p>
         <div class="mt-7"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
         <div class="mt-8">{merch.purchasable && merch.checkoutUrl ? <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={bundle.data.slug} data-cta-location="bundle-final">Get {bundle.data.title}</a> : <a href="/products/" class="font-semibold text-primary-accent">Browse the included systems →</a>}</div>
       </div>

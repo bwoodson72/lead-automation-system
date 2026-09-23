@@ -1,18 +1,15 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductCover from "@/components/products/ProductCover.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 const products = await getCollection("products");
 const product = products.find((item) => item.data.slug === "developer-marketing-quickstart");
 if (!product) throw new Error("Developer Marketing Quickstart product entry was not found.");
-const d = product.data;
-const commerce = resolveProductCommerce(d);
+const commerce = resolveProductCommerce(product.data);
 
 const steps = [
   {
@@ -85,17 +82,16 @@ const faqs = [
   description="Stop preparing and start one real round of finding freelance clients with the free Developer Marketing Quickstart guide and workbook."
   enableCheckoutOverlay={commerce.purchasable}
 >
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+  <ProductHero
+    product={product}
+    breadcrumbs={[]}
     eyebrow="Free guide and workbook for freelance developers"
     title="Stop preparing. Start talking to people who might hire you."
     description="The Developer Marketing Quickstart walks you through one real round of finding clients: picking who to serve, finding a problem worth solving, and reaching 25 qualified prospects. You'll finish with real conversations and real answers instead of another plan."
-    supportingItems={["Free. Enter your email on the next screen and it's yours."]}
-  >
-    <div slot="actions"><ProductCTA product={product} location="free-hero" label="Get the Free Quickstart" /></div>
-    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
-  </PageHero>
+    ctaLabel="Get the Free Quickstart"
+    supportingText="Free. Enter your email on the next screen and it's yours."
+    location="free-hero"
+  />
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">

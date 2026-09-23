@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "productize-your-dev-skills");
+if (!sourceProduct) throw new Error("Productize Your Dev Skills product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const previews = d.proofPackage?.previews?.slice(0, 3) ?? [];
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/productize-your-dev-skills/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["A buyer you can actually reach", "A specific type of client you can find, understand, and serve well, instead of \"any business that needs a website.\""],
+  ["A problem worth paying for", "The business result your work produces, so buyers see value before you mention code."],
+  ["A defined service", "What you deliver, what it achieves, and what it includes, written so a buyer can understand it in one read."],
+  ["Scope boundaries", "Clear lines around what's included and what isn't, so extra requests become paid work instead of silent overtime."],
+  ["A delivery structure", "A repeatable way to run the work, so projects get faster and smoother each time and you can do them the right way."],
+  ["Proof that supports the offer", "What evidence this service needs to be believable, and how each project adds to it."],
+  ["A way to test and improve it", "How to put the offer in front of real buyers, learn from what happens, and sharpen it based on evidence."],
+];
+
+const faqs = [
+  { data: { question: "Won't narrowing my offer mean turning away work?", answer: "You can still take other projects when they make sense. The difference is that your marketing, pricing, and pitch focus on one clear service, which usually brings in more of the right work, not less." } },
+  { data: { question: "My clients all need something different. Can I really productize?", answer: "Yes. Productizing doesn't mean every project is identical. It means the buyer, the problem, the core service, and the boundaries are clear, while the details can still flex where they genuinely need to." } },
+  { data: { question: "What if I pick the wrong buyer or service?", answer: "You'll find out quickly, and that's part of the process. The system is built around testing your offer with real buyers and adjusting it based on what actually happens." } },
+  { data: { question: "How long does it take?", answer: "The guide has 11 substantive chapters with 11 matched worksheets. Work through one chapter and its matching worksheet at a time, then use the optional 30-day appendix as a cadence for testing and improving the offer after the first version is built." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Productize Your Dev Skills"
+    title="Your skills are broad. Your offer shouldn't be."
+    description="Turn everything you're able to build into one clear service that the right clients understand, value, and buy. Easier to price, easier to sell, easier to deliver, and much harder to compare against the cheapest bid."
+    supportingItems={["A guide and fill-in workbooks you complete with your own skills and clients."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get Productize Your Dev Skills" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Every prospect gets a different pitch, a different scope, and a different price.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You describe yourself by what you can do: websites, web apps, integrations, fixes, whatever the client needs. It sounds flexible. To a buyer, it sounds vague.</p>
+        <p>So every inquiry starts from scratch. You reinvent the scope on each call, guess at a new price each time, and struggle to say what makes you different from the next developer. Your marketing has nothing specific to say. And clients keep adding “one small change,” because nothing ever defined where the work ends.</p>
+        <p class="font-semibold text-foreground">That isn't a skills problem. It's an offer problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">The same developer, described two ways</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">Before</p>
+          <p class="mt-4 text-xl italic leading-8">“I'm a full-stack developer. I build custom websites and web applications for businesses of all sizes.”</p>
+          <p class="mt-5 leading-7 text-muted-foreground">A plumbing company owner reads that and has no idea whether you're right for him, what it costs, or what he'd get. So he compares you on price with every other developer who said the same thing.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">After</p>
+          <p class="mt-4 text-xl italic leading-8">“I build fast websites for home service companies that turn local searches into booked jobs. Fixed scope, launched in four weeks, with a clear monthly option to keep it working.”</p>
+        </div>
+      </div>
+      <div class="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        <div class="bg-background p-6"><p><strong>Your pitch</strong> is the same every time, because you're solving the same problem for the same kind of buyer.</p></div>
+        <div class="bg-background p-6"><p><strong>Your price</strong> has a stable thing to be attached to, so you can refine it instead of reinventing it.</p></div>
+        <div class="bg-background p-6"><p><strong>Your scope</strong> has boundaries, so “can you also add...” becomes a paid add-on instead of free work.</p></div>
+        <div class="bg-background p-6"><p><strong>Your proof</strong> gets stronger with every project, because each one is evidence for the same promise.</p></div>
+        <div class="bg-background p-6 md:col-span-2"><p><strong>Your marketing</strong> finally has something specific to say, and a specific place to say it.</p></div>
+      </div>
+      <p class="mt-8 text-xl font-semibold">Same skills. Same developer. A completely different business to buy from.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example. Your buyer and service will be your own.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies don't sell “whatever you need.”</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Look at how agencies present development work. They sell named services: a website package, a launch plan, a monthly care plan. Each one has a defined buyer, a defined result, a defined process, and a price.</p>
+        <p>That structure is why a client can say yes quickly, why the agency can charge more for the same code you'd write, and why their projects don't drift. Productize Your Dev Skills gives a one-person business that same clarity, without forcing you into rigid templates. You keep your judgment and can still customize where the work truly requires it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You stop explaining yourself from scratch on every call.</p>
+        <p>Quoting gets faster, and your prices stop drifting down to match whoever bid lowest.</p>
+        <p>Scope creep has a clear answer, and clients stop treating you like an on-call employee.</p>
+        <p>Your projects start to look alike in the best way: smoother, faster, and more profitable each time.</p>
+        <p>And as AI makes generic development cheaper, you're no longer selling “code.” You're selling a specific result for a specific kind of business, which is much harder to replace.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="You finish with a written offer you can put straight into your website, your outreach, and your proposals."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers your offer at a foundational level. This goes much deeper, for when your business review shows the offer is the part holding you back.</p>
+        <p><strong class="text-foreground">Not sure yet?</strong> If you're also unsure about pricing, finding clients, or closing deals, start with the <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Launch Kit</a> instead. It builds every part of the business together.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">A clear offer tends to raise your price, shorten your sales conversations, and cut the unpaid work that scope creep creates. If it helps you win one more project, or recover a few hours of free revisions on each one, it has paid for itself many times over.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get Productize Your Dev Skills" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Stop selling everything. Start selling something clients can say yes to.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">One clear offer makes pricing easier, selling easier, and delivery easier. It's the foundation the rest of your business builds on.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get Productize Your Dev Skills" /></div>
+    </div>
+  </section>
+</BaseLayout>

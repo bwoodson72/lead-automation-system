@@ -16,7 +16,7 @@ const { title, description, eyebrow, noindex = false } = Astro.props;
   />
   <article class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
     <div class="mx-auto max-w-3xl">
-      <div class="space-y-8 text-base leading-8 text-muted-foreground [&_a]:text-primary-accent [&_h2]:pt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-foreground">
+      <div class="space-y-8 text-base leading-8 text-muted-foreground [&_a:not([data-slot=button])]:text-primary-accent [&_h2]:pt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-foreground">
         <slot />
       </div>
     </div>

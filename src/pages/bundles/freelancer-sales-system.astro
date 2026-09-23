@@ -1,0 +1,212 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import { button } from "@/components/starwind/button/variants";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
+import { isPublicProduct } from "@/lib/storefront-visibility";
+import { applyBundleCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceBundle = (await getCollection("bundles")).find((entry) => entry.data.slug === "freelancer-sales-system");
+if (!sourceBundle) throw new Error("Freelancer Sales System record not found.");
+const products = (await getCollection("products")).filter(isPublicProduct);
+const merch = getBundleMerchandising(sourceBundle, products);
+const d = cleanPublicCopyTree(applyBundleCopyOverride(sourceBundle.data));
+const checkoutClass = button({ class: "lemonsqueezy-button" });
+
+const money = (value?: number) => value === undefined
+  ? undefined
+  : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const bundlePriceLine = merch.bundlePriceFormatted ? `${merch.bundlePriceFormatted}, one-time` : "One-time purchase";
+const separateTotal = money(merch.separateValue);
+const savingsAmount = money(merch.savings);
+
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/bundles/freelancer-sales-system/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Bundles", item: new URL("/bundles/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#bundle`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: "Business system bundle",
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(merch.purchasable && merch.bundlePrice ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: merch.bundlePrice.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const faqs = [
+  { data: { question: "Should I get this or the Launch Kit?", answer: "If several parts of your business need work, start with the Launch Kit. If you're already getting good opportunities but losing too many of them, or too much money on them, this bundle goes much deeper on exactly that." } },
+  { data: { question: "I hate selling. Is this for me?", answer: "Yes. None of these systems use pressure tactics or scripts. They're built around understanding the client, making clear decisions together, and protecting both sides with clear terms." } },
+  { data: { question: "Do I have to use them in order?", answer: "They follow the natural order of a deal, so that's the easiest way to use them. But if one stage is clearly where you're losing the most money, you can start there." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the bundle, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={merch.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Bundles", href: "/bundles/" }, { label: d.title }]}
+    eyebrow="Freelancer Sales System"
+    title="From first sales call to monthly revenue, without losing the deal along the way."
+    description="Three systems that carry a good opportunity all the way through: a sales conversation that ends in a clear decision, a proposal and close that protect your price, and a retainer that keeps the client paying after launch. Each one picks up exactly where the last one ends."
+    supportingItems={["Includes Developer Sales Playbook, Developer Proposal & Closing Kit, and Freelancer Retainer System."]}
+  >
+    <div slot="actions" class="space-y-3">
+      <p class="text-lg font-semibold text-white">{bundlePriceLine}</p>
+      {savingsAmount && <p class="text-sm text-white/70">Save {savingsAmount} compared to buying separately.</p>}
+      {merch.purchasable && merch.checkoutUrl && (
+        <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-hero">Get the Freelancer Sales System</a>
+      )}
+    </div>
+    {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt="Freelancer Sales System product mockup" class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">You're getting opportunities. Too many of them leak out.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>The calls are happening. But good conversations go quiet before a proposal. Proposals turn into free consulting or a discount. Projects start before the deposit clears. And when the work is done, a great client relationship ends with a final invoice, followed by months of unpaid favors.</p>
+        <p>Each of those leaks happens at a handoff: from conversation to proposal, from proposal to project, from project to what comes next. Information gets lost, momentum stalls, and money slips away.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">One deal, start to finish</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">The sales call</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">A business owner wants a new website. Instead of just promising a proposal, you learn that his business partner has to approve spending, the budget is lower than a full rebuild, and a trade show in three months makes the deadline real. You agree on a smaller first phase and schedule a call that includes his partner.</p>
+        </article>
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">The proposal and close</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Because the important questions were answered on the call, the proposal simply confirms what everyone already agreed. When the partner asks for a lower price, you offer to spread payments across three milestones instead of cutting the fee. They sign, the deposit clears, and the project starts with scope, timeline, and payment locked in.</p>
+        </article>
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">After launch</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">The site goes live before the trade show. You offer a monthly care plan at $400 covering updates, monitoring, and a set amount of changes each month. They say yes, and a single project becomes $4,800 a year in recurring income, on top of the project fee.</p>
+        </article>
+      </div>
+      <p class="mt-8 text-xl font-semibold">Without the connected system, the same opportunity could easily have ended in a ghosted proposal, a discounted project, or a year of free support.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What's included</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Developer Sales Playbook</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">Turn good sales conversations into clear decisions, without scripts or pressure.</p>
+          <a class="mt-5 inline-flex font-semibold text-primary-accent hover:underline" href="/products/developer-sales-playbook/">Learn more →</a>
+        </article>
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Developer Proposal & Closing Kit</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">Get the deal signed, paid, and started without giving away your margin.</p>
+          <a class="mt-5 inline-flex font-semibold text-primary-accent hover:underline" href="/products/developer-proposal-closing-kit/">Learn more →</a>
+        </article>
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Freelancer Retainer System</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">Turn successful projects into steady monthly income, with boundaries that protect your time.</p>
+          <a class="mt-5 inline-flex font-semibold text-primary-accent hover:underline" href="/products/freelancer-retainer-system/">Learn more →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">How to use them together</h2>
+      <ol class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <li><strong class="text-foreground">1. Run the conversation</strong> with the Developer Sales Playbook, ending when the opportunity is ready for a proposal.</li>
+        <li><strong class="text-foreground">2. Close the deal</strong> with the Developer Proposal & Closing Kit, carrying everything from the sales call into the proposal, agreement, payment, and project start.</li>
+        <li><strong class="text-foreground">3. Keep the relationship going</strong> with the Freelancer Retainer System, turning successful delivery into recurring revenue where the client has a real ongoing need.</li>
+      </ol>
+      <p class="mt-7 text-xl font-semibold">What you learn at each stage carries into the next, so nothing important gets lost between the call, the contract, and the care plan.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Fewer good opportunities disappear after the first call.</p>
+        <p>Proposals get signed instead of revised and discounted.</p>
+        <p>Every project starts with scope and payment locked in.</p>
+        <p>Happy clients keep paying you after launch.</p>
+        <p>And each client becomes worth far more over time, without needing more leads to get there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Want the whole business built at once?</strong> The <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Freelance Developer Launch Kit</a> covers sales, closing, and future demand at a foundational level, along with offer, pricing, acquisition, and more. This bundle goes much deeper on turning opportunities into revenue.</p>
+        <p><strong class="text-foreground">Not getting enough sales calls yet?</strong> Start with the <a class="font-semibold text-primary-accent hover:underline" href="/bundles/client-acquisition-bundle/">Client Acquisition Bundle</a>. This bundle helps most once real opportunities are coming in.</p>
+        <p><strong class="text-foreground">Unsure what to charge?</strong> Pair this with the <a class="font-semibold text-primary-accent hover:underline" href="/bundles/freelancer-starter-bundle/">Freelancer Starter Bundle</a>, which includes the Web Developer Pricing System.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Bought separately, these three systems cost {separateTotal ?? "their current individual total"}. The bundle is {merch.bundlePriceFormatted ?? "available as one purchase"}.</p>
+      <p class="mx-auto mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">One lost deal, one unnecessary discount, or one year of unpaid support can each cost more than the entire bundle. A single retainer can repay it in a few months.</p>
+      <p class="mt-8 text-lg font-semibold">{bundlePriceLine}</p>
+      {merch.purchasable && merch.checkoutUrl && <div class="mt-5 flex justify-center"><a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-value">Get the Freelancer Sales System</a></div>}
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs.map((faq, index) => ({ data: { ...faq.data, order: index } }))} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Stop losing good deals between the call and the contract.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Close more of the opportunities you already have, at the price they deserve, and keep the best clients paying long after launch.</p>
+      <p class="mt-8 text-lg font-semibold">{bundlePriceLine}</p>
+      {merch.purchasable && merch.checkoutUrl && <div class="mt-5 flex justify-center"><a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-final">Get the Freelancer Sales System</a></div>}
+    </div>
+  </section>
+</BaseLayout>

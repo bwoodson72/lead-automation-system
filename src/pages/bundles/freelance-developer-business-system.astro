@@ -1,0 +1,270 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import { button } from "@/components/starwind/button/variants";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { getBundleMerchandising } from "@/lib/bundle-merchandising";
+import { isPublicProduct } from "@/lib/storefront-visibility";
+import { applyBundleCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceBundle = (await getCollection("bundles")).find((entry) => entry.data.slug === "freelance-developer-business-system");
+if (!sourceBundle) throw new Error("Freelance Developer Business System record not found.");
+const products = (await getCollection("products")).filter(isPublicProduct);
+const merch = getBundleMerchandising(sourceBundle, products);
+const d = cleanPublicCopyTree(applyBundleCopyOverride(sourceBundle.data));
+const checkoutClass = button({ class: "lemonsqueezy-button" });
+
+const money = (value?: number) => value === undefined
+  ? undefined
+  : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const bundlePriceLine = merch.bundlePriceFormatted ? `${merch.bundlePriceFormatted}, one-time` : "One-time purchase";
+const separateTotal = money(merch.separateValue);
+const savingsAmount = money(merch.savings);
+
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/bundles/freelance-developer-business-system/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Bundles", item: new URL("/bundles/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#bundle`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: "Business system bundle",
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(merch.purchasable && merch.bundlePrice ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: merch.bundlePrice.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const constraints = [
+  ["Your offer is vague and every pitch is different?", "Productize Your Dev Skills."],
+  ["You're guessing what to charge?", "Web Developer Pricing System."],
+  ["Buyers can't see why you cost more?", "Marketing for Builders."],
+  ["A project ends and nothing is lined up?", "Client Acquisition Without Upwork."],
+  ["Your posts get likes but no clients?", "Social Media Client Acquisition System."],
+  ["Good calls go quiet?", "Developer Sales Playbook."],
+  ["Proposals turn into free consulting or discounts?", "Developer Proposal & Closing Kit."],
+  ["One agency controls your income?", "Agency Partnership Playbook."],
+  ["Great projects end with a final invoice?", "Freelancer Retainer System."],
+];
+
+const faqs = [
+  {
+    data: {
+      question: "If the Launch Kit is complete, why would I want the other nine?",
+      answer: "Because complete and deep aren't the same thing. The Launch Kit builds every part of your business and gets it running. The specialist systems go much further on one part, for the moment that part becomes the thing holding you back. Think of the Launch Kit as the whole house, and the specialist systems as the expert you call when the plumbing needs serious work.",
+    },
+  },
+  {
+    data: {
+      question: "Won't ten products be overwhelming?",
+      answer: "Only if you try to use them all at once, and you won't. Start with the Launch Kit, run the business, and let your review tell you what needs attention. Everything else waits on the shelf until it's useful.",
+    },
+  },
+  {
+    data: {
+      question: "Should I get this or just the Launch Kit?",
+      answer: "Get the Launch Kit if you want to build the business first and decide later. Get the complete system if you've already decided you're in this for the long run and want every deeper system ready before you need it.",
+    },
+  },
+  {
+    data: {
+      question: "I already know exactly what's broken. Do I need all of this?",
+      answer: "Probably not. Buy the system or focused bundle for that problem and fix it. The complete system is for developers who expect to keep improving the whole business over time.",
+    },
+  },
+  {
+    data: {
+      question: "How is this different from buying the three focused bundles?",
+      answer: "The focused bundles each go deep on one stage: the foundation, finding clients, or sales. The complete system adds the Launch Kit, which ties the whole business together, and puts every specialist system in one library. If one stage is clearly the problem, a focused bundle may be all you need. If you want the whole business plus depth for whatever comes next, this is the one.",
+    },
+  },
+  {
+    data: {
+      question: "What if it isn't right for me?",
+      answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. If you decide the system isn't useful for your business, you can request a refund within 14 days of purchase.",
+    },
+  },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={merch.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Bundles", href: "/bundles/" }, { label: d.title }]}
+    eyebrow="Freelance Developer Business System"
+    title="Decide you're doing this for real."
+    description="Stop patching your freelance business one problem at a time. Build the whole thing with the Launch Kit, then keep nine deeper systems ready for whatever needs work next."
+    supportingItems={["Includes the Freelance Developer Launch Kit and all nine specialist systems."]}
+  >
+    <div slot="actions" class="space-y-3">
+      <p class="text-lg font-semibold text-white">{bundlePriceLine}</p>
+      {savingsAmount && <p class="text-sm text-white/70">Save {savingsAmount} compared to buying separately.</p>}
+      {merch.purchasable && merch.checkoutUrl && (
+        <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-hero">Get the Complete System</a>
+      )}
+    </div>
+    {merch.image && <div slot="visual" class="min-w-0"><Image src={merch.image} alt="Freelance Developer Business System product mockup" class="mx-auto max-h-[30rem] w-full object-contain" widths={[480, 720, 960]} sizes="(min-width: 1024px) 38vw, 90vw" /></div>}
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">At some point, you have to decide.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You've been freelancing for a while now. You've had great months and scary ones. You've picked up a pricing tip here, a marketing idea there, and a proposal template when a big lead showed up. Some of it helped. None of it added up to a business.</p>
+        <p>And somewhere in the back of your mind, there's a question you don't say out loud: <em class="text-foreground">Is this going to work, or am I eventually going back to a job?</em></p>
+        <p>The developers who make freelancing last usually aren't more talented than you. At some point, they stopped fixing the business one emergency at a time and built the whole thing on purpose.</p>
+        <p class="text-xl font-semibold text-foreground">This is that decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Every freelance business hits a new constraint. You'll already have the next step.</h2>
+      <div class="mt-6 max-w-4xl space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Fix your pricing, and you'll need more clients to be choosy. Get more clients, and you'll need to close them better. Close more deals, and you'll want recurring revenue to smooth out the year. That's how a business grows: solve one problem, and the next one shows up.</p>
+        <p>The Launch Kit already covers every one of these at a foundational level. When one of them becomes the thing holding you back, the matching system takes it much further:</p>
+      </div>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {constraints.map(([problem, system]) => (
+          <article class="bg-background p-7">
+            <h3 class="text-lg font-semibold">{problem}</h3>
+            <p class="mt-3 leading-7 text-muted-foreground">{system}</p>
+          </article>
+        ))}
+      </div>
+      <p class="mt-8 text-xl font-semibold">Whatever needs more depth next, it's already on your shelf.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">One year of running it for real</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">Month 1</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">A developer works through the Launch Kit and builds the first complete version of his business: a clear offer, real pricing, a pipeline, a sales process, and a regular review.</p>
+        </article>
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">Month 3</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">His review shows he's winning work but losing money on hidden hours. He opens the Web Developer Pricing System and raises his prices with confidence.</p>
+        </article>
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">Month 6</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Better prices mean he can be pickier, but now he needs more good opportunities. He builds his pipeline with Client Acquisition Without Upwork and adds a second agency using the Agency Partnership Playbook.</p>
+        </article>
+        <article class="bg-background p-7">
+          <p class="editorial-kicker">Month 10</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Past clients keep asking for small changes. He sets up care plans with the Freelancer Retainer System, and monthly income starts arriving before he has to win another project.</p>
+        </article>
+      </div>
+      <p class="mt-8 text-xl font-semibold">He never used all ten systems at once, and he never had to go looking for help. Each time one part of the business needed more, the deeper system was already there.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example.</p>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">How to use it</h2>
+      <p class="mt-6 text-lg leading-8 text-muted-foreground">You won't work through ten products in a row. Here's how it actually works:</p>
+      <ol class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <li><strong class="text-foreground">1. Build the foundation</strong> with the Launch Kit.</li>
+        <li><strong class="text-foreground">2. Run your business</strong> on it.</li>
+        <li><strong class="text-foreground">3. Find the constraint.</strong> Your business review shows the one part holding everything else back.</li>
+        <li><strong class="text-foreground">4. Open the matching system</strong> and take that part deeper.</li>
+        <li><strong class="text-foreground">5. Review again,</strong> and repeat.</li>
+      </ol>
+      <p class="mt-7 text-xl font-semibold">One system at a time, when your business tells you it's needed.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You stop dabbling and start running a real business.</p>
+        <p>You always know what needs work next, and you already have the system to go deeper on it.</p>
+        <p>More of the money you earn stays in the business, and more of next month's income is already in motion before this month ends.</p>
+        <p>You stop buying scattered advice every time a new problem shows up.</p>
+        <p>And the question about going back to a job gets quieter, because the business finally has a plan behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What's included</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">The foundation:</strong> Freelance Developer Launch Kit. <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Learn more →</a></p>
+        <p><strong class="text-foreground">Nine specialist systems:</strong> Productize Your Dev Skills, Web Developer Pricing System, Marketing for Builders, Client Acquisition Without Upwork, Social Media Client Acquisition System, Developer Sales Playbook, Developer Proposal & Closing Kit, Agency Partnership Playbook, and Freelancer Retainer System. <a class="font-semibold text-primary-accent hover:underline" href="/products/">See all products →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Want to start smaller?</strong> The <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Launch Kit</a> is complete on its own. You can start there and add systems as you need them.</p>
+        <p><strong class="text-foreground">Already know your one problem?</strong> Each system is available individually, and three focused bundles cover the <a class="font-semibold text-primary-accent hover:underline" href="/bundles/freelancer-starter-bundle/">foundation</a>, <a class="font-semibold text-primary-accent hover:underline" href="/bundles/client-acquisition-bundle/">client acquisition</a>, and <a class="font-semibold text-primary-accent hover:underline" href="/bundles/freelancer-sales-system/">sales</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Bought separately, all ten systems cost {separateTotal ?? "their current individual total"}. The complete system is {merch.bundlePriceFormatted ?? "available as one purchase"}.</p>
+      <p class="mx-auto mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">As your business grows, you'll probably reach for more than one of them. One better-priced project, one shorter gap between clients, or one new retainer can each cover the cost of the entire library.</p>
+      <p class="mt-8 text-lg font-semibold">{bundlePriceLine}</p>
+      {merch.purchasable && merch.checkoutUrl && <div class="mt-5 flex justify-center"><a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-value">Get the Complete System</a></div>}
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs.map((faq, index) => ({ data: { ...faq.data, order: index } }))} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">You went independent for a reason. Build the business that makes it last.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The complete foundation, plus deeper systems for whatever needs work next.</p>
+      <p class="mt-8 text-lg font-semibold">{bundlePriceLine}</p>
+      {merch.purchasable && merch.checkoutUrl && <div class="mt-5 flex justify-center"><a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-final">Get the Complete System</a></div>}
+    </div>
+  </section>
+</BaseLayout>

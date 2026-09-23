@@ -2,75 +2,81 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
-import BundleOfferCard from "@/components/products/BundleOfferCard.astro";
+import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { getBundleMerchandising } from "@/lib/bundle-merchandising";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
-import { applyBundleCopyOverride } from "@/lib/copy-overrides";
 
-const bundles = (await getCollection("bundles")).filter(isPublicBundle).sort((a, b) => a.data.order - b.data.order);
+const bundles = (await getCollection("bundles")).filter(isPublicBundle);
 const products = (await getCollection("products")).filter(isPublicProduct);
-const merchandising = bundles.map((bundle) => ({ bundle, merch: getBundleMerchandising(bundle, products), data: applyBundleCopyOverride(bundle.data) }));
-const hasCheckout = merchandising.some(({ merch }) => merch.purchasable);
+const bundleBySlug = (slug: string) => bundles.find((entry) => entry.data.slug === slug);
+const money = (value?: number) => value === undefined ? undefined : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
-const situationCopy: Record<string, { situation: string; develops: string; payoff: string }> = {
-  "freelancer-starter-bundle": {
-    situation: "Your technical skill is stronger than the commercial foundation under it.",
-    develops: "Offer definition, project economics, and buyer-facing marketing.",
-    payoff: "Make the work easier to buy and more worthwhile to sell."
+const cards = [
+  {
+    slug: "freelancer-starter-bundle",
+    fit: "For when you're not sure what you sell, what to charge, or why clients should care.",
+    body: "A clear offer, prices based on real numbers, and marketing that shows buyers why you're worth it. Each one makes the others work.",
+    includes: "Productize Your Dev Skills, Web Developer Pricing System, Marketing for Builders",
+    cta: "See the Starter Bundle →",
   },
-  "client-acquisition-bundle": {
-    situation: "Future work depends too heavily on one or two ways opportunity enters the business.",
-    develops: "Market-facing relevance, one acquisition backbone, social relationships, and agency access.",
-    payoff: "Give good opportunities more than one path into the pipeline."
+  {
+    slug: "client-acquisition-bundle",
+    fit: "For when your skills aren't the problem, but getting enough good clients is.",
+    body: "Several reliable routes to new clients, all feeding one pipeline you can see and manage, so no single source controls your income.",
+    includes: "Marketing for Builders, Client Acquisition Without Upwork, Social Media Client Acquisition System, Agency Partnership Playbook",
+    cta: "See the Client Acquisition Bundle →",
   },
-  "freelancer-sales-system": {
-    situation: "Serious buyer interest exists, but too much value disappears between conversation, commitment, payment, and what happens after delivery.",
-    develops: "Sales decisions, proposal and closing, paid project start, and the post-delivery continuing-need decision.",
-    payoff: "Protect more of the value you already worked to create."
+  {
+    slug: "freelancer-sales-system",
+    fit: "For when opportunities come in, but too many slip away or lose money.",
+    body: "Carry a good opportunity from first sales call to signed, paid project, and keep the best clients paying after launch.",
+    includes: "Developer Sales Playbook, Developer Proposal & Closing Kit, Freelancer Retainer System",
+    cta: "See the Freelancer Sales System →",
   },
-  "freelance-developer-business-system": {
-    situation: "Several parts of the freelance business need a common foundation and deeper specialist work over time.",
-    develops: "The complete Launch Kit foundation plus specialist depth across the broader commercial cycle.",
-    payoff: "Build the whole business once, then go deeper where the business needs it next."
-  }
-};
+  {
+    slug: "freelance-developer-business-system",
+    fit: "For when you've decided you're doing this for real.",
+    body: "The Launch Kit to build the whole business, plus all nine deeper systems ready for whatever needs work next.",
+    includes: "Freelance Developer Launch Kit and all nine specialist systems",
+    cta: "See the Complete System →",
+  },
+];
 ---
 
-<BaseLayout title="Freelance Developer Bundles | Developer Business Lab" description="Choose a Developer Business Lab bundle when several connected freelance business problems need to move together across your commercial foundation, acquisition, sales, or complete business system." enableCheckoutOverlay={hasCheckout}>
+<BaseLayout title="Bundles | Developer Business Lab" description="Compare Developer Business Lab bundles for connected problems across your freelance foundation, client acquisition, sales, and complete business system.">
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-    eyebrow="Developer Business Lab bundles"
-    title="When one problem is really several connected problems, work on the whole part of the business."
-    description="Choose the bundle by the business condition you want to leave behind. Product count and savings are supporting facts. The reason to buy a bundle is that several connected decisions need to improve together."
-    primaryCta={{ label: "Help Me Choose", href: "/start/" }}
-    supportingItems={["Four current bundles", "Connected commercial outcomes", "Live pricing and savings"]}
-  />
+    eyebrow="Bundles"
+    title="When the problems are connected, fix them together."
+    description="Business problems rarely show up alone. A vague offer makes pricing harder. Weak pricing makes marketing harder. An empty pipeline makes every sales call feel like one you can't lose. Each bundle groups the systems that solve a connected set of problems, for less than buying them separately."
+  >
+    <div slot="actions"><a class="font-semibold text-primary-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline" href="/start/">Not sure which one fits? Start Here →</a></div>
+  </PageHero>
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-end"><div><p class="editorial-kicker">Choose the scope that matches the problem</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">How much of the business needs to move together?</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">A bundle is useful when fixing one piece would still leave the larger outcome constrained by another connected decision. If one problem is clearly the problem, the focused product is usually the better purchase.</p></div>
-
-      <div class="mt-10 space-y-8">
-        {merchandising.map(({ bundle, merch, data }) => {
-          const copy = situationCopy[data.slug];
+      <div class="space-y-8">
+        {cards.map((card) => {
+          const bundle = bundleBySlug(card.slug);
+          if (!bundle) return null;
+          const merch = getBundleMerchandising(bundle, products);
+          const savings = money(merch.savings);
           return (
             <article class="border border-border bg-background p-7 lg:p-9">
-              <div class="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:gap-16">
+              <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
                 <div>
-                  <p class="editorial-kicker">{merch.stage}</p>
-                  <h3 class="mt-3 text-3xl font-semibold tracking-tight">{data.title}</h3>
-                  <p class="mt-4 text-lg leading-8 text-muted-foreground">{data.hook ?? data.shortDescription}</p>
-                  <p class="mt-6"><a class="font-semibold text-primary-accent hover:underline" href={`/bundles/${data.slug}/`}>Explore {data.title} →</a></p>
+                  <h2 class="text-3xl font-semibold tracking-tight">{bundle.data.title}</h2>
+                  <p class="mt-4 text-lg italic leading-8 text-muted-foreground">{card.fit}</p>
+                  <p class="mt-5 text-lg leading-8 text-muted-foreground">{card.body}</p>
                 </div>
-                <dl class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-                  <div class="bg-background p-5"><dt class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Current situation</dt><dd class="mt-3 leading-7">{copy?.situation ?? data.outcome}</dd></div>
-                  <div class="bg-background p-5"><dt class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">What the bundle develops</dt><dd class="mt-3 leading-7">{copy?.develops ?? data.whyTogether}</dd></div>
-                  <div class="bg-background p-5"><dt class="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Practical payoff</dt><dd class="mt-3 leading-7">{copy?.payoff ?? data.shortDescription}</dd></div>
-                </dl>
+                <div class="border-t border-border pt-7 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
+                  <p class="leading-7 text-muted-foreground"><strong class="text-foreground">Includes:</strong> {card.includes}</p>
+                  <p class="mt-6 text-lg font-semibold">{merch.bundlePriceFormatted ?? "One-time purchase"}{savings ? ` · Save ${savings}` : ""}</p>
+                  <p class="mt-5"><TextLink href={`/bundles/${card.slug}/`}>{card.cta}</TextLink></p>
+                </div>
               </div>
-              <div class="mt-8 border-t border-border pt-7"><BundleOfferCard bundle={bundle} products={products} /></div>
             </article>
           );
         })}
@@ -78,5 +84,20 @@ const situationCopy: Record<string, { situation: string; develops: string; payof
     </div>
   </section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">When one problem is the problem</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Solve it directly.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>If the service is already clear and pricing is the only weak point, use the Pricing System. If qualified opportunity creation is the constraint, use the acquisition system. If sales is working but recurring client demand is not structured, use the Retainer System.</p><p>The bundle should match the scope of the business condition you are trying to change, not simply the largest purchase available.</p><p><a class="font-semibold text-primary-accent hover:underline" href="/products/">Browse focused products →</a></p></div></div></section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">How to choose</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        <article class="bg-background p-7"><h3 class="text-xl font-semibold">One problem is clearly the problem?</h3><p class="mt-4 leading-7 text-muted-foreground">You may not need a bundle. <a class="font-semibold text-primary-accent hover:underline" href="/products/">Browse individual systems →</a></p></article>
+        <article class="bg-background p-7"><h3 class="text-xl font-semibold">Your offer, pricing, or marketing are the weak spot?</h3><p class="mt-4 leading-7 text-muted-foreground">Freelancer Starter Bundle.</p></article>
+        <article class="bg-background p-7"><h3 class="text-xl font-semibold">You don't have enough good clients?</h3><p class="mt-4 leading-7 text-muted-foreground">Client Acquisition Bundle.</p></article>
+        <article class="bg-background p-7"><h3 class="text-xl font-semibold">You have opportunities, but deals slip away or lose money?</h3><p class="mt-4 leading-7 text-muted-foreground">Freelancer Sales System.</p></article>
+        <article class="bg-background p-7 md:col-span-2"><h3 class="text-xl font-semibold">Several parts of the business need work?</h3><p class="mt-4 leading-7 text-muted-foreground">Start with the <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Freelance Developer Launch Kit</a>, or get the <a class="font-semibold text-primary-accent hover:underline" href="/bundles/freelance-developer-business-system/">Freelance Developer Business System</a> if you want the deeper systems ready too.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl text-sm text-muted-foreground">Every purchase is covered by Developer Business Lab's 14-Day Satisfaction Guarantee. <a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy</a></div>
+  </section>
 </BaseLayout>

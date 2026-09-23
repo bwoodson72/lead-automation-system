@@ -8,305 +8,68 @@ import TextLink from "@/components/ui/TextLink.astro";
 import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { isPublicProduct } from "@/lib/storefront-visibility";
+import { applyProductCopyOverride, sanitizePublicCopy } from "@/lib/copy-overrides";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
 const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
 const launchKit = productBySlug("freelance-developer-launch-kit");
 
-const paths = [
-  ["Offer", "I need an offer buyers can understand, value, and actually buy.", "productize-your-dev-skills"],
-  ["Pricing", "I need to know what this work must earn before I say yes to the project.", "web-developer-pricing-system"],
-  ["Pipeline", "I want more control over where the next opportunity comes from.", "client-acquisition-without-upwork"],
-  ["Marketing", "I need buyers to understand why my technical work is worth paying for.", "marketing-for-builders"],
-  ["Sales", "I get interest, but too many good opportunities drift without a decision.", "developer-sales-playbook"],
-  ["Proposals", "I spend too much time proposing before the buyer is ready to buy.", "developer-proposal-closing-kit"],
-  ["Partnerships", "I want repeat agency work without giving away margin or capacity.", "agency-partnership-playbook"],
-  ["Retention", "I want recurring revenue when a client has a real ongoing need.", "freelancer-retainer-system"],
-];
+const routes = sanitizePublicCopy([
+  ["Offer", "I can do the work, but buyers still get a moving target.", "productize-your-dev-skills"],
+  ["Pricing", "I need to know whether this project is worth taking before I quote it.", "web-developer-pricing-system"],
+  ["Marketing", "I need the right buyers to understand why my technical work matters.", "marketing-for-builders"],
+  ["Pipeline", "I need enough qualified opportunity moving that every inquiry is not necessary revenue.", "client-acquisition-without-upwork"],
+  ["Social", "I spend time in public, but I cannot see a credible path from attention to client opportunity.", "social-media-client-acquisition-system"],
+  ["Sales", "Good buyer conversations are happening, but too many end without a commercial decision.", "developer-sales-playbook"],
+  ["Closing", "The opportunity is ready, but proposal, negotiation, payment, or project start still feels loose.", "developer-proposal-closing-kit"],
+  ["Agencies", "I want repeat agency access without giving one partner too much influence over my business.", "agency-partnership-playbook"],
+  ["Retainers", "Good clients still need useful work after launch, but the next commercial relationship is undefined.", "freelancer-retainer-system"],
+]);
 
-const resolvedPaths = paths.flatMap(([stage, problem, slug]) => {
+const resolvedRoutes = routes.flatMap(([stage, problem, slug]) => {
   const product = productBySlug(slug);
   return product ? [{ stage, problem, product }] : [];
 });
 
-const betterStates = [
-  {
-    title: "Price work for the business you want",
-    description: "You know what the engagement must cover, where the uncertainty sits, and whether the price supports the economics of taking the work.",
-  },
-  {
-    title: "Create demand before you need it",
-    description: "Client delivery does not erase acquisition. You keep enough buyer access and pipeline activity moving that the next project is not left entirely to luck.",
-  },
-  {
-    title: "Choose work more deliberately",
-    description: "A healthier pipeline and clearer qualification make it easier to reshape or walk away from poor-fit opportunities instead of treating every inquiry as necessary revenue.",
-  },
-  {
-    title: "Keep more of what you earn",
-    description: "Better scope, change control, payment, delivery, and legitimate recurring work help protect margin and reduce the amount of revenue that leaks through avoidable business mistakes.",
-  },
-];
-
-const artifacts = [
-  {
-    title: "Offer and scope record",
-    description: "Define what you sell, who it is for, what is included, and where the boundary sits before a prospect asks you to improvise it.",
-  },
-  {
-    title: "Pricing calculation",
-    description: "Work through the economics and assumptions behind a quote so the number has a reason before it reaches the client.",
-  },
-  {
-    title: "Pipeline operating record",
-    description: "Keep prospects, next actions, and follow-up visible so acquisition does not have to restart from memory after a busy project.",
-  },
-  {
-    title: "Proposal readiness decision",
-    description: "Separate opportunities that are ready for a proposal from conversations that still need discovery, qualification, or a clearer decision process.",
-  },
+const outcomes = [
+  { title: "Quote without panic", description: "A project does not have to be won at any price because you understand what the work needs to support and other opportunities can still be developing." },
+  { title: "Finish a project without starting from zero", description: "Buyer access and pipeline activity do not disappear simply because delivery became busy." },
+  { title: "Turn down work that consumes the wrong part of your calendar", description: "Better qualification, pricing, and pipeline visibility make a weak-fit project easier to reject or reshape." },
+  { title: "Build a business that belongs to you", description: "Your reputation, client relationships, commercial process, and future income depend less on one employer, platform, referral source, agency, or client." },
 ];
 
 const faqs = [
-  {
-    data: {
-      order: 1,
-      question: "Where should I start if several parts of the business are holding me back?",
-      answer: "Start with the Freelance Developer Launch Kit. It is the broad starting point for building the commercial foundation as one connected system. If one problem is already obvious, such as pricing or client acquisition, a focused guide may be the faster route.",
-    },
-  },
-  {
-    data: {
-      order: 2,
-      question: "Do I need to buy the whole catalog?",
-      answer: "No. Buy the smallest system that matches the problem you need to solve. The Launch Kit covers the whole foundation, focused guides go deeper on one commercial constraint, and bundles make sense when several related systems genuinely need to work together.",
-    },
-  },
-  {
-    data: {
-      order: 3,
-      question: "What am I actually buying?",
-      answer: "Developer Business Lab sells downloadable educational products: instructional guides, implementation workbooks, worked examples, and business records you can put into use. They are built to help you develop the business capabilities around your technical work.",
-    },
-  },
-  {
-    data: {
-      order: 4,
-      question: "Can I start without buying anything?",
-      answer: "Yes. Developer Marketing Quickstart is the free starting point. It takes you through one complete acquisition cycle so you can identify a reachable buyer, shape an offer, create a qualified prospect set, work the cycle, and learn from what happens.",
-    },
-  },
+  { data: { order: 1, question: "Where should I start if several parts of the business feel weak?", answer: "Start with the Freelance Developer Launch Kit. It builds the first complete operating foundation across offer, economics, buyer access, sales, delivery, future demand, and management review. If one constraint is already obvious, use the focused system for that problem." } },
+  { data: { order: 2, question: "Do I need to buy the whole catalog?", answer: "No. Buy the smallest system that matches the problem. Focused products go deep on one constraint, bundles connect several related constraints, the Launch Kit builds the first complete foundation, and the complete Business System adds specialist depth across the broader commercial cycle." } },
+  { data: { order: 3, question: "What am I buying?", answer: "Developer Business Lab sells digital instructional guides and implementation workbooks. The products teach commercial reasoning and turn it into records, calculations, decisions, and operating tools you can apply to an independent development business." } },
+  { data: { order: 4, question: "Can I start without buying anything?", answer: "Yes. Developer Marketing Quickstart is the free starting point. It helps you put one real acquisition loop into motion and learn from buyer response before moving into a deeper paid system." } },
 ];
 ---
 
-<BaseLayout
-  title="Developer Business Lab | Build the Business Around Your Development Skills"
-  description="Practical business systems for freelance developers who want to earn more deliberately, find better clients, price work profitably, create demand, and build more control into independent work."
->
+<BaseLayout title="Developer Business Lab | Business Systems for Freelance Developers" description="Practical business systems for independent developers who want more earning power, more reliable opportunity, and more control over how they work.">
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
     variant="home"
     eyebrow="Business systems for independent developers"
-    title="Turn your development skills into a business that pays."
-    description="You already know how to build. Developer Business Lab teaches the business side: what to sell, what to charge, how to create demand, win good client work, protect margin, and build more control over your income and working life."
+    title="Build a freelance business strong enough to give you choices."
+    description="Your technical ability should be able to buy you more than another project. Build the business capabilities that help you earn well, keep opportunities moving, choose work on better terms, and create more control over how you spend your time."
     primaryCta={{ label: "Start with the Launch Kit", href: "/products/freelance-developer-launch-kit/" }}
     secondaryCta={{ label: "Get the Free Quickstart", href: "/free/" }}
-    supportingItems={["Downloadable guides", "Implementation workbooks", "Problem-specific business systems"]}
+    supportingItems={["Practical guides", "Implementation workbooks", "Problem-specific business systems"]}
   />
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-        <div>
-          <p class="editorial-kicker">A valuable skill should give you options</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">You learned how to build. That skill should be able to support a good living on your terms.</h2>
-        </div>
-        <div class="max-w-3xl">
-          <p class="text-lg leading-8 text-muted-foreground">For some developers, freelancing is about earning more than a conventional role allows. For others, it is about choosing better clients, controlling the schedule, working remotely, building financial security, or owning a business instead of depending on one employer or marketplace.</p>
-          <p class="mt-5 text-lg leading-8 text-muted-foreground">Those goals are commercial. They depend on more than technical competence. The work has to be understandable enough to buy, priced well enough to support the business, visible to the right buyers, sold effectively, delivered without avoidable margin loss, and followed by a reliable way to create the next opportunity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">Why freelancing in the first place?</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Valuable technical skills should give you options.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>More earning upside. More say over the calendar. The ability to choose better clients and projects. The option to work remotely, specialize, build recurring revenue, create products, take time away, or simply stop depending on one employer for all of your income.</p><p>Those benefits do not come from coding skill alone. They depend on the business around the skill.</p></div></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-        <div>
-          <p class="editorial-kicker">Technical skill is only half the business</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Being able to deliver the project does not teach you how to make the business work.</h2>
-        </div>
-        <div class="max-w-3xl">
-          <p class="text-lg leading-8 text-muted-foreground">A strong developer can still underprice a project, accept a bad-fit client, depend on referrals, let the pipeline disappear during delivery, send proposals before the buyer is ready, absorb unpaid scope, or finish a good project with no plan for future demand.</p>
-          <p class="mt-5 text-lg leading-8 text-muted-foreground">Those are not coding problems. They are the business layer around the coding. When that layer is improvised, technical ability can produce a lot of work without producing the income, stability, or control that made independent work attractive in the first place.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">Where freedom gets lost</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">A weak business can turn freelancing into the opposite of what you wanted.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>No boss can become six client-bosses. Schedule control can become everything being urgent. Earning upside can become fear of quoting a project at the price the obligation deserves. Independence can become dependence on one marketplace, agency, referral source, or large client.</p><p>The business side decides whether technical ability creates leverage or simply creates more work.</p></div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">What better looks like</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">A stronger freelance business gives you more control over how money enters and leaves the business.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">The goal is not perfect predictability. It is to replace avoidable guesswork with business systems that help you make better commercial decisions before the pressure is on.</p>
-      </div>
-      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
-        {betterStates.map((state) => (
-          <div class="bg-background p-7">
-            <h3 class="text-xl font-semibold">{state.title}</h3>
-            <p class="mt-3 leading-7 text-muted-foreground">{state.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="max-w-3xl"><p class="editorial-kicker">What better feels like</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">You have choices because the business is producing enough money and enough opportunity that you are not trapped.</h2></div><div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{outcomes.map((item) => <div class="bg-background p-7"><h3 class="text-xl font-semibold">{item.title}</h3><p class="mt-3 leading-7 text-muted-foreground">{item.description}</p></div>)}</div></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-      <div>
-        <p class="editorial-kicker">How Developer Business Lab helps</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the business capabilities around the technical skill you already have.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">The guides teach the commercial reasoning. The workbooks turn that reasoning into prices, offer decisions, pipeline records, qualification rules, proposal-readiness decisions, delivery controls, and other records you can reuse in real work.</p>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">The system is not the end goal. The system is what helps you earn, sell, protect margin, create opportunities, and gain more choice over the business you are building.</p>
-        <p class="mt-8"><TextLink href="/products/">See all focused systems →</TextLink></p>
-      </div>
-      <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
-        {artifacts.map((artifact) => (
-          <div class="bg-background p-6">
-            <h3 class="font-semibold">{artifact.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-muted-foreground">{artifact.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  {launchKit && <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="mb-10 max-w-3xl"><p class="editorial-kicker">When the whole business needs a foundation</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the first complete version of the freelance business around your technical skills.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">The Launch Kit connects offer, economics, buyer access, sales, delivery, future demand, and management review so the business can start accumulating understanding instead of repeatedly losing it.</p></div><FlagshipProductFeature product={{ ...launchKit, data: applyProductCopyOverride(launchKit.data) }} eyebrow="Recommended whole-business starting point" heading="Build the first operating foundation, then use evidence to decide what deserves deeper work." /></div></section>}
 
-  {launchKit && (
-    <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-10 max-w-3xl">
-          <p class="editorial-kicker">When the whole business needs a foundation</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the complete first version of the freelance business, not a collection of disconnected fixes.</h2>
-          <p class="mt-5 text-lg leading-8 text-muted-foreground">The Freelance Developer Launch Kit is the broad starting point when offer, pricing, demand, sales, delivery, cash, and follow-up still interact in ways you have not fully controlled. It gives those decisions one operating structure so the business can become more sustainable as you learn what the market actually supports.</p>
-        </div>
-        <FlagshipProductFeature product={launchKit} eyebrow="Recommended paid starting point" heading="Build the business around your development skills so the parts that create and protect revenue work together." />
-      </div>
-    </section>
-  )}
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end"><div><p class="editorial-kicker">Already know the constraint?</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Go straight to the commercial problem that is limiting the business.</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">You do not need every product. Use the focused system when one problem is clearly the problem.</p></div><div class="mt-10 border-t border-border">{resolvedRoutes.map(({ stage, problem, product }) => <a href={`/products/${product.data.slug}/`} class="group grid gap-3 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[8rem_1fr_auto] sm:items-center"><span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{stage}</span><span class="text-lg text-foreground/90 transition-colors group-hover:text-foreground">{problem}</span><span class="text-sm font-semibold text-primary-accent">{product.data.title} →</span></a>)}</div><p class="mt-8"><TextLink href="/start/">Help me choose where to start →</TextLink></p></div></section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
-        <div>
-          <p class="editorial-kicker">Already know what is limiting the business?</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Go straight to the commercial problem that needs deeper work.</h2>
-        </div>
-        <p class="max-w-2xl text-lg leading-8 text-muted-foreground">You do not need the whole catalog. If one constraint is obvious, use the focused system built to improve that part of the business and the economic consequence attached to it.</p>
-      </div>
-      <div class="mt-10 border-t border-border">
-        {resolvedPaths.map(({ stage, problem, product }) => (
-          <a
-            href={`/products/${product.data.slug}/`}
-            class="group grid gap-3 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[8rem_1fr_auto] sm:items-center"
-            data-event="problem_path"
-            data-product-slug={product.data.slug}
-          >
-            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{stage}</span>
-            <span class="text-lg text-foreground/90 transition-colors group-hover:text-foreground">{problem}</span>
-            <span class="text-sm font-semibold text-primary-accent">{product.data.title} →</span>
-          </a>
-        ))}
-      </div>
-      <p class="mt-8"><TextLink href="/start/">Help me choose where to start →</TextLink></p>
-    </div>
-  </section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16"><div class="max-w-3xl"><p class="editorial-kicker">Start before the current work runs out</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Give the next client search a head start.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you a free guide and workbook for choosing a buyer, investigating a problem, shaping a provisional offer, qualifying a First 25, working the cycle, and using what happens to decide what to test next.</p></div><div class="lg:text-right"><Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button><p class="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Free digital guide + workbook · email required</p></div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
-      <div class="max-w-3xl">
-        <p class="editorial-kicker">Start creating pipeline</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Run the first acquisition cycle instead of staying in planning mode.</h2>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart helps you choose an identifiable business buyer, verify a real problem, shape an offer, build a qualified First 25, work the first cycle, and decide what to test next from what actually happened.</p>
-        <p class="mt-4 leading-7 text-muted-foreground">It is a complete first move toward creating buyer access and future pipeline. The current edition includes a 64-page guide and 45-page workbook with completed examples and chapter-matched implementation records.</p>
-      </div>
-      <div class="lg:text-right">
-        <Button as="a" href="/free/" size="lg" data-event="homepage_free_quickstart">Get the Free Quickstart</Button>
-        <p class="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Free download · email required</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-      <div>
-        <p class="editorial-kicker">Inspect the thinking</p>
-        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Commercial ambition still needs a method you can inspect.</h2>
-      </div>
-      <div class="max-w-3xl">
-        <p class="text-lg leading-8 text-muted-foreground">Developer Business Lab products are built around specific business decisions and operating problems. The instruction explains why a decision matters, worked examples show how the reasoning behaves, and implementation workbooks give you a place to make the decision for your own business.</p>
-        <p class="mt-5 text-lg leading-8 text-muted-foreground">Product pages show the actual tools, examples, and boundaries of the material where those previews are available. The point is to make the path to better commercial decisions visible before you buy.</p>
-        <p class="mt-8"><TextLink href="/about/">How Developer Business Lab approaches the work →</TextLink></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
-        <div>
-          <p class="editorial-kicker">When one problem is actually several</p>
-          <h2 class="mt-4 text-4xl font-semibold tracking-tight">Use a bundle when several systems have to improve together.</h2>
-        </div>
-        <div class="max-w-2xl">
-          <p class="text-lg leading-8 text-muted-foreground">A pricing problem may really be an offer problem. An acquisition problem may be partly marketing. A sales problem may continue into proposals and retention. Bundles are useful when several connected systems genuinely need deeper work at the same time.</p>
-          <p class="mt-6"><TextLink href="/bundles/">Compare current bundles →</TextLink></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
-      <div>
-        <p class="editorial-kicker">This is built for</p>
-        <h2 class="mt-4 text-3xl font-semibold">Developers who want the business side to become as capable as the technical side.</h2>
-        <ul class="mt-7 list-disc space-y-4 pl-5 text-muted-foreground">
-          <li>You want your technical skill to produce a stronger income, not just more tasks to complete.</li>
-          <li>You want more control over pricing, pipeline, client fit, workload, and the commercial decisions around delivery.</li>
-          <li>You are willing to build repeatable business systems and use evidence instead of relying on habit, hope, or whatever the last client asked for.</li>
-        </ul>
-      </div>
-      <div>
-        <p class="editorial-kicker">A focused system may fit better if</p>
-        <h2 class="mt-4 text-3xl font-semibold">The business is already working and one commercial constraint clearly deserves deeper attention.</h2>
-        <ul class="mt-7 list-disc space-y-4 pl-5 text-muted-foreground">
-          <li>Your offer and delivery are sound, but pricing is the problem that keeps weakening project economics.</li>
-          <li>You can sell and deliver, but the pipeline is too dependent on referrals, marketplaces, or sporadic outreach.</li>
-          <li>You already know that sales, proposals, partnerships, social acquisition, or recurring work is the specific subsystem you need to improve.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-4xl">
-      <p class="editorial-kicker">Before you choose</p>
-      <h2 class="mt-4 text-4xl font-semibold tracking-tight">A few questions that should be easy to answer before you spend money.</h2>
-      <div class="mt-8"><FAQList faqs={faqs} /></div>
-    </div>
-  </section>
-
-  <section class="border-t border-border px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-    <div class="mx-auto max-w-4xl text-center">
-      <p class="editorial-kicker">Make the skill work harder for you</p>
-      <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Build the business that lets your development skills earn.</h2>
-      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Start with the Launch Kit when several parts of the business still need a foundation. If one commercial constraint is already obvious, use Start Here to go directly to the focused system that matches it.</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">Start with the Launch Kit</Button>
-        <Button as="a" href="/start/" variant="outline" size="lg">Find My Bottleneck</Button>
-      </div>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-4xl"><p class="editorial-kicker">Questions before you choose</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Start with the scope of the problem you actually have.</h2><div class="mt-8"><FAQList faqs={faqs} /></div></div></section>
 </BaseLayout>

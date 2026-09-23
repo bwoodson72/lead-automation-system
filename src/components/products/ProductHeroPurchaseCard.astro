@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { Card, CardContent } from "@/components/starwind/card";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import { resolveProductCoverImage } from "@/lib/product-cover-images";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+
+interface Props {
+  product: CollectionEntry<"products">;
+  ctaLabel?: string;
+  supportingText?: string;
+  location?: string;
+}
+
+const {
+  product,
+  ctaLabel,
+  supportingText,
+  location = "hero-card",
+} = Astro.props;
+
+const d = product.data;
+const commerce = resolveProductCommerce(d);
+const image = d.coverImage ?? resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
+const priceLabel = d.free
+  ? "Free"
+  : commerce.priceFormatted ?? (commerce.effectiveStatus === "coming-soon" ? "Coming soon" : "Planned");
+---
+
+<Card class="gold-glow w-full max-w-md overflow-hidden border-primary/30 bg-card/95 shadow-2xl backdrop-blur-sm">
+  {image ? (
+    <div class="border-b border-border bg-background/60">
+      <Image
+        src={image}
+        alt={`${d.title} product mockup`}
+        class="block h-auto w-full"
+        widths={[480, 640, 960]}
+        sizes="(min-width: 1024px) 28rem, 90vw"
+        priority={true}
+      />
+    </div>
+  ) : (
+    <div class="relative flex aspect-square w-full flex-col justify-center border-b border-border bg-background/60 p-8" role="img" aria-label={`${d.title} product cover concept`}>
+      <p class="editorial-kicker">Developer Business Lab</p>
+      <p class="mt-4 text-3xl font-semibold tracking-tight text-foreground">{d.title}</p>
+    </div>
+  )}
+
+  <CardContent class="p-6 sm:p-7">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <p class="text-3xl font-semibold tracking-tight text-foreground">{priceLabel}</p>
+      {!d.free && commerce.purchasable && <p class="text-sm text-muted-foreground">one-time</p>}
+    </div>
+
+    {supportingText && <p class="mt-3 text-sm leading-6 text-muted-foreground">{supportingText}</p>}
+
+    <div class="mt-5">
+      <ProductCTA product={product} location={location} label={ctaLabel} fullWidth={true} />
+    </div>
+
+    {commerce.purchasable && !d.free && (
+      <p class="mt-4 text-xs leading-5 text-muted-foreground">
+        Covered by Developer Business Lab's <a href="/refund-policy/" class="font-semibold text-primary-accent underline-offset-4 hover:underline">14-Day Satisfaction Guarantee</a>.
+      </p>
+    )}
+  </CardContent>
+</Card>

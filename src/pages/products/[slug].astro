@@ -12,6 +12,7 @@ import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
 import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
 
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 }
 
 const { product } = Astro.props;
-const d = applyProductCopyOverride(product.data);
+const d = cleanPublicCopyTree(applyProductCopyOverride(product.data));
 const commerce = resolveProductCommerce(d);
 const effectiveStatus = commerce.effectiveStatus;
 const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
@@ -73,16 +74,7 @@ const pageCopy = d.pageCopy ?? {};
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
-    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
-    eyebrow={d.title}
-    title={hook}
-    description={d.shortDescription}
-    audience={d.audience}
-    supportingItems={[d.format, heroCommerce]}
-  >
+  <PageHero image={heroImage} imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window" breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]} eyebrow={d.title} title={hook} description={d.shortDescription} audience={d.audience} supportingItems={[d.format, heroCommerce]}>
     <div slot="actions"><ProductCTA product={{ ...product, data: d }} location="hero" /></div>
     <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={{ ...product, data: d }} /></div>
   </PageHero>
@@ -91,25 +83,7 @@ const pageCopy = d.pageCopy ?? {};
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.problemEyebrow ?? "The problem in practice"}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.problemTitle ?? "The pattern making this harder than it needs to be."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
 
-  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto min-w-0 max-w-7xl">
-      <div class="grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
-        <div class="min-w-0">
-          <p class="editorial-kicker">{pageCopy.desiredEyebrow ?? "What better looks like"}</p>
-          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.desiredTitle ?? "What gets easier when you can handle this well."}</h2>
-        </div>
-        <div class="space-y-5"><p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{d.desiredBusinessState ?? d.coreOutcome}</p><p class="min-w-0 break-words leading-7 text-muted-foreground">{d.coreOutcome}</p></div>
-      </div>
-      <ul class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
-        {d.capabilities.map((capability) => (
-          <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 bg-background p-6 text-muted-foreground">
-            <span class="text-primary-accent" aria-hidden="true">→</span>
-            <span class="min-w-0 break-words leading-7">{capability}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-7xl"><div class="grid min-w-0 gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-16"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.desiredEyebrow ?? "What better looks like"}</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.desiredTitle ?? "What gets easier when you can handle this well."}</h2></div><div class="space-y-5"><p class="min-w-0 break-words text-lg leading-8 text-muted-foreground">{d.desiredBusinessState ?? d.coreOutcome}</p><p class="min-w-0 break-words leading-7 text-muted-foreground">{d.coreOutcome}</p></div></div><ul class="mt-10 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.capabilities.map((capability) => <li class="grid min-w-0 grid-cols-[1.5rem_minmax(0,1fr)] gap-3 bg-background p-6 text-muted-foreground"><span class="text-primary-accent" aria-hidden="true">→</span><span class="min-w-0 break-words leading-7">{capability}</span></li>)}</ul></div></section>
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-7xl"><p class="editorial-kicker">{pageCopy.contentsEyebrow ?? "Inside the system"}</p><div class="mt-4 grid min-w-0 gap-8 lg:grid-cols-[1fr_.55fr] lg:gap-16"><div class="min-w-0"><h2 class="break-words text-4xl font-semibold tracking-tight">{pageCopy.contentsTitle ?? "What you will use to make that change."}</h2><ol class="mt-8 min-w-0 border-t border-border">{d.contents.map((item, index) => <li class="grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-4 border-b border-border py-5"><span class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</span><span class="min-w-0 break-words">{item}</span></li>)}</ol></div><aside class="surface-editorial min-w-0 self-start p-7"><p class="editorial-kicker">What you receive</p><dl class="mt-6 min-w-0 space-y-6"><div><dt class="font-semibold">Guide depth</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.length}</dd></div><div><dt class="font-semibold">Working tools</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.worksheets}</dd></div><div><dt class="font-semibold">How to use it</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{delivery.time}</dd></div></dl></aside></div></div></section>
 
@@ -121,30 +95,5 @@ const pageCopy = d.pageCopy ?? {};
 
   {bundleRecommendation && recommendedBundle && <BundleProgressionCard currentProduct={{ ...product, data: d }} products={publicProducts} bundle={recommendedBundle} />}
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto min-w-0 max-w-4xl">
-      {d.faqs.length > 0 && (
-        <>
-          <p class="editorial-kicker">{pageCopy.faqEyebrow ?? "Before you buy"}</p>
-          <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.faqTitle ?? "What to know before you choose it."}</h2>
-          <div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div>
-        </>
-      )}
-      <div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}>
-        <p class="editorial-kicker">{pageCopy.finalEyebrow ?? "Next step"}</p>
-        <h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.finalTitle ?? finalHeading}</h2>
-        <p class="mt-5 break-words text-lg leading-8 text-muted-foreground">
-          {effectiveStatus === "available" ? (pageCopy.finalSummary ?? `${d.desiredBusinessState ?? d.coreOutcome} ${d.coreOutcome}`) : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}
-        </p>
-        {commerce.purchasable && !d.free && (
-          <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">You receive</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{d.format}</dd></div>
-            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Delivery</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">Digital delivery through Lemon Squeezy after checkout.</dd></div>
-            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Refunds</dt><dd class="mt-2 text-sm leading-6"><a class="text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy</a></dd></div>
-          </dl>
-        )}
-        <div class="mt-8 min-w-0"><ProductCTA product={{ ...product, data: d }} location="final" /></div>
-      </div>
-    </div>
-  </section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-4xl">{d.faqs.length > 0 && <><p class="editorial-kicker">{pageCopy.faqEyebrow ?? "Before you buy"}</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.faqTitle ?? "What to know before you choose it."}</h2><div class="mt-8 min-w-0"><FAQList faqs={d.faqs.map((faq, index) => ({ data: { ...faq, order: index } }))} /></div></>}<div class={d.faqs.length > 0 ? "mt-14 min-w-0 border-t border-border pt-12" : "min-w-0"}><p class="editorial-kicker">{pageCopy.finalEyebrow ?? "Next step"}</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{pageCopy.finalTitle ?? finalHeading}</h2><p class="mt-5 break-words text-lg leading-8 text-muted-foreground">{effectiveStatus === "available" ? (pageCopy.finalSummary ?? `${d.desiredBusinessState ?? d.coreOutcome} ${d.coreOutcome}`) : `If ${d.title} is the problem you are trying to solve, join the release list. You will get the final contents and release notice when it is ready.`}</p>{commerce.purchasable && !d.free && <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3"><div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">You receive</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{d.format}</dd></div><div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Delivery</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">Digital delivery through Lemon Squeezy after checkout.</dd></div><div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Refunds</dt><dd class="mt-2 text-sm leading-6"><a class="text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy</a></dd></div></dl>}<div class="mt-8 min-w-0"><ProductCTA product={{ ...product, data: d }} location="final" /></div></div></div></section>
 </BaseLayout>

@@ -3,10 +3,11 @@ import { button } from "@/components/starwind/button/variants";
 import { Button } from "@/components/starwind/button";
 import KitForm from "@/components/marketing/KitForm.astro";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
-const { product, location = "product", label } = Astro.props;
+const { product, location = "product", label, fullWidth = false } = Astro.props;
 const d = product.data;
 const commerce = resolveProductCommerce(d);
-const checkoutClass = button({ class: "lemonsqueezy-button w-full max-w-full whitespace-normal break-words px-4 text-center leading-snug sm:w-auto sm:px-5" });
+const widthClass = fullWidth ? "w-full max-w-full" : "w-full max-w-full sm:w-auto";
+const checkoutClass = button({ class: `lemonsqueezy-button ${widthClass} whitespace-normal break-words px-4 text-center leading-snug sm:px-5` });
 const freeLabel = label ?? `Get ${d.title} Free`;
 const paidLabel = label ?? `Get ${d.title} for ${commerce.priceFormatted}`;
 ---
@@ -21,7 +22,7 @@ const paidLabel = label ?? `Get ${d.title} for ${commerce.priceFormatted}`;
     {freeLabel}
   </a>
 ) : commerce.effectiveStatus === "available" && d.free ? (
-  <Button as="a" href="/free/" class="w-full max-w-full whitespace-normal break-words px-4 text-center leading-snug sm:w-auto sm:px-5" data-event="quickstart_view" data-cta-location={location}>{freeLabel}</Button>
+  <Button as="a" href="/free/" class={`${widthClass} whitespace-normal break-words px-4 text-center leading-snug sm:px-5`} data-event="quickstart_view" data-cta-location={location}>{freeLabel}</Button>
 ) : commerce.purchasable ? (
   <a
     href={commerce.checkoutUrl!}

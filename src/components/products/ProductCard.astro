@@ -39,18 +39,18 @@ const statusLabel = commerce.effectiveStatus === "coming-soon"
     class="block border-b border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-outline"
     aria-label={`View ${d.title}`}
   >
-    <div class="flex aspect-4/3 w-full items-center justify-center overflow-hidden p-4">
+    <div class="w-full overflow-hidden p-4">
       {coverImage ? (
         <Image
           src={coverImage}
           alt={`${d.title} product cover`}
-          class="h-full w-full object-contain"
+          class="block h-auto w-full"
           widths={[360, 540, 720]}
           sizes="(min-width: 768px) 50vw, 100vw"
         />
       ) : (
         <div
-          class="relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-border bg-background p-5"
+          class="relative flex aspect-square w-full flex-col overflow-hidden rounded-lg border border-border bg-background p-5"
           role="img"
           aria-label={`${d.title} product cover placeholder`}
         >

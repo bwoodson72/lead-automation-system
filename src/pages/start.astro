@@ -9,6 +9,7 @@ import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
 const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
+const displayTitle = (slug: string, fallback: string) => slug === "social-media-client-acquisition-system" ? "Social Media Client Acquisition System" : fallback;
 const launchKit = productBySlug("freelance-developer-launch-kit");
 const launchKitCommerce = launchKit ? resolveProductCommerce(launchKit.data) : undefined;
 const launchKitPriceLine = launchKitCommerce?.priceFormatted ? `${launchKitCommerce.priceFormatted}, one-time` : "One-time purchase";
@@ -98,7 +99,7 @@ const problems = [
               <p class="pt-1 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{problem.stage}</p>
               <h3 class="text-xl font-semibold leading-8">{problem.quote}</h3>
               <p class="leading-7 text-muted-foreground">{problem.change}</p>
-              <div class="lg:pt-1"><TextLink href={`/products/${product.data.slug}/`}>{product.data.title} →</TextLink></div>
+              <div class="lg:pt-1"><TextLink href={`/products/${product.data.slug}/`}>{displayTitle(problem.slug, product.data.title)} →</TextLink></div>
             </article>
           );
         })}

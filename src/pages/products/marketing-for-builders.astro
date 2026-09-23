@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { applyProductCopyOverride } from "@/lib/copy-overrides";
 import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
@@ -81,22 +79,14 @@ const faqs = [
   enableCheckoutOverlay={commerce.purchasable}
   structuredData={structuredData}
 >
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
-    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+  <ProductHero
+    product={product}
     eyebrow="Marketing for Builders"
     title="Clients can't pay for value they can't see."
     description="Turn excellent technical work into something the right buyers understand, trust, and remember. Marketing for Builders shows you how to explain why your work matters, prove it, and put it in front of the people who pay for it, without becoming an influencer or a salesman."
-  >
-    <div slot="visual" class="min-w-0 max-w-full">
-      <ProductHeroPurchaseCard
-        product={product}
-        ctaLabel="Get Marketing for Builders"
-        supportingText="A guide and fill-in workbooks you complete with your own work and buyers."
-      />
-    </div>
-  </PageHero>
+    ctaLabel="Get Marketing for Builders"
+    supportingText="A guide and fill-in workbooks you complete with your own work and buyers."
+  />
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">

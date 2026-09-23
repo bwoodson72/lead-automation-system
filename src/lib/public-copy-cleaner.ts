@@ -1,5 +1,9 @@
 export function cleanPublicCopy(value: string): string {
   return value
+    .replace(
+      "The goal is not simply to quote higher. It is to understand the deal well enough to price it deliberately.",
+      "The useful outcome is understanding the deal well enough to price it deliberately.",
+    )
     .replace(/\s*—\s*/g, ", ")
     .replace(/\bThe point is not\b/g, "This is not")
     .replace(/\bThe point is\b/g, "What matters is")

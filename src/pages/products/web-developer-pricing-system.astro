@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "web-developer-pricing-system");
+if (!sourceProduct) throw new Error("Web Developer Pricing System product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const previews = d.proofPackage?.previews?.slice(0, 3) ?? [];
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/web-developer-pricing-system/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["A full picture of the work", "Everything a project actually obligates you to do: planning, communication, revisions, coordination, QA, launch, admin, and the costs that come with them. Not just the development hours."],
+  ["Your real numbers", "What your client work needs to support: your income, taxes, tools, slow periods, and the time you can't bill. So you know the floor below which a project loses money."],
+  ["A way to handle unknowns", "How to spot the parts of a project that could blow up your hours, and how to price, scope, or phase them instead of silently eating the risk."],
+  ["The right pricing model", "When fixed price makes sense, when hourly or phased pricing is safer, and when to charge for discovery before quoting the build."],
+  ["Scope and payment terms as part of the price", "Assumptions, boundaries, deposits, and milestones built into every quote, so the price you agreed to is the price you actually earn."],
+  ["A clear go or no-go", "A deliberate decision on whether a project is worth taking at all, and what it would need to look like to become worth it."],
+];
+
+const faqs = [
+  { data: { question: "My clients have fixed budgets. How does this help?", answer: "It shows you what a project needs to be worth taking. If the budget doesn't cover it, you can reduce the scope, phase the work, or decline, instead of quietly absorbing the difference." } },
+  { data: { question: "Won't higher prices scare clients away?", answer: "Some, usually the ones who would have cost you the most. Clear scope, clear assumptions, and a price you can explain make higher numbers much easier for good clients to accept." } },
+  { data: { question: "Should I charge hourly or fixed price?", answer: "It depends on the project, and that's exactly what the system helps you decide. Each model fits different levels of risk and certainty." } },
+  { data: { question: "Is this ‘value-based pricing’?", answer: "It's more practical than that. It starts with what the work actually costs you and what it needs to support, then helps you make a deliberate pricing decision. There's no magic formula and no promise of a ‘correct’ price." } },
+  { data: { question: "Is it math-heavy?", answer: "It uses simple numbers you already have: your hours, costs, and income goals. If you can estimate a build, you can do this." } },
+  { data: { question: "How long does it take?", answer: "Establish your business economics and capacity first, then take one real project or active opportunity through the pricing process. After that, the Personal Pricing Policy and Master Project Pricing Worksheet are designed to be reused on future quotes." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Web Developer Pricing System"
+    title="Stop guessing what to charge."
+    description="Know what a project will really cost you, whether it's worth taking, and what price and payment terms make sense, before you send the quote. Every price becomes a decision you can stand behind instead of a number you hope works out."
+    supportingItems={["A guide and fill-in workbooks you use on real quotes."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get the Pricing System" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">You've probably lost money on a project you were happy to win.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>A lead comes in. You estimate the coding hours, multiply by a rate you picked up somewhere, then knock a little off because you don't want to lose the deal. You send it and spend the night wondering if it was too high.</p>
+        <p>Then the project happens. The calls, the revisions, the content the client was supposed to send three weeks ago, the “quick” integration that wasn't. By the end, you've worked twice the hours for the same money.</p>
+        <p class="font-semibold text-foreground">The problem isn't your rate. It's that the quote only priced the code, and the project was much more than code.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Same project. Two different quotes.</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">The usual quote</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Northstar Heating & Air needs a website. Jordan's first instinct is roughly <strong class="text-foreground">$6,000</strong>. It's a plausible number, but the work underneath it hasn't been fully defined yet.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">The same project, priced as a business decision</p>
+          <ul class="mt-4 space-y-4 leading-7 text-muted-foreground">
+            <li><strong class="text-foreground">Whole engagement:</strong> 63 expected hours once planning, communication, revisions, testing, launch, and handoff are included.</li>
+            <li><strong class="text-foreground">Direct costs:</strong> $285 attached to the project.</li>
+            <li><strong class="text-foreground">Uncertainty:</strong> a form and CRM dependency is investigated instead of hidden inside arbitrary padding.</li>
+            <li><strong class="text-foreground">Internal floor:</strong> Jordan's business baseline produces a $6,900 Project Economic Floor for the defined engagement.</li>
+            <li><strong class="text-foreground">Commercial decision:</strong> an $8,500 fixed price with staged payment once the material uncertainty is resolved.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-8 max-w-4xl text-lg leading-8 text-muted-foreground">More importantly, the price now comes after the engagement, workload, uncertainty, internal economics, and commercial structure have been worked through. Jordan knows why the project is worth taking before the quote goes out.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example from the product's fictional Northstar case. Your numbers will vary.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies never price “just the code.”</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>When an agency quotes a project, the estimate includes project management, meetings, revisions, QA, contingency for unknowns, and their overhead. They take deposits, bill by milestone, and charge for changes. That's a big part of why they can bill your work at a large markup and still stay in business.</p>
+        <p>Freelancers usually skip every one of those steps, then absorb the cost themselves. The Pricing System brings that same discipline to a one-person business, without the agency bureaucracy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You quote with confidence and sleep fine afterward.</p>
+        <p>You raise your prices with a reason you can explain, not just a feeling.</p>
+        <p>Projects stop quietly turning into unpaid overtime.</p>
+        <p>You stop discounting out of fear, because you know exactly what a lower price would cost you.</p>
+        <p>You can turn down a bad project calmly, or reshape it into one that works.</p>
+        <p>And your prices support doing the work right, instead of forcing you to cut corners to break even.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="You'll use the workbooks on every quote you send, not just once."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers pricing at a foundational level. This goes much deeper, for when your business review shows pricing is where the money is leaking.</p>
+        <p><strong class="text-foreground">Not sure what you're selling yet?</strong> Pricing works best on a clear offer. If your service still changes from client to client, pair this with <a class="font-semibold text-primary-accent hover:underline" href="/products/productize-your-dev-skills/">Productize Your Dev Skills</a>, or start with the <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Launch Kit</a> to build every part of the business together.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Most freelance developers underprice by far more than the cost of this system on a single project. If it helps you catch one project's hidden hours, add one paid discovery phase, or stop one unnecessary discount, it has paid for itself.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get the Pricing System" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Every quote is a business decision. Start making it like one.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Know what the work costs, what it's worth to you, and whether to take it, before the client ever sees a number.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get the Pricing System" /></div>
+    </div>
+  </section>
+</BaseLayout>

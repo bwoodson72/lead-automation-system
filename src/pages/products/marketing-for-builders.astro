@@ -1,0 +1,214 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "marketing-for-builders");
+if (!sourceProduct) throw new Error("Marketing for Builders product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const previews = d.proofPackage?.previews?.slice(0, 3) ?? [];
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/marketing-for-builders/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["The right market", "A specific kind of buyer your work matters most to, so your marketing speaks to someone instead of everyone."],
+  ["Your position", "Where you stand compared to the other options your buyer is considering: other freelancers, agencies, templates, and DIY tools. And why you're the better choice for them."],
+  ["Your core argument", "The plain-language case for why your work is worth paying for, built on the results your buyer cares about."],
+  ["Proof buyers believe", "How to turn past projects into evidence that supports a higher price, even if you don't have a long portfolio yet."],
+  ["Your routes to market", "Where your buyers actually pay attention, and which channels deserve your limited time."],
+  ["What to say and where to say it", "Content and messages built from your core argument, so you're not staring at a blank page every time you need to post or write."],
+  ["A way to measure it", "How to tell whether your marketing is reaching the right buyers and starting real conversations, not just collecting likes."],
+];
+
+const faqs = [
+  { data: { question: "I hate self-promotion. Is this for me?", answer: "Yes. This isn't about bragging or building a personal brand. It's about explaining what your work does for a business, clearly enough that the right buyers understand it. Most developers find that much easier than \"promoting themselves.\"" } },
+  { data: { question: "Do I have to post on social media every day?", answer: "No. You'll choose the routes that fit your buyers and your time. For some developers that's social media. For others it's their website, outreach, referrals, or partnerships." } },
+  { data: { question: "I don't have impressive case studies yet.", answer: "That's covered. You'll learn how to build proof from the work you've already done and how to strengthen it with every new project." } },
+  { data: { question: "How is this different from the client acquisition products?", answer: "Marketing for Builders makes buyers understand and trust your work. The acquisition products focus on how to find and reach buyers and manage the pipeline. Marketing makes every acquisition channel work better." } },
+  { data: { question: "How long does it take?", answer: "The system is a 148-page guide with a 184-page implementation workbook organized into 20 matched modules. Work through it in sequence so each decision feeds the next, then keep the four operating records current as you use the system. There is no fixed posting cadence or arbitrary completion deadline." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Marketing for Builders"
+    title="Clients can't pay for value they can't see."
+    description="Turn excellent technical work into something the right buyers understand, trust, and remember. Marketing for Builders shows you how to explain why your work matters, prove it, and put it in front of the people who pay for it, without becoming an influencer or a salesman."
+    supportingItems={["A guide and fill-in workbooks you complete with your own work and buyers."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get Marketing for Builders" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Your work is better than the cheap option. Buyers just can't tell.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You know why your sites are faster, more reliable, and easier to maintain. Your clients don't. To them, a website is a website, so they compare you on price with the Upwork bid, the page builder, and whatever an AI tool promised them for almost nothing.</p>
+        <p>So you post a few times, and other developers like it. You update your portfolio, and it lists frameworks and features no buyer cares about. You try to “build a personal brand” and it feels fake.</p>
+        <p class="font-semibold text-foreground">The problem isn't that your work is ordinary. It's that nobody is translating it into what a buyer cares about.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">The same project, described two ways</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">How developers usually describe it</p>
+          <p class="mt-4 text-xl italic leading-8">“Custom Next.js build with server-side rendering, optimized images, a headless CMS, and a 98 Lighthouse score.”</p>
+          <p class="mt-5 leading-7 text-muted-foreground">A dental practice owner reads that and feels nothing. He doesn't know what any of it means, so he can't tell whether it's worth more than a $500 template.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">How a buyer needs to hear it</p>
+          <p class="mt-4 text-xl italic leading-8">“Rebuilt a dental practice's website so it loads in under two seconds on a phone. New patients can request an appointment from the homepage in a few taps, and the front desk can update hours and services without calling anyone.”</p>
+        </div>
+      </div>
+      <div class="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+        <div class="bg-background p-6"><p><strong>More patients,</strong> because the site works on the phones they're searching from.</p></div>
+        <div class="bg-background p-6"><p><strong>Less friction,</strong> because booking is easy.</p></div>
+        <div class="bg-background p-6"><p><strong>Less hassle,</strong> because his staff can make changes themselves.</p></div>
+      </div>
+      <p class="mt-8 max-w-4xl text-lg leading-8 text-muted-foreground">That translation, from what you built to what it does for the business, is the core of marketing that works for developers. Everything else, from your website to your outreach to your posts, builds on it.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies never lead with the tech stack.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Look at how successful agencies market development work. Their websites talk about leads, sales, bookings, and growth. Their case studies start with the client's problem and end with the result. The frameworks are a footnote, if they're mentioned at all.</p>
+        <p>That isn't fluff. It's how buyers make decisions. Marketing for Builders teaches you to present your work the same way, as a one-person business, without the agency budget or the corporate voice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Buyers understand why you cost more before you ever get on a call.</p>
+        <p>You stop getting compared line by line with the cheapest bid.</p>
+        <p>Inquiries arrive already interested, because your marketing did the explaining.</p>
+        <p>You know what to say, so marketing takes less time and feels less forced.</p>
+        <p>Your craft finally gets the credit it deserves, from the people who pay for it.</p>
+        <p>And you can see which efforts bring in real opportunities, so you stop wasting time on the ones that don't.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="You'll finish with a core message and proof you can use on your website, in your outreach, and in every sales conversation."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers marketing at a foundational level. This goes much deeper, for when your business review shows buyers aren't understanding or trusting your work.</p>
+        <p><strong class="text-foreground">Need more opportunities, not better messaging?</strong> Marketing makes buyers understand and trust you. <a class="font-semibold text-primary-accent hover:underline" href="/products/client-acquisition-without-upwork/">Client Acquisition Without Upwork</a> builds the pipeline that gets you in front of them. The two work best together.</p>
+        <p><strong class="text-foreground">Does your offer still change from client to client?</strong> Marketing is much easier with a clear offer. Start with <a class="font-semibold text-primary-accent hover:underline" href="/products/productize-your-dev-skills/">Productize Your Dev Skills</a> if you haven't defined what you sell.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">When buyers understand your value, you win more projects at better prices and spend less time convincing people on sales calls. If this helps you close one more project, or hold your price on one you would have discounted, it has paid for itself.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get Marketing for Builders" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Great work doesn't sell itself. Clear marketing does.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Show the right buyers what your work does for them, and stop competing with the cheapest bid.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get Marketing for Builders" /></div>
+    </div>
+  </section>
+</BaseLayout>

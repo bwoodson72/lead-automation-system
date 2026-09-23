@@ -1,13 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductProof from "@/components/products/ProductProof.astro";
 import BundleProgressionCard from "@/components/products/BundleProgressionCard.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
@@ -73,11 +71,14 @@ const pageCopy = d.pageCopy ?? {};
 ---
 
 <BaseLayout title={d.seo.title} description={d.seo.description} noindex={effectiveStatus === "planned"} enableCheckoutOverlay={commerce.purchasable} structuredData={[breadcrumbs, productSchema]}>
-  <PageHero image={heroImage} imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window" breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]} eyebrow={d.title} title={hook} description={d.shortDescription} audience={d.audience}>
-    <div slot="visual" class="min-w-0 max-w-full">
-      <ProductHeroPurchaseCard product={{ ...product, data: d }} supportingText={d.format} />
-    </div>
-  </PageHero>
+  <ProductHero
+    product={{ ...product, data: d }}
+    eyebrow={d.title}
+    title={hook}
+    description={d.shortDescription}
+    audience={d.audience}
+    supportingText={d.format}
+  />
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.motivationEyebrow ?? d.family}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.motivationTitle ?? "What this can change in your business."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>
 

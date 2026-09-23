@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { applyProductCopyOverride } from "@/lib/copy-overrides";
 import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
@@ -90,22 +88,14 @@ const faqs = [
   enableCheckoutOverlay={commerce.purchasable}
   structuredData={structuredData}
 >
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
-    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+  <ProductHero
+    product={product}
     eyebrow="Client Acquisition Without Upwork"
     title="Stop starting over every time a project ends."
     description="Build a client pipeline that keeps moving while you're busy delivering. Find the right businesses, reach them with messages worth reading, and always know where your next project is coming from, without depending on Upwork, one agency, or referrals you can't control."
-  >
-    <div slot="visual" class="min-w-0 max-w-full">
-      <ProductHeroPurchaseCard
-        product={product}
-        ctaLabel="Get Client Acquisition Without Upwork"
-        supportingText="A guide and fill-in workbooks you run on real prospects."
-      />
-    </div>
-  </PageHero>
+    ctaLabel="Get Client Acquisition Without Upwork"
+    supportingText="A guide and fill-in workbooks you run on real prospects."
+  />
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">

@@ -3,49 +3,130 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ArticleCard from "@/components/articles/ArticleCard.astro";
-import ArticleSidebar from "@/components/articles/ArticleSidebar.astro";
-import ArticlePagination from "@/components/articles/ArticlePagination.astro";
+import { Button } from "@/components/starwind/button";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
-import { ARTICLES_PER_PAGE, getTopicLinks, sortArticles } from "@/lib/articleTopics";
+import { ARTICLES_PER_PAGE, articleTopics, sortArticles } from "@/lib/articleTopics";
 
 const articles = sortArticles(await getCollection("articles", ({ data }) => !data.draft));
-const visibleArticles = articles.slice(0, ARTICLES_PER_PAGE);
-const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
-const topics = getTopicLinks(articles);
+const latestArticles = articles.slice(0, ARTICLES_PER_PAGE);
+const hasMoreArticles = articles.length > ARTICLES_PER_PAGE;
+
+const cornerstoneSpecs = [
+  {
+    id: "how-to-handle-client-revisions-freelance-web-development-project",
+    question: "How do I stop revisions from turning into endless rework?",
+  },
+  {
+    id: "fixed-price-vs-hourly-freelance-web-development-project",
+    question: "Should I charge hourly or a fixed price?",
+  },
+  {
+    id: "what-should-freelance-web-development-proposal-include",
+    question: "What actually goes in a proposal?",
+  },
+  {
+    id: "how-to-choose-freelance-web-development-niche-without-boxing-yourself-in",
+    question: "How do I pick a niche without trapping myself?",
+  },
+  {
+    id: "how-to-structure-payment-schedule-freelance-web-development-project",
+    question: "How do I make sure I actually get paid?",
+  },
+];
+
+const cornerstoneArticles = cornerstoneSpecs
+  .map((spec) => ({ ...spec, article: articles.find((article) => article.id === spec.id) }))
+  .filter((item) => item.article);
 ---
 
 <BaseLayout
-  title="Freelance Developer Business Articles"
-  description="Practical articles for freelance developers about client acquisition, pricing, positioning, sales, delivery, retention, and business systems."
+  title="Freelance Developer Business Articles | Developer Business Lab"
+  description="Practical articles for freelance web developers on pricing projects, finding clients, writing proposals, handling revisions, delivering work, and keeping clients after launch."
 >
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-    eyebrow="Educational articles"
-    title="Freelance Developer Business Articles"
-    description="Practical guidance for finding clients, pricing work, selling projects, managing delivery, and building a more repeatable freelance development business."
+    eyebrow="Freelance Developer Business Articles"
+    title="Straight answers to the business questions nobody taught you."
+    description="Practical articles for freelance web developers on pricing projects, finding clients, writing proposals, handling revisions, and keeping clients after launch. Written for people who sell development work, not generic business advice with developer pasted on top."
+    primaryCta={{ label: "Browse by topic", href: "#topics" }}
+    secondaryCta={{ label: "Get the Free Quickstart", href: "/free/" }}
   />
 
-  <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-10 lg:grid-cols-4 lg:items-start">
-        <main class="lg:col-span-3">
-          <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <p class="editorial-kicker">Start with the problem</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Most-read answers</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Pick the question that's on your mind right now.</p>
+
+      <div class="mt-10 divide-y divide-border border-y border-border">
+        {cornerstoneArticles.map(({ question, article }) => (
+          <article class="grid gap-4 py-7 lg:grid-cols-[.9fr_1.1fr] lg:items-start lg:gap-12">
+            <h3 class="text-xl font-semibold leading-8">“{question}”</h3>
             <div>
-              <p class="font-mono text-xs uppercase tracking-widest text-primary-accent">Article library</p>
-              <h2 class="mt-2 text-3xl font-semibold text-foreground">Latest articles</h2>
+              <a href={`/articles/${article!.id}/`} class="font-semibold leading-7 text-primary-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
+                {article!.data.title} →
+              </a>
             </div>
-            <p class="text-sm text-muted-foreground">{articles.length} {articles.length === 1 ? "article" : "articles"}</p>
-          </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {visibleArticles.map((article) => <ArticleCard article={article} />)}
-          </div>
+  <section id="topics" class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="editorial-kicker">Browse by topic</p>
+      <h2 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight">Find the part of the business you're working on.</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {articleTopics.map((topic) => (
+          <article class="bg-background p-7">
+            <h3 class="text-2xl font-semibold">{topic.heading}</h3>
+            <p class="mt-4 leading-7 text-muted-foreground">{topic.description}</p>
+            <p class="mt-6">
+              <a href={`/articles/topics/${topic.slug}/`} class="font-semibold text-primary-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
+                See {topic.label} articles →
+              </a>
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-          <ArticlePagination currentPage={1} totalPages={totalPages} />
-        </main>
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p class="editorial-kicker">Latest articles</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-tight">New this week</h2>
+        </div>
+        <p class="text-sm text-muted-foreground">{articles.length} articles in the library</p>
+      </div>
 
-        <ArticleSidebar topics={topics} showQuickstart />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {latestArticles.map((article) => <ArticleCard article={article} />)}
+      </div>
+
+      {hasMoreArticles && (
+        <p class="mt-8">
+          <a href="/articles/page/2/" class="font-semibold text-primary-accent underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">See all articles →</a>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+      <div class="max-w-4xl">
+        <p class="editorial-kicker">Next step</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Ready to go further than one article?</h2>
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">Articles solve one question at a time. If you want to start finding clients this week, the free Developer Marketing Quickstart walks you through one real round, from choosing who to serve to reaching 25 qualified prospects.</p>
+        <p class="mt-5 text-sm text-muted-foreground">Free. Enter your email on the next screen and it's yours.</p>
+        <p class="mt-5 text-sm text-muted-foreground">Or, if something bigger isn't working, <a href="/start/" class="font-semibold text-primary-accent underline-offset-4 hover:underline">find where to start →</a></p>
+      </div>
+      <div class="lg:text-right">
+        <Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button>
       </div>
     </div>
   </section>

@@ -9,6 +9,7 @@ import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
 const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
+const displayTitle = (slug: string, fallback: string) => slug === "social-media-client-acquisition-system" ? "Social Media Client Acquisition System" : fallback;
 const priceFor = (slug: string) => {
   const product = productBySlug(slug);
   if (!product) return undefined;
@@ -106,7 +107,7 @@ const launchKitPrice = priceFor("freelance-developer-launch-kit");
             const price = priceFor(slug);
             return (
               <article class="bg-background p-7">
-                <h3 class="text-2xl font-semibold">{product.data.title}</h3>
+                <h3 class="text-2xl font-semibold">{displayTitle(slug, product.data.title)}</h3>
                 <p class="mt-4 leading-7 text-muted-foreground">{description}</p>
                 <p class="mt-5 flex flex-wrap items-center gap-2 text-sm">
                   {price && <strong>{price}</strong>}

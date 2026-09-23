@@ -15,11 +15,11 @@ const image = d.coverImage ?? resolveProductCoverImage(d, commerce.purchasable ?
 ---
 
 {image ? (
-  <div class="aspect-4/5 w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
+  <div class="w-full max-w-md overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl">
     <Image
       src={image}
       alt={`${d.title} product cover`}
-      class="h-full w-full object-contain"
+      class="block h-auto w-full"
       widths={[480, 640, 960]}
       sizes="(min-width: 1024px) 28rem, 90vw"
       priority={true}

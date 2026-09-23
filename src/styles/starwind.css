@@ -184,4 +184,11 @@
   .gold-glow {
     box-shadow: 0 24px 80px rgba(175, 102, 0, 0.12);
   }
+  .lemonsqueezy-button {
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+  }
+  .lemonsqueezy-button:hover {
+    background-color: color-mix(in oklch, var(--primary), black 10%) !important;
+  }
 }

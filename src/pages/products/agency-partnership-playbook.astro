@@ -1,0 +1,225 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "agency-partnership-playbook");
+if (!sourceProduct) throw new Error("Agency Partnership Playbook product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const previews = [
+  {
+    image: "agency-partnership/structural-demand-map.svg",
+    alt: "AP03 Ideal Agency Profile and Prospect Qualification Record showing Brightline Creative as Pursue",
+    label: "Workbook AP03 · Prospect qualification",
+    caption: "AP03 keeps public evidence separate from unknown operating facts. Brightline is worth contacting because the evidence supports a conversation, not because Jordan has assumed an internal need.",
+  },
+  {
+    image: "agency-partnership/partnership-fit-scorecard.svg",
+    alt: "AP23 Agency Relationship Economics Review showing Brightline relationship-wide cost-to-serve calculation",
+    label: "Workbook AP23 · Relationship economics",
+    caption: "AP23 rolls project hours and unassigned relationship effort into one review period, then diagnoses the driver instead of letting one profitability number hide growing presales cost.",
+  },
+  {
+    image: "agency-partnership/post-pilot-review.svg",
+    alt: "AP24 Agency Relationship Response and Closeout Decision showing Brightline Reset decision",
+    label: "Workbook AP24 · Relationship response",
+    caption: "AP24 uses the least destructive response that fixes the mechanism. Brightline stays valuable, so the answer is a presales reset rather than an automatic price increase or exit.",
+  },
+];
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/agency-partnership-playbook/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["A shortlist of the right agencies", "How to find and investigate agencies that are a good fit for your skills and likely to send consistent work."],
+  ["Qualification before commitment", "How to tell early whether an agency respects contractors, pays fairly and on time, and has real demand."],
+  ["Paid trial work", "How to test a new relationship with a real, paid project before giving it your reserved capacity."],
+  ["The true cost to serve", "How to measure what each agency relationship actually earns you once meetings, estimates, revisions, rush work, and payment delays are counted."],
+  ["Protected scope and economics", "How to set boundaries on rates, revisions, changes, and payment terms without damaging the relationship."],
+  ["Repeat demand you can evaluate", "How to judge whether an agency's work is steady enough to plan around."],
+  ["Capacity and concentration limits", "How to keep any single agency from taking over your calendar or your income."],
+  ["A decision on when to go deeper", "How to decide, based on evidence, which partnerships deserve more of your time and which should stay small or end."],
+];
+
+const faqs = [
+  { data: { question: "I don't have any agency relationships yet. Is this for me?", answer: "Yes. It covers how to find, investigate, and qualify agencies from the start, so your first partnerships are good ones." } },
+  { data: { question: "My agency is great. Do I still need this?", answer: "Possibly not for that relationship. But if one agency is a large share of your income, this will help you measure what it really pays and protect yourself if things change." } },
+  { data: { question: "Won't pushing back cost me the partnership?", answer: "Handled well, it usually earns more respect. Clear, professional boundaries on scope and payment are normal for good agencies. The ones that won't accept them are worth knowing about early." } },
+  { data: { question: "Does this cover white-label work?", answer: "Yes. It applies whether you work under the agency's name or your own. The playbook covers commercial authority, direct-client questions, portfolio and confidentiality considerations, scope authority, and communication paths so the agency's client relationship stays clear without making your responsibilities vague." } },
+  { data: { question: "How long does it take?", answer: "Use the system against real agency opportunities and active relationships rather than treating it like a course you must finish first. The playbook includes a 231-page guide with 25 chapters and a 126-page workbook with AP01 through AP25. Chapter 25 gives you a 30-day management cycle for the channel; that is a review and operating window, not a promise that an agency will reply, run a pilot, or close within 30 days." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Agency Partnership Playbook"
+    title="Agency work should grow your business, not own it."
+    description="Find agencies worth working with, test them before you commit, and build relationships that send you steady, profitable work, without letting one partner control your income, your calendar, or your rates."
+    supportingItems={["A guide and fill-in workbooks you use on real agency relationships."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get the Agency Partnership Playbook" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Steady work, on someone else's terms.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Agency work looks like the answer to feast or famine. Someone else finds the clients, and you just build.</p>
+        <p>Then the fine print shows up. Unpaid time estimating projects that never happen. Rush requests on Friday afternoon. Their client's "small changes" landing on your plate. A rate that looked fine until you counted all the hours around the work. And slowly, one agency becomes most of your income.</p>
+        <p class="font-semibold text-foreground">Now you're not just a contractor. You're dependent. And you try not to think about what happens if they stop calling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What that agency project really paid</h2>
+      <p class="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">An agency offers you a 40-hour build at $60 an hour. That's $2,400, and it looks like solid, easy work.</p>
+      <p class="mt-6 text-lg font-semibold">Here's what actually happened:</p>
+      <ul class="mt-5 space-y-3 text-lg leading-8 text-muted-foreground">
+        <li><strong class="text-foreground">5 hours</strong> estimating and on calls before the project was even confirmed</li>
+        <li><strong class="text-foreground">6 hours</strong> of meetings, Slack threads, and status updates nobody billed for</li>
+        <li><strong class="text-foreground">8 hours</strong> of revisions requested by the agency's client</li>
+        <li><strong class="text-foreground">A rush weekend</strong> that pushed back your own client work</li>
+        <li><strong class="text-foreground">Payment 45 days</strong> after delivery</li>
+      </ul>
+      <p class="mt-7 max-w-4xl text-lg leading-8 text-muted-foreground">That's 59 hours for $2,400, or about $41 an hour, paid six weeks late. And because this agency now sends you 70% of your work, you didn't feel like you could push back on any of it.</p>
+      <p class="mt-6 text-xl font-semibold">None of that means agency work is bad. It means you need to measure it before you depend on it.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example. Your numbers will vary.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies already evaluate you. It's time to return the favor.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Every agency tracks its subcontractors: who delivers on time, who's easy to work with, who costs the least for the quality. They keep options open so no single developer holds too much power over them.</p>
+        <p>Smart independent developers do the same. They qualify agencies before committing, measure what each partnership actually earns them, and never let one partner control too much of their income. This playbook shows you how.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Agency work becomes a reliable source of income, not a risk you worry about.</p>
+        <p>You know exactly what each partnership pays once all the hidden hours are counted.</p>
+        <p>You can push back on rush requests, unpaid estimates, and scope creep without fear.</p>
+        <p>No single agency controls your income.</p>
+        <p>And you choose which partnerships to grow, instead of letting them grow around you.</p>
+      </div>
+    </div>
+  </section>
+
+  <ProductPreviewGallery
+    heading="See inside"
+    previews={previews}
+    conclusion="You'll use these every time you consider a new agency and whenever you review an existing one."
+  />
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers acquisition at a foundational level. This goes deep on agencies as a specific channel, for when you want partnerships to become a dependable part of your business. <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">See the Launch Kit</a>.</p>
+        <p><strong class="text-foreground">Building your own pipeline too?</strong> <a class="font-semibold text-primary-accent hover:underline" href="/products/client-acquisition-without-upwork/">Client Acquisition Without Upwork</a> builds your direct pipeline. Agency partnerships add a second route, so you're never depending on just one.</p>
+        <p><strong class="text-foreground">Still unsure about your rates?</strong> Pair this with the <a class="font-semibold text-primary-accent hover:underline" href="/products/web-developer-pricing-system/">Web Developer Pricing System</a>, so you know what agency work needs to pay before you agree to it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Agency work can quietly pay far less than its rate suggests. If this playbook helps you catch one underpaying relationship, negotiate one fairer rate, or avoid one bad partnership, it has paid for itself many times over.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get the Agency Partnership Playbook" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Work with agencies. Don't work for one.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Build partnerships that send you steady, profitable work, while your business stays yours.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get the Agency Partnership Playbook" /></div>
+    </div>
+  </section>
+</BaseLayout>

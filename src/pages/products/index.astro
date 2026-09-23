@@ -2,75 +2,146 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
-import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
+import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { isPublicProduct } from "@/lib/storefront-visibility";
-import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
-const products = (await getCollection("products")).filter(isPublicProduct).sort((a, b) => a.data.order - b.data.order);
-const launchKit = products.find((product) => product.data.slug === "freelance-developer-launch-kit");
-const groups = [
-  {
-    title: "Make the work easier to buy and worth taking",
-    description: "Start here when the commercial foundation under your technical skill is weak.",
-    slugs: ["productize-your-dev-skills", "web-developer-pricing-system", "marketing-for-builders"],
-  },
-  {
-    title: "Create more qualified opportunity",
-    description: "Use these when future work is too dependent on luck, one source, or activity that is not reaching the pipeline.",
-    slugs: ["client-acquisition-without-upwork", "social-media-client-acquisition-system", "agency-partnership-playbook"],
-  },
-  {
-    title: "Turn serious opportunity into paid work",
-    description: "Use these when good buyer interest exists but value is being lost between conversation, commitment, payment, and project start.",
-    slugs: ["developer-sales-playbook", "developer-proposal-closing-kit"],
-  },
-  {
-    title: "Keep useful client value working after delivery",
-    description: "Use this when a successful client relationship contains a genuine continuing need worth structuring commercially.",
-    slugs: ["freelancer-retainer-system"],
-  },
-];
+const products = (await getCollection("products")).filter(isPublicProduct);
+const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
+const priceFor = (slug: string) => {
+  const product = productBySlug(slug);
+  if (!product) return undefined;
+  return resolveProductCommerce(product.data).priceFormatted;
+};
 
-const productBySlug = (slug: string) => products.find((product) => product.data.slug === slug);
+const stages = [
+  {
+    eyebrow: "Define",
+    title: "What you sell",
+    products: [
+      ["productize-your-dev-skills", "Turn everything you can build into one clear service the right clients understand and buy."],
+    ],
+  },
+  {
+    eyebrow: "Price",
+    title: "What you charge",
+    products: [
+      ["web-developer-pricing-system", "Know what a project really costs you, whether it's worth taking, and what price and terms make sense."],
+    ],
+  },
+  {
+    eyebrow: "Attract",
+    title: "How clients find you",
+    products: [
+      ["marketing-for-builders", "Make buyers understand why your work is worth paying for, so every channel works better."],
+      ["client-acquisition-without-upwork", "Build a pipeline that keeps new opportunities moving while you're busy delivering."],
+      ["social-media-client-acquisition-system", "Turn your time on social media into real conversations with buyers."],
+      ["agency-partnership-playbook", "Build agency relationships that send steady, profitable work without owning your income."],
+    ],
+  },
+  {
+    eyebrow: "Sell",
+    title: "How you close the deal",
+    products: [
+      ["developer-sales-playbook", "Turn good sales conversations into clear decisions, without scripts or pressure."],
+      ["developer-proposal-closing-kit", "Get the deal signed, paid, and started without giving away your margin."],
+    ],
+  },
+  {
+    eyebrow: "Retain",
+    title: "How clients keep paying you",
+    products: [
+      ["freelancer-retainer-system", "Turn successful projects into steady monthly income, with boundaries that protect your time."],
+    ],
+  },
+] as const;
+
+const launchKit = productBySlug("freelance-developer-launch-kit");
+const launchKitPrice = priceFor("freelance-developer-launch-kit");
 ---
 
-<BaseLayout title="Freelance Developer Business Systems | Developer Business Lab" description="Choose the Developer Business Lab system that matches the commercial problem you want to improve: offer, pricing, marketing, acquisition, sales, closing, agency partnerships, or recurring revenue.">
+<BaseLayout title="Products | Developer Business Lab" description="Browse every Developer Business Lab system by stage of the freelance development business: define, price, attract, sell, and retain.">
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
-    eyebrow="Developer Business Lab products"
-    title="Choose the part of your freelance business you want to make stronger."
-    description="Start with the business condition that is limiting income, opportunity, margin, continuity, or the way you want to work. Use one focused system when one problem is clearly the problem."
-    primaryCta={{ label: "Help Me Choose", href: "/start/" }}
-    secondaryCta={{ label: "Compare Bundles", href: "/bundles/" }}
-    supportingItems={["Focused commercial systems", "Guide + workbook products", "Whole-business foundation available"]}
+    eyebrow="Products"
+    title="Every system, one catalog."
+    description="Practical guides and fill-in workbooks for every stage of a freelance development business: defining what you sell, pricing it, finding clients, closing deals, and keeping them."
+    supportingItems={["Not sure what you need? Start Here →"]}
   />
 
-  {launchKit && (
-    <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-10 max-w-3xl"><p class="editorial-kicker">When several parts need to work together</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the first complete operating foundation.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">The Launch Kit is the broad standalone starting point when offer, pricing, buyer access, sales, delivery, cash, capacity, future demand, and management decisions are still interacting without one coherent operating structure.</p></div>
-        <FlagshipProductFeature product={{ ...launchKit, data: applyProductCopyOverride(launchKit.data) }} eyebrow="Whole-business foundation" heading="Build the first complete version of the freelance business around your technical skills." />
-      </div>
-    </section>
-  )}
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="editorial-kicker">The foundation</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">The whole business, built as one system</h2>
+      {launchKit && (
+        <div class="mt-10 border border-border bg-background p-7 lg:p-9">
+          <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <h3 class="text-3xl font-semibold">Freelance Developer Launch Kit</h3>
+              <p class="mt-4 max-w-4xl text-lg leading-8 text-muted-foreground">Your offer, pricing, client pipeline, sales, delivery, and a regular review that shows what to fix next, all connected. Complete on its own, and the best starting point when several parts of the business need work.</p>
+              <p class="mt-5 text-sm text-muted-foreground">The systems below each take one part of the business much deeper than the Launch Kit does.</p>
+            </div>
+            <div class="lg:text-right">
+              {launchKitPrice && <p class="text-lg font-semibold">{launchKitPrice}</p>}
+              <p class="mt-4"><TextLink href="/products/freelance-developer-launch-kit/">Learn more →</TextLink></p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
 
-  {groups.map((group, index) => (
+  {stages.map((stage, index) => (
     <section class={index % 2 === 0 ? "border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8" : "px-4 py-18 sm:px-6 sm:py-24 lg:px-8"}>
       <div class="mx-auto max-w-7xl">
-        <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-end"><div><p class="editorial-kicker">Choose by outcome</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">{group.title}</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">{group.description}</p></div>
+        <p class="editorial-kicker">{stage.eyebrow}</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">{stage.title}</h2>
         <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
-          {group.slugs.map((slug) => {
+          {stage.products.map(([slug, description]) => {
             const product = productBySlug(slug);
             if (!product) return null;
-            const data = applyProductCopyOverride(product.data);
-            return <a href={`/products/${data.slug}/`} class="group bg-background p-7 transition-colors hover:bg-card/50"><p class="editorial-kicker">{data.family}</p><h3 class="mt-3 text-2xl font-semibold group-hover:text-primary-accent">{data.title}</h3><p class="mt-4 leading-7 text-muted-foreground">{data.shortDescription}</p><p class="mt-5 text-sm font-semibold text-primary-accent">Explore {data.title} →</p></a>;
+            const price = priceFor(slug);
+            return (
+              <article class="bg-background p-7">
+                <h3 class="text-2xl font-semibold">{product.data.title}</h3>
+                <p class="mt-4 leading-7 text-muted-foreground">{description}</p>
+                <p class="mt-5 flex flex-wrap items-center gap-2 text-sm">
+                  {price && <strong>{price}</strong>}
+                  {price && <span aria-hidden="true">·</span>}
+                  <TextLink href={`/products/${product.data.slug}/`}>Learn more →</TextLink>
+                </p>
+              </article>
+            );
           })}
+          {stage.eyebrow === "Attract" && (
+            <article class="bg-background p-7">
+              <div class="flex flex-wrap items-center gap-2"><h3 class="text-2xl font-semibold">Developer Marketing Quickstart</h3><span class="text-sm italic text-muted-foreground">Free</span></div>
+              <p class="mt-4 leading-7 text-muted-foreground">Run one real round of finding clients and reach your first 25 qualified prospects.</p>
+              <p class="mt-5"><TextLink href="/free/">Get it free →</TextLink></p>
+            </article>
+          )}
         </div>
       </div>
     </section>
   ))}
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">When one problem is really several</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Use a bundle when several connected decisions need to improve together.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>The bundles group products by a shared business condition: commercial foundation, client acquisition, sales and closing, or the broader freelance business.</p><p><a class="font-semibold text-primary-accent hover:underline" href="/bundles/">Compare the current bundles →</a></p></div></div></section>
+  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="editorial-kicker">Bundles</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Several connected problems? Fix them together for less.</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        <div class="bg-background p-7"><p><strong>Freelancer Starter Bundle:</strong> offer, pricing, and marketing.</p></div>
+        <div class="bg-background p-7"><p><strong>Client Acquisition Bundle:</strong> several reliable routes to new clients.</p></div>
+        <div class="bg-background p-7"><p><strong>Freelancer Sales System:</strong> from first sales call to monthly revenue.</p></div>
+        <div class="bg-background p-7"><p><strong>Freelance Developer Business System:</strong> the Launch Kit plus all nine specialist systems.</p></div>
+      </div>
+      <p class="mt-7"><TextLink href="/bundles/">See all bundles →</TextLink></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl text-sm text-muted-foreground">Every purchase is covered by Developer Business Lab's 14-Day Satisfaction Guarantee. <a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy</a></div>
+  </section>
 </BaseLayout>

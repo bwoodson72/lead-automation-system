@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+type Preview = { image: string; alt: string; label: string; caption: string };
+interface Props {
+  heading: string;
+  previews: Preview[];
+  conclusion?: string;
+}
+
+const { heading, previews, conclusion } = Astro.props;
+const proofImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/product-proofs/**/*.{png,jpg,jpeg,webp,svg}",
+  { eager: true },
+);
+const resolveImage = (image: string) => {
+  const vectorImage = image.replace(/\.(png|jpe?g|webp)$/i, ".svg");
+  return proofImages[`/src/assets/product-proofs/${vectorImage}`]?.default
+    ?? proofImages[`/src/assets/product-proofs/${image}`]?.default;
+};
+const resolvedPreviews = previews
+  .map((preview) => ({ ...preview, src: resolveImage(preview.image) }))
+  .filter((preview): preview is Preview & { src: ImageMetadata } => Boolean(preview.src));
+---
+
+<section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <h2 class="text-4xl font-semibold tracking-tight">{heading}</h2>
+    <div class="mt-10 space-y-10">
+      {resolvedPreviews.map((preview) => (
+        <figure class="surface-editorial grid overflow-hidden lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,.65fr)]">
+          <a
+            href={preview.src.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group border-b border-border bg-background/60 p-3 sm:p-5 lg:border-b-0 lg:border-r"
+            aria-label={`Open ${preview.label} preview at full size`}
+          >
+            <Image
+              src={preview.src}
+              alt={preview.alt}
+              loading="lazy"
+              class="h-auto w-full rounded-md border border-border object-contain shadow-sm transition group-hover:border-primary/60"
+            />
+          </a>
+          <figcaption class="flex flex-col justify-center p-6 sm:p-8">
+            <p class="editorial-kicker">{preview.label}</p>
+            <p class="mt-4 text-base leading-7 text-muted-foreground">{preview.caption}</p>
+            <a
+              href={preview.src.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary-accent hover:underline"
+            >
+              Open full-size preview <span aria-hidden="true">↗</span>
+            </a>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    {conclusion && <p class="mt-8 max-w-4xl text-lg leading-8 text-muted-foreground">{conclusion}</p>}
+  </div>
+</section>

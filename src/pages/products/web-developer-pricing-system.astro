@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductCover from "@/components/products/ProductCover.astro";
+import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
 import heroImage from "@/assets/brand/neutral-hero.png";
@@ -88,13 +88,14 @@ const faqs = [
     eyebrow="Web Developer Pricing System"
     title="Stop guessing what to charge."
     description="Know what a project will really cost you, whether it's worth taking, and what price and payment terms make sense, before you send the quote. Every price becomes a decision you can stand behind instead of a number you hope works out."
-    supportingItems={["A guide and fill-in workbooks you use on real quotes."]}
   >
-    <div slot="actions" class="space-y-4">
-      <p class="text-lg font-semibold text-white">{priceLine}</p>
-      <ProductCTA product={product} location="hero" label="Get the Pricing System" />
+    <div slot="visual" class="min-w-0 max-w-full">
+      <ProductHeroPurchaseCard
+        product={product}
+        ctaLabel="Get the Pricing System"
+        supportingText="A guide and fill-in workbooks you use on real quotes."
+      />
     </div>
-    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
   </PageHero>
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">

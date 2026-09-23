@@ -1,75 +1,228 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
 import FAQList from "@/components/ui/FAQList.astro";
-import TextLink from "@/components/ui/TextLink.astro";
-import FlagshipProductFeature from "@/components/products/FlagshipProductFeature.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
-import { isPublicProduct } from "@/lib/storefront-visibility";
-import { applyProductCopyOverride, sanitizePublicCopy } from "@/lib/copy-overrides";
-
-const products = (await getCollection("products")).filter(isPublicProduct);
-const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
-const launchKit = productBySlug("freelance-developer-launch-kit");
-
-const routes = sanitizePublicCopy([
-  ["Offer", "I can do the work, but buyers still get a moving target.", "productize-your-dev-skills"],
-  ["Pricing", "I need to know whether this project is worth taking before I quote it.", "web-developer-pricing-system"],
-  ["Marketing", "I need the right buyers to understand why my technical work matters.", "marketing-for-builders"],
-  ["Pipeline", "I need enough qualified opportunity moving that every inquiry is not necessary revenue.", "client-acquisition-without-upwork"],
-  ["Social", "I spend time in public, but I cannot see a credible path from attention to client opportunity.", "social-media-client-acquisition-system"],
-  ["Sales", "Good buyer conversations are happening, but too many end without a commercial decision.", "developer-sales-playbook"],
-  ["Closing", "The opportunity is ready, but proposal, negotiation, payment, or project start still feels loose.", "developer-proposal-closing-kit"],
-  ["Agencies", "I want repeat agency access without giving one partner too much influence over my business.", "agency-partnership-playbook"],
-  ["Retainers", "Good clients still need useful work after launch, but the next commercial relationship is undefined.", "freelancer-retainer-system"],
-]);
-
-const resolvedRoutes = routes.flatMap(([stage, problem, slug]) => {
-  const product = productBySlug(slug);
-  return product ? [{ stage, problem, product }] : [];
-});
-
-const outcomes = [
-  { title: "Quote without panic", description: "A project does not have to be won at any price because you understand what the work needs to support and other opportunities can still be developing." },
-  { title: "Finish a project without starting from zero", description: "Buyer access and pipeline activity do not disappear simply because delivery became busy." },
-  { title: "Turn down work that consumes the wrong part of your calendar", description: "Better qualification, pricing, and pipeline visibility make a weak-fit project easier to reject or reshape." },
-  { title: "Build a business that belongs to you", description: "Your reputation, client relationships, commercial process, and future income depend less on one employer, platform, referral source, agency, or client." },
-];
 
 const faqs = [
-  { data: { order: 1, question: "Where should I start if several parts of the business feel weak?", answer: "Start with the Freelance Developer Launch Kit. It builds the first complete operating foundation across offer, economics, buyer access, sales, delivery, future demand, and management review. If one constraint is already obvious, use the focused system for that problem." } },
-  { data: { order: 2, question: "Do I need to buy the whole catalog?", answer: "No. Buy the smallest system that matches the problem. Focused products go deep on one constraint, bundles connect several related constraints, the Launch Kit builds the first complete foundation, and the complete Business System adds specialist depth across the broader commercial cycle." } },
-  { data: { order: 3, question: "What am I buying?", answer: "Developer Business Lab sells digital instructional guides and implementation workbooks. The products teach commercial reasoning and turn it into records, calculations, decisions, and operating tools you can apply to an independent development business." } },
-  { data: { order: 4, question: "Can I start without buying anything?", answer: "Yes. Developer Marketing Quickstart is the free starting point. It helps you put one real acquisition loop into motion and learn from buyer response before moving into a deeper paid system." } },
+  {
+    data: {
+      order: 1,
+      question: "Why is the Quickstart free?",
+      answer:
+        "It gives you a practical way to try the Developer Business Lab approach with your own market before buying anything. You'll make real buyer contact, collect evidence, and have a clearer idea of what needs work next.",
+    },
+  },
+  {
+    data: {
+      order: 2,
+      question: "Can't I find this for free anyway?",
+      answer:
+        "You can find pieces. Free advice is scattered, often contradicts itself, and almost never explains how the parts fit together. Connecting them is the whole point.",
+    },
+  },
+  {
+    data: {
+      order: 3,
+      question: 'Is this generic business advice with "developer" slapped on it?',
+      answer:
+        "No. It's written for people who sell development work: scope creep on builds, competing with Upwork and page builders, subcontracting for agencies, and turning finished sites into ongoing work.",
+    },
+  },
+  {
+    data: {
+      order: 4,
+      question: "I don't have time for another course.",
+      answer:
+        "These aren't courses. They're guides and workbooks you use on your real business as you go.",
+    },
+  },
+  {
+    data: {
+      order: 5,
+      question: "Where should I start?",
+      answer:
+        "If you want to get in front of buyers this week, start with the free Quickstart. If several parts of your business need work, start with the Launch Kit. If you already know exactly where the problem is, go straight to the focused guide for that part of the business.",
+    },
+  },
 ];
 ---
 
-<BaseLayout title="Developer Business Lab | Business Systems for Freelance Developers" description="Practical business systems for independent developers who want more earning power, more reliable opportunity, and more control over how they work.">
+<BaseLayout
+  title="Developer Business Lab | Business Systems for Freelance Developers"
+  description="Practical business systems for freelance developers who want to find clients, price projects, close deals, and earn more from their technical skills."
+>
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and implementation workbooks arranged on a developer workspace"
     variant="home"
-    eyebrow="Business systems for independent developers"
-    title="Build a freelance business strong enough to give you choices."
-    description="Your technical ability should be able to buy you more than another project. Build the business capabilities that help you earn well, keep opportunities moving, choose work on better terms, and create more control over how you spend your time."
-    primaryCta={{ label: "Start with the Launch Kit", href: "/products/freelance-developer-launch-kit/" }}
-    secondaryCta={{ label: "Get the Free Quickstart", href: "/free/" }}
-    supportingItems={["Practical guides", "Implementation workbooks", "Problem-specific business systems"]}
+    eyebrow="For freelance developers"
+    title="You can build anything a client asks for. So why is freelancing still this hard?"
+    description="Because nobody taught you the business side. Developer Business Lab gives freelance developers practical systems for finding clients, pricing projects, and closing deals, so your skills earn more money and give you the control you went independent for."
+    primaryCta={{ label: "Get the Free Quickstart", href: "/products/developer-marketing-quickstart/" }}
+    secondaryCta={{ label: "See the Launch Kit", href: "/products/freelance-developer-launch-kit/" }}
+    supportingItems={["Practical guides and fill-in workbooks built for developers who sell their own work."]}
   />
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">Why freelancing in the first place?</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Valuable technical skills should give you options.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>More earning upside. More say over the calendar. The ability to choose better clients and projects. The option to work remotely, specialize, build recurring revenue, create products, take time away, or simply stop depending on one employer for all of your income.</p><p>Those benefits do not come from coding skill alone. They depend on the business around the skill.</p></div></div></section>
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">If this sounds like your month, you're in the right place.</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You wrap up a project and the calendar is empty.</p>
+        <p>A new lead comes in, and you spend the evening staring at a quote. You send a number lower than you wanted and still worry it was too high.</p>
+        <p>You left one boss behind and ended up with five clients who each act like one. One of them wants "one small change" for the fifth time this week.</p>
+        <p>A sales call goes great. Then you never hear from them again.</p>
+        <p>Most of your income comes from one agency, and you try not to think about what happens if they stop calling.</p>
+        <p>Your partner asks when the next payment is coming in, and you say "soon" because you honestly don't know.</p>
+        <p>You're working more hours than you did at your old job, and you still can't predict next month.</p>
+        <p class="font-semibold text-foreground">You're not imagining it, and you're not the only one.</p>
+      </div>
+    </div>
+  </section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-20"><div><p class="editorial-kicker">Where freedom gets lost</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">A weak business can turn freelancing into the opposite of what you wanted.</h2></div><div class="space-y-5 text-lg leading-8 text-muted-foreground"><p>No boss can become six client-bosses. Schedule control can become everything being urgent. Earning upside can become fear of quoting a project at the price the obligation deserves. Independence can become dependence on one marketplace, agency, referral source, or large client.</p><p>The business side decides whether technical ability creates leverage or simply creates more work.</p></div></div></section>
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div>
+        <h2 class="text-4xl font-semibold tracking-tight">It's not your skills. It's that nothing is connected.</h2>
+      </div>
+      <div class="space-y-6 text-lg leading-8 text-muted-foreground">
+        <p>Your business has parts: what you sell, what you charge, where clients come from, how you close them, and what happens after the project ends. Every one of them depends on the others.</p>
+        <p>A vague offer is hard to price. A weak price makes every deal feel like one you can't lose. That makes you take bad clients. Bad clients eat the time you needed for finding good ones. Then the project ends and you start over from nothing.</p>
+        <p>You'd never ship software without architecture. Most freelancers run their business exactly that way, and then wonder why every fix breaks something else.</p>
+      </div>
+    </div>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="max-w-3xl"><p class="editorial-kicker">What better feels like</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">You have choices because the business is producing enough money and enough opportunity that you are not trapped.</h2></div><div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{outcomes.map((item) => <div class="bg-background p-7"><h3 class="text-xl font-semibold">{item.title}</h3><p class="mt-3 leading-7 text-muted-foreground">{item.description}</p></div>)}</div></div></section>
+    <div class="mx-auto mt-12 max-w-7xl">
+      <p class="text-lg font-semibold">A few beliefs keep developers stuck here.</p>
+      <div class="mt-6 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="font-semibold text-foreground">“Good work should speak for itself.”</p>
+          <p class="mt-3 leading-7 text-muted-foreground">It does, to the clients who already hired you. Everyone else never sees it.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="font-semibold text-foreground">“Referrals will carry me eventually.”</p>
+          <p class="mt-3 leading-7 text-muted-foreground">Referrals are great, but you don't control when they come or who sends them. That's not a business. That's waiting.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="font-semibold text-foreground">“If I charge more, I'll lose clients.”</p>
+          <p class="mt-3 leading-7 text-muted-foreground">You'll lose some. Usually the ones costing you the most time for the least money.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="font-semibold text-foreground">“I'm a developer, not a salesman.”</p>
+          <p class="mt-3 leading-7 text-muted-foreground">Good. You don't need to become one. Finding clients, pricing work, and closing deals are systems: inputs, steps, feedback, and results you can measure. You already know how to learn a system. This is just a new one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  {launchKit && <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="mb-10 max-w-3xl"><p class="editorial-kicker">When the whole business needs a foundation</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Build the first complete version of the freelance business around your technical skills.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">The Launch Kit connects offer, economics, buyer access, sales, delivery, future demand, and management review so the business can start accumulating understanding instead of repeatedly losing it.</p></div><FlagshipProductFeature product={{ ...launchKit, data: applyProductCopyOverride(launchKit.data) }} eyebrow="Recommended whole-business starting point" heading="Build the first operating foundation, then use evidence to decide what deserves deeper work." /></div></section>}
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Why another YouTube video won't fix it</h2>
+      <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You've probably tried some of this already. A pricing video. A few Reddit threads. A burst of LinkedIn posts. A course that turned out to be mostly motivation.</p>
+        <p>Some of it helped for a while. None of it stuck, because each piece was a patch on a system that doesn't exist yet.</p>
+        <p class="font-semibold text-foreground">More advice isn't what's missing. A system is.</p>
+      </div>
+    </div>
+  </section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-7xl"><div class="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end"><div><p class="editorial-kicker">Already know the constraint?</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Go straight to the commercial problem that is limiting the business.</h2></div><p class="max-w-2xl text-lg leading-8 text-muted-foreground">You do not need every product. Use the focused system when one problem is clearly the problem.</p></div><div class="mt-10 border-t border-border">{resolvedRoutes.map(({ stage, problem, product }) => <a href={`/products/${product.data.slug}/`} class="group grid gap-3 border-b border-border py-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline sm:grid-cols-[8rem_1fr_auto] sm:items-center"><span class="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{stage}</span><span class="text-lg text-foreground/90 transition-colors group-hover:text-foreground">{problem}</span><span class="text-sm font-semibold text-primary-accent">{product.data.title} →</span></a>)}</div><p class="mt-8"><TextLink href="/start/">Help me choose where to start →</TextLink></p></div></section>
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What happens if nothing changes</h2>
+      <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Another year of the same cycle. Prices that stay wherever fear set them. Income that depends on one client's inbox. More hours for less certainty, while the freedom you went independent for keeps getting pushed to "later."</p>
+        <p>And eventually, a quiet question starts showing up late at night: <em>Should I just go back to a job?</em></p>
+        <p>For a lot of developers, that's how freelancing ends. Not because they weren't good enough, but because nobody showed them how to build the business around their skills.</p>
+        <p>The ground is shifting too. AI keeps getting better at writing code, and developers who compete only on building are already feeling pressure on their rates. What AI can't do is choose the right clients, price a project so it's worth taking, earn a buyer's trust, or turn one job into a long relationship. Those are business skills, and they're the part of freelancing that's gaining value.</p>
+      </div>
+    </div>
+  </section>
 
-  <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16"><div class="max-w-3xl"><p class="editorial-kicker">Start before the current work runs out</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Give the next client search a head start.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you a free guide and workbook for choosing a buyer, investigating a problem, shaping a provisional offer, qualifying a First 25, working the cycle, and using what happens to decide what to test next.</p></div><div class="lg:text-right"><Button as="a" href="/free/" size="lg">Get the Free Quickstart</Button><p class="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Free digital guide + workbook · email required</p></div></div></section>
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="max-w-3xl text-4xl font-semibold tracking-tight">What freelancing looks like when the business works</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+        {[
+          "A project wraps up on Friday, and you already have two conversations going for the next one.",
+          "You raise your rates, and the right clients say yes. This year, your income actually grows instead of just swinging.",
+          "You send a quote and sleep fine, because you know what the project needs to cover.",
+          "Projects are priced so you can do them right, without cutting corners on work you care about.",
+          "A client with a bad budget calls, and you turn it down without panic.",
+          "You take Tuesday afternoon off without asking anyone. Your evenings are yours again.",
+          "Past clients pay you every month to keep their sites running, so no single client can sink your month.",
+          "When your partner asks how work is going, you have a real answer.",
+        ].map((item) => (
+          <div class="bg-background p-7 text-lg leading-8 text-muted-foreground">{item}</div>
+        ))}
+      </div>
+      <p class="mt-8 max-w-4xl text-xl font-semibold leading-8">That's the freedom you went independent for. It comes from the business around your skills, not from working harder.</p>
+    </div>
+  </section>
 
-  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto max-w-4xl"><p class="editorial-kicker">Questions before you choose</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Start with the scope of the problem you actually have.</h2><div class="mt-8"><FAQList faqs={faqs} /></div></div></section>
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+      <div class="max-w-4xl">
+        <p class="editorial-kicker">Developer Marketing Quickstart</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Start here: get real answers from real buyers</h2>
+        <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
+          <p>Most developers stuck in this cycle are also stuck in preparation. Redesigning the portfolio again. Reading one more thread. Waiting to feel ready.</p>
+          <p>The free <strong class="text-foreground">Developer Marketing Quickstart</strong> gets you out of that and in front of potential clients. You'll:</p>
+        </div>
+        <ul class="mt-6 space-y-3 text-lg leading-8 text-muted-foreground">
+          <li><strong class="text-foreground">Pick one type of client</strong> you can realistically reach.</li>
+          <li><strong class="text-foreground">Find a real problem</strong> worth solving for them.</li>
+          <li><strong class="text-foreground">Shape a simple offer</strong> around that problem.</li>
+          <li><strong class="text-foreground">Build a list of 25 qualified prospects.</strong></li>
+          <li><strong class="text-foreground">Reach out, track what happens,</strong> and use the results to decide your next move.</li>
+        </ul>
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">It's a short guide and a workbook. By the end, you'll have real conversations and real evidence instead of another plan.</p>
+      </div>
+      <div class="lg:text-right">
+        <Button as="a" href="/products/developer-marketing-quickstart/" size="lg">Get the Free Quickstart</Button>
+        <p class="mt-3 text-sm text-muted-foreground">Free guide and workbook.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="max-w-4xl">
+        <p class="editorial-kicker">Freelance Developer Launch Kit</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Ready to build the whole business?</h2>
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">The Quickstart gets you in front of buyers. The <strong class="text-foreground">Freelance Developer Launch Kit</strong> builds everything around that:</p>
+      </div>
+      <div class="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-5">
+        <div class="bg-background p-6"><p class="font-semibold">A clear offer</p><p class="mt-3 leading-7 text-muted-foreground">Clients can understand and say yes to it, instead of "I can build anything."</p></div>
+        <div class="bg-background p-6"><p class="font-semibold">Prices based on real numbers</p><p class="mt-3 leading-7 text-muted-foreground">Every quote covers what the work actually costs you.</p></div>
+        <div class="bg-background p-6"><p class="font-semibold">A client pipeline</p><p class="mt-3 leading-7 text-muted-foreground">It keeps moving while you're busy building.</p></div>
+        <div class="bg-background p-6"><p class="font-semibold">Sales conversations</p><p class="mt-3 leading-7 text-muted-foreground">They end in a clear decision, without turning you into a salesman.</p></div>
+        <div class="bg-background p-6"><p class="font-semibold">A regular business review</p><p class="mt-3 leading-7 text-muted-foreground">It shows exactly what to fix next.</p></div>
+      </div>
+      <p class="mt-8 max-w-4xl text-lg leading-8 text-muted-foreground">These are workbooks you fill out with your own clients and your own numbers, not chapters you read once and forget.</p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <Button as="a" href="/products/freelance-developer-launch-kit/" size="lg">See the Launch Kit</Button>
+        <a href="/products/" class="font-semibold text-primary-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">Already know exactly what's broken? See the focused guides →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions you're probably asking</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">You didn't go independent to trade one boss for five.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">You went for more money, more control over your time, and the freedom to do the work the right way. Build the business that delivers them.</p>
+      <p class="mt-4 text-lg font-semibold">Start with one real step this week.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button as="a" href="/products/developer-marketing-quickstart/" size="lg">Get the Free Quickstart</Button>
+        <Button as="a" href="/products/freelance-developer-launch-kit/" variant="outline" size="lg">See the Launch Kit</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

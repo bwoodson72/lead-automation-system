@@ -11,6 +11,7 @@ import heroImage from "@/assets/brand/neutral-hero.png";
 import { getBundleRecommendation } from "@/lib/bundle-progression";
 import { reportProductCatalogCoverage, resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
 
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { product } = Astro.props;
-const d = product.data;
+const d = applyProductCopyOverride(product.data);
 const commerce = resolveProductCommerce(d);
 const effectiveStatus = commerce.effectiveStatus;
 const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
@@ -82,11 +83,13 @@ const pageCopy = d.pageCopy ?? {};
     audience={d.audience}
     supportingItems={[d.format, heroCommerce]}
   >
-    <div slot="actions"><ProductCTA product={product} location="hero" /></div>
-    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+    <div slot="actions"><ProductCTA product={{ ...product, data: d }} location="hero" /></div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={{ ...product, data: d }} /></div>
   </PageHero>
 
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.motivationEyebrow ?? d.family}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.motivationTitle ?? "What this can change in your business."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>\n\n  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.problemEyebrow ?? "The problem in practice"}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.problemTitle ?? "The pattern making this harder than it needs to be."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.motivationEyebrow ?? d.family}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.motivationTitle ?? "What this can change in your business."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground"><p>{d.buyerMotivation ?? d.problem}</p><p>{d.commercialStakes ?? d.problem}</p></div></div></section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto grid min-w-0 max-w-7xl gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20"><div class="min-w-0"><p class="editorial-kicker">{pageCopy.problemEyebrow ?? "The problem in practice"}</p><h2 class="mt-4 break-words text-3xl font-semibold">{pageCopy.problemTitle ?? "The pattern making this harder than it needs to be."}</h2></div><div class="min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{reframeParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto min-w-0 max-w-7xl">
@@ -116,7 +119,7 @@ const pageCopy = d.pageCopy ?? {};
 
   {d.proof && !d.proofPackage && <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8"><div class="mx-auto min-w-0 max-w-5xl"><p class="editorial-kicker">See what changes</p><h2 class="mt-4 break-words text-4xl font-semibold tracking-tight">{d.proof.title}</h2><div class="mt-6 min-w-0 space-y-5 break-words text-lg leading-8 text-muted-foreground">{proofParagraphs.map((paragraph) => <p>{paragraph}</p>)}</div>{(d.proof.before || d.proof.after) && <div class="mt-9 grid min-w-0 gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{d.proof.before && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker text-muted-foreground">Before</p><p class="mt-3 break-words text-lg">{d.proof.before}</p></div>}{d.proof.after && <div class="min-w-0 bg-background p-7"><p class="editorial-kicker">After</p><p class="mt-3 break-words text-lg">{d.proof.after}</p></div>}</div>}</div></section>}
 
-  {bundleRecommendation && recommendedBundle && <BundleProgressionCard currentProduct={product} products={publicProducts} bundle={recommendedBundle} />}
+  {bundleRecommendation && recommendedBundle && <BundleProgressionCard currentProduct={{ ...product, data: d }} products={publicProducts} bundle={recommendedBundle} />}
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto min-w-0 max-w-4xl">
@@ -135,21 +138,12 @@ const pageCopy = d.pageCopy ?? {};
         </p>
         {commerce.purchasable && !d.free && (
           <dl class="mt-8 grid min-w-0 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-            <div class="min-w-0 bg-background p-5">
-              <dt class="text-sm font-semibold">You receive</dt>
-              <dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{d.format}</dd>
-            </div>
-            <div class="min-w-0 bg-background p-5">
-              <dt class="text-sm font-semibold">Delivery</dt>
-              <dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">Digital delivery through Lemon Squeezy after checkout.</dd>
-            </div>
-            <div class="min-w-0 bg-background p-5">
-              <dt class="text-sm font-semibold">Refunds</dt>
-              <dd class="mt-2 text-sm leading-6"><a class="text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy</a></dd>
-            </div>
+            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">You receive</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">{d.format}</dd></div>
+            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Delivery</dt><dd class="mt-2 break-words text-sm leading-6 text-muted-foreground">Digital delivery through Lemon Squeezy after checkout.</dd></div>
+            <div class="min-w-0 bg-background p-5"><dt class="text-sm font-semibold">Refunds</dt><dd class="mt-2 text-sm leading-6"><a class="text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy</a></dd></div>
           </dl>
         )}
-        <div class="mt-8 min-w-0"><ProductCTA product={product} location="final" /></div>
+        <div class="mt-8 min-w-0"><ProductCTA product={{ ...product, data: d }} location="final" /></div>
       </div>
     </div>
   </section>

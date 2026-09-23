@@ -1,0 +1,218 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "client-acquisition-without-upwork");
+if (!sourceProduct) throw new Error("Client Acquisition Without Upwork product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const previewSource = d.proofPackage?.previews ?? [];
+const previewLabels = new Set([
+  "Workbook pp. 40-42 · Research and contact premise",
+  "Workbook pp. 51-53 · Opportunity Gate",
+  "Workbook pp. 60-65 · Measurement and diagnosis",
+]);
+const previews = previewSource.filter((preview) => previewLabels.has(preview.label));
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/client-acquisition-without-upwork/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["A list of the right businesses", "How to choose which companies are worth pursuing, so your time goes to accounts that can actually become good clients."],
+  ["Research that finds real opportunities", "How to spot a genuine business problem before you ever reach out, so you have something useful to say."],
+  ["Outreach that doesn't feel like spam", "Messages based on what you learned about each business, not mass templates. Fewer messages, better conversations."],
+  ["Qualification", "How to tell early which prospects are worth your time, and which ones will waste it."],
+  ["Clear roles for each channel", "How outreach, referrals, your network, and other sources fit together, so you're not depending on any single one."],
+  ["A visible pipeline", "Simple stages that show where every opportunity stands and what needs to happen next."],
+  ["A follow-up system", "How to stay in touch without being pushy, so good opportunities don't die from silence."],
+  ["Measurement and diagnosis", "How to see what's working, spot where opportunities are getting stuck, and fix that part."],
+  ["Capacity planning", "How to keep the pipeline running during busy delivery weeks without burning out."],
+];
+
+const faqs = [
+  { data: { question: "I hate cold outreach. Is this for me?", answer: "Especially you. Most cold outreach feels bad because it's generic and sent to everyone. This system is built around researching specific businesses and reaching out about a real problem they have. That reads like help, not spam." } },
+  { data: { question: "Is this just a cold email course?", answer: "No. Outreach is one part of it. The focus is a complete pipeline: choosing the right businesses, researching them, qualifying them, following up, and measuring what works across every channel you use." } },
+  { data: { question: "I don't have time to prospect while I'm delivering.", answer: "That's the problem this solves. The system is designed to run in a few focused hours a week, so it keeps working during your busiest projects." } },
+  { data: { question: "Referrals are working fine for me.", answer: "Great, and they're part of the system. The goal is making sure your income doesn't depend on them alone, because you can't control when referrals come or whether they stop." } },
+  { data: { question: "Will this get me clients right away?", answer: "It will get you into real conversations quickly. A dependable pipeline takes a few weeks of consistent work to build, and then it keeps producing opportunities as long as you run it." } },
+  { data: { question: "How long does it take?", answer: "Build the system chapter by chapter, then run the 30-day operating cycle as your first bounded execution period. The guide has 20 substantive chapters with 20 matched worksheets, and the cycle gives you enough structure to collect evidence, see where the pipeline is getting stuck, and decide what to improve next." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Client Acquisition Without Upwork"
+    title="Stop starting over every time a project ends."
+    description="Build a client pipeline that keeps moving while you're busy delivering. Find the right businesses, reach them with messages worth reading, and always know where your next project is coming from, without depending on Upwork, one agency, or referrals you can't control."
+    supportingItems={["A guide and fill-in workbooks you run on real prospects."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get Client Acquisition Without Upwork" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Busy, then empty. Busy, then empty.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>When you're delivering a project, you don't have time to look for the next one. When the project ends, you suddenly have nothing but time, and nothing to fill it with.</p>
+        <p>So you scramble. You refresh Upwork, message old contacts, and hope for a referral. The longer the gap lasts, the more you'll accept: the low budget, the vague scope, the client you already know will be difficult.</p>
+        <p class="font-semibold text-foreground">That isn't bad luck. It's what happens when finding clients only starts after the work runs out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What the gap between projects really costs</h2>
+      <p class="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Say you land an eight-week project, and it keeps you fully booked.</p>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">Developer A</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Starts looking for work in week eight. Finding the right client, having the conversations, and getting a signed deal takes another four to six weeks. That's a month or more with no income. If he normally earns $6,000 a month, that gap costs him somewhere around $6,000 to $9,000, and it happens every time a project ends.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">Developer B</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Spends a few focused hours each week of the project on his pipeline: researching a handful of good-fit businesses, sending a few well-targeted messages, and following up. None of it lands right away. But by week eight, he has several conversations underway, and one of them is ready to start.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-xl font-semibold">Same skills. Same project. One has a gap. The other has a pipeline.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example. Your numbers will vary.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies never stop selling, even when they're busy.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Every successful agency runs business development continuously. They track prospects in a pipeline, follow up on schedule, and keep new conversations moving while current projects are being delivered. That's why they don't lurch from feast to famine.</p>
+        <p>Client Acquisition Without Upwork gives a one-person business the same kind of pipeline, sized to fit the few hours you actually have.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>A project ends, and the next one is already lined up.</p>
+        <p>You stop depending on Upwork, one agency, or whoever happens to refer you.</p>
+        <p>You can turn down a bad client or a bad budget, because the next opportunity doesn't depend on this one.</p>
+        <p>Your income evens out, because work arrives on a schedule instead of by luck.</p>
+        <p>And you stop dreading the end of every project.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="The workbooks become the operating system for your pipeline, and you use them every week."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers client acquisition at a foundational level. This goes much deeper, for when your business review shows you don't have enough good opportunities.</p>
+        <p><strong class="text-foreground">Tried the free Quickstart?</strong> It takes you through one round of finding clients. This turns that into a system you run continuously. <a class="font-semibold text-primary-accent hover:underline" href="/free/">Get the free Quickstart</a>.</p>
+        <p><strong class="text-foreground">Buyers not understanding your value?</strong> Pair this with <a class="font-semibold text-primary-accent hover:underline" href="/products/marketing-for-builders/">Marketing for Builders</a>. Acquisition gets you in front of buyers. Marketing makes sure they understand why you're worth it.</p>
+        <p><strong class="text-foreground">Want more channels?</strong> The <a class="font-semibold text-primary-accent hover:underline" href="/products/social-media-client-acquisition-system/">Social Media Client Acquisition System</a> and <a class="font-semibold text-primary-accent hover:underline" href="/products/agency-partnership-playbook/">Agency Partnership Playbook</a> each add a deeper route into the same pipeline.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">A single gap between projects can cost you thousands of dollars. If this system shortens one gap by even a week, or helps you turn down one bad client because something better is already in the pipeline, it has paid for itself many times over.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get Client Acquisition Without Upwork" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Your next client shouldn't depend on luck.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Build a pipeline that keeps work coming, so you can choose your clients instead of taking whoever shows up.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get Client Acquisition Without Upwork" /></div>
+    </div>
+  </section>
+</BaseLayout>

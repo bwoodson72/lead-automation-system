@@ -1,0 +1,221 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "social-media-client-acquisition-system");
+if (!sourceProduct) throw new Error("Social Media Client Acquisition System product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const preferredPreviewImages = [
+  "social-media-client-acquisition/buyer-referrer-map.svg",
+  "social-media-client-acquisition/conversation-progression.svg",
+  "social-media-client-acquisition/social-pipeline-tracker.svg",
+];
+const allPreviews = d.proofPackage?.previews ?? [];
+const previews = preferredPreviewImages
+  .map((image) => allPreviews.find((preview) => preview.image === image))
+  .filter(Boolean);
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/social-media-client-acquisition-system/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["The right audience", "The specific buyers and referral sources worth your attention, instead of whoever the algorithm sends you."],
+  ["Your position and proof", "What you want to be known for, and the evidence that makes it believable to buyers."],
+  ["The right platform", "Where your buyers actually spend time, so you're not spreading yourself across every network."],
+  ["A publishing plan", "What to post, how often, and why, built around your buyers' problems instead of developer topics."],
+  ["Listening and interaction", "How to pay attention to what your buyers are saying and join the conversation in a way that builds trust."],
+  ["Relationship development", "How to move from strangers to familiar names to people who know what you do."],
+  ["Direct conversations", "How to move the right relationships into private messages naturally, without pitching or pestering."],
+  ["Qualification and pipeline", "How to tell which conversations are real opportunities and move them into your client pipeline."],
+  ["Attribution and review", "How to see which activities are producing opportunities, so you can do more of what works and drop what doesn't."],
+];
+
+const faqs = [
+  { data: { question: "I don't want to be an influencer. Is this for me?", answer: "Yes. This isn't about building a big following. It's about building relationships with a small group of the right people and turning some of them into clients." } },
+  { data: { question: "Do I need to post every day?", answer: "No. Consistency matters more than volume, and the system helps you choose a pace that fits alongside client work." } },
+  { data: { question: "Which platform should I use?", answer: "It depends on who your buyers are and where they spend time. Choosing the right platform is part of the process." } },
+  { data: { question: "I barely have any followers. Does that matter?", answer: "Much less than you think. A small audience of the right people is worth more than a large audience of other developers." } },
+  { data: { question: "How is this different from Client Acquisition Without Upwork?", answer: "That product builds your core pipeline across all channels. This one goes deep on social media as a specific channel that feeds that pipeline." } },
+  { data: { question: "How long does it take?", answer: "The product includes a 99-page guide and 91-page workbook with 25 linked implementation tools. Build the commercial foundation while you read, then operate the system in a sustainable weekly mode and use the included 30-day and 90-day reviews to decide what to continue, change, or stop." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Social Media Client Acquisition System for Freelancers"
+    title="Stop getting likes from developers. Start getting conversations with clients."
+    description="Turn the time you spend on social media into real relationships with the people who hire developers. Choose the right audience, build trust in public, move the right people into private conversations, and see exactly which efforts lead to paid work."
+    supportingItems={["A guide and fill-in workbooks you use alongside your real accounts."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get the Social Media System" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Your posts do well. Your pipeline doesn't notice.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>You've tried posting consistently. Tips, projects, lessons learned. Some of it even did well: a few thousand views, a nice stack of likes, some thoughtful comments.</p>
+        <p>Almost all of it came from other developers. Not one of them was going to hire you.</p>
+        <p>So you posted less, then stopped. Social media started to feel like a time sink that rewards people who want to be influencers, which you don't.</p>
+        <p class="font-semibold text-foreground">The problem isn't social media. It's that followers, likes, and impressions were treated as the goal, when the goal was always conversations with buyers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Two developers, one month on LinkedIn</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">Developer A</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Posts every day about coding: framework comparisons, productivity tips, screenshots of his setup. By the end of the month he has 5,000 impressions, 60 likes, and 20 new followers, nearly all developers. Client conversations: zero.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">Developer B</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">Picks 30 local business owners in one industry and 10 people who often refer web work, like marketing consultants and accountants. He posts twice a week about problems those business owners actually have, comments thoughtfully on their posts, and replies when they respond. His numbers look smaller: 900 impressions, 15 likes.</p>
+          <p class="mt-5 text-lg leading-8 text-muted-foreground">But several of those likes came from the people he chose. Three turned into direct conversations. One led to a call, and the call led to a proposal.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-xl font-semibold">Developer A built an audience. Developer B built a pipeline.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies don't measure social media in likes.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>When agencies use social media for business development, they track what matters: which relationships are warming up, which conversations started, and which opportunities came from which efforts. A post that reaches 200 of the right people beats one that reaches 20,000 of the wrong ones.</p>
+        <p>This system gives a one-person business the same focus, sized for the time you actually have and built around the platforms your buyers really use.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Your time on social media starts producing client conversations, not just likes.</p>
+        <p>The right people start recognizing your name before you ever reach out.</p>
+        <p>You stop feeling like you have to perform or become an influencer.</p>
+        <p>You post less and get more from it, because every post has a reason and an audience.</p>
+        <p>And you can see clearly which efforts lead to paid work, so social media becomes a channel instead of a guessing game.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="The workbooks keep your social activity connected to your pipeline, week after week."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Already using Client Acquisition Without Upwork?</strong> That builds your core pipeline. This adds social media as a deliberate channel that feeds into it.</p>
+        <p><strong class="text-foreground">Not sure what to say yet?</strong> Social media works best when your message is clear. Pair this with <a class="font-semibold text-primary-accent hover:underline" href="/products/marketing-for-builders/">Marketing for Builders</a>, which helps you explain why your work matters to buyers.</p>
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers acquisition at a foundational level. This goes deep on one channel, for when you want social media to become a reliable source of clients.</p>
+        <p class="text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/products/client-acquisition-without-upwork/">See Client Acquisition Without Upwork</a> · <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">See the Launch Kit</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">You're probably already spending hours a month on social media. If this system turns that same time into even one real client conversation that becomes a project, it has paid for itself many times over.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get the Social Media System" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Likes don't pay the bills. Clients do.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Turn your time on social media into real conversations with the people who hire developers.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get the Social Media System" /></div>
+    </div>
+  </section>
+</BaseLayout>

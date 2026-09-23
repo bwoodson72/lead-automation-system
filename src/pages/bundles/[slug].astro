@@ -9,7 +9,8 @@ import { button } from "@/components/starwind/button/variants";
 import heroImage from "@/assets/brand/neutral-hero.png";
 import { getBundleMerchandising } from "@/lib/bundle-merchandising";
 import { isPublicBundle, isPublicProduct } from "@/lib/storefront-visibility";
-import { applyBundleCopyOverride } from "@/lib/copy-overrides";
+import { applyBundleCopyOverride, applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
 
 export async function getStaticPaths() {
   const bundles = (await getCollection("bundles")).filter(isPublicBundle);
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 const { bundle } = Astro.props;
 const products = (await getCollection("products")).filter(isPublicProduct);
 const merch = getBundleMerchandising(bundle, products);
-const d = applyBundleCopyOverride(bundle.data);
+const d = cleanPublicCopyTree(applyBundleCopyOverride(bundle.data));
 const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
 const canonical = new URL(`/bundles/${d.slug}/`, siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();
@@ -78,7 +79,10 @@ const productSchema = {
         <div><p class="text-lg leading-8 text-muted-foreground">{d.pageCopy?.includedIntro ?? d.whyTogether ?? d.outcome}</p></div>
       </div>
       <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
-        {merch.includedProducts.map((product, index) => <a href={`/products/${product.data.slug}/`} class="group bg-background p-6 transition-colors hover:bg-card/50" data-event="bundle_included_product" data-product-slug={product.data.slug}><p class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p><h3 class="mt-3 text-xl font-semibold group-hover:text-primary-accent">{product.data.title}</h3><p class="mt-3 text-sm leading-6 text-muted-foreground">{product.data.shortDescription}</p></a>)}
+        {merch.includedProducts.map((product, index) => {
+          const productCopy = cleanPublicCopyTree(applyProductCopyOverride(product.data));
+          return <a href={`/products/${productCopy.slug}/`} class="group bg-background p-6 transition-colors hover:bg-card/50" data-event="bundle_included_product" data-product-slug={productCopy.slug}><p class="font-mono text-xs text-primary-accent">{String(index + 1).padStart(2, "0")}</p><h3 class="mt-3 text-xl font-semibold group-hover:text-primary-accent">{productCopy.title}</h3><p class="mt-3 text-sm leading-6 text-muted-foreground">{productCopy.shortDescription}</p></a>;
+        })}
       </div>
       <div class="mt-10 flex flex-col gap-7 border-t border-border pt-8 lg:flex-row lg:items-end lg:justify-between"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} />{merch.purchasable && merch.checkoutUrl && <a href={merch.checkoutUrl} class={checkoutClass} data-event="checkout_click" data-product-slug={d.slug} data-cta-location="bundle-inclusions">Get {d.title}{merch.bundlePriceFormatted ? ` for ${merch.bundlePriceFormatted}` : ""}</a>}</div>
     </div>

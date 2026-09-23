@@ -5,119 +5,160 @@ import PageHero from "@/components/layout/PageHero.astro";
 import TextLink from "@/components/ui/TextLink.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { isPublicProduct } from "@/lib/storefront-visibility";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 
 const products = (await getCollection("products")).filter(isPublicProduct);
 const productBySlug = (slug: string) => products.find((entry) => entry.data.slug === slug);
+const launchKit = productBySlug("freelance-developer-launch-kit");
+const launchKitCommerce = launchKit ? resolveProductCommerce(launchKit.data) : undefined;
+const launchKitPriceLine = launchKitCommerce?.priceFormatted ? `${launchKitCommerce.priceFormatted}, one-time` : "One-time purchase";
 
-const routes = [
+const problems = [
   {
-    stage: "Offer",
-    problem: "You can build many things, but every inquiry forces you to explain from scratch what you actually sell.",
-    change: "Create one offer a buyer can understand, evaluate, and react to without helping invent the commercial job first.",
+    stage: "Your offer",
+    quote: '“Every prospect gets a different pitch, because I can build almost anything.”',
+    change: "Turn everything you can do into one clear service buyers understand and can say yes to.",
     slug: "productize-your-dev-skills",
   },
   {
-    stage: "Pricing",
-    problem: "A buyer asks what the project costs before you are confident what the full obligation will consume.",
-    change: "Understand the engagement, workload, uncertainty, and economics before the client-facing price becomes a promise.",
+    stage: "Your pricing",
+    quote: '“I have no idea if I’m charging too much or way too little.”',
+    change: "Know what a project really costs you and whether it’s worth taking, before you name a price.",
     slug: "web-developer-pricing-system",
   },
   {
-    stage: "Marketing",
-    problem: "Your technical work is stronger than the way the market currently understands it.",
-    change: "Make the commercial meaning, proof, and buyer relevance easier for the right people to see and trust.",
+    stage: "Your marketing",
+    quote: '“My work is better than the cheap option, but clients can’t tell.”',
+    change: "Show the right buyers why your work is worth paying for, in terms they actually care about.",
     slug: "marketing-for-builders",
   },
   {
-    stage: "Acquisition",
-    problem: "The current project is ending and there is not enough qualified opportunity behind it.",
-    change: "Build a visible acquisition process that can keep buyer access moving while delivery is busy.",
+    stage: "Finding clients",
+    quote: '“This project is ending and I’ve got nothing lined up.”',
+    change: "Build a pipeline that keeps new opportunities moving while you’re busy delivering.",
     slug: "client-acquisition-without-upwork",
   },
   {
-    stage: "Social",
-    problem: "Social gets attention, but you cannot tell whether it is contributing to useful buyer relationships or pipeline.",
-    change: "Give social a commercial role built around relevance, proof, relationships, conversations, and attribution.",
+    stage: "Social media",
+    quote: '“I post, other developers like it, and no clients ever show up.”',
+    change: "Turn your time on social media into real conversations with the people who hire developers.",
     slug: "social-media-client-acquisition-system",
   },
   {
     stage: "Agencies",
-    problem: "Agency work looks promising, but future volume is starting to influence rates, capacity, or availability before it is earned.",
-    change: "Test agency relationships through paid work and deepen commitment only when demand, economics, and delivery behavior justify it.",
+    quote: '“One agency sends most of my work, and they’re starting to set the terms.”',
+    change: "Build agency relationships that send steady, profitable work without controlling your income.",
     slug: "agency-partnership-playbook",
   },
   {
-    stage: "Sales",
-    problem: "Buyer conversations feel positive, but too many end without an explicit commercial decision.",
-    change: "Know whether the next step is more discovery, paid discovery, reshape, nurture, decline, or Proposal Ready.",
+    stage: "Sales calls",
+    quote: '“The call went great. Then they disappeared.”',
+    change: "End every serious conversation with a clear decision and an agreed next step.",
     slug: "developer-sales-playbook",
   },
   {
-    stage: "Closing",
-    problem: "The opportunity is ready, but scope, review, negotiation, payment, or project start still feels loose.",
-    change: "Carry a Proposal Ready opportunity into one current commercial agreement, payment, and a Start-Ready project.",
+    stage: "Proposals and closing",
+    quote: '“The deal was almost done, then the proposal turned into free consulting or a discount.”',
+    change: "Get the deal signed, paid, and started without giving away your margin.",
     slug: "developer-proposal-closing-kit",
   },
   {
-    stage: "Retention",
-    problem: "A good project ends, the client still has a legitimate need, and the next commercial relationship is undefined.",
-    change: "Decide whether the continuing job belongs in another project, ad hoc work, a recurring service, or a clean ending.",
+    stage: "After launch",
+    quote: '“A great project ends, and I never earn another dollar from that client.”',
+    change: "Turn real ongoing client needs into monthly income with clear limits on your time.",
     slug: "freelancer-retainer-system",
   },
 ];
-
-const resolved = routes.flatMap((route) => {
-  const product = productBySlug(route.slug);
-  return product ? [{ ...route, product }] : [];
-});
 ---
 
-<BaseLayout title="Start Here | Developer Business Lab" description="Turn an unclear freelance business problem into one focused next move with the Developer Business Lab system that matches it.">
+<BaseLayout title="Start Here | Developer Business Lab" description="Find the Developer Business Lab system that matches what is going wrong in your freelance business right now.">
   <PageHero
     image={heroImage}
     imageAlt="Developer Business Lab guides and workbooks on a developer workspace"
-    eyebrow="Start here"
-    title="Turn something about this business isn't working into one clear next move."
-    description="Start with the situation you recognize. If one problem is clearly limiting the business, go directly to the focused system. If several keep feeding one another, use the broader foundation."
-    primaryCta={{ label: "Find My Problem", href: "#routes" }}
+    eyebrow="Start Here"
+    title="Something isn't working. Let's find out what."
+    description="Pick the situation that sounds like your business right now. If it's one clear problem, you'll go straight to the system that fixes it. If several things are breaking at once, you'll start with the foundation."
+    primaryCta={{ label: "Find My Problem", href: "#problems" }}
     secondaryCta={{ label: "Start Free", href: "/free/" }}
-    supportingItems={["Choose by business condition", "No required buying sequence", "Start with the smallest useful scope"]}
+    supportingItems={["Start with the problem · No required order · Buy only what you need"]}
   />
 
-  <section id="routes" class="scroll-mt-24 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+  <section id="problems" class="scroll-mt-24 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
-        <div><p class="editorial-kicker">What keeps happening?</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Choose the business condition you want to leave behind.</h2></div>
-        <p class="max-w-2xl text-lg leading-8 text-muted-foreground">The product name is secondary. Start with the moment that is costing money, opportunity, margin, time, or confidence in the business.</p>
-      </div>
+      <p class="editorial-kicker">What keeps happening?</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">Pick the one that sounds most like your month.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Don't worry about product names yet. Start with the moment that's costing you money, clients, time, or sleep.</p>
 
       <div class="mt-10 divide-y divide-border border-y border-border">
-        {resolved.map(({ stage, problem, change, product }) => (
-          <article class="grid gap-5 py-8 lg:grid-cols-[7rem_1fr_1fr_auto] lg:items-start lg:gap-8">
-            <p class="pt-1 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{stage}</p>
-            <h3 class="text-xl font-semibold leading-8">{problem}</h3>
-            <p class="leading-7 text-muted-foreground">{change}</p>
-            <div class="lg:pt-1"><TextLink href={`/products/${product.data.slug}/`}>{product.data.title} →</TextLink></div>
-          </article>
-        ))}
+        {problems.map((problem) => {
+          const product = productBySlug(problem.slug);
+          if (!product) return null;
+          return (
+            <article class="grid gap-5 py-8 lg:grid-cols-[9rem_1.1fr_1fr_auto] lg:items-start lg:gap-8">
+              <p class="pt-1 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{problem.stage}</p>
+              <h3 class="text-xl font-semibold leading-8">{problem.quote}</h3>
+              <p class="leading-7 text-muted-foreground">{problem.change}</p>
+              <div class="lg:pt-1"><TextLink href={`/products/${product.data.slug}/`}>{product.data.title} →</TextLink></div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
-      <div><p class="editorial-kicker">If several routes sounded familiar</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">The problem may be broader than one specialist system.</h2></div>
+      <div>
+        <p class="editorial-kicker">If several of those sounded familiar</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">The problem is probably the whole business, not one part.</h2>
+      </div>
       <div class="space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>A thin pipeline can put pressure on pricing. A vague offer can weaken marketing. Poor qualification can create proposal waste. Busy delivery can stop acquisition. A successful project can still return revenue to zero.</p>
-        <p>Use the <a class="font-semibold text-primary-accent hover:underline" href="/products/freelance-developer-launch-kit/">Freelance Developer Launch Kit</a> when you need the first coherent operating foundation across the whole business.</p>
+        <p>That's common, because the problems feed each other. An empty pipeline makes you desperate on price. A vague offer makes marketing fall flat. Weak sales calls lead to wasted proposals. Busy delivery stops you from finding the next client. And a great project still ends with your income back at zero.</p>
+        <p>Fixing one piece won't hold while the others keep pulling it down. Start with the <strong class="text-foreground">Freelance Developer Launch Kit</strong>, which builds every part of the business as one connected system and shows you what to fix next.</p>
+        <p class="font-semibold text-foreground">{launchKitPriceLine}</p>
+        <p><TextLink href="/products/freelance-developer-launch-kit/">See the Launch Kit →</TextLink></p>
       </div>
     </div>
   </section>
 
   <section class="px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
-      <div><p class="editorial-kicker">If one stage contains several connected problems</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">A bundle may be the right scope.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Use a bundle when fixing one piece would still leave the larger outcome constrained by other decisions in the same part of the business.</p><p class="mt-7"><TextLink href="/bundles/">Compare the bundles →</TextLink></p></div>
-      <div><p class="editorial-kicker">If acquisition is the first move</p><h2 class="mt-4 text-4xl font-semibold tracking-tight">Run one real cycle for free.</h2><p class="mt-5 text-lg leading-8 text-muted-foreground">Developer Marketing Quickstart gives you a guide and workbook for choosing a buyer, investigating a problem, building a provisional offer, qualifying a First 25, working the cycle, and deciding what to test next.</p><p class="mt-7"><TextLink href="/free/">Get Developer Marketing Quickstart →</TextLink></p></div>
+    <div class="mx-auto max-w-7xl">
+      <p class="editorial-kicker">If the problems cluster in one area</p>
+      <h2 class="mt-4 text-4xl font-semibold tracking-tight">A bundle may be the right size.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">When two or three problems sit in the same part of the business, fixing just one still leaves you stuck.</p>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Offer, pricing, and marketing all feel shaky?</h3>
+          <p class="mt-5"><TextLink href="/bundles/freelancer-starter-bundle/">Freelancer Starter Bundle →</TextLink></p>
+        </article>
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Not enough good clients, from too few sources?</h3>
+          <p class="mt-5"><TextLink href="/bundles/client-acquisition-bundle/">Client Acquisition Bundle →</TextLink></p>
+        </article>
+        <article class="bg-background p-7">
+          <h3 class="text-xl font-semibold">Opportunities come in, but deals slip away or lose money?</h3>
+          <p class="mt-5"><TextLink href="/bundles/freelancer-sales-system/">Freelancer Sales System →</TextLink></p>
+        </article>
+      </div>
+      <p class="mt-7"><TextLink href="/bundles/">Compare all bundles →</TextLink></p>
     </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+      <div>
+        <p class="editorial-kicker">If finding clients is the first move</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Start free with one real round.</h2>
+      </div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>The Developer Marketing Quickstart walks you through choosing who to serve, finding a problem worth solving, building a simple offer, and reaching 25 qualified prospects. You'll finish with real conversations and real answers, and a much clearer idea of what to fix next.</p>
+        <p><TextLink href="/free/">Get the Free Quickstart →</TextLink></p>
+        <p class="text-sm">Free. Enter your email on the next screen and it's yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl text-sm text-muted-foreground">Every purchase is covered by Developer Business Lab's 14-Day Satisfaction Guarantee. <a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy</a></div>
   </section>
 </BaseLayout>

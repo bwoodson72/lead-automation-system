@@ -14,8 +14,8 @@ const price = d.free ? "Free" : commerce.priceFormatted ?? (commerce.effectiveSt
 ---
 <article class="group relative overflow-hidden border-t border-border py-7 sm:grid sm:grid-cols-[8rem_1fr] sm:gap-7">
   <a href={`/products/${d.slug}/`} class="block" aria-label={`View ${d.title}`}>
-    <div class="mx-auto flex h-44 w-32 items-center justify-center sm:mx-0 sm:h-48 sm:w-36">
-      {cover ? <Image src={cover} alt={`${d.title} cover`} class="h-full w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,.45)] transition-transform duration-300 group-hover:-translate-y-1" widths={[220,320,440]} sizes="144px" /> : <div class="h-full w-full border border-border bg-card"></div>}
+    <div class="mx-auto w-32 sm:mx-0 sm:w-36">
+      {cover ? <Image src={cover} alt={`${d.title} cover`} class="block h-auto w-full drop-shadow-[0_18px_30px_rgba(0,0,0,.45)] transition-transform duration-300 group-hover:-translate-y-1" widths={[220,320,440]} sizes="144px" /> : <div class="aspect-square w-full border border-border bg-card"></div>}
     </div>
   </a>
   <div class="mt-5 self-center sm:mt-0">

@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { applyProductCopyOverride } from "@/lib/copy-overrides";
 import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
@@ -101,22 +99,14 @@ const faqs = [
   enableCheckoutOverlay={commerce.purchasable}
   structuredData={structuredData}
 >
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
-    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+  <ProductHero
+    product={product}
     eyebrow="Developer Proposal & Closing Kit"
     title="Get the deal signed and paid without giving away your margin."
     description="Turn a ready opportunity into a signed agreement, a paid deposit, and a clean project start. Write proposals that confirm the deal instead of reopening it, handle negotiation without slashing your price, and start every project with scope and payment locked in."
-  >
-    <div slot="visual" class="min-w-0 max-w-full">
-      <ProductHeroPurchaseCard
-        product={product}
-        ctaLabel="Get the Proposal & Closing Kit"
-        supportingText="A guide, fill-in workbooks, and templates you use on real deals."
-      />
-    </div>
-  </PageHero>
+    ctaLabel="Get the Proposal & Closing Kit"
+    supportingText="A guide, fill-in workbooks, and templates you use on real deals."
+  />
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">

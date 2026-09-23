@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import PageHero from "@/components/layout/PageHero.astro";
+import ProductHero from "@/components/products/ProductHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
-import heroImage from "@/assets/brand/neutral-hero.png";
 import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import { applyProductCopyOverride } from "@/lib/copy-overrides";
 import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
@@ -80,22 +78,14 @@ const faqs = [
   enableCheckoutOverlay={commerce.purchasable}
   structuredData={structuredData}
 >
-  <PageHero
-    image={heroImage}
-    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
-    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+  <ProductHero
+    product={product}
     eyebrow="Productize Your Dev Skills"
     title="Your skills are broad. Your offer shouldn't be."
     description="Turn everything you're able to build into one clear service that the right clients understand, value, and buy. Easier to price, easier to sell, easier to deliver, and much harder to compare against the cheapest bid."
-  >
-    <div slot="visual" class="min-w-0 max-w-full">
-      <ProductHeroPurchaseCard
-        product={product}
-        ctaLabel="Get Productize Your Dev Skills"
-        supportingText="A guide and fill-in workbooks you complete with your own skills and clients."
-      />
-    </div>
-  </PageHero>
+    ctaLabel="Get Productize Your Dev Skills"
+    supportingText="A guide and fill-in workbooks you complete with your own skills and clients."
+  />
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">

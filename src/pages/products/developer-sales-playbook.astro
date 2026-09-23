@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ProductCTA from "@/components/products/ProductCTA.astro";
-import ProductCover from "@/components/products/ProductCover.astro";
+import ProductHeroPurchaseCard from "@/components/products/ProductHeroPurchaseCard.astro";
 import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
 import FAQList from "@/components/ui/FAQList.astro";
 import heroImage from "@/assets/brand/neutral-hero.png";
@@ -96,13 +96,14 @@ const faqs = [
     eyebrow="Developer Sales Playbook"
     title="The call went great. So why did they disappear?"
     description="Turn good sales conversations into clear decisions. Learn what to ask, what to listen for, and how to end every serious call knowing exactly where the opportunity stands, without scripts, pressure, or pretending to be a salesman."
-    supportingItems={["A guide and fill-in workbooks you use before, during, and after real sales calls."]}
   >
-    <div slot="actions" class="space-y-4">
-      <p class="text-lg font-semibold text-white">{priceLine}</p>
-      <ProductCTA product={product} location="hero" label="Get the Developer Sales Playbook" />
+    <div slot="visual" class="min-w-0 max-w-full">
+      <ProductHeroPurchaseCard
+        product={product}
+        ctaLabel="Get the Developer Sales Playbook"
+        supportingText="A guide and fill-in workbooks you use before, during, and after real sales calls."
+      />
     </div>
-    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
   </PageHero>
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">

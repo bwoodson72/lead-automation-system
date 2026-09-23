@@ -1,0 +1,225 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import ProductCTA from "@/components/products/ProductCTA.astro";
+import ProductCover from "@/components/products/ProductCover.astro";
+import ProductPreviewGallery from "@/components/products/ProductPreviewGallery.astro";
+import FAQList from "@/components/ui/FAQList.astro";
+import heroImage from "@/assets/brand/neutral-hero.png";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
+import { applyProductCopyOverride } from "@/lib/copy-overrides";
+import { cleanPublicCopyTree } from "@/lib/public-copy-cleaner";
+
+const sourceProduct = (await getCollection("products")).find((entry) => entry.data.slug === "developer-sales-playbook");
+if (!sourceProduct) throw new Error("Developer Sales Playbook product record not found.");
+const d = cleanPublicCopyTree(applyProductCopyOverride(sourceProduct.data));
+const product = { ...sourceProduct, data: d };
+const commerce = resolveProductCommerce(d);
+const priceLine = commerce.priceFormatted ? `${commerce.priceFormatted}, one-time` : "One-time purchase";
+const preferredPreviewImages = [
+  "developer-sales-playbook/business-problem-ladder.svg",
+  "developer-sales-playbook/objection-diagnosis.svg",
+  "developer-sales-playbook/proposal-readiness.svg",
+];
+const allPreviews = d.proofPackage?.previews ?? [];
+const previews = preferredPreviewImages
+  .map((image) => allPreviews.find((preview) => preview.image === image))
+  .filter(Boolean);
+const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
+const canonical = new URL("/products/developer-sales-playbook/", siteUrl).toString();
+const organizationId = new URL("/#organization", siteUrl).toString();
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : undefined;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: new URL("/products/", siteUrl).toString() },
+      { "@type": "ListItem", position: 2, name: d.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${canonical}#product`,
+    name: d.title,
+    description: d.seo.description,
+    url: canonical,
+    category: d.family,
+    sku: d.slug,
+    brand: { "@id": organizationId },
+    audience: { "@type": "Audience", audienceType: d.audience },
+    ...(commerce.purchasable && Number.isFinite(parsedPrice) ? {
+      offers: {
+        "@type": "Offer",
+        url: canonical,
+        priceCurrency: "USD",
+        price: parsedPrice!.toFixed(2),
+        availability: "https://schema.org/InStock",
+      },
+    } : {}),
+  },
+];
+
+const buildItems = [
+  ["Discovery that finds the real problem", "Questions that uncover what's actually driving the project and what it's costing the client to leave it unsolved."],
+  ["A clear read on fit", "How to tell whether the client, the project, and your offer are genuinely a good match."],
+  ["The decision map", "Who makes the decision, who influences it, and how the client actually buys."],
+  ["Budget and economics, handled early", "How to talk about money naturally, so price surprises don't kill a deal at the end."],
+  ["Handling uncertainty", "What to do when important details are still unknown, including when to propose paid discovery instead of guessing."],
+  ["A clear next step on every call", "How to end each conversation with an agreed next move, not a vague \"let's stay in touch.\""],
+  ["The right decision for every opportunity", "Whether an opportunity is ready for a proposal, needs more discovery, should be reshaped, can wait, belongs with someone else, or should be declined."],
+];
+
+const faqs = [
+  { data: { question: "I'm not a salesperson. Is this for me?", answer: "Yes. It's written for developers who hate pushy selling. There are no scripts or closing tricks. It's a clear process for understanding the client's situation and deciding together what should happen next." } },
+  { data: { question: "Won't asking about budget scare clients off?", answer: "Good clients expect it. Asked naturally and early, it saves both of you from wasting time on a project that was never going to fit." } },
+  { data: { question: "Does this cover writing proposals?", answer: "No. The Sales Playbook ends when an opportunity is ready for a proposal. The Developer Proposal & Closing Kit covers the proposal, negotiation, and getting the project signed and paid." } },
+  { data: { question: "I only have a few sales calls a month. Is it worth it?", answer: "When calls are scarce, each one matters more. Turning even one of them into a project, instead of a disappearing lead, makes a real difference." } },
+  { data: { question: "How long does it take?", answer: "Start with your next serious opportunity rather than waiting to finish the entire product first. The system is a 353-page guide with 15 chapters and a 195-page workbook with 15 matching modules. Read the relevant chapter, complete the matching workbook module when it is called out, and carry the same evidence forward through the opportunity." } },
+  { data: { question: "What if it isn't right for me?", answer: "Eligible purchases are covered by Developer Business Lab's 14-Day Satisfaction Guarantee. After reviewing the product, if you decide it isn't useful for your business, you may request a refund within 14 days of purchase." } },
+];
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  enableCheckoutOverlay={commerce.purchasable}
+  structuredData={structuredData}
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Dark developer workspace at night with warm desk lighting and city lights beyond the window"
+    breadcrumbs={[{ label: "Products", href: "/products/" }, { label: d.title }]}
+    eyebrow="Developer Sales Playbook"
+    title="The call went great. So why did they disappear?"
+    description="Turn good sales conversations into clear decisions. Learn what to ask, what to listen for, and how to end every serious call knowing exactly where the opportunity stands, without scripts, pressure, or pretending to be a salesman."
+    supportingItems={["A guide and fill-in workbooks you use before, during, and after real sales calls."]}
+  >
+    <div slot="actions" class="space-y-4">
+      <p class="text-lg font-semibold text-white">{priceLine}</p>
+      <ProductCTA product={product} location="hero" label="Get the Developer Sales Playbook" />
+    </div>
+    <div slot="visual" class="gold-glow min-w-0 max-w-full overflow-hidden"><ProductCover product={product} /></div>
+  </PageHero>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">You're good on calls. The deals still slip away.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>The prospect was friendly. They liked your ideas. You talked through how you'd build it, and they seemed excited. You said you'd send a proposal.</p>
+        <p>You spent an evening writing it. They said they'd “take a look.” Then nothing.</p>
+        <p>It wasn't the proposal, and it wasn't you. Somewhere in that call, the important questions never got asked: who actually makes the decision, what happens if they do nothing, what they expect to spend, and what needs to happen next. Without those answers, the deal was never as real as it felt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">The same sales call, handled two ways</h2>
+      <p class="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">A business owner reaches out about rebuilding his company's website.</p>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">The usual call</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">You ask what he wants, share ideas for the design and features, explain your process, and answer his questions. It's a great conversation. You close with “I'll put together a proposal.”</p>
+          <p class="mt-5 text-lg leading-8 text-muted-foreground">Four hours of proposal writing later, he goes quiet. Weeks later you find out his business partner had to approve any spending, the budget was half your price, and the project wasn't urgent anyway.</p>
+        </div>
+        <div class="bg-background p-7">
+          <p class="editorial-kicker">The same call, run as a decision process</p>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">You ask the same friendly questions, plus a few more:</p>
+          <ul class="mt-5 space-y-3 text-lg leading-8 text-muted-foreground">
+            <li>“What's happening now that made this a priority?”</li>
+            <li>“What happens if you leave the site as it is for another year?”</li>
+            <li>“Who else is involved in making this decision?”</li>
+            <li>“Do you have a range in mind for the investment?”</li>
+            <li>“When would you need this live, and why?”</li>
+          </ul>
+          <p class="mt-5 text-lg leading-8 text-muted-foreground">You learn that his partner has to sign off, the budget is lower than a full rebuild, and a trade show in three months makes the timeline real. So instead of promising a proposal, you suggest a smaller first phase that fits the budget and the deadline, and you schedule a follow-up call that includes his partner.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-xl font-semibold">No wasted proposal. No ghosting. A clear next step both of you agreed to.</p>
+      <p class="mt-3 text-sm italic text-muted-foreground">Illustrative example.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div><h2 class="text-4xl font-semibold tracking-tight">Agencies don't write proposals for every friendly call.</h2></div>
+      <div class="space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Successful agencies qualify opportunities before they invest time in proposals. They confirm the problem, the budget, the decision-makers, and the timeline, and they agree on a next step before the call ends. Unqualified leads get more discovery, a smaller offer, or a polite no.</p>
+        <p>That's not pushy selling. It's making good decisions about where to spend time. The Developer Sales Playbook brings that same discipline to a one-person business.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What you'll build</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        {buildItems.map(([title, body]) => (
+          <article class="bg-background p-7"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">What changes</h2>
+      <div class="mt-8 space-y-5 text-lg leading-8 text-muted-foreground">
+        <p>Fewer prospects go silent after a great call.</p>
+        <p>You stop spending evenings on proposals that were never going to close.</p>
+        <p>You talk about budget early and calmly, instead of dreading it.</p>
+        <p>You know who decides and what they care about before you ever quote.</p>
+        <p>And selling stops feeling like pushing, because you're simply helping the client make a clear decision.</p>
+      </div>
+    </div>
+  </section>
+
+  {previews.length > 0 && (
+    <ProductPreviewGallery
+      heading="See inside"
+      previews={previews}
+      conclusion="You'll use these on every serious sales conversation, before and after the call."
+    />
+  )}
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Where this fits</h2>
+      <div class="mt-8 space-y-6 text-lg leading-8 text-muted-foreground">
+        <p><strong class="text-foreground">Ready for the proposal stage?</strong> The Sales Playbook ends when an opportunity is ready for a proposal. The <a class="font-semibold text-primary-accent hover:underline" href="/products/developer-proposal-closing-kit/">Developer Proposal &amp; Closing Kit</a> takes it from there to a signed, paid project. Together they're part of the <a class="font-semibold text-primary-accent hover:underline" href="/bundles/freelancer-sales-system/">Freelancer Sales System</a> bundle.</p>
+        <p><strong class="text-foreground">Already have the Launch Kit?</strong> It covers sales at a foundational level. This goes much deeper, for when your business review shows good conversations aren't turning into deals.</p>
+        <p><strong class="text-foreground">Not getting enough calls?</strong> Start with <a class="font-semibold text-primary-accent hover:underline" href="/products/client-acquisition-without-upwork/">Client Acquisition Without Upwork</a>. The Sales Playbook helps once real conversations are happening.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight">The math</h2>
+      <p class="mx-auto mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Every proposal written for a deal that was never going to close costs you hours. Every lost deal that should have closed costs you a project. If this helps you close one more good project, or skip a handful of dead-end proposals, it has paid for itself many times over.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="value" label="Get the Developer Sales Playbook" /></div>
+    </div>
+  </section>
+
+  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight">Questions</h2>
+      <div class="mt-8"><FAQList faqs={faqs} /></div>
+      <p class="mt-5 text-sm text-muted-foreground"><a class="font-semibold text-primary-accent hover:underline" href="/refund-policy/">Read the full refund policy →</a></p>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Great conversations should end in clear decisions.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Stop losing good opportunities to silence. Know where every deal stands before you hang up.</p>
+      <p class="mt-8 text-lg font-semibold">{priceLine}</p>
+      <div class="mt-5 flex justify-center"><ProductCTA product={product} location="final" label="Get the Developer Sales Playbook" /></div>
+    </div>
+  </section>
+</BaseLayout>

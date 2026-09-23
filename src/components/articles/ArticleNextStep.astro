@@ -1,0 +1,22 @@
+---
+import { Button } from "@/components/starwind/button";
+import type { ArticleNextStep } from "@/lib/articleNextSteps";
+
+interface Props {
+  nextStep: ArticleNextStep;
+}
+
+const { nextStep } = Astro.props;
+---
+
+<section class="mt-14 border-y border-border bg-card/35 p-7 sm:p-9" aria-labelledby="article-next-step-heading">
+  <p class="editorial-kicker">{nextStep.eyebrow}</p>
+  <h2 id="article-next-step-heading" class="mt-4 text-3xl font-semibold tracking-tight text-foreground">{nextStep.title}</h2>
+  <p class="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{nextStep.body}</p>
+  <div class="mt-7 flex flex-wrap gap-3">
+    <Button as="a" href={nextStep.primary.href} data-event="article_next_step_primary">{nextStep.primary.label}</Button>
+    {nextStep.secondary && (
+      <Button as="a" href={nextStep.secondary.href} variant="outline" data-event="article_next_step_secondary">{nextStep.secondary.label}</Button>
+    )}
+  </div>
+</section>

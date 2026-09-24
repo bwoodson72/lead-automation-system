@@ -6,15 +6,47 @@ const measurementId = siteConfig.analytics.googleAnalyticsMeasurementId;
 
 {measurementId && (
   <>
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
     <script is:inline define:vars={{ measurementId }}>
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      const CONSENT_KEY = "dbl_analytics_consent";
 
-      if (!window.__dblGaConfigured) {
+      function hasAnalyticsConsent() {
+        try {
+          return window.localStorage.getItem(CONSENT_KEY) === "accepted";
+        } catch {
+          return false;
+        }
+      }
+
+      function loadAnalytics(notifyReady = false) {
+        if (window.__dblGaConfigured) return;
         window.__dblGaConfigured = true;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+        window.gtag("consent", "default", {
+          analytics_storage: "granted",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+        });
         window.gtag("js", new Date());
         window.gtag("config", measurementId);
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(script);
+
+        if (notifyReady) {
+          window.dispatchEvent(new CustomEvent("dbl:analytics-ready"));
+        }
+      }
+
+      window.addEventListener("dbl:analytics-consent-granted", () => loadAnalytics(true));
+
+      if (hasAnalyticsConsent()) {
+        loadAnalytics(false);
       }
     </script>
     <script>

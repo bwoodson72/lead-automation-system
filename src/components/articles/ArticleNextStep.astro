@@ -7,6 +7,8 @@ interface Props {
 }
 
 const { nextStep } = Astro.props;
+const primaryProductMatch = nextStep.primary.href.match(/^\/products\/([^/]+)\/?$/);
+const primaryProductId = primaryProductMatch?.[1];
 ---
 
 <section class="mt-14 border-y border-border bg-card/35 p-7 sm:p-9" aria-labelledby="article-next-step-heading">
@@ -14,7 +16,15 @@ const { nextStep } = Astro.props;
   <h2 id="article-next-step-heading" class="mt-4 text-3xl font-semibold tracking-tight text-foreground">{nextStep.title}</h2>
   <p class="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{nextStep.body}</p>
   <div class="mt-7 flex flex-wrap gap-3">
-    <Button as="a" href={nextStep.primary.href} data-event="article_next_step_primary">{nextStep.primary.label}</Button>
+    <Button
+      as="a"
+      href={nextStep.primary.href}
+      data-event="article_next_step_primary"
+      data-ga-event={primaryProductId ? "product_click" : undefined}
+      data-ga-product-id={primaryProductId}
+      data-ga-source-type="article"
+      data-ga-cta-location="article_next_step_primary"
+    >{nextStep.primary.label}</Button>
     {nextStep.secondary && (
       <Button as="a" href={nextStep.secondary.href} variant="outline" data-event="article_next_step_secondary">{nextStep.secondary.label}</Button>
     )}

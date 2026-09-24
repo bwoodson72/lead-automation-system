@@ -3,6 +3,7 @@ import "@/styles/starwind.css";
 import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics.astro";
 import { siteConfig } from "@/config";
 import brandLogo from "@/assets/brand/developer-business-lab-logo.png";
 import brandHero from "@/assets/brand/developer-business-lab-hero.png";
@@ -72,6 +73,7 @@ const pageStructuredData = rawPageStructuredData.map((schema) => {
 <!doctype html>
 <html lang="en" class="dark">
   <head>
+    <GoogleAnalytics />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />

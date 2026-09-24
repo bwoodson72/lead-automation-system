@@ -24,6 +24,7 @@ const d = product.data;
 const commerce = resolveProductCommerce(d);
 const href = `/products/${d.slug}/`;
 const coverImage = resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : d.free ? 0 : undefined;
 const statusLabel = commerce.effectiveStatus === "coming-soon"
   ? "Coming soon"
   : commerce.effectiveStatus === "planned"
@@ -38,6 +39,14 @@ const statusLabel = commerce.effectiveStatus === "coming-soon"
     href={href}
     class="block border-b border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-outline"
     aria-label={`View ${d.title}`}
+    data-ga-event="select_item"
+    data-ga-item-id={d.slug}
+    data-ga-item-name={d.title}
+    data-ga-item-category={d.family}
+    data-ga-price={parsedPrice}
+    data-ga-currency="USD"
+    data-ga-item-list-name="product_cards"
+    data-ga-cta-location="product_card_cover"
   >
     <div class="w-full overflow-hidden p-4">
       {coverImage ? (
@@ -72,7 +81,18 @@ const statusLabel = commerce.effectiveStatus === "coming-soon"
       <Badge variant={commerce.effectiveStatus === "available" ? "default" : "secondary"}>{statusLabel}</Badge>
     </div>
     <CardTitle class="text-xl">
-      <a href={href} class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline">
+      <a
+        href={href}
+        class="hover:text-primary-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-outline"
+        data-ga-event="select_item"
+        data-ga-item-id={d.slug}
+        data-ga-item-name={d.title}
+        data-ga-item-category={d.family}
+        data-ga-price={parsedPrice}
+        data-ga-currency="USD"
+        data-ga-item-list-name="product_cards"
+        data-ga-cta-location="product_card_title"
+      >
         {d.title}
       </a>
     </CardTitle>
@@ -84,6 +104,18 @@ const statusLabel = commerce.effectiveStatus === "coming-soon"
   </CardContent>
 
   <CardFooter>
-    <TextLink href={href} data-event={eventName} data-product-slug={d.slug}>See how it works →</TextLink>
+    <TextLink
+      href={href}
+      data-event={eventName}
+      data-product-slug={d.slug}
+      data-ga-event="select_item"
+      data-ga-item-id={d.slug}
+      data-ga-item-name={d.title}
+      data-ga-item-category={d.family}
+      data-ga-price={parsedPrice}
+      data-ga-currency="USD"
+      data-ga-item-list-name="product_cards"
+      data-ga-cta-location="product_card_link"
+    >See how it works →</TextLink>
   </CardFooter>
 </Card>

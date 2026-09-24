@@ -1,11 +1,14 @@
 ---
 import "@/styles/starwind.css";
 import { ClientRouter, fade } from "astro:transitions";
+import { getCollection } from "astro:content";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics.astro";
 import CookieConsent from "@/components/privacy/CookieConsent.astro";
 import { siteConfig } from "@/config";
+import { resolveProductCoverImage } from "@/lib/product-cover-images";
+import { resolveProductCommerce } from "@/lib/lemon-squeezy";
 import brandLogo from "@/assets/brand/developer-business-lab-logo.png";
 import brandHero from "@/assets/brand/developer-business-lab-hero.png";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -31,7 +34,31 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();
 const websiteId = new URL("/#website", siteUrl).toString();
 const organizationLogo = new URL(brandLogo.src, siteUrl).toString();
-const defaultContentImage = new URL(brandHero.src, siteUrl).toString();
+const brandContentImage = new URL(brandHero.src, siteUrl).toString();
+
+const normalizedPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const productPathMatch = normalizedPath.match(/^\/products\/([^/]+)$/);
+const productSlug = normalizedPath === "/free"
+  ? "developer-marketing-quickstart"
+  : productPathMatch?.[1];
+
+let productContentImage: string | undefined;
+if (productSlug) {
+  const products = await getCollection("products");
+  const product = products.find((entry) => entry.data.slug === productSlug);
+
+  if (product) {
+    const commerce = resolveProductCommerce(product.data);
+    const productImage = product.data.coverImage
+      ?? resolveProductCoverImage(product.data, commerce.purchasable ? commerce.product?.id : undefined);
+
+    if (productImage) {
+      productContentImage = new URL(productImage.src, siteUrl).toString();
+    }
+  }
+}
+
+const defaultContentImage = productContentImage ?? brandContentImage;
 
 const globalStructuredData = [
   {

@@ -17,7 +17,6 @@ declare global {
 }
 
 let initialized = false;
-let previousPageLocation = "";
 
 function sendEvent(name: string, params: EventParams = {}): void {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
@@ -62,18 +61,7 @@ function ecommerceParams(element: HTMLElement): EventParams {
   return params;
 }
 
-function trackPageView(): void {
-  const currentPageLocation = window.location.href;
-
-  sendEvent("page_view", {
-    page_title: document.title,
-    page_location: currentPageLocation,
-    page_path: `${window.location.pathname}${window.location.search}`,
-    page_referrer: previousPageLocation || document.referrer || undefined,
-  });
-
-  previousPageLocation = currentPageLocation;
-
+function trackPageContent(): void {
   const product = document.querySelector<HTMLElement>("[data-ga-view-item]");
   if (product) sendEvent("view_item", ecommerceParams(product));
 }
@@ -114,5 +102,5 @@ export function initializeAnalytics(): void {
   initialized = true;
 
   document.addEventListener("click", handleTrackedClick);
-  document.addEventListener("astro:page-load", trackPageView);
+  document.addEventListener("astro:page-load", trackPageContent);
 }

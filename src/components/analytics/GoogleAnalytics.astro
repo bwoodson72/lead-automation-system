@@ -1,0 +1,25 @@
+---
+import { siteConfig } from "@/config";
+
+const measurementId = siteConfig.analytics.googleAnalyticsMeasurementId;
+---
+
+{measurementId && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+      if (!window.__dblGaConfigured) {
+        window.__dblGaConfigured = true;
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId, { send_page_view: false });
+      }
+    </script>
+    <script>
+      import { initializeAnalytics } from "@/lib/analytics";
+      initializeAnalytics();
+    </script>
+  </>
+)}

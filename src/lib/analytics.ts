@@ -16,10 +16,22 @@ declare global {
   }
 }
 
+const CONSENT_KEY = "dbl_analytics_consent";
 let initialized = false;
+const trackedViewItems = new WeakSet<HTMLElement>();
+
+function hasAnalyticsConsent(): boolean {
+  if (typeof window === "undefined") return false;
+
+  try {
+    return window.localStorage.getItem(CONSENT_KEY) === "accepted";
+  } catch {
+    return false;
+  }
+}
 
 function sendEvent(name: string, params: EventParams = {}): void {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  if (!hasAnalyticsConsent() || typeof window.gtag !== "function") return;
   window.gtag("event", name, params);
 }
 
@@ -62,11 +74,18 @@ function ecommerceParams(element: HTMLElement): EventParams {
 }
 
 function trackPageContent(): void {
+  if (!hasAnalyticsConsent()) return;
+
   const product = document.querySelector<HTMLElement>("[data-ga-view-item]");
-  if (product) sendEvent("view_item", ecommerceParams(product));
+  if (!product || trackedViewItems.has(product)) return;
+
+  trackedViewItems.add(product);
+  sendEvent("view_item", ecommerceParams(product));
 }
 
 function handleTrackedClick(event: MouseEvent): void {
+  if (!hasAnalyticsConsent()) return;
+
   const target = event.target;
   if (!(target instanceof Element)) return;
 
@@ -103,4 +122,5 @@ export function initializeAnalytics(): void {
 
   document.addEventListener("click", handleTrackedClick);
   document.addEventListener("astro:page-load", trackPageContent);
+  window.addEventListener("dbl:analytics-ready", trackPageContent);
 }

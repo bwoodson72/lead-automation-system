@@ -17,7 +17,7 @@ const groups = [
         <p class="mt-6 max-w-md text-sm leading-6 text-muted-foreground">Systems for independent developers building a deliberate business around technical skill.</p>
       </div>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {groups.map((group) => <div><h2 class="text-xs font-semibold uppercase tracking-[.14em] text-foreground">{group.title}</h2><ul class="mt-5 space-y-3">{group.links.map(([label,href]) => <li><a href={href} class="text-sm text-muted-foreground transition-colors hover:text-primary-accent">{label}</a></li>)}</ul></div>)}
+        {groups.map((group) => <div><h2 class="text-xs font-semibold uppercase tracking-[.14em] text-foreground">{group.title}</h2><ul class="mt-5 space-y-3">{group.links.map(([label,href]) => <li><a href={href} class="text-sm text-muted-foreground transition-colors hover:text-primary-accent">{label}</a></li>)}{group.title === "Legal" && <li><button type="button" data-cookie-action="settings" class="text-sm text-muted-foreground transition-colors hover:text-primary-accent">Cookie settings</button></li>}</ul></div>)}
       </div>
     </div>
     <div class="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"><p>© {year} Developer Business Lab. All rights reserved.</p><p class="font-mono text-[.65rem] uppercase tracking-[.14em]">Define · Price · Attract · Sell · Retain</p></div>

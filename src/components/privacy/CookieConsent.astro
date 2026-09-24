@@ -1,0 +1,141 @@
+---
+import Button from "@/components/starwind/button/Button.astro";
+---
+
+<aside
+  id="cookie-consent"
+  class="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-3xl rounded-xl border border-border bg-card p-5 shadow-xl sm:p-6"
+  role="dialog"
+  aria-labelledby="cookie-consent-title"
+  aria-describedby="cookie-consent-description"
+  hidden
+>
+  <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <div class="max-w-2xl">
+      <p id="cookie-consent-title" class="text-base font-semibold text-card-foreground">Analytics cookies</p>
+      <p id="cookie-consent-description" class="mt-2 text-sm leading-6 text-muted-foreground">
+        We use optional Google Analytics cookies to understand how people find and use Developer Business Lab. Analytics stays off unless you accept.
+        <a href="/privacy/" class="font-medium text-foreground underline underline-offset-4 hover:text-primary-accent">Privacy policy</a>
+      </p>
+    </div>
+    <div class="flex shrink-0 flex-col gap-2 sm:flex-row">
+      <Button type="button" variant="outline" size="sm" data-cookie-action="reject">Reject non-essential</Button>
+      <Button type="button" variant="primary" size="sm" data-cookie-action="accept">Accept analytics</Button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  const CONSENT_KEY = "dbl_analytics_consent";
+
+  type AnalyticsConsent = "accepted" | "rejected" | null;
+
+  declare global {
+    interface Window {
+      __dblCookieConsentInitialized?: boolean;
+      __dblGaConfigured?: boolean;
+    }
+  }
+
+  function getConsent(): AnalyticsConsent {
+    try {
+      const value = window.localStorage.getItem(CONSENT_KEY);
+      return value === "accepted" || value === "rejected" ? value : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveConsent(value: Exclude<AnalyticsConsent, null>): void {
+    try {
+      window.localStorage.setItem(CONSENT_KEY, value);
+    } catch {
+      // If storage is unavailable, keep the choice for the current page only.
+    }
+  }
+
+  function getPanel(): HTMLElement | null {
+    return document.getElementById("cookie-consent");
+  }
+
+  function showPanel(force = false): void {
+    const panel = getPanel();
+    if (!panel) return;
+
+    const shouldShow = force || getConsent() === null;
+    panel.hidden = !shouldShow;
+
+    if (shouldShow && force) {
+      panel.querySelector<HTMLElement>("[data-cookie-action='accept']")?.focus();
+    }
+  }
+
+  function deleteAnalyticsCookies(): void {
+    const cookieNames = document.cookie
+      .split(";")
+      .map((cookie) => cookie.split("=")[0]?.trim())
+      .filter((name): name is string => Boolean(name && name.startsWith("_ga")));
+
+    const host = window.location.hostname;
+    const domainCandidates = new Set([host, `.${host}`]);
+
+    if (host.startsWith("www.")) {
+      const rootDomain = host.slice(4);
+      domainCandidates.add(rootDomain);
+      domainCandidates.add(`.${rootDomain}`);
+    }
+
+    for (const name of cookieNames) {
+      document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+      for (const domain of domainCandidates) {
+        document.cookie = `${name}=; Max-Age=0; path=/; domain=${domain}; SameSite=Lax`;
+      }
+    }
+  }
+
+  function handleAction(action: string): void {
+    if (action === "settings") {
+      showPanel(true);
+      return;
+    }
+
+    if (action === "accept") {
+      saveConsent("accepted");
+      const panel = getPanel();
+      if (panel) panel.hidden = true;
+      window.dispatchEvent(new CustomEvent("dbl:analytics-consent-granted"));
+      return;
+    }
+
+    if (action === "reject") {
+      const analyticsWasLoaded = Boolean(window.__dblGaConfigured);
+      saveConsent("rejected");
+      deleteAnalyticsCookies();
+
+      if (analyticsWasLoaded) {
+        window.location.reload();
+        return;
+      }
+
+      const panel = getPanel();
+      if (panel) panel.hidden = true;
+    }
+  }
+
+  if (!window.__dblCookieConsentInitialized) {
+    window.__dblCookieConsentInitialized = true;
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const control = target.closest<HTMLElement>("[data-cookie-action]");
+      const action = control?.dataset.cookieAction;
+      if (action) handleAction(action);
+    });
+
+    document.addEventListener("astro:page-load", () => showPanel(false));
+  }
+
+  showPanel(false);
+</script>

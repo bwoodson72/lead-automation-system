@@ -35,6 +35,7 @@ const organizationId = new URL("/#organization", siteUrl).toString();
 const websiteId = new URL("/#website", siteUrl).toString();
 const organizationLogo = new URL(brandLogo.src, siteUrl).toString();
 const brandContentImage = new URL(brandHero.src, siteUrl).toString();
+const refundPolicyUrl = new URL("/refund-policy/", siteUrl).toString();
 
 const normalizedPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const productPathMatch = normalizedPath.match(/^\/products\/([^/]+)$/);
@@ -72,6 +73,10 @@ const globalStructuredData = [
       "@type": "ImageObject",
       url: organizationLogo,
     },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      merchantReturnLink: refundPolicyUrl,
+    },
   },
   {
     "@context": "https://schema.org",
@@ -90,12 +95,44 @@ const rawPageStructuredData = structuredData
     : [structuredData]
   : [];
 
+const offerReturnPolicy = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: "US",
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 14,
+};
+
+const normalizeOffer = (offer: unknown): unknown => {
+  if (!offer || typeof offer !== "object" || Array.isArray(offer)) return offer;
+  return {
+    ...(offer as Record<string, unknown>),
+    hasMerchantReturnPolicy: offerReturnPolicy,
+  };
+};
+
 const pageStructuredData = rawPageStructuredData.map((schema) => {
   const schemaType = schema["@type"];
-  if ((schemaType === "Article" || schemaType === "Product") && !schema.image) {
-    return { ...schema, image: defaultContentImage };
+  let normalizedSchema: Record<string, unknown> = { ...schema };
+
+  if (schemaType === "Product") {
+    delete normalizedSchema.audience;
+    normalizedSchema.brand = {
+      "@type": "Brand",
+      name: siteConfig.name,
+    };
+
+    if (normalizedSchema.offers) {
+      normalizedSchema.offers = Array.isArray(normalizedSchema.offers)
+        ? normalizedSchema.offers.map(normalizeOffer)
+        : normalizeOffer(normalizedSchema.offers);
+    }
   }
-  return schema;
+
+  if ((schemaType === "Article" || schemaType === "Product") && !normalizedSchema.image) {
+    normalizedSchema = { ...normalizedSchema, image: defaultContentImage };
+  }
+
+  return normalizedSchema;
 });
 ---
 <!doctype html>

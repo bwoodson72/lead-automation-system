@@ -13,28 +13,28 @@ const commerce = resolveProductCommerce(product.data);
 
 const steps = [
   {
-    title: "Choose one type of client you can actually reach.",
-    body: 'Not "small businesses" in general. A specific kind of buyer you can find, contact, and understand.',
+    title: "Pick one kind of business you can reach.",
+    body: 'Not "small businesses" in general. A specific type you can find, contact, and understand.',
   },
   {
-    title: "Find a real problem worth solving for them.",
-    body: "Something that costs them money, time, or customers, so your work matters to them before you ever mention code.",
+    title: "Find a problem that costs them money.",
+    body: "Something they'd pay to fix, so the conversation starts with their business instead of your tech stack.",
   },
   {
-    title: "Shape a simple offer around that problem.",
-    body: "A first version of what you'd sell them. It doesn't have to be perfect. It has to be clear enough to test.",
+    title: "Turn it into a simple offer.",
+    body: "A first version of what you'd sell. Clear enough to test; it doesn't need to be final.",
   },
   {
-    title: "Build your first 25.",
-    body: "A short list of qualified prospects who actually fit, so you're not blasting messages at strangers.",
+    title: "Build your First 25.",
+    body: "A short list of businesses that actually fit, so you're not messaging strangers at random.",
   },
   {
-    title: "Reach out and track what happens.",
-    body: "Outreach built on a real problem the business has. That's the difference between a message they want to read and spam.",
+    title: "Reach out and record what happens.",
+    body: "Send messages built around the problem you've investigated, then log every reply, question, and no.",
   },
   {
-    title: "Decide what to test next.",
-    body: "Use what happened to adjust your buyer, your problem, or your offer, based on evidence instead of guesses.",
+    title: "Decide what to change.",
+    body: "Adjust the buyer, the problem, or the offer based on what happened, not on guesses.",
   },
 ];
 
@@ -43,35 +43,35 @@ const faqs = [
     data: {
       order: 1,
       question: "Do I need a niche or a portfolio first?",
-      answer: "No. Choosing a buyer is part of the process, and you can start with the work you've already done.",
+      answer: "No. Choosing who to reach is step one, and the process works with the useful work you've already done.",
     },
   },
   {
     data: {
       order: 2,
       question: "I hate cold outreach. Is this for me?",
-      answer: "Especially you. Most cold outreach feels bad because it's generic. When you're contacting a specific business about a specific problem they have, it reads like help, not a sales pitch.",
+      answer: "Probably more than most. Cold outreach feels bad when it's generic. Here, every message starts with a specific business and a problem you've actually investigated, so you're not sending the same pitch to strangers.",
     },
   },
   {
     data: {
       order: 3,
       question: "How long does it take?",
-      answer: "The Quickstart is designed to get your first client-acquisition cycle moving over seven days. Each day takes you one step closer to real market contact, so you spend less time preparing and more time learning from actual buyers.",
+      answer: "The Quickstart uses a seven-day activation plan to get your first client-acquisition cycle into motion. Seven days is not a promise that a client will appear within a week; it's a structure for choosing the buyer, building the offer and First 25, making real market contact, and knowing what to do next.",
     },
   },
   {
     data: {
       order: 4,
       question: "Why is it free?",
-      answer: "Because the best way to show you this approach works is to let you use it. If it helps, you'll know where to go next.",
+      answer: "It's the first step in the Developer Business Lab system. It lets you use the approach before deciding whether you need the deeper paid systems for pricing, sales, delivery, and growth.",
     },
   },
   {
     data: {
       order: 5,
       question: "Why does it go through a checkout page?",
-      answer: "That's how the download is delivered. It's free, and you'll only be asked for your email.",
+      answer: "Lemon Squeezy handles delivery and emails you the download link after checkout. The product price is $0.",
     },
   },
 ];
@@ -79,15 +79,15 @@ const faqs = [
 
 <BaseLayout
   title="Developer Marketing Quickstart | Free Guide + Workbook"
-  description="Stop preparing and start one real round of finding freelance clients with the free Developer Marketing Quickstart guide and workbook."
+  description="Build your First 25, put a clear offer in front of real buyers, and get your first deliberate client-acquisition cycle moving with this free guide and workbook."
   enableCheckoutOverlay={commerce.purchasable}
 >
   <ProductHero
     product={product}
     breadcrumbs={[]}
     eyebrow="Free guide and workbook for freelance developers"
-    title="Stop preparing. Start talking to people who might hire you."
-    description="The Developer Marketing Quickstart walks you through one real round of finding clients: picking who to serve, finding a problem worth solving, and reaching 25 qualified prospects. You'll finish with real conversations and real answers instead of another plan."
+    title="Your next client probably isn't hiding in your portfolio."
+    description="You already know how to do the work. The Developer Marketing Quickstart shows you how to create opportunities to get paid for it: choose one buyer, find a problem worth solving, shape an offer, build your First 25, and put it in front of real businesses. In seven days, you'll have your first client-acquisition cycle in motion and real market feedback instead of guesses."
     ctaLabel="Get the Free Quickstart"
     supportingText="Free. Enter your email on the next screen and it's yours."
     location="free-hero"
@@ -95,23 +95,23 @@ const faqs = [
 
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
-      <div><h2 class="text-4xl font-semibold tracking-tight">This is for you if the next client always feels like luck.</h2></div>
+      <div><h2 class="text-4xl font-semibold tracking-tight">You're good at the work. Getting the work is the part nobody taught you.</h2></div>
       <div class="space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>Your work comes from referrals, a platform, or an agency, and you don't control any of them.</p>
-        <p>You know you should be finding clients, but you're not sure where to start, so you redesign your portfolio again instead.</p>
-        <p>You've thought about reaching out to businesses directly, but every cold email you imagine sounds like spam, so you never send one.</p>
-        <p>And every time a project winds down, you feel that familiar knot: <em>what comes next?</em></p>
+        <p>Your clients come from referrals, a platform, or an agency. When they send work, you're busy. When they don't, you wait.</p>
+        <p>You've told yourself you'll start finding clients once the portfolio is done. It's been almost done for a while.</p>
+        <p>You've written cold emails in your head. Every one sounded like spam, so none of them got sent.</p>
+        <p>A project starts winding down and the math starts running in your head. <em>What's coming in next month? Who replaces this client? How long can I afford an empty calendar?</em></p>
       </div>
     </div>
   </section>
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
-      <div><h2 class="text-4xl font-semibold tracking-tight">You don't need more preparation. You need evidence.</h2></div>
+      <div><h2 class="text-4xl font-semibold tracking-tight">Treat it like a first build, not a launch.</h2></div>
       <div class="space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>Most developers treat finding clients like something they'll do once everything is ready: the portfolio, the website, the niche, the perfect pitch.</p>
-        <p>It's never ready. And no amount of preparation tells you what actually matters: which clients respond, which problems they'll pay to fix, and what makes them say yes.</p>
-        <p class="font-semibold text-foreground">Only real conversations tell you that. The Quickstart gets you there faster.</p>
+        <p>You'd never spend three months on a feature without shipping a test version. Finding clients works the same way.</p>
+        <p>You don't need the perfect niche, website, or pitch before you start. You need a small version you can put in front of people, and their response tells you what to change.</p>
+        <p class="font-semibold text-foreground">You don't need to become a salesperson. You need to know who you're contacting, why they might care, and what you're asking them to do next.</p>
       </div>
     </div>
   </section>
@@ -119,7 +119,7 @@ const faqs = [
   <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <p class="editorial-kicker">What you'll do</p>
-      <h2 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight">One real round of finding clients, start to finish</h2>
+      <h2 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight">One round of finding clients, start to finish</h2>
       <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
         {steps.map((step) => (
           <article class="bg-background p-7">
@@ -136,31 +136,11 @@ const faqs = [
       <div class="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
         <div><h2 class="text-4xl font-semibold tracking-tight">What you get</h2></div>
         <div class="space-y-6 text-lg leading-8 text-muted-foreground">
-          <p><strong class="text-foreground">A 64-page guide</strong> that walks you through the process from choosing a buyer to reading the results of your first outreach cycle.</p>
-          <p><strong class="text-foreground">A 45-page workbook</strong> where you make the decisions as you go: your buyer, the problem you're targeting, your offer, your First 25 prospects, what happened when you reached out, and what you'll change next.</p>
-          <p class="font-semibold text-foreground">By the end, you haven't just learned about client acquisition. You've actually started doing it.</p>
+          <p><strong class="text-foreground">The 64-page guide</strong> walks you through each step, from choosing a buyer to reading the results of your first outreach cycle.</p>
+          <p><strong class="text-foreground">The 45-page workbook</strong> is where you make every decision as you go: your buyer, their problem, your offer, your First 25 prospects, what happened when you reached out, and what you'll change next. When you finish, it becomes the working record for round two.</p>
+          <p class="font-semibold text-foreground">By the end, you'll have chosen a market, built an offer, identified 25 real prospects, contacted them, and collected actual market feedback instead of guessing what might work.</p>
+          <p><strong class="text-foreground">This is the client-acquisition starting point.</strong> It doesn't try to teach the entire freelance business. The goal is simpler: help you stop waiting for work and run your first deliberate attempt to find it.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-border bg-card/35 px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-5xl">
-      <h2 class="text-4xl font-semibold tracking-tight">Why it works for developers</h2>
-      <div class="mt-6 space-y-5 text-lg leading-8 text-muted-foreground">
-        <p>You already know how to work in cycles: build something small, test it, look at the results, improve it. The Quickstart treats finding clients the same way.</p>
-        <p>No personality changes. No pretending to be a salesman. Just a clear process with inputs, steps, and results you can measure.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
-    <div class="mx-auto max-w-5xl">
-      <h2 class="text-4xl font-semibold tracking-tight">What it isn't</h2>
-      <div class="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
-        <div class="bg-background p-7"><p class="leading-7 text-muted-foreground"><strong class="text-foreground">It isn't the whole business.</strong> The Quickstart covers the first step: getting in front of buyers. Pricing, sales, delivery, and keeping clients are covered in the paid systems, if and when you need them.</p></div>
-        <div class="bg-background p-7"><p class="leading-7 text-muted-foreground"><strong class="text-foreground">It isn't a spam script.</strong> There are no mass-blast templates here. The point is fewer, better conversations with the right people.</p></div>
-        <div class="bg-background p-7"><p class="leading-7 text-muted-foreground"><strong class="text-foreground">It isn't a promise of instant clients.</strong> It's a way to get real answers from the market quickly, so your next move is based on what actually happened.</p></div>
       </div>
     </div>
   </section>
@@ -174,8 +154,8 @@ const faqs = [
 
   <section class="px-6 py-18 sm:px-6 sm:py-24 lg:px-8">
     <div class="mx-auto max-w-5xl text-center">
-      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">The next client won't find you while you're still preparing.</h2>
-      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Get the Quickstart and start one real round this week.</p>
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Your next client won't come from another portfolio redesign.</h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Build your First 25. Put your offer in front of real buyers. Give yourself a way to create opportunities instead of waiting for them.</p>
       <div class="mt-8 flex justify-center"><ProductCTA product={product} location="free-final" label="Get the Free Quickstart" /></div>
       <p class="mt-4 text-sm text-muted-foreground">Free. Enter your email on the next screen and it's yours.</p>
     </div>

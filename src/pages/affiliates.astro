@@ -3,6 +3,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import { Button } from "@/components/starwind/button";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+
+const affiliateApplicationUrl = "https://developerbusinesslab.lemonsqueezy.com/affiliates";
 ---
 
 <BaseLayout
@@ -15,19 +17,18 @@ import heroImage from "@/assets/brand/developer-business-lab-hero.png";
     eyebrow="Developer Business Lab Affiliate Program"
     title="Help independent developers build better businesses. Earn 30% when they buy."
     description="Recommend practical systems for pricing, positioning, client acquisition, sales, proposals, agency partnerships, and recurring revenue to an audience already trying to solve those problems."
-    primaryCta={{ label: "Apply to Become an Affiliate", href: "#apply" }}
+    primaryCta={{ label: "Apply to Become an Affiliate", href: affiliateApplicationUrl }}
     secondaryCta={{ label: "See How It Works", href: "#program" }}
-    supportingItems={["30% standard commission", "30-day referral window", "Manual approval"]}
+    supportingItems={["30% commission", "60-day referral window", "Manual approval"]}
   >
     <div slot="visual" class="publisher-panel p-7 sm:p-9">
       <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary-accent">Program economics</p>
       <dl class="mt-7 divide-y divide-border border-y border-border">
-        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Standard commission</dt><dd class="text-2xl font-semibold">30%</dd></div>
-        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Referral window</dt><dd class="text-2xl font-semibold">30 days</dd></div>
-        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">High-performer tier</dt><dd class="text-2xl font-semibold">35%</dd></div>
-        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Strategic partners</dt><dd class="text-2xl font-semibold">Up to 40%</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Commission</dt><dd class="text-2xl font-semibold">30%</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Referral window</dt><dd class="text-2xl font-semibold">60 days</dd></div>
+        <div class="flex items-center justify-between gap-6 py-5"><dt class="text-muted-foreground">Approval</dt><dd class="text-2xl font-semibold">Manual</dd></div>
       </dl>
-      <p class="mt-6 text-sm leading-6 text-muted-foreground">Higher rates are earned or offered selectively. The standard program starts at 30%.</p>
+      <p class="mt-6 text-sm leading-6 text-muted-foreground">The launch program uses one straightforward commission rate so partners know exactly what to expect.</p>
     </div>
   </PageHero>
 
@@ -91,7 +92,7 @@ import heroImage from "@/assets/brand/developer-business-lab-hero.png";
             ["01", "Apply", "Tell us about your audience, channels, and how you plan to promote Developer Business Lab."],
             ["02", "Get approved", "We manually review applications so the program stays focused on relevant, trustworthy partners."],
             ["03", "Share your referral links", "Send people to relevant product pages, useful content, or the Developer Business Lab site rather than forcing every click straight to checkout."],
-            ["04", "Earn on referred purchases", "Qualifying sales attributed through the affiliate program earn the applicable commission rate."],
+            ["04", "Earn on referred purchases", "Qualifying sales attributed through the affiliate program earn a 30% commission."],
           ].map(([number, title, description]) => (
             <div class="grid grid-cols-[3rem_1fr] gap-4 border-t border-border pt-5">
               <p class="font-mono text-xs text-primary-accent">{number}</p>
@@ -136,7 +137,7 @@ import heroImage from "@/assets/brand/developer-business-lab-hero.png";
           <div class="surface-editorial p-6"><h3 class="text-xl font-semibold">{title}</h3><p class="mt-3 leading-7 text-muted-foreground">{description}</p></div>
         ))}
       </div>
-      <p class="mt-8 text-sm text-muted-foreground">Full affiliate terms will govern participation and may be updated as the program develops.</p>
+      <p class="mt-8 text-sm text-muted-foreground">Program participation is subject to Lemon Squeezy's affiliate terms and the Developer Business Lab program standards communicated to approved affiliates.</p>
     </div>
   </section>
 
@@ -147,9 +148,9 @@ import heroImage from "@/assets/brand/developer-business-lab-hero.png";
       <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Have an audience of independent developers?</h2>
       <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Apply to promote practical business systems that help technically capable developers become more deliberate about the commercial side of their work.</p>
       <div class="mt-8">
-        <Button as="a" href="#" size="lg" aria-disabled="true" class="pointer-events-none opacity-60">Affiliate Applications Opening Soon</Button>
+        <Button as="a" href={affiliateApplicationUrl} size="lg">Apply to Become an Affiliate</Button>
       </div>
-      <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-muted-foreground">The application button will be connected to the Developer Business Lab Lemon Squeezy affiliate application once the program is enabled.</p>
+      <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-muted-foreground">Applications are handled through Lemon Squeezy and reviewed manually before approval.</p>
     </div>
   </section>
 </BaseLayout>

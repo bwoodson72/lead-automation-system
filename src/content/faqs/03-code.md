@@ -1,7 +1,7 @@
 ---
-question: Are these video courses?
-answer: No. The current products are implementation guides, workbooks, trackers, and related downloadable tools. They are designed to be used beside a real business decision, project, prospect, or campaign rather than watched passively from beginning to end.
-category: About the products
+question: What is the difference between Marketing for Builders and Client Acquisition Without Upwork?
+answer: Marketing for Builders is about creating demand around the offer: choosing the market, making the commercial argument, building proof, and operating realistic ways for the right buyers to encounter and understand the work. Client Acquisition Without Upwork is about operating the pipeline: choosing accounts worth attention, researching opportunities, reaching buyers, qualifying responses, managing follow-up and pipeline stages, and learning which acquisition routes are actually producing qualified opportunities. If buyers do not understand the value, start with marketing. If the value is clear but the pipeline keeps going empty, start with acquisition.
+category: Product differences
 featured: true
 order: 3
 ---

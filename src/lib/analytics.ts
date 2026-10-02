@@ -76,7 +76,9 @@ function ctaLocationFromElement(element: HTMLElement): string | undefined {
 function ecommerceParams(element: HTMLElement): EventParams {
   const item = itemFromElement(element);
   const price = item?.price;
-  const params: EventParams = {};
+  const params: EventParams = {
+    source_page: window.location.pathname,
+  };
 
   if (element.dataset.gaCurrency) params.currency = element.dataset.gaCurrency;
   if (price !== undefined) params.value = price;
@@ -186,19 +188,7 @@ async function enrichCheckoutLinks(): Promise<void> {
   for (const link of links) enrichCheckoutLink(link, identity);
 }
 
-function handleTrackedClick(event: MouseEvent): void {
-  if (!hasAnalyticsConsent()) return;
-
-  const target = event.target;
-  if (!(target instanceof Element)) return;
-
-  const element = target.closest<HTMLElement>("[data-ga-event], [data-event='checkout_click']");
-  if (!element) return;
-
-  const eventName = element.dataset.gaEvent
-    ?? (element.dataset.event === "checkout_click" ? "begin_checkout" : undefined);
-  if (!eventName) return;
-
+function sendTrackedEvent(element: HTMLElement, eventName: string): void {
   if (eventName === "select_item" || eventName === "begin_checkout" || eventName === "quickstart_checkout_start") {
     sendEvent(eventName, ecommerceParams(element));
     return;
@@ -220,6 +210,27 @@ function handleTrackedClick(event: MouseEvent): void {
   });
 }
 
+function handleTrackedClick(event: MouseEvent): void {
+  if (!hasAnalyticsConsent()) return;
+
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+
+  const element = target.closest<HTMLElement>("[data-ga-event], [data-event='checkout_click']");
+  if (!element) return;
+
+  const eventName = element.dataset.gaEvent
+    ?? (element.dataset.event === "checkout_click" ? "begin_checkout" : undefined);
+  if (!eventName) return;
+
+  sendTrackedEvent(element, eventName);
+
+  const secondaryEventName = element.dataset.gaSecondaryEvent;
+  if (secondaryEventName && secondaryEventName !== eventName) {
+    sendTrackedEvent(element, secondaryEventName);
+  }
+}
+
 async function handleCheckoutCapture(event: MouseEvent): Promise<void> {
   if (!hasAnalyticsConsent() || event.defaultPrevented || event.button !== 0) return;
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -237,7 +248,13 @@ async function handleCheckoutCapture(event: MouseEvent): Promise<void> {
   if (identity) enrichCheckoutLink(link, identity);
 
   const eventName = link.dataset.gaEvent ?? "begin_checkout";
-  sendEvent(eventName, ecommerceParams(link));
+  sendTrackedEvent(link, eventName);
+
+  const secondaryEventName = link.dataset.gaSecondaryEvent;
+  if (secondaryEventName && secondaryEventName !== eventName) {
+    sendTrackedEvent(link, secondaryEventName);
+  }
+
   window.location.assign(link.href);
 }
 

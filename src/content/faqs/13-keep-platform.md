@@ -1,6 +1,6 @@
 ---
-question: Do I have to stop using the tools and platforms I already pay for?
-answer: No. A good business system should help you decide where a tool belongs, not force you to replace useful software for ideological reasons. Apollo, CRMs, email platforms, AI tools, spreadsheets, and workflow software can remain part of the process when they solve a real job. The goal is to own the decisions even when a provider supplies part of the machinery.
-category: Tools
+question: How do orders, downloads, refunds, and product support work?
+answer: Lemon Squeezy handles checkout, order history, receipts, and access to the digital files attached to your purchase. Use Lemon Squeezy My Orders when you need to recover an order or download. Developer Business Lab handles questions about using the products, problems with product materials, affiliate questions, website issues, and refund requests under the posted DBL refund policy. The Support page routes you to the right place so order administration is not duplicated inside DBL.
+category: Purchase and delivery
 order: 13
 ---

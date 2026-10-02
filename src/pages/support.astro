@@ -1,0 +1,220 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/layout/PageHero.astro";
+import { button } from "@/components/starwind/button/variants";
+import heroImage from "@/assets/brand/developer-business-lab-hero.png";
+import { siteConfig } from "@/config";
+import { isPublicProduct } from "@/lib/storefront-visibility";
+
+const products = (await getCollection("products"))
+  .filter(isPublicProduct)
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const supportEmail = siteConfig.supportEmail;
+const primaryButton = button({ class: "w-full sm:w-auto" });
+const secondaryButton = button({ variant: "outline", class: "w-full sm:w-auto" });
+const lemonOrdersUrl = "https://app.lemonsqueezy.com/my-orders";
+---
+
+<BaseLayout
+  title="Support | Developer Business Lab"
+  description="Get help using Developer Business Lab products and affiliate resources, or access your Lemon Squeezy orders and downloads."
+>
+  <PageHero
+    image={heroImage}
+    imageAlt="Developer Business Lab workspace with guides and implementation materials"
+    eyebrow="Support"
+    title="Get to the right kind of help without going in circles."
+    description="Developer Business Lab handles product, affiliate, refund, and website questions. Lemon Squeezy handles order access, receipts, and download recovery. Start with the path that matches what you need."
+  />
+
+  <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+        <article class="bg-background p-7 sm:p-8">
+          <p class="editorial-kicker">Orders & downloads</p>
+          <h2 class="mt-4 text-2xl font-semibold tracking-tight">Access a purchase or download</h2>
+          <p class="mt-4 leading-7 text-muted-foreground">Use Lemon Squeezy My Orders to see past purchases and access the files currently attached to them. Sign in with the email address used at checkout.</p>
+          <div class="mt-7">
+            <a
+              href={lemonOrdersUrl}
+              class={primaryButton}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ga-event="support_order_portal"
+              data-ga-cta-location="support-orders"
+            >Open My Orders ↗</a>
+          </div>
+        </article>
+
+        <article class="bg-background p-7 sm:p-8">
+          <p class="editorial-kicker">Product help</p>
+          <h2 class="mt-4 text-2xl font-semibold tracking-tight">Questions about using a DBL product</h2>
+          <p class="mt-4 leading-7 text-muted-foreground">Use DBL support for questions about a guide or workbook, missing or incorrect product material, implementation questions, corrections, and product updates.</p>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+            <a href="#contact-support" class={primaryButton} data-ga-event="support_contact_start" data-ga-cta-location="support-product">Contact product support</a>
+            <a href="/faq/" class={secondaryButton} data-ga-event="support_faq_view" data-ga-cta-location="support-product">Read the FAQ</a>
+          </div>
+        </article>
+
+        <article class="bg-background p-7 sm:p-8">
+          <p class="editorial-kicker">Affiliate support</p>
+          <h2 class="mt-4 text-2xl font-semibold tracking-tight">Help promoting Developer Business Lab</h2>
+          <p class="mt-4 leading-7 text-muted-foreground">Use DBL support for program guidance, approved promotional resources, disclosure questions, and affiliate issues that are specific to Developer Business Lab.</p>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+            <a href="#contact-support" class={primaryButton} data-ga-event="support_contact_start" data-ga-cta-location="support-affiliate">Contact affiliate support</a>
+            <a href="/affiliates/" class={secondaryButton} data-ga-event="support_affiliate_program" data-ga-cta-location="support-affiliate">Affiliate program</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div>
+        <p class="editorial-kicker">Who handles what</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Don’t open a support request for something Lemon Squeezy already handles.</h2>
+      </div>
+      <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+        <div class="bg-background p-6">
+          <h3 class="text-lg font-semibold">Go to Lemon Squeezy for</h3>
+          <ul class="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+            <li>Past orders and purchase history</li>
+            <li>Downloading purchased files</li>
+            <li>Finding a receipt or order record</li>
+            <li>Recovering access with the checkout email address</li>
+          </ul>
+          <a class="mt-6 inline-flex font-semibold text-primary-accent hover:underline" href={lemonOrdersUrl} target="_blank" rel="noopener noreferrer">Open My Orders ↗</a>
+        </div>
+        <div class="bg-background p-6">
+          <h3 class="text-lg font-semibold">Contact Developer Business Lab for</h3>
+          <ul class="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+            <li>Questions about using a product</li>
+            <li>Missing, incorrect, or inaccessible product material</li>
+            <li>Refund requests under the DBL refund policy</li>
+            <li>Affiliate program or promotional questions</li>
+            <li>Problems with the Developer Business Lab website</li>
+          </ul>
+          <a class="mt-6 inline-flex font-semibold text-primary-accent hover:underline" href="/refund-policy/">Review the refund policy →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact-support" class="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div>
+        <p class="editorial-kicker">Contact DBL</p>
+        <h2 class="mt-4 text-4xl font-semibold tracking-tight">Tell us what needs attention.</h2>
+        <p class="mt-5 leading-7 text-muted-foreground">Choose the closest category and include enough detail to identify the product or issue. Order access and download recovery should go through Lemon Squeezy instead.</p>
+      </div>
+
+      <div class="border border-border bg-card/35 p-6 sm:p-8">
+        {supportEmail ? (
+          <form id="support-form" data-support-email={supportEmail} class="space-y-6">
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="support-name" class="text-sm font-semibold">Name</label>
+                <input id="support-name" name="name" autocomplete="name" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
+              </div>
+              <div>
+                <label for="support-email" class="text-sm font-semibold">Email</label>
+                <input id="support-email" name="email" type="email" autocomplete="email" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
+              </div>
+            </div>
+
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="support-category" class="text-sm font-semibold">What do you need help with?</label>
+                <select id="support-category" name="category" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
+                  <option value="">Choose a category</option>
+                  <option>Product question</option>
+                  <option>Problem with product files</option>
+                  <option>Refund request</option>
+                  <option>Affiliate question</option>
+                  <option>Website problem</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="support-product" class="text-sm font-semibold">Product <span class="font-normal text-muted-foreground">(if relevant)</span></label>
+                <select id="support-product" name="product" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
+                  <option value="">Not product-specific</option>
+                  {products.map((product) => <option value={product.data.title}>{product.data.title}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="support-purchase-email" class="text-sm font-semibold">Purchase email <span class="font-normal text-muted-foreground">(only if different and relevant)</span></label>
+              <input id="support-purchase-email" name="purchaseEmail" type="email" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
+            </div>
+
+            <div>
+              <label for="support-message" class="text-sm font-semibold">What happened?</label>
+              <textarea id="support-message" name="message" rows="8" required class="mt-2 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30"></textarea>
+              <p class="mt-2 text-xs leading-5 text-muted-foreground">Do not send passwords, full payment card numbers, or other sensitive credentials.</p>
+            </div>
+
+            <button type="submit" class={primaryButton}>Prepare support email</button>
+            <p class="text-xs leading-5 text-muted-foreground">Submitting opens your email app with these details already organized. You can review the message before sending it.</p>
+          </form>
+        ) : (
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold">Support contact is being configured.</h3>
+            <p class="leading-7 text-muted-foreground">The support center is available now for order routing, product FAQs, affiliate resources, and refund information. Direct DBL support will appear here when the support email destination is configured.</p>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="/faq/" class={primaryButton}>Read the FAQ</a>
+              <a href={lemonOrdersUrl} class={secondaryButton} target="_blank" rel="noopener noreferrer">Open My Orders ↗</a>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  {supportEmail && (
+    <script>
+      const form = document.querySelector<HTMLFormElement>("#support-form");
+
+      form?.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const destination = form.dataset.supportEmail;
+        if (!destination) return;
+
+        const data = new FormData(form);
+        const category = String(data.get("category") || "Support request");
+        const product = String(data.get("product") || "Not product-specific");
+        const name = String(data.get("name") || "");
+        const email = String(data.get("email") || "");
+        const purchaseEmail = String(data.get("purchaseEmail") || "");
+        const message = String(data.get("message") || "");
+
+        const subject = `[DBL Support] ${category}${product !== "Not product-specific" ? ` — ${product}` : ""}`;
+        const body = [
+          `Name: ${name}`,
+          `Reply email: ${email}`,
+          `Category: ${category}`,
+          `Product: ${product}`,
+          `Purchase email: ${purchaseEmail || "Same as reply email / not applicable"}`,
+          "",
+          "Details:",
+          message,
+        ].join("\n");
+
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "support_email_prepare", {
+            support_category: category,
+            product_name: product,
+            source_page: window.location.pathname,
+          });
+        }
+
+        window.location.href = `mailto:${encodeURIComponent(destination)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    </script>
+  )}
+</BaseLayout>

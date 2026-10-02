@@ -204,7 +204,7 @@ const lemonOrdersUrl = "https://app.lemonsqueezy.com/my-orders";
       }
 
       try {
-        const response = await fetch("/api/support", {
+        const response = await fetch("/api/support/", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(payload),

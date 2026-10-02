@@ -4,14 +4,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import { button } from "@/components/starwind/button/variants";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
-import { siteConfig } from "@/config";
 import { isPublicProduct } from "@/lib/storefront-visibility";
 
 const products = (await getCollection("products"))
   .filter(isPublicProduct)
   .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
-const supportEmail = siteConfig.supportEmail;
 const primaryButton = button({ class: "w-full sm:w-auto" });
 const secondaryButton = button({ variant: "outline", class: "w-full sm:w-auto" });
 const lemonOrdersUrl = "https://app.lemonsqueezy.com/my-orders";
@@ -112,109 +110,127 @@ const lemonOrdersUrl = "https://app.lemonsqueezy.com/my-orders";
       </div>
 
       <div class="border border-border bg-card/35 p-6 sm:p-8">
-        {supportEmail ? (
-          <form id="support-form" data-support-email={supportEmail} class="space-y-6">
-            <div class="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label for="support-name" class="text-sm font-semibold">Name</label>
-                <input id="support-name" name="name" autocomplete="name" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
-              </div>
-              <div>
-                <label for="support-email" class="text-sm font-semibold">Email</label>
-                <input id="support-email" name="email" type="email" autocomplete="email" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
-              </div>
-            </div>
-
-            <div class="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label for="support-category" class="text-sm font-semibold">What do you need help with?</label>
-                <select id="support-category" name="category" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
-                  <option value="">Choose a category</option>
-                  <option>Product question</option>
-                  <option>Problem with product files</option>
-                  <option>Refund request</option>
-                  <option>Affiliate question</option>
-                  <option>Website problem</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div>
-                <label for="support-product" class="text-sm font-semibold">Product <span class="font-normal text-muted-foreground">(if relevant)</span></label>
-                <select id="support-product" name="product" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
-                  <option value="">Not product-specific</option>
-                  {products.map((product) => <option value={product.data.title}>{product.data.title}</option>)}
-                </select>
-              </div>
-            </div>
-
+        <form id="support-form" class="space-y-6">
+          <div class="grid gap-6 sm:grid-cols-2">
             <div>
-              <label for="support-purchase-email" class="text-sm font-semibold">Purchase email <span class="font-normal text-muted-foreground">(only if different and relevant)</span></label>
-              <input id="support-purchase-email" name="purchaseEmail" type="email" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
+              <label for="support-name" class="text-sm font-semibold">Name</label>
+              <input id="support-name" name="name" autocomplete="name" required maxlength="100" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
             </div>
-
             <div>
-              <label for="support-message" class="text-sm font-semibold">What happened?</label>
-              <textarea id="support-message" name="message" rows="8" required class="mt-2 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30"></textarea>
-              <p class="mt-2 text-xs leading-5 text-muted-foreground">Do not send passwords, full payment card numbers, or other sensitive credentials.</p>
-            </div>
-
-            <button type="submit" class={primaryButton}>Prepare support email</button>
-            <p class="text-xs leading-5 text-muted-foreground">Submitting opens your email app with these details already organized. You can review the message before sending it.</p>
-          </form>
-        ) : (
-          <div class="space-y-4">
-            <h3 class="text-xl font-semibold">Support contact is being configured.</h3>
-            <p class="leading-7 text-muted-foreground">The support center is available now for order routing, product FAQs, affiliate resources, and refund information. Direct DBL support will appear here when the support email destination is configured.</p>
-            <div class="flex flex-col gap-3 sm:flex-row">
-              <a href="/faq/" class={primaryButton}>Read the FAQ</a>
-              <a href={lemonOrdersUrl} class={secondaryButton} target="_blank" rel="noopener noreferrer">Open My Orders ↗</a>
+              <label for="support-email" class="text-sm font-semibold">Email</label>
+              <input id="support-email" name="email" type="email" autocomplete="email" required maxlength="254" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
             </div>
           </div>
-        )}
+
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label for="support-category" class="text-sm font-semibold">What do you need help with?</label>
+              <select id="support-category" name="category" required class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
+                <option value="">Choose a category</option>
+                <option>Product question</option>
+                <option>Problem with product files</option>
+                <option>Refund request</option>
+                <option>Affiliate question</option>
+                <option>Website problem</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="support-product" class="text-sm font-semibold">Product <span class="font-normal text-muted-foreground">(if relevant)</span></label>
+              <select id="support-product" name="product" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30">
+                <option value="">Not product-specific</option>
+                {products.map((product) => <option value={product.data.title}>{product.data.title}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="support-purchase-email" class="text-sm font-semibold">Purchase email <span class="font-normal text-muted-foreground">(only if different and relevant)</span></label>
+            <input id="support-purchase-email" name="purchaseEmail" type="email" maxlength="254" class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30" />
+          </div>
+
+          <div>
+            <label for="support-message" class="text-sm font-semibold">What happened?</label>
+            <textarea id="support-message" name="message" rows="8" required minlength="10" maxlength="5000" class="mt-2 w-full resize-y rounded-md border border-input bg-background px-3 py-2.5 text-foreground outline-none focus:border-outline focus:ring-2 focus:ring-outline/30"></textarea>
+            <p class="mt-2 text-xs leading-5 text-muted-foreground">Do not send passwords, full payment card numbers, or other sensitive credentials.</p>
+          </div>
+
+          <div class="sr-only" aria-hidden="true">
+            <label for="support-website">Website</label>
+            <input id="support-website" name="website" type="text" autocomplete="off" tabindex="-1" />
+          </div>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button id="support-submit" type="submit" class={primaryButton}>Send support request</button>
+            <p id="support-status" class="text-sm leading-6 text-muted-foreground" aria-live="polite"></p>
+          </div>
+          <p class="text-xs leading-5 text-muted-foreground">Your request is sent directly to Developer Business Lab support. Replies go to the email address you enter above.</p>
+        </form>
       </div>
     </div>
   </section>
 
-  {supportEmail && (
-    <script>
-      const form = document.querySelector<HTMLFormElement>("#support-form");
+  <script>
+    const form = document.querySelector<HTMLFormElement>("#support-form");
+    const submitButton = document.querySelector<HTMLButtonElement>("#support-submit");
+    const status = document.querySelector<HTMLParagraphElement>("#support-status");
 
-      form?.addEventListener("submit", (event) => {
-        event.preventDefault();
+    function setStatus(message: string, isError = false) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.toggle("text-error", isError);
+      status.classList.toggle("text-muted-foreground", !isError);
+    }
 
-        const destination = form.dataset.supportEmail;
-        if (!destination) return;
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!submitButton) return;
 
-        const data = new FormData(form);
-        const category = String(data.get("category") || "Support request");
-        const product = String(data.get("product") || "Not product-specific");
-        const name = String(data.get("name") || "");
-        const email = String(data.get("email") || "");
-        const purchaseEmail = String(data.get("purchaseEmail") || "");
-        const message = String(data.get("message") || "");
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data.entries());
+      const category = String(data.get("category") || "Support request");
+      const product = String(data.get("product") || "Not product-specific");
 
-        const subject = `[DBL Support] ${category}${product !== "Not product-specific" ? ` — ${product}` : ""}`;
-        const body = [
-          `Name: ${name}`,
-          `Reply email: ${email}`,
-          `Category: ${category}`,
-          `Product: ${product}`,
-          `Purchase email: ${purchaseEmail || "Same as reply email / not applicable"}`,
-          "",
-          "Details:",
-          message,
-        ].join("\n");
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending…";
+      setStatus("");
+
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "support_request_submit", {
+          support_category: category,
+          product_name: product,
+          source_page: window.location.pathname,
+        });
+      }
+
+      try {
+        const response = await fetch("/api/support", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "We could not send your support request.");
+        }
+
+        form.reset();
+        setStatus("Your support request was sent.");
 
         if (typeof window.gtag === "function") {
-          window.gtag("event", "support_email_prepare", {
+          window.gtag("event", "support_request_sent", {
             support_category: category,
             product_name: product,
             source_page: window.location.pathname,
           });
         }
-
-        window.location.href = `mailto:${encodeURIComponent(destination)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      });
-    </script>
-  )}
+      } catch (error) {
+        setStatus(error instanceof Error ? error.message : "We could not send your support request. Please try again.", true);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send support request";
+      }
+    });
+  </script>
 </BaseLayout>

@@ -1,7 +1,7 @@
 ---
-question: Which product should I start with?
-answer: Start with the bottleneck that is costing you the most now. If every lead turns into a different service, start with Productize Your Dev Skills. If pricing makes you hesitate, start with the Pricing System. If the project is ending and the pipeline is empty, start with acquisition. The Start Here page is built to help you identify that problem without buying the whole catalog.
-category: Choosing a product
+question: Where does the Social Media Client Acquisition System fit?
+answer: It is a channel-specific acquisition system for freelancers who already spend time on social media and want that activity to create buyer relevance, trust, relationships, qualified conversations, and measurable pipeline. It is narrower than Marketing for Builders, which covers the broader market, message, proof, and demand system, and narrower than Client Acquisition Without Upwork, which provides the wider acquisition operating backbone across multiple channels. Choose the social system when social media itself is the channel you want to make commercially useful.
+category: Product differences
 featured: true
 order: 4
 ---

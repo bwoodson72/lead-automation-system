@@ -93,14 +93,16 @@ Keep `product_acquired`, `begin_checkout`, `quickstart_checkout_start`, `view_it
 
 Before relying on reporting, verify all four cases:
 
-1. Paid test order after accepting analytics -> one `product_acquired` and one `purchase`.
-2. Free Quickstart order after accepting analytics -> one `product_acquired` and one `generate_lead`.
-3. Full refund -> one GA4 `refund` tied to the original transaction ID.
-4. Order after rejecting analytics -> webhook succeeds but sends no GA4 event.
+1. Complete a live paid order after accepting analytics -> one `product_acquired` and one `purchase`.
+2. Complete a live free Quickstart acquisition after accepting analytics -> one `product_acquired` and one `generate_lead`.
+3. Fully refund the paid verification order -> one GA4 `refund` tied to the original transaction ID.
+4. Complete an acquisition after rejecting analytics -> webhook succeeds but sends no GA4 event.
 
 For the Quickstart, also verify that clicking the checkout CTA produces `begin_checkout`; `quickstart_checkout_start` may appear as an additional diagnostic event.
 
-Use Lemon Squeezy webhook logs and GA4 DebugView/Realtime during testing.
+Lemon Squeezy orders marked `test_mode` are intentionally ignored by the webhook so test transactions do not pollute production GA4 data.
+
+Use Lemon Squeezy webhook logs and GA4 DebugView/Realtime during verification.
 
 ## Duplicate and partial-refund behavior
 

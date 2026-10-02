@@ -1,6 +1,6 @@
 ---
-question: Are these video courses?
-answer: No. The current DBL products are implementation guides, workbooks, and related working tools rather than video courses. They are designed to sit beside a real business decision or operating process so you can make a decision, record it, test it, and revise it from evidence. The product page shows the actual delivery format for each system before you buy.
-category: Purchase and delivery
+question: I didn't receive my order email. What should I do?
+answer: First check your spam, junk, and promotions folders. If the message still is not there, open Lemon Squeezy My Orders using the same email address used at checkout. If the purchase still cannot be found or accessed after those steps, contact the Developer Business Lab Support Center.
+category: Orders, access & refunds
 order: 12
 ---

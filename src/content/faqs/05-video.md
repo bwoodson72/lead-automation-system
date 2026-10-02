@@ -1,7 +1,7 @@
 ---
-question: Will this work with my stack or type of development work?
-answer: Most of the business systems are stack-independent because buyers, offers, pricing, acquisition, sales, scope, and recurring value exist whether you build with React, WordPress, Astro, Laravel, or something else. A product may still be a poor fit if the business problem does not match your situation, which is why each page includes a clear “This is for you if” and “Skip it if” section.
-category: Fit
+question: What is the difference between Developer Sales Playbook and Developer Proposal & Closing Kit?
+answer: Developer Sales Playbook works earlier in the process. It helps you run serious buyer conversations, diagnose fit, surface uncertainty, establish decision conditions, and decide whether an opportunity has actually earned a proposal. Developer Proposal & Closing Kit takes over once the opportunity is qualified and decision-ready, carrying the agreed scope, price, terms, review process, payment, and start conditions into a controlled close. If the problem is the sales conversation, start with the Playbook. If good opportunities are already qualified but stall at proposal, agreement, or payment, use the Closing Kit.
+category: Product differences
 featured: true
 order: 5
 ---

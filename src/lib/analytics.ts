@@ -51,8 +51,23 @@ function parsePrice(value: string | undefined): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+function fallbackViewItem(element: HTMLElement): HTMLElement | undefined {
+  const pageItem = document.querySelector<HTMLElement>("[data-ga-view-item]");
+  if (!pageItem || pageItem === element) return undefined;
+
+  const elementId = element.dataset.gaItemId ?? element.dataset.productSlug;
+  const pageItemId = pageItem.dataset.gaItemId ?? pageItem.dataset.productSlug;
+  if (elementId && pageItemId && elementId !== pageItemId) return undefined;
+
+  return pageItem;
+}
+
 function itemFromElement(element: HTMLElement): AnalyticsItem | undefined {
-  const itemId = element.dataset.gaItemId ?? element.dataset.productSlug;
+  const fallback = fallbackViewItem(element);
+  const itemId = element.dataset.gaItemId
+    ?? element.dataset.productSlug
+    ?? fallback?.dataset.gaItemId
+    ?? fallback?.dataset.productSlug;
   if (!itemId) return undefined;
 
   const item: AnalyticsItem = {
@@ -60,10 +75,12 @@ function itemFromElement(element: HTMLElement): AnalyticsItem | undefined {
     quantity: 1,
   };
 
-  if (element.dataset.gaItemName) item.item_name = element.dataset.gaItemName;
-  if (element.dataset.gaItemCategory) item.item_category = element.dataset.gaItemCategory;
+  const itemName = element.dataset.gaItemName ?? fallback?.dataset.gaItemName;
+  const itemCategory = element.dataset.gaItemCategory ?? fallback?.dataset.gaItemCategory;
+  if (itemName) item.item_name = itemName;
+  if (itemCategory) item.item_category = itemCategory;
 
-  const price = parsePrice(element.dataset.gaPrice);
+  const price = parsePrice(element.dataset.gaPrice ?? fallback?.dataset.gaPrice);
   if (price !== undefined) item.price = price;
 
   return item;
@@ -74,13 +91,15 @@ function ctaLocationFromElement(element: HTMLElement): string | undefined {
 }
 
 function ecommerceParams(element: HTMLElement): EventParams {
+  const fallback = fallbackViewItem(element);
   const item = itemFromElement(element);
   const price = item?.price;
   const params: EventParams = {
     source_page: window.location.pathname,
   };
 
-  if (element.dataset.gaCurrency) params.currency = element.dataset.gaCurrency;
+  const currency = element.dataset.gaCurrency ?? fallback?.dataset.gaCurrency;
+  if (currency) params.currency = currency;
   if (price !== undefined) params.value = price;
   if (item) params.items = [item];
 
@@ -164,11 +183,12 @@ function enrichCheckoutLink(element: HTMLAnchorElement, identity: GaIdentity): v
 
   if (!isLemonSqueezyCheckout(url)) return;
 
+  const fallback = fallbackViewItem(element);
   setCheckoutCustomValue(url, "analytics_consent", "accepted");
   setCheckoutCustomValue(url, "ga_client_id", identity.clientId);
   setCheckoutCustomValue(url, "ga_session_id", identity.sessionId);
-  setCheckoutCustomValue(url, "product_slug", element.dataset.productSlug ?? element.dataset.gaItemId);
-  setCheckoutCustomValue(url, "item_category", element.dataset.gaItemCategory);
+  setCheckoutCustomValue(url, "product_slug", element.dataset.productSlug ?? element.dataset.gaItemId ?? fallback?.dataset.gaItemId);
+  setCheckoutCustomValue(url, "item_category", element.dataset.gaItemCategory ?? fallback?.dataset.gaItemCategory);
   setCheckoutCustomValue(url, "cta_location", ctaLocationFromElement(element));
   setCheckoutCustomValue(url, "source_path", window.location.pathname);
 

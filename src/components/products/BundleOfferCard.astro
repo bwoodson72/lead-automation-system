@@ -32,7 +32,21 @@ const merch = getBundleMerchandising(bundle, products);
     <p class="mt-5 text-sm font-medium">{merch.productCount} connected system{merch.productCount === 1 ? "" : "s"}</p>
     <div class="mt-6"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} compact /></div>
     <div class="mt-7">
-      <Button as="a" href={`/bundles/${bundle.data.slug}/`} data-event="bundle_detail_view" data-product-slug={bundle.data.slug} data-cta-location={location}>
+      <Button
+        as="a"
+        href={`/bundles/${bundle.data.slug}/`}
+        data-event="bundle_detail_view"
+        data-product-slug={bundle.data.slug}
+        data-cta-location={location}
+        data-ga-event="select_item"
+        data-ga-item-id={bundle.data.slug}
+        data-ga-item-name={bundle.data.title}
+        data-ga-item-category="Business system bundle"
+        data-ga-price={merch.bundlePrice}
+        data-ga-currency="USD"
+        data-ga-item-list-name="bundle_cards"
+        data-ga-cta-location={location}
+      >
         See {bundle.data.title}
       </Button>
     </div>

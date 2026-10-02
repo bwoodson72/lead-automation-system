@@ -20,6 +20,7 @@ const d = product.data;
 const commerce = resolveProductCommerce(d);
 const cover = resolveProductCoverImage(d, commerce.purchasable ? commerce.product?.id : undefined);
 const price = commerce.priceFormatted ?? (d.price ? `$${d.price.toFixed(0)}` : undefined);
+const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : d.free ? 0 : d.price;
 ---
 
 <article class="relative overflow-hidden border border-primary/30 bg-card/35">
@@ -44,7 +45,19 @@ const price = commerce.priceFormatted ?? (d.price ? `$${d.price.toFixed(0)}` : u
       </div>
 
       <div class="mt-8 flex flex-wrap items-center gap-4">
-        <Button as="a" href={`/products/${d.slug}/`} size="lg">Start with the Launch Kit</Button>
+        <Button
+          as="a"
+          href={`/products/${d.slug}/`}
+          size="lg"
+          data-ga-event="select_item"
+          data-ga-item-id={d.slug}
+          data-ga-item-name={d.title}
+          data-ga-item-category={d.family}
+          data-ga-price={parsedPrice}
+          data-ga-currency="USD"
+          data-ga-item-list-name="flagship_feature"
+          data-ga-cta-location="flagship_feature"
+        >Start with the Launch Kit</Button>
         {price && <span class="text-sm font-semibold text-muted-foreground">{price} one-time</span>}
       </div>
       <p class="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">Already know exactly what is broken? Skip the broad system and use a focused guide for that bottleneck instead.</p>

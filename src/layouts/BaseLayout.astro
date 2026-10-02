@@ -39,6 +39,7 @@ const refundPolicyUrl = new URL("/refund-policy/", siteUrl).toString();
 
 const normalizedPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const productPathMatch = normalizedPath.match(/^\/products\/([^/]+)$/);
+const bundlePathMatch = normalizedPath.match(/^\/bundles\/([^/]+)$/);
 const productSlug = normalizedPath === "/free"
   ? "developer-marketing-quickstart"
   : productPathMatch?.[1];
@@ -134,6 +135,26 @@ const pageStructuredData = rawPageStructuredData.map((schema) => {
 
   return normalizedSchema;
 });
+
+const analyticsProductSchema = pageStructuredData.find((schema) => schema["@type"] === "Product");
+const analyticsOffers = analyticsProductSchema?.offers;
+const analyticsOffer = Array.isArray(analyticsOffers)
+  ? analyticsOffers.find((offer) => offer && typeof offer === "object") as Record<string, unknown> | undefined
+  : analyticsOffers && typeof analyticsOffers === "object"
+    ? analyticsOffers as Record<string, unknown>
+    : undefined;
+const analyticsRawPrice = analyticsOffer?.price;
+const analyticsPrice = typeof analyticsRawPrice === "number"
+  ? analyticsRawPrice
+  : typeof analyticsRawPrice === "string" && Number.isFinite(Number(analyticsRawPrice))
+    ? Number(analyticsRawPrice)
+    : undefined;
+const analyticsCurrency = typeof analyticsOffer?.priceCurrency === "string" ? analyticsOffer.priceCurrency : "USD";
+const analyticsItemId = typeof analyticsProductSchema?.sku === "string"
+  ? analyticsProductSchema.sku
+  : productSlug ?? bundlePathMatch?.[1];
+const analyticsItemName = typeof analyticsProductSchema?.name === "string" ? analyticsProductSchema.name : undefined;
+const analyticsItemCategory = typeof analyticsProductSchema?.category === "string" ? analyticsProductSchema.category : undefined;
 ---
 <!doctype html>
 <html lang="en" class="dark">
@@ -168,7 +189,21 @@ const pageStructuredData = rawPageStructuredData.map((schema) => {
   <body transition:animate={fade({ duration: "0.55s" })}>
     <a href="#main-content" class="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
     <SiteHeader />
-    <main id="main-content"><slot /></main>
+    <main id="main-content">
+      {analyticsProductSchema && analyticsItemId && (
+        <span
+          hidden
+          aria-hidden="true"
+          data-ga-view-item
+          data-ga-item-id={analyticsItemId}
+          data-ga-item-name={analyticsItemName}
+          data-ga-item-category={analyticsItemCategory}
+          data-ga-price={analyticsPrice}
+          data-ga-currency={analyticsCurrency}
+        ></span>
+      )}
+      <slot />
+    </main>
     <SiteFooter />
     <CookieConsent />
     {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}

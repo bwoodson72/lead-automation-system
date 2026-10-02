@@ -2,9 +2,24 @@
 
 This layer completes the Developer Business Lab analytics funnel after a visitor leaves the site for Lemon Squeezy checkout.
 
+## Canonical DBL funnel
+
+The site should be analyzed with this funnel rather than GA4's default cart-based Purchase Journey report:
+
+1. `session_start` / landing-page activity
+2. `select_item` when a visitor chooses a product from a list or merchandising surface
+3. `view_item` when a visitor reaches a product or bundle sales page
+4. `begin_checkout` for every Lemon Squeezy checkout click, including the free Developer Marketing Quickstart
+5. `product_acquired` for every successfully completed Lemon Squeezy acquisition
+6. `purchase` for paid orders, or `generate_lead` for the free Developer Marketing Quickstart
+
+DBL does not have a shopping cart, so `add_to_cart` should not be synthesized merely to populate GA4's canned Purchase Journey report.
+
+The Quickstart may additionally emit `quickstart_checkout_start` as a diagnostic event, but `begin_checkout` is the canonical checkout-start event.
+
 ## What the implementation sends
 
-Browser-side GA4 continues to measure page views, product views, product selection, article-to-product movement, and checkout starts.
+Browser-side GA4 measures page views, product views, product selection, article-to-product movement, and checkout starts.
 
 For visitors who accepted analytics cookies, Lemon Squeezy checkout links are enriched with non-identifying analytics context:
 
@@ -16,8 +31,9 @@ For visitors who accepted analytics cookies, Lemon Squeezy checkout links are en
 - source path
 - an explicit analytics-consent marker
 
-The Lemon Squeezy webhook then sends server-side GA4 Measurement Protocol events:
+The Lemon Squeezy webhook sends server-side GA4 Measurement Protocol events:
 
+- every successful `order_created` -> `product_acquired`
 - paid `order_created` -> `purchase`
 - free Quickstart `order_created` -> `generate_lead`
 - full `order_refunded` -> `refund`
@@ -71,16 +87,18 @@ Use these as the completed-conversion events:
 - `purchase` for paid orders
 - `generate_lead` for completed Developer Marketing Quickstart acquisition
 
-Keep `begin_checkout`, `quickstart_checkout_start`, `view_item`, and `select_item` as funnel diagnostics.
+Keep `product_acquired`, `begin_checkout`, `quickstart_checkout_start`, `view_item`, and `select_item` as funnel diagnostics. `product_acquired` is the universal completion event across free and paid products.
 
 ## Test matrix
 
 Before relying on reporting, verify all four cases:
 
-1. Paid test order after accepting analytics -> one GA4 `purchase`.
-2. Free Quickstart order after accepting analytics -> one GA4 `generate_lead`.
+1. Paid test order after accepting analytics -> one `product_acquired` and one `purchase`.
+2. Free Quickstart order after accepting analytics -> one `product_acquired` and one `generate_lead`.
 3. Full refund -> one GA4 `refund` tied to the original transaction ID.
 4. Order after rejecting analytics -> webhook succeeds but sends no GA4 event.
+
+For the Quickstart, also verify that clicking the checkout CTA produces `begin_checkout`; `quickstart_checkout_start` may appear as an additional diagnostic event.
 
 Use Lemon Squeezy webhook logs and GA4 DebugView/Realtime during testing.
 

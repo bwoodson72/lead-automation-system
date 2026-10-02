@@ -11,7 +11,6 @@ const checkoutClass = button({ class: `lemonsqueezy-button ${widthClass} whitesp
 const freeLabel = label ?? `Get ${d.title} Free`;
 const paidLabel = label ?? `Get ${d.title} for ${commerce.priceFormatted}`;
 const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.replace(/[^0-9.]/g, "")) : d.free ? 0 : undefined;
-const analyticsEvent = d.free ? "quickstart_checkout_start" : "begin_checkout";
 ---
 {commerce.purchasable && d.free ? (
   <a
@@ -20,7 +19,8 @@ const analyticsEvent = d.free ? "quickstart_checkout_start" : "begin_checkout";
     data-event="checkout_click"
     data-product-slug={d.slug}
     data-cta-location={location}
-    data-ga-event={analyticsEvent}
+    data-ga-event="begin_checkout"
+    data-ga-secondary-event="quickstart_checkout_start"
     data-ga-item-id={d.slug}
     data-ga-item-name={d.title}
     data-ga-item-category={d.family}
@@ -39,7 +39,7 @@ const analyticsEvent = d.free ? "quickstart_checkout_start" : "begin_checkout";
     data-event="checkout_click"
     data-product-slug={d.slug}
     data-cta-location={location}
-    data-ga-event={analyticsEvent}
+    data-ga-event="begin_checkout"
     data-ga-item-id={d.slug}
     data-ga-item-name={d.title}
     data-ga-item-category={d.family}

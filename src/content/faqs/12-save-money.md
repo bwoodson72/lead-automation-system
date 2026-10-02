@@ -1,6 +1,6 @@
 ---
-question: Do I need to know how to code for the AI Prospecting products?
-answer: Not for Tier 1 or Tier 2. Tier 3 introduces n8n, APIs, retries, deduplication, and workflow operation, so technical comfort matters. Tier 4 is an advanced software architecture product built around TypeScript, PostgreSQL, durable jobs, workers, testing, deployment, and operations. If a higher tier sounds like more burden than relief, use the lower one.
-category: Technical ability
+question: Are these video courses?
+answer: No. The current DBL products are implementation guides, workbooks, and related working tools rather than video courses. They are designed to sit beside a real business decision or operating process so you can make a decision, record it, test it, and revise it from evidence. The product page shows the actual delivery format for each system before you buy.
+category: Purchase and delivery
 order: 12
 ---

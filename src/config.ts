@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Developer Business Lab",
   description: "Business systems for capable independent developers who want steadier client pipelines, prices they can defend, stronger sales, and a business that does not restart from zero every month.",
   url: "https://www.developerbusinesslab.com",
-  supportEmail: import.meta.env.PUBLIC_SUPPORT_EMAIL || "",
+  supportEmail: import.meta.env.PUBLIC_SUPPORT_EMAIL || "brian@brianwoodson.dev",
   analytics: {
     googleAnalyticsMeasurementId: "G-YQ65JDDLF8",
   },

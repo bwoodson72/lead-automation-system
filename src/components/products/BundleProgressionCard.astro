@@ -38,8 +38,37 @@ const merch = bundle ? getBundleMerchandising(bundle, products) : undefined;
           <h3 class="mt-3 text-2xl font-semibold">{bundle.data.title}</h3>
           <div class="mt-6"><BundlePriceComparison bundlePriceFormatted={merch.bundlePriceFormatted} separateValue={merch.separateValue} savings={merch.savings} savingsPercent={merch.savingsPercent} /></div>
           <div class="mt-7 flex flex-wrap items-center gap-4">
-            <Button as="a" href={`/bundles/${bundle.data.slug}/`} data-event="bundle_upsell" data-product-slug={bundle.data.slug} data-cta-location="product-page">See the Complete Bundle</Button>
-            {merch.purchasable && merch.checkoutUrl && <TextLink href={merch.checkoutUrl}>Buy the bundle now →</TextLink>}
+            <Button
+              as="a"
+              href={`/bundles/${bundle.data.slug}/`}
+              data-event="bundle_upsell"
+              data-product-slug={bundle.data.slug}
+              data-cta-location="product-page"
+              data-ga-event="select_item"
+              data-ga-item-id={bundle.data.slug}
+              data-ga-item-name={bundle.data.title}
+              data-ga-item-category="Business system bundle"
+              data-ga-price={merch.bundlePrice}
+              data-ga-currency="USD"
+              data-ga-item-list-name="product_bundle_upsell"
+              data-ga-cta-location="product-page"
+            >See the Complete Bundle</Button>
+            {merch.purchasable && merch.checkoutUrl && (
+              <TextLink
+                href={merch.checkoutUrl}
+                class="lemonsqueezy-button"
+                data-event="checkout_click"
+                data-product-slug={bundle.data.slug}
+                data-cta-location="product-page-direct-bundle-checkout"
+                data-ga-event="begin_checkout"
+                data-ga-item-id={bundle.data.slug}
+                data-ga-item-name={bundle.data.title}
+                data-ga-item-category="Business system bundle"
+                data-ga-price={merch.bundlePrice}
+                data-ga-currency="USD"
+                data-ga-cta-location="product-page-direct-bundle-checkout"
+              >Buy the bundle now →</TextLink>
+            )}
           </div>
         </div>
       </article>

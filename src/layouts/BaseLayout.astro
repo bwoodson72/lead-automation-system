@@ -4,6 +4,7 @@ import { ClientRouter, fade } from "astro:transitions";
 import { getCollection } from "astro:content";
 import SiteHeader from "@/components/layout/SiteHeader.astro";
 import SiteFooter from "@/components/layout/SiteFooter.astro";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup.astro";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics.astro";
 import CookieConsent from "@/components/privacy/CookieConsent.astro";
 import { siteConfig } from "@/config";
@@ -38,6 +39,13 @@ const brandContentImage = new URL(brandHero.src, siteUrl).toString();
 const refundPolicyUrl = new URL("/refund-policy/", siteUrl).toString();
 
 const normalizedPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const showPreFooterNewsletter =
+  !noindex &&
+  normalizedPath !== "/" &&
+  normalizedPath !== "/newsletter" &&
+  normalizedPath !== "/free" &&
+  normalizedPath !== "/purchase-complete" &&
+  !/^\/articles\/[^/]+$/.test(normalizedPath);
 const productPathMatch = normalizedPath.match(/^\/products\/([^/]+)$/);
 const bundlePathMatch = normalizedPath.match(/^\/bundles\/([^/]+)$/);
 const productSlug = normalizedPath === "/free"
@@ -206,6 +214,7 @@ const analyticsItemCategory = typeof analyticsProductSchema?.category === "strin
       )}
       <slot />
     </main>
+    {showPreFooterNewsletter && <NewsletterSignup variant="prefooter" placement="prefooter" />}
     <SiteFooter />
     <CookieConsent />
     {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}

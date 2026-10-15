@@ -1,5 +1,5 @@
 ---
-import KitForm from "@/components/marketing/KitForm.astro";
+import NewsletterKitForm from "@/components/marketing/NewsletterKitForm.astro";
 interface Props {
   variant?: "feature" | "page" | "article" | "prefooter";
   placement: string;
@@ -23,7 +23,7 @@ const titleId = "dbl-newsletter-heading-" + placement;
         <p class="mt-4 max-w-2xl leading-7 text-foreground">One specific business problem, a practical fix, and something you can put to work immediately. No recycled motivational advice.</p>
       </div>
       <div class="surface-editorial p-6 sm:p-8">
-        <KitForm kind="newsletter" placement={placement} />
+        <NewsletterKitForm placement={placement} />
       </div>
     </div>
   </section>
@@ -32,7 +32,7 @@ const titleId = "dbl-newsletter-heading-" + placement;
     <p class="editorial-kicker">The Weekly Fix</p>
     <h2 id={titleId} class="mt-3 text-2xl font-semibold tracking-tight text-foreground">One freelance-business problem. One fix. Every week.</h2>
     <p class="mt-3 mb-6 leading-7 text-muted-foreground">Get practical ideas for finding clients, pricing projects, and protecting your time.</p>
-    <KitForm kind="newsletter" placement={placement} />
+    <NewsletterKitForm placement={placement} />
   </aside>
 ) : (
   <section
@@ -51,7 +51,7 @@ const titleId = "dbl-newsletter-heading-" + placement;
           <a class="text-primary-accent underline-offset-4 hover:underline" href="/newsletter/">See what you'll get →</a>
         </p>
       </div>
-      <KitForm kind="newsletter" placement={placement} />
+      <NewsletterKitForm placement={placement} />
     </div>
   </section>
 )}

@@ -153,7 +153,7 @@ function cookieClientId(): string | undefined {
   const gaCookie = document.cookie.split(";").map((part) => part.trim())
     .find((part) => part.startsWith("_ga="));
   const raw = gaCookie?.slice("_ga=".length);
-  const match = raw?.match(/^GA\\d+\\.\\d+\\.(\\d+)\\.(\\d+)$/);
+  const match = raw?.match(/^GA\d+\.\d+\.(\d+)\.(\d+)$/);
   return match ? `${match[1]}.${match[2]}` : undefined;
 }
 

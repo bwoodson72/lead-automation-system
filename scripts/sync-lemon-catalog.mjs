@@ -11,6 +11,13 @@ const apiKey = process.env.LEMONSQUEEZY_API_KEY;
 const storeId = process.env.LEMONSQUEEZY_STORE_ID;
 
 if (!apiKey || !storeId) {
+  // Prevent preview/production builds from silently publishing empty catalogs.
+  // Product checkout URLs and artwork must come from the Lemon Squeezy sync.
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Lemon Squeezy catalog sync requires LEMONSQUEEZY_API_KEY and LEMONSQUEEZY_STORE_ID for this Vercel deployment. Configure them for this environment before building.",
+    );
+  }
   await mkdir(GENERATED_DATA_DIRECTORY, { recursive: true });
   await writeFile(GENERATED_CATALOG_PATH, `${JSON.stringify({ syncedAt: null, products: [] }, null, 2)}\n`);
   console.warn("Lemon Squeezy credentials are unavailable; generated an empty preview catalog instead.");

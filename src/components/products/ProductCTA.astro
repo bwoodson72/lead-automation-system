@@ -49,23 +49,6 @@ const parsedPrice = commerce.priceFormatted ? Number(commerce.priceFormatted.rep
   >
     {paidLabel}
   </a>
-
-) : d.free && d.slug === "developer-marketing-quickstart" ? (
-  <a
-    href="https://developerbusinesslab.lemonsqueezy.com/checkout/buy/7fe34665-d790-45af-8b81-e231f8a6569d"
-    class={button({ class: `${widthClass} whitespace-normal break-words px-4 text-center leading-snug sm:px-5` })}
-    data-event="checkout_click"
-    data-product-slug={d.slug}
-    data-cta-location={location}
-    data-ga-event="begin_checkout"
-    data-ga-secondary-event="quickstart_checkout_start"
-    data-ga-item-id={d.slug}
-    data-ga-item-name={d.title}
-    data-ga-item-category={d.family}
-    data-ga-price={0}
-    data-ga-currency="USD"
-    data-ga-cta-location={location}
-  >{freeLabel}</a>
 ) : commerce.effectiveStatus === "coming-soon" ? (
   <KitForm kind="updates" productSlug={d.slug} />
 ) : (

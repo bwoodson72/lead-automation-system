@@ -51,6 +51,43 @@ type AnalyticsContext = {
 };
 
 const JSON_HEADERS = { "content-type": "application/json" };
+// Only genuinely free lead-magnet products generate leads. A discount that
+// reduces a paid product to $0 must not turn that purchase into a lead.
+const FREE_LEAD_MAGNET_SLUGS = new Set(["developer-marketing-quickstart"]);
+
+function isFreeLeadMagnet(context: AnalyticsContext): boolean {
+  return Boolean(context.productSlug && FREE_LEAD_MAGNET_SLUGS.has(context.productSlug));
+}
+
+// Log categories and a keyed, short order reference: never email, customer
+// details, analytics client IDs, checkout custom data, or signing credentials.
+function logOutcome(
+  eventName: string,
+  outcome: string,
+  signingSecret: string,
+  orderId?: string,
+): void {
+  const orderRef = orderId
+    ? createHmac("sha256", signingSecret).update(orderId).digest("hex").slice(0, 16)
+    : undefined;
+  console.info(JSON.stringify({
+    component: "lemon_squeezy_ga4",
+    event: eventName,
+    outcome,
+    ...(orderRef ? { order_ref: orderRef } : {}),
+  }));
+}
+
+function analyticsSkipReason(payload: LemonOrderWebhook): string | undefined {
+  const customData = payload.meta?.custom_data;
+  if (customString(customData, "analytics_consent") !== "accepted") {
+    return "analytics_consent_not_accepted";
+  }
+  if (!customString(customData, "ga_client_id")) {
+    return "ga_client_id_missing";
+  }
+  return undefined;
+}
 
 function json(status: number, body: Record<string, unknown>): Response {
   return new Response(JSON.stringify(body), { status, headers: JSON_HEADERS });
@@ -135,7 +172,7 @@ async function forwardOrderCreated(payload: LemonOrderWebhook, context: Analytic
   const netRevenue = dollars(netRevenueCents);
   const tax = dollars(cents(attributes.tax));
   const item = itemForOrder(payload, context, netRevenue);
-  const isQuickstart = context.productSlug === "developer-marketing-quickstart" || cents(attributes.total) === 0;
+  const isQuickstart = isFreeLeadMagnet(context);
 
   await sendGa4Event({
     clientId: context.clientId,
@@ -251,13 +288,23 @@ export const POST: APIRoute = async ({ request }) => {
     return json(200, { ok: true, forwarded: false, reason: "ignored_event" });
   }
 
+  const orderId = payload.data?.id;
   if (payload.data.attributes?.test_mode === true) {
+    logOutcome(eventName, "test_order_skipped", signingSecret, orderId);
     return json(200, { ok: true, forwarded: false, reason: "test_order" });
+  }
+
+  const skipReason = analyticsSkipReason(payload);
+  if (skipReason) {
+    logOutcome(eventName, skipReason, signingSecret, orderId);
+    return json(200, { ok: true, forwarded: false, reason: skipReason });
   }
 
   const context = analyticsContext(payload);
   if (!context) {
-    return json(200, { ok: true, forwarded: false, reason: "analytics_not_consented_or_identity_missing" });
+    // Defense in depth: nothing without valid consent and a GA4 identity.
+    logOutcome(eventName, "analytics_context_unavailable", signingSecret, orderId);
+    return json(200, { ok: true, forwarded: false, reason: "analytics_context_unavailable" });
   }
 
   try {
@@ -265,18 +312,16 @@ export const POST: APIRoute = async ({ request }) => {
       ? await forwardOrderCreated(payload, context)
       : await forwardOrderRefunded(payload, context);
 
+    logOutcome(eventName, forwardedEvent, signingSecret, orderId);
     return json(200, {
       ok: true,
       forwarded: forwardedEvent !== "partial_refund_skipped",
       event: forwardedEvent,
-      order_id: payload.data?.id,
+      order_id: orderId,
     });
   } catch (error) {
-    console.error("Failed to forward Lemon Squeezy webhook to GA4.", {
-      eventName,
-      orderId: payload.data?.id,
-      message: error instanceof Error ? error.message : "Unknown error",
-    });
+    const errorType = error instanceof Error ? error.name : "UnknownError";
+    logOutcome(eventName, `forwarding_failed:${errorType}`, signingSecret, orderId);
     return json(500, { ok: false, error: "Analytics forwarding failed." });
   }
 };

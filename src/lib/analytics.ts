@@ -20,12 +20,14 @@ type GaIdentity = {
 declare global {
   interface Window {
     gtag?: Gtag;
+    LemonSqueezy?: { Url?: { Open?: (url: string) => void } };
   }
 }
 
 const CONSENT_KEY = "dbl_analytics_consent";
 const CHECKOUT_SELECTOR = "a.lemonsqueezy-button[data-product-slug]";
-const GA_GET_TIMEOUT_MS = 750;
+// Allow the GA4 library time to initialize after consent is granted.
+const GA_GET_TIMEOUT_MS = 1800;
 let initialized = false;
 const trackedViewItems = new WeakSet<HTMLElement>();
 let identityPromise: Promise<GaIdentity | undefined> | undefined;
@@ -144,6 +146,17 @@ function getGtagField(fieldName: "client_id" | "session_id"): Promise<string | u
   });
 }
 
+function cookieClientId(): string | undefined {
+  if (!hasAnalyticsConsent()) return undefined;
+
+  // The standard _ga cookie stores the same two-part client ID returned by gtag.
+  const gaCookie = document.cookie.split(";").map((part) => part.trim())
+    .find((part) => part.startsWith("_ga="));
+  const raw = gaCookie?.slice("_ga=".length);
+  const match = raw?.match(/^GA\d+\.\d+\.(\d+)\.(\d+)$/);
+  return match ? `${match[1]}.${match[2]}` : undefined;
+}
+
 function getGaIdentity(): Promise<GaIdentity | undefined> {
   if (!hasAnalyticsConsent()) return Promise.resolve(undefined);
   if (identityPromise) return identityPromise;
@@ -152,8 +165,9 @@ function getGaIdentity(): Promise<GaIdentity | undefined> {
     getGtagField("client_id"),
     getGtagField("session_id"),
   ]).then(([clientId, sessionId]) => {
-    if (!clientId) return undefined;
-    return { clientId, sessionId };
+    const resolvedClientId = clientId ?? cookieClientId();
+    if (!resolvedClientId) return undefined;
+    return { clientId: resolvedClientId, sessionId };
   }).finally(() => {
     identityPromise = undefined;
   });
@@ -170,7 +184,7 @@ function setCheckoutCustomValue(url: URL, key: string, value: string | undefined
   url.searchParams.set(`checkout[custom][${key}]`, value);
 }
 
-function enrichCheckoutLink(element: HTMLAnchorElement, identity: GaIdentity): void {
+function enrichCheckoutLink(element: HTMLAnchorElement, identity?: GaIdentity): void {
   const href = element.getAttribute("href");
   if (!href) return;
 
@@ -185,15 +199,17 @@ function enrichCheckoutLink(element: HTMLAnchorElement, identity: GaIdentity): v
 
   const fallback = fallbackViewItem(element);
   setCheckoutCustomValue(url, "analytics_consent", "accepted");
-  setCheckoutCustomValue(url, "ga_client_id", identity.clientId);
-  setCheckoutCustomValue(url, "ga_session_id", identity.sessionId);
+  setCheckoutCustomValue(url, "ga_client_id", identity?.clientId);
+  setCheckoutCustomValue(url, "ga_session_id", identity?.sessionId);
   setCheckoutCustomValue(url, "product_slug", element.dataset.productSlug ?? element.dataset.gaItemId ?? fallback?.dataset.gaItemId);
   setCheckoutCustomValue(url, "item_category", element.dataset.gaItemCategory ?? fallback?.dataset.gaItemCategory);
   setCheckoutCustomValue(url, "cta_location", ctaLocationFromElement(element));
   setCheckoutCustomValue(url, "source_path", window.location.pathname);
 
   element.href = url.toString();
-  element.dataset.gaAttributionReady = "true";
+  // A consented visitor without a client ID can still check out, but should
+  // be distinguishable from a visitor who declined consent in webhook logs.
+  element.dataset.gaAttributionReady = identity ? "true" : "partial";
 }
 
 async function enrichCheckoutLinks(): Promise<void> {
@@ -203,8 +219,6 @@ async function enrichCheckoutLinks(): Promise<void> {
   if (links.length === 0) return;
 
   const identity = await getGaIdentity();
-  if (!identity) return;
-
   for (const link of links) enrichCheckoutLink(link, identity);
 }
 
@@ -264,8 +278,15 @@ async function handleCheckoutCapture(event: MouseEvent): Promise<void> {
   event.preventDefault();
   event.stopImmediatePropagation();
 
+  if (link.dataset.gaCheckoutOpening === "true") return;
+  link.dataset.gaCheckoutOpening = "true";
+
   const identity = await getGaIdentity();
-  if (identity) enrichCheckoutLink(link, identity);
+  enrichCheckoutLink(link, identity);
+
+  if (!identity) {
+    console.info("[checkout-attribution] Consented checkout without GA4 client ID.");
+  }
 
   const eventName = link.dataset.gaEvent ?? "begin_checkout";
   sendTrackedEvent(link, eventName);
@@ -275,7 +296,14 @@ async function handleCheckoutCapture(event: MouseEvent): Promise<void> {
     sendTrackedEvent(link, secondaryEventName);
   }
 
-  window.location.assign(link.href);
+  // Preserve the overlay when our async attribution step intercepts a click.
+  // Otherwise the first click would unexpectedly leave the site.
+  if (typeof window.LemonSqueezy?.Url?.Open === "function") {
+    window.LemonSqueezy.Url.Open(link.href);
+  } else {
+    window.location.assign(link.href);
+  }
+  delete link.dataset.gaCheckoutOpening;
 }
 
 function onPageReady(): void {

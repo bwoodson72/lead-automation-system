@@ -192,3 +192,25 @@
     background-color: color-mix(in oklch, var(--primary), black 10%) !important;
   }
 }
+
+
+/* Developer Business Lab's inline Kit forms. No modal styling. */
+@layer components {
+  .dbl-newsletter-form { width: 100%; max-width: none; margin: 0; padding: 0; background: transparent !important; border: none !important; color: var(--foreground); box-shadow: none !important; }
+  .dbl-newsletter-form .formkit-alert:empty { display: none; }
+  .dbl-newsletter-form .formkit-alert { margin: 0 0 1rem; padding: 0.75rem; list-style: none; border: 1px solid var(--border); color: var(--foreground); }
+  .dbl-newsletter-form .formkit-alert-error:not(:empty) { border-color: var(--error); }
+  .dbl-newsletter-form .formkit-fields { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: stretch; }
+  .dbl-newsletter-form .formkit-field { flex: 1 1 220px; min-width: 0; }
+  .dbl-newsletter-form .formkit-input { display: block; width: 100%; min-height: 3.25rem; padding: 0.8rem 1rem; background: var(--card) !important; border: 1px solid rgba(244, 241, 232, 0.2) !important; border-radius: 0.375rem; color: var(--foreground) !important; font-size: 1rem; }
+  .dbl-newsletter-form .formkit-input::placeholder { color: var(--muted-foreground) !important; opacity: 1; }
+  .dbl-newsletter-form .formkit-input:focus-visible { outline: 2px solid var(--outline); outline-offset: 2px; }
+  .dbl-newsletter-form .formkit-submit { min-height: 3.25rem; flex: 0 0 auto; padding: 0.75rem 1.25rem; border: 0; border-radius: 0.375rem; background: var(--primary) !important; color: var(--primary-foreground) !important; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+  .dbl-newsletter-form .formkit-submit:hover { background: var(--primary-accent) !important; }
+  .dbl-newsletter-form .formkit-submit:focus-visible { outline: 2px solid var(--outline); outline-offset: 2px; }
+  .dbl-newsletter-form .formkit-guarantee { margin-top: 0.8rem; color: var(--muted-foreground); font-size: 0.75rem; line-height: 1.6; }
+  .dbl-newsletter-form .formkit-guarantee a { text-decoration: underline; text-underline-offset: 2px; }
+  .dbl-newsletter-form .dbl-kit-credit { margin-top: 0.3rem; color: var(--muted-foreground); font-size: 0.7rem; opacity: 0.75; }
+  .dbl-newsletter-form .dbl-kit-credit a { text-decoration: underline; text-underline-offset: 2px; }
+  @media (max-width: 640px) { .dbl-newsletter-form .formkit-field, .dbl-newsletter-form .formkit-submit { flex: 1 1 100%; } }
+}

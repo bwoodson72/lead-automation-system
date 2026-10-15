@@ -1,23 +1,64 @@
 ---
 import { siteConfig } from "@/config";
 import { Button } from "@/components/starwind/button";
-interface Props { kind: "quickstart" | "updates"; productSlug?: string; }
-const { kind, productSlug } = Astro.props;
-const uid = kind === "quickstart" ? siteConfig.kit.quickstartFormUid : siteConfig.kit.updatesFormUid;
-const label = kind === "quickstart" ? "Get the Free Quickstart" : "Get release updates";
+interface Props {
+  kind?: "newsletter" | "quickstart" | "updates";
+  placement?: string;
+}
+const { kind = "newsletter", placement = "website" } = Astro.props;
+const isNewsletter = kind === "newsletter" || kind === "updates";
+const formId = siteConfig.kit.newsletterFormId;
+const uid = siteConfig.kit.newsletterFormUid;
+const options = {
+  settings: {
+    after_subscribe: {
+      action: "message",
+      success_message: "Thanks! Please check your email to confirm your subscription.",
+      redirect_url: "",
+    },
+    analytics: { google: null, fathom: null, facebook: null, segment: null, pinterest: null, sparkloop: null, googletagmanager: null },
+    powered_by: { show: true, url: "https://kit.com/features/forms" },
+    recaptcha: { enabled: false },
+    return_visitor: { action: "show", custom_content: "" },
+  },
+  version: "5",
+};
+const inputId = "dbl-newsletter-email-" + placement;
 ---
-<div class="rounded-xl border border-border bg-card p-6" data-form-kind={kind} data-product-slug={productSlug}>
-  {uid ? (
-    <>
-      <script is:inline src={`https://f.convertkit.com/${uid}.js`} async></script>
-      <p class="mt-4 text-xs leading-5 text-muted-foreground">By subscribing, you agree to receive the requested resource or release update plus relevant Developer Business Lab emails. Unsubscribe at any time. See the <a class="underline hover:text-foreground" href="/privacy/">privacy policy</a>.</p>
-      <noscript><p class="mt-4 text-sm text-warning">JavaScript is required for the Kit form. Please contact us through the details in the privacy policy.</p></noscript>
-    </>
-  ) : (
-    <div>
-      <p class="font-semibold">{label} is not available yet.</p>
-      <p class="mt-2 text-sm leading-6 text-muted-foreground">We will not collect your email until there is something ready to deliver or a real release update to send.</p>
-      <Button as="a" href="/products/" variant="outline" class="mt-4">See what is available now</Button>
+{isNewsletter ? (
+  <form
+    action={"https://app.kit.com/forms/" + formId + "/subscriptions"}
+    method="post"
+    class="seva-form formkit-form dbl-newsletter-form"
+    data-dbl-newsletter-form
+    data-dbl-placement={placement}
+    data-sv-form={formId}
+    data-uid={uid}
+    data-format="inline"
+    data-version="5"
+    data-options={JSON.stringify(options)}
+  >
+    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+    <div data-element="fields" class="seva-fields formkit-fields" data-stacked="false">
+      <div class="formkit-field">
+        <label class="sr-only" for={inputId}>Email address</label>
+        <input id={inputId} class="formkit-input" name="email_address" type="email" autocomplete="email" placeholder="Your email address" required />
+      </div>
+      <button data-element="submit" class="formkit-submit" type="submit"><span>Get the Weekly Fix</span></button>
     </div>
-  )}
-</div>
+    <p class="formkit-guarantee" data-element="guarantee">
+      Free. One useful email each week. Unsubscribe anytime.
+      <a href="/privacy/">Privacy policy</a>.
+    </p>
+    <p class="dbl-kit-credit"><a href="https://kit.com/features/forms" rel="nofollow noopener" target="_blank">Built with Kit</a></p>
+  </form>
+) : siteConfig.kit.quickstartFormUid ? (
+  <div class="rounded-xl border border-border bg-card p-6">
+    <script is:inline src={"https://f.convertkit.com/" + siteConfig.kit.quickstartFormUid + ".js"} async></script>
+  </div>
+) : (
+  <div class="rounded-xl border border-border bg-card p-6">
+    <p class="font-semibold">The Quickstart form is not configured.</p>
+    <Button as="a" href="/free/" variant="outline" class="mt-4">Get the Free Quickstart</Button>
+  </div>
+)}

@@ -1,0 +1,57 @@
+---
+import NewsletterKitForm from "@/components/marketing/NewsletterKitForm.astro";
+interface Props {
+  variant?: "feature" | "page" | "article" | "prefooter";
+  placement: string;
+}
+const { variant = "feature", placement } = Astro.props;
+const isFeature = variant === "feature" || variant === "page";
+const titleId = "dbl-newsletter-heading-" + placement;
+---
+{isFeature ? (
+  <section
+    id={variant === "feature" ? "newsletter" : undefined}
+    class="border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8"
+    aria-labelledby={titleId}
+    data-newsletter-root
+  >
+    <div class="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
+      <div>
+        <p class="editorial-kicker">The Weekly Fix · Developer Business Lab</p>
+        <h2 id={titleId} class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Fix one part of your freelance business every week.</h2>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Finding clients. Charging more. Closing better projects. Keeping the money you earn.</p>
+        <p class="mt-4 max-w-2xl leading-7 text-foreground">One specific business problem, a practical fix, and something you can put to work immediately. No recycled motivational advice.</p>
+      </div>
+      <div class="surface-editorial p-6 sm:p-8">
+        <NewsletterKitForm placement={placement} />
+      </div>
+    </div>
+  </section>
+) : variant === "article" ? (
+  <aside class="mt-12 border border-border bg-card/60 p-6 sm:p-8" aria-labelledby={titleId} data-newsletter-root>
+    <p class="editorial-kicker">The Weekly Fix</p>
+    <h2 id={titleId} class="mt-3 text-2xl font-semibold tracking-tight text-foreground">One freelance-business problem. One fix. Every week.</h2>
+    <p class="mt-3 mb-6 leading-7 text-muted-foreground">Get practical ideas for finding clients, pricing projects, and protecting your time.</p>
+    <NewsletterKitForm placement={placement} />
+  </aside>
+) : (
+  <section
+    class="border-t border-border bg-card/30 px-4 py-12 sm:px-6 sm:py-14 lg:px-8"
+    aria-labelledby={titleId}
+    data-newsletter-root
+  >
+    <div class="mx-auto grid max-w-7xl items-center gap-6 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+      <div>
+        <p class="editorial-kicker">The Weekly Fix</p>
+        <h2 id={titleId} class="mt-3 text-2xl font-semibold tracking-tight text-foreground">
+          A better freelance business, one fix at a time.
+        </h2>
+        <p class="mt-2 text-sm leading-6 text-muted-foreground">
+          One useful, actionable email each week.
+          <a class="text-primary-accent underline-offset-4 hover:underline" href="/newsletter/">See what you'll get →</a>
+        </p>
+      </div>
+      <NewsletterKitForm placement={placement} />
+    </div>
+  </section>
+)}

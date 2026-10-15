@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/layout/PageHero.astro";
 import ArticleSidebar from "@/components/articles/ArticleSidebar.astro";
 import ArticleNextStep from "@/components/articles/ArticleNextStep.astro";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup.astro";
 import heroImage from "@/assets/brand/developer-business-lab-hero.png";
 import { getArticleStage } from "@/lib/articleTopics";
 import { getArticleNextStep } from "@/lib/articleNextSteps";
@@ -99,6 +100,7 @@ const structuredData = [
             </div>
 
             <ArticleNextStep nextStep={nextStep} />
+            <NewsletterSignup variant="article" placement="article" />
           </div>
         </main>
 

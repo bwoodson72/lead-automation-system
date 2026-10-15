@@ -306,9 +306,77 @@ async function handleCheckoutCapture(event: MouseEvent): Promise<void> {
   delete link.dataset.gaCheckoutOpening;
 }
 
+const viewedNewsletterForms = new WeakSet<HTMLFormElement>();
+const watchedNewsletterRoots = new WeakSet<HTMLElement>();
+let newsletterViewObserver: IntersectionObserver | undefined;
+
+function newsletterParams(form: HTMLFormElement): EventParams {
+  return {
+    cta_location: form.dataset.dblPlacement || "website",
+    source_page: window.location.pathname,
+  };
+}
+
+function trackNewsletterViews(): void {
+  newsletterViewObserver?.disconnect();
+  if (!hasAnalyticsConsent() || typeof IntersectionObserver === "undefined") return;
+
+  newsletterViewObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.35) continue;
+      const form = entry.target;
+      if (!(form instanceof HTMLFormElement) || viewedNewsletterForms.has(form)) continue;
+      viewedNewsletterForms.add(form);
+      sendEvent("newsletter_form_view", newsletterParams(form));
+      observer.unobserve(form);
+    }
+  }, { threshold: [0.35] });
+
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-dbl-newsletter-form]")) {
+    if (!viewedNewsletterForms.has(form)) newsletterViewObserver.observe(form);
+  }
+}
+
+function onNewsletterSubmit(event: Event): void {
+  const form = event.target;
+  if (!(form instanceof HTMLFormElement) || !form.matches("[data-dbl-newsletter-form]")) return;
+  sendEvent("newsletter_signup_submit", newsletterParams(form));
+}
+
+function observeNewsletterResults(): void {
+  for (const root of document.querySelectorAll<HTMLElement>("[data-newsletter-root]")) {
+    if (watchedNewsletterRoots.has(root)) continue;
+    watchedNewsletterRoots.add(root);
+
+    const observer = new MutationObserver(() => {
+      if (root.dataset.newsletterSuccessTracked === "true") {
+        observer.disconnect();
+        return;
+      }
+
+      // Only a Kit-rendered success state counts, never a button click alone.
+      const success = root.querySelector<HTMLElement>(
+        ".formkit-alert-success, .formkit-success, [data-element='success']",
+      );
+      if (!success?.textContent?.trim()) return;
+
+      root.dataset.newsletterSuccessTracked = "true";
+      const form = root.querySelector<HTMLFormElement>("[data-dbl-newsletter-form]");
+      sendEvent("newsletter_signup_success", {
+        cta_location: form?.dataset.dblPlacement || "website",
+        source_page: window.location.pathname,
+      });
+      observer.disconnect();
+    });
+    observer.observe(root, { childList: true, subtree: true, characterData: true });
+  }
+}
+
 function onPageReady(): void {
   trackPageContent();
   void enrichCheckoutLinks();
+  trackNewsletterViews();
+  observeNewsletterResults();
 }
 
 export function initializeAnalytics(): void {
@@ -317,6 +385,7 @@ export function initializeAnalytics(): void {
 
   document.addEventListener("click", handleCheckoutCapture, true);
   document.addEventListener("click", handleTrackedClick);
+  document.addEventListener("submit", onNewsletterSubmit, true);
   document.addEventListener("astro:page-load", onPageReady);
   window.addEventListener("dbl:analytics-ready", onPageReady);
 

@@ -6,7 +6,13 @@ export const siteConfig = {
   analytics: {
     googleAnalyticsMeasurementId: "G-YQ65JDDLF8",
   },
-  kit: { quickstartFormUid: import.meta.env.PUBLIC_KIT_QUICKSTART_FORM_UID || "", updatesFormUid: import.meta.env.PUBLIC_KIT_UPDATES_FORM_UID || "" },
+  kit: {
+    quickstartFormUid: import.meta.env.PUBLIC_KIT_QUICKSTART_FORM_UID || "",
+    updatesFormUid: import.meta.env.PUBLIC_KIT_UPDATES_FORM_UID || "",
+    // Public identifiers from the Kit form HTML supplied by the site owner.
+    newsletterFormId: import.meta.env.PUBLIC_KIT_NEWSLETTER_FORM_ID || "10050944",
+    newsletterFormUid: import.meta.env.PUBLIC_KIT_NEWSLETTER_FORM_UID || "46a13ded52",
+  },
   commerce: { provider: "lemonsqueezy" as const, storeName: "Developer Business Lab" },
   navigation: [
     { label: "Start Here", href: "/start/" }, { label: "Products", href: "/products/" },

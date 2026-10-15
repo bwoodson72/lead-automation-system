@@ -1,0 +1,40 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup.astro";
+---
+<BaseLayout
+  title="The Weekly Fix | Newsletter for Freelance Developers"
+  description="One freelance-business problem, a practical fix, and one action to take each week. The free Developer Business Lab newsletter about clients, pricing, sales, and profitability."
+>
+  <NewsletterSignup variant="page" placement="newsletter-page" />
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="newsletter-sample-title">
+    <div class="mx-auto max-w-4xl">
+      <p class="editorial-kicker">A sample issue</p>
+      <h2 id="newsletter-sample-title" class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Before you send another 100 cold emails…</h2>
+      <p class="mt-6 text-lg leading-8 text-muted-foreground">Before you spend another week sending messages, ask whether you're targeting businesses with a reason to hire you.</p>
+      <div class="mt-8 border border-border bg-card/50 p-6 sm:p-9">
+        <p class="font-semibold text-foreground">Try this with five real companies:</p>
+        <ol class="mt-5 list-decimal space-y-3 pl-5 leading-7 text-muted-foreground">
+          <li>What specific problem could you help this business solve?</li>
+          <li>Why would solving that problem matter financially or operationally?</li>
+          <li>What evidence do you have that the problem exists?</li>
+        </ol>
+        <p class="mt-6 leading-7 text-muted-foreground">An outdated website isn't automatically a business problem. You need to connect what you can do to something the buyer actually cares about.</p>
+        <p class="mt-4 font-semibold text-foreground">Better prospect selection beats a higher volume of generic outreach.</p>
+      </div>
+      <p class="mt-6 text-sm text-muted-foreground">That's the format: a concrete problem, a usable exercise, and a takeaway you can apply.</p>
+    </div>
+  </section>
+  <section class="border-t border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">What we'll cover</p>
+      <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">The business side of being a developer</h2>
+      <div class="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+        <div class="bg-background p-7"><h3 class="text-xl font-semibold">Find better prospects</h3><p class="mt-3 leading-7 text-muted-foreground">Spot actual buyer problems, qualify opportunities, and stop wasting outreach.</p></div>
+        <div class="bg-background p-7"><h3 class="text-xl font-semibold">Charge profitable prices</h3><p class="mt-3 leading-7 text-muted-foreground">Know what a project must earn and defend a price without apologizing for it.</p></div>
+        <div class="bg-background p-7"><h3 class="text-xl font-semibold">Protect your business</h3><p class="mt-3 leading-7 text-muted-foreground">Handle proposals, scope changes, retainers, and ongoing client relationships.</p></div>
+      </div>
+      <p class="mt-8 text-sm text-muted-foreground">Want a structured first client-acquisition cycle? <a class="font-semibold text-primary-accent underline-offset-4 hover:underline" href="/free/">Get the free Developer Marketing Quickstart →</a></p>
+    </div>
+  </section>
+</BaseLayout>

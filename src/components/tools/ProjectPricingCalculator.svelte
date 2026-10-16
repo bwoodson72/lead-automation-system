@@ -550,23 +550,27 @@
             <dl class="mt-6 grid gap-4 sm:grid-cols-2">
               <div class="border-t border-border pt-4">
                 <dt class="text-sm leading-6 text-muted-foreground">Actual hours with overrun</dt>
-                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.actualScenarioHours)}</dd>
-                <p class="mt-1 text-xs text-muted-foreground">Based on {formatHours(scenario.baseProjectHours)} originally estimated.</p>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.actualScenarioHours)}
+                  <p class="mt-1 text-xs font-normal text-muted-foreground">Based on {formatHours(scenario.baseProjectHours)} originally estimated.</p>
+                </dd>
               </div>
               <div class="border-t border-border pt-4">
                 <dt class="text-sm leading-6 text-muted-foreground">Recovered revenue per actual hour</dt>
-                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSDPerHour(scenario.recoveredPerActualHour)}</dd>
-                <p class="mt-1 text-xs leading-5 text-muted-foreground">After direct job expenses and payment-processing fees.</p>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSDPerHour(scenario.recoveredPerActualHour)}
+                  <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">After direct job expenses and payment-processing fees.</p>
+                </dd>
               </div>
               <div class="border-t border-border pt-4">
                 <dt class="text-sm leading-6 text-muted-foreground">Modeled scenario surplus</dt>
-                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSD(scenario.scenarioSurplus)}</dd>
-                <p class="mt-1 text-xs leading-5 text-muted-foreground">After accounting for the internal hourly floor over actual hours.</p>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSD(scenario.scenarioSurplus)}
+                  <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">After accounting for the internal hourly floor over actual hours.</p>
+                </dd>
               </div>
               <div class="border-t border-border pt-4">
                 <dt class="text-sm leading-6 text-muted-foreground">Maximum hours at the internal floor</dt>
-                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.maxHoursAtFloor)}</dd>
-                <p class="mt-1 text-xs leading-5 text-muted-foreground">Approximate threshold before hourly recovery drops below your target.</p>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.maxHoursAtFloor)}
+                  <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">Approximate threshold before hourly recovery drops below your target.</p>
+                </dd>
               </div>
             </dl>
             <div class="mt-6 rounded-md border border-border bg-background p-4">

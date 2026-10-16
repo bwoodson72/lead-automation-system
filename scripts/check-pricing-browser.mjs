@@ -74,7 +74,6 @@ try {
   const copy = page.getByRole("button", { name: "Copy summary" });
   const print = page.getByRole("button", { name: "Print estimate" });
 
-  console.info("HEADINGS", JSON.stringify(await page.locator("h1").evaluateAll((nodes) => nodes.map((node) => ({ text: node.textContent?.trim(), inMain: Boolean(node.closest("main")), parent: node.parentElement?.tagName })))));
   assert.equal(await page.locator("main h1").count(), 1);
   assert.equal(await page.locator('meta[name="robots"]').getAttribute("content"), "noindex");
   assert.match(await results.innerText(), /\$7,200/);
@@ -202,7 +201,9 @@ try {
   const noJS = await browser.newContext({ javaScriptEnabled: false });
   const plain = await noJS.newPage();
   await plain.goto(site + route);
-  assert.equal(await plain.getByText("JavaScript is disabled.", { exact: false }).isVisible(), true);
+  const fallback = plain.locator("#calculator noscript p");
+  assert.match(await fallback.textContent(), /JavaScript is disabled/);
+  assert.equal(await fallback.isVisible(), true, "No-JavaScript explanatory paragraph must be visible");
   assert.equal(await plain.getByRole("heading", { name: "How the math works" }).isVisible(), true);
   console.info("PASS no-JavaScript guidance and server-rendered editorial copy");
   await noJS.close();

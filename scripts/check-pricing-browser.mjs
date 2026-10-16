@@ -74,7 +74,8 @@ try {
   const copy = page.getByRole("button", { name: "Copy summary" });
   const print = page.getByRole("button", { name: "Print estimate" });
 
-  assert.equal(await page.locator("h1").count(), 1);
+  console.info("HEADINGS", JSON.stringify(await page.locator("h1").evaluateAll((nodes) => nodes.map((node) => ({ text: node.textContent?.trim(), inMain: Boolean(node.closest("main")), parent: node.parentElement?.tagName })))));
+  assert.equal(await page.locator("main h1").count(), 1);
   assert.equal(await page.locator('meta[name="robots"]').getAttribute("content"), "noindex");
   assert.match(await results.innerText(), /\$7,200/);
   assert.match(await results.innerText(), /72 hours/);

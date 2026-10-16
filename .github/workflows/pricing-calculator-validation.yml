@@ -42,3 +42,7 @@ jobs:
       - name: Build entire Astro site
         if: ${{ always() }}
         run: npm run build
+
+      - name: Validate generated calculator landing-page HTML
+        if: ${{ always() }}
+        run: node scripts/check-pricing-landing-page.mjs

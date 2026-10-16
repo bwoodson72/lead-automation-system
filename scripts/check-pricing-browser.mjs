@@ -1,5 +1,5 @@
 /**
- * Browser QA for the noindex pricing calculator.
+ * Browser QA for the release-candidate pricing calculator.
  * This script intentionally launches a local Astro development server;
  * it makes no production changes or real GA4 requests.
  */
@@ -75,13 +75,13 @@ try {
   const print = page.getByRole("button", { name: "Print estimate" });
 
   assert.equal(await page.locator("main h1").count(), 1);
-  assert.equal(await page.locator('meta[name="robots"]').getAttribute("content"), "noindex");
+  assert.equal(await page.locator('meta[name="robots"]').count(), 0);
   assert.match(await results.innerText(), /\$7,200/);
   assert.match(await results.innerText(), /72 hours/);
   assert.match(await results.innerText(), /\$93\.53/);
   assert.equal(await page.locator("#pricing-overrun").inputValue(), "20");
   assert.equal((await gaNames(page)).filter((name) => name.startsWith("pricing_calc_")).length, 0);
-  console.info("PASS default worked example, hydration, noindex and no default GA4 events");
+  console.info("PASS default worked example, hydration, indexable page and no default GA4 events");
 
   const report = await new AxeBuilder({ page }).include("#calculator")
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();

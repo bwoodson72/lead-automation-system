@@ -47,8 +47,8 @@ jobs:
         if: ${{ always() }}
         run: node scripts/check-pricing-landing-page.mjs
 
-      - name: Check unpublished calculator sitemap and robots gate
-        run: node scripts/check-pricing-indexing.mjs hidden
+      - name: Check release-candidate sitemap and robots gate
+        run: node scripts/check-pricing-indexing.mjs indexed
 
       - name: Verify contextual pricing links and existing checkout CTAs
         if: ${{ always() }}
@@ -61,3 +61,6 @@ jobs:
 
       - name: Run calculator browser QA
         run: node scripts/check-pricing-browser.mjs
+
+      - name: Smoke-test built static preview
+        run: node scripts/check-pricing-preview.mjs

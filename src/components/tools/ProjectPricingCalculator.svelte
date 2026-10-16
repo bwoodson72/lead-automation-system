@@ -290,7 +290,7 @@
 <div class="print:hidden border border-border bg-background p-5 sm:p-8">
   <div class="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
     <div class="max-w-2xl">
-      <p class="text-sm font-semibold text-primary-accent">Development preview — quote and overrun estimates</p>
+      <p class="text-sm font-semibold text-primary-accent">Free tool — quote and overrun estimates</p>
       <h3 class="mt-2 text-xl font-semibold text-foreground">Estimate your business and project work</h3>
       <p class="mt-2 text-sm leading-6 text-muted-foreground">
         {exampleUntouched ? EXAMPLE_INPUT_LABEL : "Your draft entries — review every field before making a pricing decision."}
@@ -668,7 +668,7 @@
     {/if}
   </section>
   <p class="mt-8 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-    This page remains a noindex development preview. Estimates are for internal planning, not client proposals.
+    Estimates are for internal planning, not client proposals. Review assumptions and project scope before sending a price.
   </p>
 </div>
 

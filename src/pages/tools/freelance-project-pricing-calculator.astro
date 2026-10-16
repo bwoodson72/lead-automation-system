@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectPricingCalculator from "@/components/tools/ProjectPricingCalculator.svelte";
+---
+
+<BaseLayout
+  title="Freelance Project Pricing Calculator | Developer Business Lab"
+  description="A free project-pricing tool in development for freelance web developers. Explore the illustrative business assumptions that will underpin a cost-based quote."
+  noindex
+>
+  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-page-title">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">Developer Business Lab / Free tools</p>
+      <h1 id="pricing-page-title" class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
+        Freelance Project Pricing Calculator
+      </h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
+        Built for freelance web developers who want to account for their billable capacity,
+        project hours, and direct costs before deciding on a fixed-price quote.
+      </p>
+      <p class="mt-4 text-sm font-semibold text-foreground">Free · no signup required</p>
+      <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+        This page is an early development preview. The interactive pricing inputs and live
+        calculations are not available yet.
+      </p>
+      <a
+        href="#calculator"
+        class="mt-8 inline-flex min-h-11 items-center rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+      >
+        View calculator preview
+      </a>
+    </div>
+  </section>
+
+  <section
+    id="calculator"
+    aria-labelledby="calculator-heading"
+    class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+  >
+    <div class="mx-auto max-w-5xl">
+      <h2 id="calculator-heading" class="text-2xl font-semibold tracking-tight sm:text-3xl">
+        Calculator preview
+      </h2>
+      <p class="mt-3 max-w-3xl leading-7 text-muted-foreground">
+        The illustrative assumptions below are not your business numbers or a calculated
+        recommendation. Editable inputs and results arrive in later development steps.
+      </p>
+      <div class="mt-8">
+        <ProjectPricingCalculator client:load />
+      </div>
+      <noscript>
+        <p class="mt-6 border border-border bg-background p-4 text-sm leading-6 text-muted-foreground">
+          JavaScript is disabled. This page still explains the tool and shows its example
+          assumptions, but the future interactive calculator will require JavaScript.
+        </p>
+      </noscript>
+    </div>
+  </section>
+</BaseLayout>

@@ -20,6 +20,11 @@ const hiddenProductPaths = [
   '/products/ai-powered-one-person-dev-business/',
 ];
 
+// Keep the unfinished, noindex calculator out of the sitemap until release.
+const unlaunchedToolPaths = [
+  '/tools/freelance-project-pricing-calculator/',
+];
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.developerbusinesslab.com',
@@ -32,7 +37,9 @@ export default defineConfig({
     svelte(),
     mdx(),
     sitemap({
-      filter: (page) => !hiddenProductPaths.some((path) => page.endsWith(path)),
+      filter: (page) =>
+        !hiddenProductPaths.some((path) => page.endsWith(path)) &&
+        !unlaunchedToolPaths.some((path) => page.endsWith(path)),
     }),
   ],
 

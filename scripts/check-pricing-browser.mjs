@@ -15,7 +15,7 @@ const errors = [];
 const server = spawn("npm", ["run", "dev", "--", "--host", "127.0.0.1", "--port", "4329"], {
   env: { ...process.env, CI: "true" },
   stdio: ["ignore", "pipe", "pipe"],
-  detached: false,
+  detached: true, // Own process group: npm invokes the Astro child process.
 });
 let serverOutput = "";
 for (const channel of [server.stdout, server.stderr]) {
@@ -211,5 +211,12 @@ try {
   console.info("PASS all calculator Chromium QA scenarios");
 } finally {
   if (browser) await browser.close();
-  server.kill("SIGTERM");
+  // Terminate the entire npm/Astro process group. Killing only npm leaves the
+  // child dev server holding stdout/stderr pipes and prevents Node from exiting.
+  if (server.pid) {
+    try { process.kill(-server.pid, "SIGTERM"); }
+    catch { server.kill("SIGTERM"); }
+  }
+  server.stdout.destroy();
+  server.stderr.destroy();
 }

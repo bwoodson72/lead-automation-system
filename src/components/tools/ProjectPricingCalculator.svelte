@@ -1,5 +1,7 @@
 <script lang="ts">
   import PricingNumberInput from "./PricingNumberInput.svelte";
+  import { trackPricingCalculatorEvent } from "@/lib/analytics";
+  import { createPricingInteractionTracker } from "@/lib/project-pricing/interaction-events";
   import {
     createExamplePricingInput,
     EXAMPLE_INPUT_LABEL,
@@ -109,6 +111,10 @@
   let printFeedback = $state("");
   let manualCopyVisible = $state(false);
 
+  // Component/visit-local state; never store numeric inputs or event flags in storage.
+  const pricingAnalytics = createPricingInteractionTracker(trackPricingCalculatorEvent);
+  let financialEditSequence = $state(0);
+
   // Preserve each editable string exactly while typing. Only the model passed
   // to the validation layer is parsed; invalid entries never become results.
   function asNumber(text: string, field: Parameters<typeof parsePricingNumber>[1]): number | undefined {
@@ -157,6 +163,14 @@
   // No pricing formulas are reproduced inside this component.
   const quoteCalculation = $derived(calculatePricingQuote(draft));
   const quote = $derived(quoteCalculation.valid ? quoteCalculation.result : null);
+
+  // React only after Svelte has applied the user's input binding and model validation.
+  // Scenario edits alone do not increment this sequence or trigger a completion.
+  $effect(() => {
+    if (financialEditSequence > 0) {
+      pricingAnalytics.evaluated(validation.valid && quoteCalculation.valid);
+    }
+  });
   // The existing scenario engine preserves the quote while changing actual hours.
   const scenarioCalculation = $derived(calculatePricing(draft));
   const scenario = $derived(scenarioCalculation.valid ? scenarioCalculation.result : null);
@@ -199,6 +213,7 @@
   }
 
   function startBlank(): void {
+    pricingAnalytics.inputsReset();
     baseline = { annualCompensation: "", annualOverhead: "", workingWeeks: "", billableHoursPerWeek: "" };
     phaseHours = Object.fromEntries(PROJECT_PHASE_KEYS.map((key) => [key, ""])) as TextPhases;
     directExpenses = "";
@@ -212,6 +227,7 @@
   }
 
   function resetToExample(): void {
+    pricingAnalytics.inputsReset();
     baseline = sampleTextBaseline();
     phaseHours = sampleTextPhases();
     directExpenses = String(createExamplePricingInput().project.directExpenses);
@@ -233,6 +249,7 @@
       typeof navigator !== "undefined" ? navigator.clipboard : undefined,
     );
     manualCopyVisible = !copied;
+    if (copied) pricingAnalytics.copySucceeded();
     copyFeedback = copied
       ? "Internal planning summary copied to clipboard."
       : "Clipboard access was unavailable or denied. Select and copy the text in the box below.";
@@ -248,6 +265,7 @@
     }
     try {
       window.print();
+      pricingAnalytics.printDialogInvoked();
       printFeedback = "Use your browser's print dialog to print or save this internal planning estimate.";
     } catch {
       printFeedback = "The print dialog could not be opened. Try your browser's Print command.";
@@ -255,13 +273,17 @@
   }
 
   function markEdited(): void {
+    pricingAnalytics.financialInputEdited();
+    financialEditSequence += 1;
     exampleUntouched = false;
     clearActionFeedback();
   }
 
   function markScenarioEdited(): void {
     scenarioUntouched = false;
-    markEdited();
+    exampleUntouched = false;
+    pricingAnalytics.scenarioAdjusted();
+    clearActionFeedback();
   }
 </script>
 
@@ -583,6 +605,10 @@
           </p>
           <a
             href="/products/web-developer-pricing-system/"
+            data-ga-event="product_click"
+            data-ga-product-id="web-developer-pricing-system"
+            data-ga-source-type="calculator"
+            data-ga-cta-location="result_next_step"
             class="mt-4 inline-flex min-h-11 items-center rounded-sm py-2 text-sm font-semibold text-primary-accent underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
           >Explore the Web Developer Pricing System →</a>
         </section>

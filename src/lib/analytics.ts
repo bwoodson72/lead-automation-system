@@ -1,4 +1,11 @@
 import { siteConfig } from "@/config";
+import {
+  PRICING_CALCULATOR_EVENTS,
+  PRICING_SOURCE_PAGE,
+  pricingCalculatorEventParams,
+  type PricingCalculatorEvent,
+  type PricingCalculatorPlacement,
+} from "./project-pricing/interaction-events.ts";
 
 type AnalyticsItem = {
   item_id: string;
@@ -45,6 +52,28 @@ function hasAnalyticsConsent(): boolean {
 function sendEvent(name: string, params: EventParams = {}): void {
   if (!hasAnalyticsConsent() || typeof window.gtag !== "function") return;
   window.gtag("event", name, params);
+}
+
+/**
+ * Strictly consent-controlled analytics for the calculator. Caller can supply
+ * only a known event and optional placement; never accept numeric form inputs,
+ * reports, URL parameters, or client-generated text.
+ * Boolean result means the GA4 event was submitted to gtag, not delivered.
+ */
+export function trackPricingCalculatorEvent(
+  event: PricingCalculatorEvent,
+  placement?: PricingCalculatorPlacement,
+): boolean {
+  if (typeof window === "undefined" || window.location.pathname !== PRICING_SOURCE_PAGE) return false;
+  if (!PRICING_CALCULATOR_EVENTS.includes(event)) return false;
+  if (!hasAnalyticsConsent() || typeof window.gtag !== "function") return false;
+
+  try {
+    sendEvent(event, pricingCalculatorEventParams(placement));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function parsePrice(value: string | undefined): number | undefined {

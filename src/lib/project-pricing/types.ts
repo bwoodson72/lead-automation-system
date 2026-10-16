@@ -52,17 +52,23 @@ export interface PricingInput {
   overrunRate: number;
 }
 
-/** Output shape for the calculation stage; no calculation exists in step 01. */
-export interface PricingResult {
+/** Base quote result; scenario-specific fields are added in step 04. */
+export interface PricingQuoteResult {
   annualBillableHours: number;
   internalHourlyFloor: number;
   baseProjectHours: number;
   contingencyBudgetHours: number;
+  modeledLaborCost: number;
+  directProjectExpenses: number;
   modeledCostAllocation: number;
   unroundedQuote: number;
   roundedQuote: number;
   processingFees: number;
   plannedSurplus: number;
+}
+
+/** Full output after scenario modeling is introduced in step 04. */
+export interface PricingResult extends PricingQuoteResult {
   actualScenarioHours: number;
   recoveredPerActualHour: number;
   scenarioSurplus: number;

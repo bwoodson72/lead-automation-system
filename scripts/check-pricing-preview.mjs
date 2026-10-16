@@ -5,6 +5,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { setTimeout as delay } from "node:timers/promises";
+import { createConnection } from "node:net";
 import { chromium } from "playwright";
 
 const host = "http://127.0.0.1:4331";
@@ -21,8 +22,14 @@ let browser;
 try {
   let ready = false;
   for(let n=0;n<60;n++) {
-    try { const res=await fetch(host+pagePath,{signal:AbortSignal.timeout(2000)});if(res.ok){ready=true;break;} }
-    catch {}
+    ready = await new Promise((resolve) => {
+      const socket = createConnection({host:"127.0.0.1",port:4331});
+      socket.setTimeout(1000);
+      socket.once("connect", () => {socket.destroy();resolve(true)});
+      socket.once("timeout", () => {socket.destroy();resolve(false)});
+      socket.once("error", () => {socket.destroy();resolve(false)});
+    });
+    if (ready) break;
     await delay(250);
   }
   assert.ok(ready, "Built static preview server did not serve calculator: "+output);
@@ -48,8 +55,8 @@ try {
   assert.match(await result.innerText(),/\$7,200/);
   const productLink=page.getByRole("link",{name:/Explore the Web Developer Pricing System/});
   assert.equal(await productLink.getAttribute("href"),"/products/web-developer-pricing-system/");
-  const product=await fetch(host+"/products/web-developer-pricing-system/");
-  assert.equal(product.status,200);
+  const product=await page.request.get(host+"/products/web-developer-pricing-system/");
+  assert.equal(product.status(),200);
   assert.deepEqual(pageErrors,[]);
   await context.close();
   console.log("PASS generated static preview: route, indexability, hydration, resets, quote, reciprocal CTA and product URL");

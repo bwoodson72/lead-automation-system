@@ -40,4 +40,5 @@ jobs:
         run: npm run check
 
       - name: Build entire Astro site
+        if: ${{ always() }}
         run: npm run build

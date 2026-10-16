@@ -32,6 +32,24 @@ for (const [page, href, count] of locations) {
   console.info("PASS " + page + ": " + found + " anchor(s) to " + href);
 }
 
+// Make the free tool discoverable from site-wide navigation, not just articles.
+// Validate the generated HTML on both the homepage and the calculator page.
+for (const route of ["/", calculator]) {
+  const html = await readFile(path.join(outputRoot, route.slice(1), "index.html"), "utf8");
+  for (const navName of ["Primary", "Mobile"]) {
+    const navMarkup = html.match(new RegExp(
+      '<nav\\b[^>]*aria-label="' + navName + '"[^>]*>[\\s\\S]*?<\\/nav>', "i",
+    ))?.[0];
+    assert.ok(navMarkup, route + ": " + navName + " navigation missing");
+    assert.ok(navMarkup.includes('href="' + calculator + '"'),
+      route + ": " + navName + " navigation has no pricing calculator link");
+  }
+  const footerMarkup = html.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0];
+  assert.ok(footerMarkup?.includes('href="' + calculator + '"'),
+    route + ": footer has no pricing calculator link");
+  console.info("PASS " + route + ": desktop navigation, mobile navigation, and footer link to calculator");
+}
+
 // Preview builds intentionally lack Lemon Squeezy credentials and cannot
 // render live checkout URLs; ensure the original CTA usage was not changed.
 const paidSource = await readFile(

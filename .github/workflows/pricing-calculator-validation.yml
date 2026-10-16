@@ -5,6 +5,7 @@ on:
     branches:
       - feature/freelance-project-pricing-calculator
       - feature/pricing-calculator-clearer-guidance
+      - feature/pricing-calculator-site-navigation
   workflow_dispatch:
 
 permissions:

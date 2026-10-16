@@ -24,12 +24,12 @@
   const BASELINE_FIELDS: ReadonlyArray<{ key: BaselineKey; label: string; hint: string }> = [
     {
       key: "annualCompensation",
-      label: "Annual owner compensation goal (USD)",
+      label: "What you want to pay yourself each year (USD)",
       hint: "Pre-personal-income-tax compensation to yourself. Include tax and benefits reserves in your target if needed.",
     },
     {
       key: "annualOverhead",
-      label: "Annual business overhead (USD)",
+      label: "Yearly business running costs (USD)",
       hint: "Recurring business costs such as software, insurance, and equipment, excluding expenses specific to this project.",
     },
     {
@@ -39,7 +39,7 @@
     },
     {
       key: "billableHoursPerWeek",
-      label: "Billable hours per working week",
+      label: "Hours you can charge clients each week",
       hint: "Only hours you can actually charge to clients, not all hours spent working (up to 80).",
     },
   ];
@@ -78,22 +78,22 @@
   }> = [
     {
       key: "contingencyRate",
-      label: "Labor contingency (%)",
-      hint: "Adds a labor-hours allowance for uncertainty (0–50%). It does not reserve cash.",
+      label: "Extra time for uncertainty (%)",
+      hint: "Adds a buffer to your estimated project hours. For example, 15% turns 60 hours into a 69-hour budget. This is not extra cash.",
     },
     {
       key: "surplusMarginRate",
-      label: "Target surplus margin (%)",
-      hint: "Share of quoted revenue left after modeled labor, direct costs, and processing fees (0–40%). This is margin, not markup or guaranteed accounting profit.",
+      label: "Target surplus (% of the final quote)",
+      hint: "The share of the final quote you want left after estimated labor, job expenses, and processing fees (0–40%). Not a markup or guaranteed profit.",
     },
     {
       key: "variableProcessingRate",
-      label: "Variable payment-processing fee (%)",
+      label: "Payment-processing fee (% of quote)",
       hint: "Your estimated percentage of the quoted revenue (0–15%); the example is not a merchant-specific fee.",
     },
     {
       key: "fixedProcessingFee",
-      label: "Fixed processing fees for this quote (USD)",
+      label: "Fixed payment fees for this quote (USD)",
       hint: "Estimated total fixed processing charges for the entire quote, not per installment.",
     },
   ];
@@ -312,10 +312,11 @@
   </div>
 
   <fieldset class="mt-8">
-    <legend class="text-xl font-semibold text-foreground">A. Your business baseline</legend>
+    <legend class="text-xl font-semibold text-foreground">A. What your business needs to earn</legend>
     <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-      Work backward from the compensation and operating costs your client work needs to support.
-      Your compensation goal is before personal income taxes, and billable hours are only the hours you can actually invoice.
+      Enter your annual pay goal and running costs. The calculator divides that total by
+      the client hours you can realistically bill—not every hour you work—to find how much
+      revenue each billable hour needs to bring in. This is an internal target, not a rate to advertise.
     </p>
     <div class="mt-6 grid gap-6 sm:grid-cols-2">
       {#each BASELINE_FIELDS as field (field.key)}
@@ -337,7 +338,7 @@
           <dd class="mt-1 text-xl font-semibold text-foreground">{formatHours(hourlyBaseline.annualBillableHours)}</dd>
         </div>
         <div>
-          <dt class="text-sm text-muted-foreground">Sustainable internal hourly floor</dt>
+          <dt class="text-sm text-muted-foreground">Revenue needed per billable hour (internal floor)</dt>
           <dd class="mt-1 text-xl font-semibold text-foreground">{formatUSDPerHour(hourlyBaseline.internalHourlyFloor)}</dd>
         </div>
       </dl>
@@ -349,7 +350,7 @@
   </fieldset>
 
   <fieldset class="mt-10 border-t border-border pt-8">
-    <legend class="text-xl font-semibold text-foreground">B. The entire project</legend>
+    <legend class="text-xl font-semibold text-foreground">B. Estimate the entire project</legend>
     <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
       Include planning, client communication, QA, revisions, and handoff—not just coding.
       Enter 0 for phases the project does not need. Hours use quarter-hour (0.25) increments.
@@ -392,11 +393,11 @@
   </fieldset>
 
   <fieldset class="mt-10 border-t border-border pt-8">
-    <legend class="text-xl font-semibold text-foreground">C. Quote protection</legend>
+    <legend class="text-xl font-semibold text-foreground">C. Allow for risk, fees, and extra margin</legend>
     <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-      Contingency increases budgeted labor hours. Target surplus margin is a percentage of
-      quoted revenue remaining after modeled costs and processing fees, not a markup on cost.
-      These are editable sample assumptions, not industry averages or a merchant fee quote.
+      A contingency gives you extra hours for predictable uncertainty. Target surplus is
+      the share of your final quote left after estimated labor, project costs, and processing fees;
+      it is not simply a percentage added to your cost. The default values are examples, not industry standards.
     </p>
     <div class="mt-6 grid gap-6 sm:grid-cols-2">
       {#each PROTECTION_FIELDS as field (field.key)}
@@ -439,10 +440,11 @@
   </fieldset>
 
   <section class="mt-10 border-t border-border pt-8" aria-labelledby="pricing-results-heading">
-    <h3 id="pricing-results-heading" class="text-xl font-semibold text-foreground">D. Cost-based quote estimate</h3>
+    <h3 id="pricing-results-heading" class="text-xl font-semibold text-foreground">D. Your cost-based starting quote</h3>
     <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-      An internal cost-based starting point, not the correct market price, a guarantee of
-      profitability, or a client-facing proposal. Tax reserves are not calculated automatically.
+      This is what the job needs to bring in under your assumptions, including your income
+      and overhead target. It is not necessarily what a client will pay—or the most you could charge.
+      Taxes are not calculated automatically.
     </p>
     {#if quote}
       <div class="mt-6 border border-border bg-card p-5 sm:p-8">
@@ -460,7 +462,7 @@
             <dd class="mt-1 font-semibold text-foreground">{formatHours(quote.annualBillableHours)}</dd>
           </div>
           <div class="border-t border-border pt-4">
-            <dt class="text-sm text-muted-foreground">Internal hourly floor</dt>
+            <dt class="text-sm text-muted-foreground">Revenue needed per billable hour</dt>
             <dd class="mt-1 font-semibold text-foreground">{formatUSDPerHour(quote.internalHourlyFloor)}</dd>
           </div>
           <div class="border-t border-border pt-4">
@@ -480,7 +482,7 @@
             <dd class="mt-1 font-semibold text-foreground">{formatUSD(quote.directProjectExpenses)}</dd>
           </div>
           <div class="border-t border-border pt-4">
-            <dt class="text-sm text-muted-foreground">Total modeled cost allocation</dt>
+            <dt class="text-sm text-muted-foreground">Estimated cost of the project</dt>
             <dd class="mt-1 font-semibold text-foreground">{formatUSD(quote.modeledCostAllocation)}</dd>
           </div>
           <div class="border-t border-border pt-4">
@@ -488,7 +490,7 @@
             <dd class="mt-1 font-semibold text-foreground">{formatUSD(quote.processingFees)}</dd>
           </div>
           <div class="border-t border-border pt-4 sm:col-span-2">
-            <dt class="text-sm text-muted-foreground">Modeled surplus after costs and processing</dt>
+            <dt class="text-sm text-muted-foreground">Amount left after modeled costs and fees</dt>
             <dd class="mt-1 text-xl font-semibold text-foreground">{formatUSD(quote.plannedSurplus)}</dd>
           </div>
         </dl>
@@ -511,11 +513,12 @@
 
         <section class="mt-8 border-t border-border pt-8" aria-labelledby="pricing-overrun-heading">
           <h4 id="pricing-overrun-heading" class="text-lg font-semibold text-foreground">
-            What if the project takes longer?
+            What if the project takes longer than planned?
           </h4>
           <p class="mt-2 text-sm leading-6 text-muted-foreground">
-            Model additional work against the original base-hour estimate, not the contingency-adjusted budget.
-            The fixed-price quote stays the same as the simulated hours increase.
+            You've estimated {formatHours(quote.baseProjectHours)} for a {formatUSD(quote.roundedQuote)} fixed-price job.
+            What happens if it takes longer? Move the slider to add hours to your original estimate.
+            Your quote stays {formatUSD(quote.roundedQuote)}, even as you spend more time on the work.
           </p>
           <div class="mt-6 rounded-md border border-border bg-background p-4 sm:p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
@@ -547,6 +550,12 @@
           </div>
 
           {#if scenario}
+            <p class="mt-5 border-l-2 border-primary bg-card/50 p-4 text-sm leading-6 text-foreground" aria-live="polite" aria-atomic="true">
+              At {overrunPercent}% extra time, you'll work {formatHours(scenario.actualScenarioHours)} instead of
+              {formatHours(quote.baseProjectHours)}. The quote remains {formatUSD(quote.roundedQuote)},
+              and you recover {formatUSDPerHour(scenario.recoveredPerActualHour)} per actual hour
+              after payment fees and direct expenses.
+            </p>
             <dl class="mt-6 grid gap-4 sm:grid-cols-2">
               <div class="border-t border-border pt-4">
                 <dt class="text-sm leading-6 text-muted-foreground">Actual hours with overrun</dt>
@@ -555,19 +564,19 @@
                 </dd>
               </div>
               <div class="border-t border-border pt-4">
-                <dt class="text-sm leading-6 text-muted-foreground">Recovered revenue per actual hour</dt>
+                <dt class="text-sm leading-6 text-muted-foreground">Amount recovered for each hour actually worked</dt>
                 <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSDPerHour(scenario.recoveredPerActualHour)}
                   <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">After direct job expenses and payment-processing fees.</p>
                 </dd>
               </div>
               <div class="border-t border-border pt-4">
-                <dt class="text-sm leading-6 text-muted-foreground">Modeled scenario surplus</dt>
+                <dt class="text-sm leading-6 text-muted-foreground">Amount above your hourly target after extra work</dt>
                 <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSD(scenario.scenarioSurplus)}
                   <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">After accounting for the internal hourly floor over actual hours.</p>
                 </dd>
               </div>
               <div class="border-t border-border pt-4">
-                <dt class="text-sm leading-6 text-muted-foreground">Maximum hours at the internal floor</dt>
+                <dt class="text-sm leading-6 text-muted-foreground">Most hours before falling below your target</dt>
                 <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.maxHoursAtFloor)}
                   <p class="mt-1 text-xs font-normal leading-5 text-muted-foreground">Approximate threshold before hourly recovery drops below your target.</p>
                 </dd>

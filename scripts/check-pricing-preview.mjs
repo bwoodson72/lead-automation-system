@@ -45,6 +45,7 @@ try {
   assert.equal(res.status(),200);
   assert.equal(await page.locator("h1", {hasText:"Freelance Project Pricing Calculator"}).count(),1);
   assert.equal(await page.locator('meta[name="robots"]').count(),0);
+  assert.equal(await page.getByRole("heading",{name:"How to use this calculator"}).count(),1);
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"),"https://www.developerbusinesslab.com"+pagePath);
   await page.locator("#pricing-annualCompensation").waitFor({state:"visible"});
   const result=page.locator('[aria-labelledby="pricing-results-heading"]');

@@ -49,6 +49,12 @@ const prose = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
 for (const phrase of [
   "Free · no signup required",
   "How the math works",
+  "How to use this calculator",
+  "Your income target",
+  "The project hours",
+  "Your starting quote",
+  "The overrun test",
+  "$86.96 needed per billable hour",
   "A worked example",
   "What the quote does and doesn't tell you",
   "Freelance project pricing FAQ",

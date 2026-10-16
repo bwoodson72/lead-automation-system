@@ -96,9 +96,51 @@ const faqs = [
         Estimate your project
       </h2>
       <p class="print:hidden mt-3 max-w-3xl leading-7 text-muted-foreground">
-        Start with the example or choose Start blank. Valid entries update your cost-based quote,
-        and the overrun control models the effect of additional hours without changing that quote.
+        You do not need to know your hourly rate. Start with what your business needs to earn,
+        estimate the work, then see the starting quote and what happens when hours run over.
       </p>
+      <div class="mt-8 print:hidden" aria-labelledby="pricing-howto-heading">
+        <h3 id="pricing-howto-heading" class="text-xl font-semibold text-foreground">How to use this calculator</h3>
+        <ol class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <li class="border border-border bg-background p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">Step 1</p>
+            <h4 class="mt-2 font-semibold text-foreground">Your income target</h4>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">Enter what you want to earn, your business overhead, and the client hours you can realistically bill.</p>
+          </li>
+          <li class="border border-border bg-background p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">Step 2</p>
+            <h4 class="mt-2 font-semibold text-foreground">The project hours</h4>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">Estimate all the work, including planning, meetings, revisions, testing, and delivery—not just coding.</p>
+          </li>
+          <li class="border border-border bg-background p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">Step 3</p>
+            <h4 class="mt-2 font-semibold text-foreground">Your starting quote</h4>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">Add an allowance for extra work, direct expenses, and fees. The calculator shows what the job needs to bring in.</p>
+          </li>
+          <li class="border border-border bg-background p-4">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary-accent">Step 4</p>
+            <h4 class="mt-2 font-semibold text-foreground">The overrun test</h4>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">Move the slider to see how a fixed quote pays less per hour when a project takes longer.</p>
+          </li>
+        </ol>
+        <div class="mt-4 border-l-2 border-primary bg-background p-4 sm:p-5">
+          <p class="text-sm font-semibold text-foreground">See the example already filled in</p>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            $80,000 in annual compensation + $8,000 in overhead
+            <span aria-hidden="true"> → </span>
+            $86.96 needed per billable hour
+            <span aria-hidden="true"> → </span>
+            60 estimated project hours
+            <span aria-hidden="true"> → </span>
+            <strong class="text-foreground">$7,200 cost-based quote</strong>.
+          </p>
+          <p class="mt-2 text-xs leading-5 text-muted-foreground">
+            The sample quote also includes 15% extra labor hours for uncertainty, $250 in direct expenses,
+            10% target surplus, estimated 3% processing fees, and rounding up to $100.
+            Replace every example value with your own assumptions.
+          </p>
+        </div>
+      </div>
       <div class="mt-8 print:m-0">
         <ProjectPricingCalculator client:load />
       </div>

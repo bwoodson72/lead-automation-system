@@ -76,6 +76,11 @@ try {
 
   assert.equal(await page.locator("main h1").count(), 1);
   assert.equal(await page.locator('meta[name="robots"]').count(), 0);
+  assert.equal(await page.getByRole("heading", { name: "How to use this calculator" }).count(), 1);
+  assert.equal(await page.getByRole("heading", { name: "Your income target" }).count(), 1);
+  assert.equal(await page.getByRole("heading", { name: "The overrun test" }).count(), 1);
+  assert.equal(await page.getByText("$86.96 needed per billable hour", { exact: false }).count(), 1);
+  assert.equal(await page.getByText("What you want to pay yourself each year (USD)").count(), 1);
   assert.match(await results.innerText(), /\$7,200/);
   assert.match(await results.innerText(), /72 hours/);
   assert.match(await results.innerText(), /\$93\.53/);
@@ -97,6 +102,8 @@ try {
   assert.equal(await slider.inputValue(), "25");
   assert.match(await results.innerText(), /\$7,200/);
   assert.match(await results.innerText(), /75 hours/);
+  assert.match(await results.innerText(), /At 25% extra time/);
+  assert.match(await results.innerText(), /quote remains \$7,200/);
   let events = await gaNames(page);
   assert.equal(events.filter((name) => name === "pricing_calc_overrun").length, 1);
   assert.equal(events.filter((name) => name === "pricing_calc_start").length, 1);

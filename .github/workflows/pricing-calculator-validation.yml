@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/freelance-project-pricing-calculator
+      - feature/pricing-calculator-clearer-guidance
   workflow_dispatch:
 
 permissions:

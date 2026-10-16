@@ -67,12 +67,16 @@ export interface PricingQuoteResult {
   plannedSurplus: number;
 }
 
-/** Full output after scenario modeling is introduced in step 04. */
+/** Modeled hourly recovery relative to the user's internal income/overhead floor. */
+export type HourlyFloorComparison = "above" | "at" | "below";
+
+/** Full quote and overrun scenario, without UI formatting or tax assumptions. */
 export interface PricingResult extends PricingQuoteResult {
   actualScenarioHours: number;
   recoveredPerActualHour: number;
   scenarioSurplus: number;
   maxHoursAtFloor: number;
+  hourlyFloorComparison: HourlyFloorComparison;
 }
 
 /** Field-specific errors for step 02 validation, including each phase key. */

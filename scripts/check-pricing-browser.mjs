@@ -75,6 +75,26 @@ try {
   const print = page.getByRole("button", { name: "Print estimate" });
 
   assert.equal(await page.locator("main h1").count(), 1);
+  const desktopNav = page.getByRole("navigation", { name: "Primary" });
+  const desktopCalculatorLink = desktopNav.getByRole("link", { name: "Pricing Calculator" });
+  assert.equal(await desktopNav.isVisible(), true);
+  assert.equal(await desktopCalculatorLink.getAttribute("href"), route);
+  assert.equal(await desktopCalculatorLink.getAttribute("aria-current"), "page");
+  assert.equal(await desktopCalculatorLink.isVisible(), true);
+  assert.equal(await page.locator("footer").getByRole("link", { name: "Free Pricing Calculator" }).count(), 1);
+  const desktopWidth = await page.evaluate(() => ({
+    viewport: window.innerWidth, document: document.documentElement.scrollWidth,
+  }));
+  assert.ok(desktopWidth.document <= desktopWidth.viewport + 1,
+    "Desktop navigation caused horizontal overflow: " + JSON.stringify(desktopWidth));
+  const navigationPage = await context.newPage();
+  await navigationPage.goto(site + "/");
+  await navigationPage.getByRole("navigation", { name: "Primary" })
+    .getByRole("link", { name: "Pricing Calculator" }).click();
+  await navigationPage.locator("#pricing-annualCompensation").waitFor();
+  assert.equal(new URL(navigationPage.url()).pathname, route);
+  await navigationPage.close();
+  console.info("PASS desktop navigation and footer link, active-link semantics, and homepage navigation to calculator");
   assert.equal(await page.locator('meta[name="robots"]').count(), 0);
   assert.equal(await page.getByRole("heading", { name: "How to use this calculator" }).count(), 1);
   assert.equal(await page.getByRole("heading", { name: "Your income target" }).count(), 1);
@@ -194,6 +214,25 @@ try {
 
   const mobile = await browserContext(browser, "rejected", { width: 320, height: 700 });
   const mobilePage = await hydrate(mobile);
+  const mobileMenu = mobilePage.locator("header details");
+  const menuToggle = mobileMenu.locator("summary");
+  assert.equal(await menuToggle.isVisible(), true);
+  await menuToggle.click();
+  const mobileNav = mobilePage.getByRole("navigation", { name: "Mobile" });
+  const mobileCalculatorLink = mobileNav.getByRole("link", { name: "Pricing Calculator" });
+  assert.equal(await mobileCalculatorLink.isVisible(), true);
+  assert.equal(await mobileCalculatorLink.getAttribute("href"), route);
+  assert.equal(await mobileCalculatorLink.getAttribute("aria-current"), "page");
+  await menuToggle.click();
+  await mobilePage.setViewportSize({ width: 1024, height: 768 });
+  assert.equal(await menuToggle.isVisible(), true);
+  assert.equal(await mobilePage.getByRole("navigation", { name: "Primary" }).isVisible(), false);
+  const tabletWidth = await mobilePage.evaluate(() => ({
+    viewport: window.innerWidth, document: document.documentElement.scrollWidth,
+  }));
+  assert.ok(tabletWidth.document <= tabletWidth.viewport + 1,
+    "Tablet navigation caused horizontal overflow: " + JSON.stringify(tabletWidth));
+  await mobilePage.setViewportSize({ width: 320, height: 700 });
   const width = await mobilePage.evaluate(() => ({
     viewport: window.innerWidth,
     document: document.documentElement.scrollWidth,

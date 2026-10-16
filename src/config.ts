@@ -17,6 +17,7 @@ export const siteConfig = {
   navigation: [
     { label: "Start Here", href: "/start/" }, { label: "Products", href: "/products/" },
     { label: "Bundles", href: "/bundles/" },
+    { label: "Pricing Calculator", href: "/tools/freelance-project-pricing-calculator/" },
     { label: "Articles", href: "/articles/" }, { label: "About", href: "/about/" },
   ],
 };

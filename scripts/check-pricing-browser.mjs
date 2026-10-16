@@ -196,6 +196,16 @@ try {
   await mobilePage.setViewportSize({ width: 667, height: 375 });
   assert.ok(await mobilePage.getByRole("button", { name: "Start blank" }).isVisible());
   console.info("PASS 320px/mobile landscape layouts without horizontal overflow");
+  await mobilePage.setViewportSize({ width: 640, height: 800 });
+  await mobilePage.evaluate(() => { document.documentElement.style.zoom = "200%"; });
+  const zoom = await mobilePage.evaluate(() => ({
+    viewport: window.innerWidth,
+    document: document.documentElement.scrollWidth,
+    zoom: getComputedStyle(document.documentElement).zoom,
+  }));
+  assert.equal(zoom.zoom, "2");
+  assert.ok(zoom.document <= zoom.viewport + 1, "200% zoom caused horizontal overflow: " + JSON.stringify(zoom));
+  console.info("PASS 200% CSS zoom reflow in 640px viewport (320 CSS px effective)");
   await mobile.close();
 
   const noJS = await browser.newContext({ javaScriptEnabled: false });

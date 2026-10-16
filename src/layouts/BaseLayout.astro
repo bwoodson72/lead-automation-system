@@ -18,6 +18,7 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  printSummaryOnly?: boolean;
   enableCheckoutOverlay?: boolean;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -26,6 +27,7 @@ const {
   title,
   description,
   noindex = false,
+  printSummaryOnly = false,
   enableCheckoutOverlay = false,
   structuredData,
 } = Astro.props;
@@ -198,7 +200,7 @@ const analyticsItemCategory = typeof analyticsProductSchema?.category === "strin
   </head>
   <body transition:animate={fade({ duration: "0.55s" })}>
     <a href="#main-content" class="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
-    <SiteHeader />
+    <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><SiteHeader /></div>
     <main id="main-content">
       {analyticsProductSchema && analyticsItemId && (
         <span
@@ -215,8 +217,8 @@ const analyticsItemCategory = typeof analyticsProductSchema?.category === "strin
       <slot />
     </main>
     {showPreFooterNewsletter && <NewsletterSignup variant="prefooter" placement="prefooter" />}
-    <SiteFooter />
-    <CookieConsent />
+    <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><SiteFooter /></div>
+    <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><CookieConsent /></div>
     {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
     <SpeedInsights />
   </body>

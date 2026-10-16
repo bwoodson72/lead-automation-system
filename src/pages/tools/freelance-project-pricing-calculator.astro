@@ -7,8 +7,9 @@ import ProjectPricingCalculator from "@/components/tools/ProjectPricingCalculato
   title="Freelance Project Pricing Calculator | Developer Business Lab"
   description="A free project-pricing tool in development for freelance web developers. Explore the illustrative business assumptions that will underpin a cost-based quote."
   noindex
+  printSummaryOnly
 >
-  <section class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-page-title">
+  <section class="print:hidden px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-page-title">
     <div class="mx-auto max-w-5xl">
       <p class="editorial-kicker">Developer Business Lab / Free tools</p>
       <h1 id="pricing-page-title" class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -20,8 +21,8 @@ import ProjectPricingCalculator from "@/components/tools/ProjectPricingCalculato
       </p>
       <p class="mt-4 text-sm font-semibold text-foreground">Free · no signup required</p>
       <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-        This is a development preview. You can now edit business, project, and quote-protection
-        assumptions to see a cost-based estimate. Overrun modeling and exports are not ready yet.
+        This is a development preview. You can edit your assumptions, model an overrun, and copy
+        or print the internal estimate. This tool has not been released publicly.
       </p>
       <a
         href="#calculator"
@@ -35,17 +36,17 @@ import ProjectPricingCalculator from "@/components/tools/ProjectPricingCalculato
   <section
     id="calculator"
     aria-labelledby="calculator-heading"
-    class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+    class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-20 lg:px-8 print:border-none print:bg-white print:p-0"
   >
-    <div class="mx-auto max-w-5xl">
-      <h2 id="calculator-heading" class="text-2xl font-semibold tracking-tight sm:text-3xl">
+    <div class="mx-auto max-w-5xl print:max-w-none">
+      <h2 id="calculator-heading" class="print:hidden text-2xl font-semibold tracking-tight sm:text-3xl">
         Calculator preview
       </h2>
-      <p class="mt-3 max-w-3xl leading-7 text-muted-foreground">
+      <p class="print:hidden mt-3 max-w-3xl leading-7 text-muted-foreground">
         Inputs start with illustrative values, not your personal business numbers. The quote shown
         reflects those example assumptions until you replace them with your own.
       </p>
-      <div class="mt-8">
+      <div class="mt-8 print:m-0">
         <ProjectPricingCalculator client:load />
       </div>
       <noscript>

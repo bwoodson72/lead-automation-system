@@ -11,6 +11,7 @@
   import { calculatePricing, calculatePricingQuote, HOURLY_FLOOR_COMPARISON_LABELS } from "@/lib/project-pricing/calculate";
   import { formatHours, formatPercentage, formatUSD, formatUSDPerHour } from "@/lib/project-pricing/format";
   import { parsePricingNumber, validatePricingInput } from "@/lib/project-pricing/validate";
+  import { buildPricingSummary, copyPricingSummary, INTERNAL_PLANNING_LABEL } from "@/lib/project-pricing/summary";
   import type { BusinessBaseline, PricingErrorField, ProjectPhaseKey, QuoteProtection } from "@/lib/project-pricing/types";
 
   type BaselineKey = keyof BusinessBaseline;
@@ -104,6 +105,9 @@
   let overrunPercent = $state(20);
   let scenarioUntouched = $state(true);
   let touched = $state<Partial<Record<PricingErrorField, boolean>>>({});
+  let copyFeedback = $state("");
+  let printFeedback = $state("");
+  let manualCopyVisible = $state(false);
 
   // Preserve each editable string exactly while typing. Only the model passed
   // to the validation layer is parsed; invalid entries never become results.
@@ -156,6 +160,9 @@
   // The existing scenario engine preserves the quote while changing actual hours.
   const scenarioCalculation = $derived(calculatePricing(draft));
   const scenario = $derived(scenarioCalculation.valid ? scenarioCalculation.result : null);
+  const summaryText = $derived(
+    scenario && validation.valid ? buildPricingSummary(validation.value, scenario) : "",
+  );
   const baselineValid = $derived(BASELINE_FIELDS.every(({ key }) => !validation.errors[key]));
   const hourlyBaseline = $derived.by(() => {
     if (!baselineValid) return null;
@@ -185,6 +192,12 @@
     return touched[field] ? validation.errors[field] : undefined;
   }
 
+  function clearActionFeedback(): void {
+    copyFeedback = "";
+    printFeedback = "";
+    manualCopyVisible = false;
+  }
+
   function startBlank(): void {
     baseline = { annualCompensation: "", annualOverhead: "", workingWeeks: "", billableHoursPerWeek: "" };
     phaseHours = Object.fromEntries(PROJECT_PHASE_KEYS.map((key) => [key, ""])) as TextPhases;
@@ -195,10 +208,55 @@
     scenarioUntouched = true;
     touched = {};
     exampleUntouched = false;
+    clearActionFeedback();
+  }
+
+  function resetToExample(): void {
+    baseline = sampleTextBaseline();
+    phaseHours = sampleTextPhases();
+    directExpenses = String(createExamplePricingInput().project.directExpenses);
+    protection = sampleTextProtection();
+    roundingIncrement = String(createExamplePricingInput().protection.roundingIncrement);
+    overrunPercent = createExamplePricingInput().overrunRate * 100;
+    scenarioUntouched = true;
+    touched = {};
+    exampleUntouched = true;
+    // Do not change any visit-level first-completion analytics state here.
+    clearActionFeedback();
+  }
+
+  async function handleCopy(): Promise<void> {
+    if (!summaryText || !validation.valid || !scenario) return;
+    printFeedback = "";
+    const copied = await copyPricingSummary(
+      summaryText,
+      typeof navigator !== "undefined" ? navigator.clipboard : undefined,
+    );
+    manualCopyVisible = !copied;
+    copyFeedback = copied
+      ? "Internal planning summary copied to clipboard."
+      : "Clipboard access was unavailable or denied. Select and copy the text in the box below.";
+  }
+
+  function handlePrint(): void {
+    if (!summaryText || !validation.valid || !scenario) return;
+    copyFeedback = "";
+    manualCopyVisible = false;
+    if (typeof window === "undefined" || typeof window.print !== "function") {
+      printFeedback = "Printing isn't supported in this browser.";
+      return;
+    }
+    try {
+      window.print();
+      printFeedback = "Use your browser's print dialog to print or save this internal planning estimate.";
+    } catch {
+      printFeedback = "The print dialog could not be opened. Try your browser's Print command.";
+    }
   }
 
   function markEdited(): void {
     exampleUntouched = false;
+    clearActionFeedback();
   }
 
   function markScenarioEdited(): void {
@@ -207,7 +265,7 @@
   }
 </script>
 
-<div class="border border-border bg-background p-5 sm:p-8">
+<div class="print:hidden border border-border bg-background p-5 sm:p-8">
   <div class="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
     <div class="max-w-2xl">
       <p class="text-sm font-semibold text-primary-accent">Development preview — quote and overrun estimates</p>
@@ -217,11 +275,18 @@
       </p>
       <p class="mt-2 text-sm leading-6 text-muted-foreground">{exampleUntouched ? "The displayed quote is based on illustrative assumptions, not your business or a market-rate recommendation." : "Your live cost-based estimate updates with valid inputs; it does not predict what a client will pay."}</p>
     </div>
-    <button
-      type="button"
-      onclick={startBlank}
-      class="inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
-    >Start blank</button>
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="button"
+        onclick={startBlank}
+        class="inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+      >Start blank</button>
+      <button
+        type="button"
+        onclick={resetToExample}
+        class="inline-flex min-h-11 items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+      >Reset to example</button>
+    </div>
   </div>
 
   <fieldset class="mt-8">
@@ -522,8 +587,51 @@
       </div>
     {/if}
   </section>
+  <section class="mt-8 border-t border-border pt-6" aria-labelledby="pricing-actions-heading">
+    <h3 id="pricing-actions-heading" class="text-lg font-semibold text-foreground">Keep your internal estimate</h3>
+    <p class="mt-2 text-sm leading-6 text-muted-foreground">
+      Copy a plain-text summary or use your browser's print dialog. These actions are available
+      only when every required input is valid. They do not save or send your figures anywhere.
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <button
+        type="button"
+        onclick={handleCopy}
+        disabled={!summaryText}
+        class="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline disabled:cursor-not-allowed disabled:opacity-50"
+      >Copy summary</button>
+      <button
+        type="button"
+        onclick={handlePrint}
+        disabled={!summaryText}
+        class="inline-flex min-h-11 items-center justify-center rounded-md border border-border px-5 py-2 text-sm font-semibold text-foreground hover:bg-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline disabled:cursor-not-allowed disabled:opacity-50"
+      >Print estimate</button>
+    </div>
+    <p class="mt-3 text-sm leading-6 text-muted-foreground">{INTERNAL_PLANNING_LABEL}</p>
+    <div role="status" aria-live="polite" aria-atomic="true" class="mt-3 text-sm leading-6 text-foreground">
+      {copyFeedback || printFeedback}
+    </div>
+    {#if manualCopyVisible && summaryText}
+      <div class="mt-4">
+        <label for="pricing-manual-summary" class="block text-sm font-semibold text-foreground">Select and copy this summary</label>
+        <textarea
+          id="pricing-manual-summary"
+          readonly
+          value={summaryText}
+          rows="9"
+          class="mt-2 w-full rounded-md border border-input bg-background p-3 font-mono text-sm text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+        ></textarea>
+      </div>
+    {/if}
+  </section>
   <p class="mt-8 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-    Copy, print, and reset-to-example will be introduced in later steps.
-    This page remains a noindex development preview.
+    This page remains a noindex development preview. Estimates are for internal planning, not client proposals.
   </p>
 </div>
+
+{#if summaryText}
+  <article class="hidden bg-white p-0 text-black print:block" aria-labelledby="pricing-print-heading">
+    <h2 id="pricing-print-heading" class="sr-only">Internal pricing estimate report</h2>
+    <pre class="whitespace-pre-wrap break-words font-mono text-xs leading-5 text-black">{summaryText}</pre>
+  </article>
+{/if}

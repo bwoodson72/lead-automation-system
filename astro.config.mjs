@@ -32,7 +32,8 @@ export default defineConfig({
     svelte(),
     mdx(),
     sitemap({
-      filter: (page) => !hiddenProductPaths.some((path) => page.endsWith(path)),
+      filter: (page) =>
+        !hiddenProductPaths.some((path) => page.endsWith(path)),
     }),
   ],
 

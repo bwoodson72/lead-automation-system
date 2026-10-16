@@ -99,7 +99,15 @@ const problems = [
               <p class="pt-1 text-xs font-semibold uppercase tracking-[.14em] text-muted-foreground">{problem.stage}</p>
               <h3 class="text-xl font-semibold leading-8">{problem.quote}</h3>
               <p class="leading-7 text-muted-foreground">{problem.change}</p>
-              <div class="lg:pt-1"><TextLink href={`/products/${product.data.slug}/`}>{displayTitle(problem.slug, product.data.title)} →</TextLink></div>
+              <div class="space-y-2 lg:pt-1">
+                <TextLink href={`/products/${product.data.slug}/`}>{displayTitle(problem.slug, product.data.title)} →</TextLink>
+                {problem.slug === "web-developer-pricing-system" && (
+                  <p class="text-sm leading-6 text-muted-foreground">
+                    Work out your numbers first:
+                    <TextLink href="/tools/freelance-project-pricing-calculator/">Try the free project pricing calculator →</TextLink>
+                  </p>
+                )}
+              </div>
             </article>
           );
         })}

@@ -11,7 +11,9 @@
     "build": "npm run sync:catalog && astro build",
     "check": "npm run sync:catalog && astro check",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "npm run test:unit",
+    "test:unit": "node --experimental-strip-types --test src/lib/project-pricing/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.7",

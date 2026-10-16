@@ -1,0 +1,266 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectPricingCalculator from "@/components/tools/ProjectPricingCalculator.svelte";
+import { siteConfig } from "@/config";
+
+const title = "Freelance Project Pricing Calculator | Developer Business Lab";
+const description = "Estimate a sustainable fixed-price web development quote using your billable capacity, total project hours, costs, and contingency. Test what happens when work runs over.";
+const canonical = new URL("/tools/freelance-project-pricing-calculator/", siteConfig.url).toString();
+const home = new URL("/", siteConfig.url).toString();
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: home },
+      { "@type": "ListItem", position: 2, name: "Freelance Project Pricing Calculator", item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": `${canonical}#application`,
+    name: "Freelance Project Pricing Calculator",
+    url: canonical,
+    description,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Any",
+    isAccessibleForFree: true,
+    publisher: { "@id": `${home}#organization` },
+  },
+];
+
+const faqs = [
+  {
+    question: "Why use billable hours instead of every hour I work?",
+    answer: "Client work has to pay for non-billable time too: finding work, proposals, admin, learning, and business operations. Working weeks multiplied by realistic billable hours per week is the capacity available to cover your income goal and overhead.",
+  },
+  {
+    question: "Does the annual compensation goal include taxes?",
+    answer: "The compensation input is before personal income taxes. Include whatever reserves you need when setting your own goal; this tool does not calculate income tax, sales tax, or tax obligations, and it is not tax advice.",
+  },
+  {
+    question: "Is the calculated quote a minimum or the price I should offer?",
+    answer: "It is a cost-based planning estimate using your assumptions, not a verified market rate. Market demand, the value of the outcome, client budget, uncertainty, and contract structure still matter when choosing the price to offer.",
+  },
+  {
+    question: "What does contingency cover?",
+    answer: "Contingency adds budgeted labor hours to your base estimate for foreseeable uncertainty. It does not change your original estimate of work, prevent scope creep, or replace clear scope boundaries and change-control terms.",
+  },
+];
+---
+
+<BaseLayout
+  {title}
+  {description}
+  {structuredData}
+  printSummaryOnly
+>
+  <section class="print:hidden px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-page-title">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">Developer Business Lab / Free tools</p>
+      <h1 id="pricing-page-title" class="mt-4 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
+        Freelance Project Pricing Calculator
+      </h1>
+      <p class="mt-6 max-w-3xl text-xl font-medium leading-8 text-foreground sm:text-2xl">
+        Know what a project needs to earn before you put a fixed price on it.
+      </p>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-muted-foreground">
+        Work out what your available billable time needs to support, account for the entire
+        project, and test how extra hours affect what you actually recover per hour.
+        Use the numbers to inform a quote—not as a substitute for understanding the client or the scope.
+      </p>
+      <p class="mt-5 text-sm font-semibold text-foreground">Free · no signup required</p>
+      <p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+        The inputs start with illustrative values; replace them with your own before using an estimate.
+        All calculations stay in your browser; your financial inputs are not submitted to a server.
+      </p>
+      <a
+        href="#calculator"
+        class="mt-8 inline-flex min-h-11 items-center rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+      >
+        Go to the calculator
+      </a>
+    </div>
+  </section>
+
+  <section
+    id="calculator"
+    aria-labelledby="calculator-heading"
+    class="scroll-mt-24 border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-20 lg:px-8 print:border-none print:bg-white print:p-0"
+  >
+    <div class="mx-auto max-w-5xl print:max-w-none">
+      <h2 id="calculator-heading" class="print:hidden text-2xl font-semibold tracking-tight sm:text-3xl">
+        Estimate your project
+      </h2>
+      <p class="print:hidden mt-3 max-w-3xl leading-7 text-muted-foreground">
+        Start with the example or choose Start blank. Valid entries update your cost-based quote,
+        and the overrun control models the effect of additional hours without changing that quote.
+      </p>
+      <div class="mt-8 print:m-0">
+        <ProjectPricingCalculator client:load />
+      </div>
+      <noscript>
+        <p class="mt-6 border border-border bg-background p-4 text-sm leading-6 text-muted-foreground">
+          JavaScript is disabled. The explanation, worked example, and questions on this page
+          are still available below, but editing calculator inputs requires JavaScript.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="print:hidden px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-math-heading">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">The reasoning behind the quote</p>
+      <h2 id="pricing-math-heading" class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">How the math works</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
+        The model first calculates what each billable hour must support, then prices the
+        project's expected labor, direct expenses, and chosen protections. Every figure depends
+        on your inputs; nothing here is an industry-standard rate.
+      </p>
+      <ol class="mt-8 grid gap-5 md:grid-cols-2">
+        <li class="border border-border bg-card/50 p-6">
+          <h3 class="text-lg font-semibold text-foreground">1. Establish your hourly floor</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">
+            Annual billable capacity = working weeks × billable hours per week.
+            Your internal hourly floor = (annual compensation goal + annual overhead) ÷ annual billable capacity.
+            Overhead is already accounted for here, so it isn't added again later.
+          </p>
+        </li>
+        <li class="border border-border bg-card/50 p-6">
+          <h3 class="text-lg font-semibold text-foreground">2. Account for the whole project</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">
+            Base hours are the sum of planning, design, development, integrations,
+            communication, QA, revisions, handoff, and other work.
+            Budgeted hours = base hours × (1 + contingency rate).
+          </p>
+        </li>
+        <li class="border border-border bg-card/50 p-6">
+          <h3 class="text-lg font-semibold text-foreground">3. Allow for costs, fees, and surplus</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">
+            Modeled cost = (hourly floor × budgeted hours) + direct project expenses.
+            The desired surplus margin and variable payment fee are percentages of the
+            final quote revenue, not percentage markups on cost.
+          </p>
+        </li>
+        <li class="border border-border bg-card/50 p-6">
+          <h3 class="text-lg font-semibold text-foreground">4. Round upward to a quote</h3>
+          <p class="mt-3 leading-7 text-muted-foreground">
+            Unrounded quote = (modeled cost + fixed processing fees) ÷
+            (1 − variable processing rate − target surplus margin).
+            The final estimate rounds <strong class="text-foreground">up</strong> to your selected $1, $25, $50, or $100 increment.
+          </p>
+        </li>
+      </ol>
+      <div class="mt-6 border-l-2 border-primary bg-card/35 p-5 sm:p-6">
+        <h3 class="text-lg font-semibold text-foreground">Then test an overrun without raising the quote</h3>
+        <p class="mt-3 leading-7 text-muted-foreground">
+          Actual modeled hours = base hours × (1 + selected overrun).
+          Recovered dollars per actual hour = (fixed quote − processing fees − direct expenses) ÷ actual hours.
+          Scenario surplus = fixed quote − processing fees − direct expenses − (actual hours × hourly floor).
+          The maximum modeled hours at your floor are the dollars available for labor divided by the hourly floor.
+          A below-floor result means you are missing your modeled recovery target; it does not by itself establish an accounting loss.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="print:hidden border-y border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-example-heading">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">Illustrative numbers, not a recommendation</p>
+      <h2 id="pricing-example-heading" class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">A worked example</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
+        Imagine a freelancer who wants $80,000 in annual compensation, expects $8,000 in business overhead,
+        and can bill 22 hours in each of 46 working weeks. Here's how the calculation develops.
+      </p>
+      <dl class="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Annual billable capacity</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">1,012 hours</dd>
+          <p class="mt-2 text-sm text-muted-foreground">46 weeks × 22 hours</p>
+        </div>
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Internal hourly floor</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">$86.96/hr</dd>
+          <p class="mt-2 text-sm text-muted-foreground">$88,000 ÷ 1,012 hours</p>
+        </div>
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Budgeted labor</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">69 hours</dd>
+          <p class="mt-2 text-sm text-muted-foreground">60 base hours + 15% contingency</p>
+        </div>
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Modeled cost allocation</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">$6,250</dd>
+          <p class="mt-2 text-sm text-muted-foreground">69 hours at the unrounded floor, plus $250 direct expenses</p>
+        </div>
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Quote protections</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">10% + 3%</dd>
+          <p class="mt-2 text-sm text-muted-foreground">Target surplus margin + variable processing; $0 fixed fee</p>
+        </div>
+        <div class="bg-background p-5">
+          <dt class="text-sm leading-6 text-muted-foreground">Rounded fixed-price estimate</dt>
+          <dd class="mt-2 text-2xl font-semibold text-foreground">$7,200</dd>
+          <p class="mt-2 text-sm text-muted-foreground">$6,250 ÷ 0.87, rounded up to the next $100</p>
+        </div>
+      </dl>
+      <p class="mt-6 max-w-4xl leading-7 text-muted-foreground">
+        At the illustrative 20% overrun, actual hours become 72. After $216 in estimated processing
+        fees and $250 in direct expenses, that $7,200 quote recovers about <strong class="text-foreground">$93.53 per actual hour</strong>.
+        The quote itself does not change when you move the overrun control.
+      </p>
+    </div>
+  </section>
+
+  <section class="print:hidden px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-limitations-heading">
+    <div class="mx-auto max-w-5xl">
+      <h2 id="pricing-limitations-heading" class="text-3xl font-semibold tracking-tight sm:text-4xl">What the quote does and doesn't tell you</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-foreground">What it gives you</h3>
+          <p class="mt-4 leading-8 text-muted-foreground">
+            A consistent internal planning estimate based on how you expect to work,
+            what your business needs to support, direct costs, and the protections you've selected.
+            The overrun view shows how a fixed quote behaves if delivery takes longer.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-foreground">What it cannot decide</h3>
+          <p class="mt-4 leading-8 text-muted-foreground">
+            It cannot establish market demand, what the outcome is worth to a buyer,
+            whether a client will accept your price, or whether a contract and scope are sound.
+            It does not calculate taxes or guarantee profit. Use it to inform your judgment,
+            not to replace discovery, negotiation, and written terms.
+          </p>
+        </div>
+      </div>
+      <p class="mt-8 max-w-4xl leading-7 text-muted-foreground">
+        Once you know your internal numbers, you still need to decide how to scope,
+        price, and contract the engagement. The
+        <a
+          href="/products/web-developer-pricing-system/"
+          class="font-semibold text-primary-accent underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+        >Web Developer Pricing System</a>
+        walks through those larger pricing decisions, including uncertainty, payment terms, and scope boundaries.
+      </p>
+    </div>
+  </section>
+
+  <section class="print:hidden border-t border-border bg-card/35 px-4 py-16 sm:px-6 sm:py-24 lg:px-8" aria-labelledby="pricing-faq-heading">
+    <div class="mx-auto max-w-5xl">
+      <p class="editorial-kicker">Common questions</p>
+      <h2 id="pricing-faq-heading" class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Freelance project pricing FAQ</h2>
+      <div class="mt-8 divide-y divide-border border-y border-border">
+        {faqs.map((faq) => (
+          <div class="py-6">
+            <h3 class="text-lg font-semibold text-foreground">{faq.question}</h3>
+            <p class="mt-3 max-w-4xl leading-7 text-muted-foreground">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

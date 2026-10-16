@@ -46,3 +46,7 @@ jobs:
       - name: Validate generated calculator landing-page HTML
         if: ${{ always() }}
         run: node scripts/check-pricing-landing-page.mjs
+
+      - name: Verify contextual pricing links and existing checkout CTAs
+        if: ${{ always() }}
+        run: node scripts/check-pricing-links.mjs

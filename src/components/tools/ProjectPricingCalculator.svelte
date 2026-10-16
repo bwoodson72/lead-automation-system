@@ -573,6 +573,19 @@
             than promising one fixed price for work you have not defined.
           </p>
         </section>
+        <section class="mt-8 border-t border-border pt-6" aria-labelledby="pricing-next-step">
+          <h4 id="pricing-next-step" class="text-lg font-semibold text-foreground">What comes after the estimate?</h4>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            This free calculator shows what a project needs to earn under your assumptions.
+            The Web Developer Pricing System covers the wider decisions: defining scope,
+            investigating uncertainty, choosing the right pricing model, setting payment
+            terms, and protecting the price you agree on.
+          </p>
+          <a
+            href="/products/web-developer-pricing-system/"
+            class="mt-4 inline-flex min-h-11 items-center rounded-sm py-2 text-sm font-semibold text-primary-accent underline underline-offset-4 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+          >Explore the Web Developer Pricing System →</a>
+        </section>
       </div>
     {:else}
       <div class="mt-6 border border-border bg-card p-5 sm:p-8">

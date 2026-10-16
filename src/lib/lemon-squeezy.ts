@@ -1,6 +1,24 @@
-import catalog from "@/generated/lemon-catalog.json";
+import generatedCatalog from "@/generated/lemon-catalog.json";
 
-export type LemonProduct = (typeof catalog.products)[number];
+/**
+ * The sync script writes an empty array when merchant credentials are absent
+ * (e.g. a clean CI checkout). Inferring its item type from that placeholder
+ * produces `never`, so define the stable shape explicitly.
+ */
+export type LemonProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  status: string;
+  price: number;
+  priceFormatted: string;
+  checkoutUrl: string;
+  imageFile: string | null;
+  testMode: boolean;
+  updatedAt: string;
+};
+
+const catalog: { syncedAt: string | null; products: LemonProduct[] } = generatedCatalog;
 export type ProductStatus = "available" | "coming-soon" | "planned";
 
 export type CommerceProductData = {

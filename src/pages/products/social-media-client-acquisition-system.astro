@@ -23,7 +23,7 @@ const preferredPreviewImages = [
 const allPreviews = d.proofPackage?.previews ?? [];
 const previews = preferredPreviewImages
   .map((image) => allPreviews.find((preview) => preview.image === image))
-  .filter(Boolean);
+  .filter((preview): preview is (typeof allPreviews)[number] => preview !== undefined);
 const siteUrl = Astro.site?.toString() || "https://developerbusinesslab.com";
 const canonical = new URL("/products/social-media-client-acquisition-system/", siteUrl).toString();
 const organizationId = new URL("/#organization", siteUrl).toString();

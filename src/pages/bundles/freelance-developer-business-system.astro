@@ -16,6 +16,8 @@ if (!sourceBundle) throw new Error("Freelance Developer Business System record n
 const products = (await getCollection("products")).filter(isPublicProduct);
 const merch = getBundleMerchandising(sourceBundle, products);
 const d = cleanPublicCopyTree(applyBundleCopyOverride(sourceBundle.data));
+const seoTitle = d.seo?.title ?? `${d.title} | Developer Business Lab`;
+const seoDescription = d.seo?.description ?? d.shortDescription ?? d.outcome;
 const checkoutClass = button({ class: "lemonsqueezy-button" });
 
 const money = (value?: number) => value === undefined
@@ -42,7 +44,7 @@ const structuredData = [
     "@type": "Product",
     "@id": `${canonical}#bundle`,
     name: d.title,
-    description: d.seo.description,
+    description: seoDescription,
     url: canonical,
     category: "Business system bundle",
     brand: { "@id": organizationId },
@@ -112,8 +114,8 @@ const faqs = [
 ---
 
 <BaseLayout
-  title={d.seo.title}
-  description={d.seo.description}
+  title={seoTitle}
+  description={seoDescription}
   enableCheckoutOverlay={merch.purchasable}
   structuredData={structuredData}
 >

@@ -8,7 +8,7 @@
     PROJECT_PHASE_KEYS,
     PROJECT_PHASE_LABELS,
   } from "@/lib/project-pricing/defaults";
-  import { calculatePricingQuote } from "@/lib/project-pricing/calculate";
+  import { calculatePricing, calculatePricingQuote, HOURLY_FLOOR_COMPARISON_LABELS } from "@/lib/project-pricing/calculate";
   import { formatHours, formatPercentage, formatUSD, formatUSDPerHour } from "@/lib/project-pricing/format";
   import { parsePricingNumber, validatePricingInput } from "@/lib/project-pricing/validate";
   import type { BusinessBaseline, PricingErrorField, ProjectPhaseKey, QuoteProtection } from "@/lib/project-pricing/types";
@@ -101,6 +101,8 @@
   let protection = $state<TextProtection>(sampleTextProtection());
   let roundingIncrement = $state(String(createExamplePricingInput().protection.roundingIncrement));
   let exampleUntouched = $state(true);
+  let overrunPercent = $state(20);
+  let scenarioUntouched = $state(true);
   let touched = $state<Partial<Record<PricingErrorField, boolean>>>({});
 
   // Preserve each editable string exactly while typing. Only the model passed
@@ -141,6 +143,8 @@
         fixedProcessingFee: asNumber(protection.fixedProcessingFee, "fixedProcessingFee"),
         roundingIncrement: asNumber(roundingIncrement, "roundingIncrement"),
       },
+      // Percent on the slider is normalized to the fraction required by the domain model.
+      overrunRate: overrunPercent / 100,
     };
   });
 
@@ -149,6 +153,9 @@
   // No pricing formulas are reproduced inside this component.
   const quoteCalculation = $derived(calculatePricingQuote(draft));
   const quote = $derived(quoteCalculation.valid ? quoteCalculation.result : null);
+  // The existing scenario engine preserves the quote while changing actual hours.
+  const scenarioCalculation = $derived(calculatePricing(draft));
+  const scenario = $derived(scenarioCalculation.valid ? scenarioCalculation.result : null);
   const baselineValid = $derived(BASELINE_FIELDS.every(({ key }) => !validation.errors[key]));
   const hourlyBaseline = $derived.by(() => {
     if (!baselineValid) return null;
@@ -184,6 +191,8 @@
     directExpenses = "";
     protection = { contingencyRate: "", surplusMarginRate: "", variableProcessingRate: "", fixedProcessingFee: "" };
     roundingIncrement = "";
+    overrunPercent = 20;
+    scenarioUntouched = true;
     touched = {};
     exampleUntouched = false;
   }
@@ -191,12 +200,17 @@
   function markEdited(): void {
     exampleUntouched = false;
   }
+
+  function markScenarioEdited(): void {
+    scenarioUntouched = false;
+    markEdited();
+  }
 </script>
 
 <div class="border border-border bg-background p-5 sm:p-8">
   <div class="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-6">
     <div class="max-w-2xl">
-      <p class="text-sm font-semibold text-primary-accent">Development preview — sections A through D (overruns coming later)</p>
+      <p class="text-sm font-semibold text-primary-accent">Development preview — quote and overrun estimates</p>
       <h3 class="mt-2 text-xl font-semibold text-foreground">Estimate your business and project work</h3>
       <p class="mt-2 text-sm leading-6 text-muted-foreground">
         {exampleUntouched ? EXAMPLE_INPUT_LABEL : "Your draft entries — review every field before making a pricing decision."}
@@ -407,6 +421,93 @@
             <p>Modeled surplus = final quote − processing fees − modeled cost allocation. The margin is a share of revenue, not markup on the underlying costs.</p>
           </div>
         </details>
+
+        <section class="mt-8 border-t border-border pt-8" aria-labelledby="pricing-overrun-heading">
+          <h4 id="pricing-overrun-heading" class="text-lg font-semibold text-foreground">
+            What if the project takes longer?
+          </h4>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            Model additional work against the original base-hour estimate, not the contingency-adjusted budget.
+            The fixed-price quote stays the same as the simulated hours increase.
+          </p>
+          <div class="mt-6 rounded-md border border-border bg-background p-4 sm:p-5">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <label for="pricing-overrun" class="text-sm font-semibold text-foreground">
+                Additional project hours
+              </label>
+              <output for="pricing-overrun" class="text-xl font-semibold tabular-nums text-foreground">{overrunPercent}%</output>
+            </div>
+            <input
+              id="pricing-overrun"
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              bind:value={overrunPercent}
+              oninput={markScenarioEdited}
+              aria-describedby="pricing-overrun-help"
+              aria-valuetext={`${overrunPercent}% additional project hours`}
+              class="mt-4 block h-11 w-full cursor-pointer accent-primary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-outline"
+            />
+            <div class="mt-1 flex justify-between text-xs text-muted-foreground" aria-hidden="true">
+              <span>0%</span><span>100%</span>
+            </div>
+            <p id="pricing-overrun-help" class="mt-3 text-sm leading-6 text-muted-foreground">
+              {scenarioUntouched
+                ? "Illustrative 20% overrun — move the slider to try a different scenario."
+                : "Selected scenario. Use arrow keys while focused on the slider to change by 5 percentage points."}
+            </p>
+          </div>
+
+          {#if scenario}
+            <dl class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="border-t border-border pt-4">
+                <dt class="text-sm leading-6 text-muted-foreground">Actual hours with overrun</dt>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.actualScenarioHours)}</dd>
+                <p class="mt-1 text-xs text-muted-foreground">Based on {formatHours(scenario.baseProjectHours)} originally estimated.</p>
+              </div>
+              <div class="border-t border-border pt-4">
+                <dt class="text-sm leading-6 text-muted-foreground">Recovered revenue per actual hour</dt>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSDPerHour(scenario.recoveredPerActualHour)}</dd>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground">After direct job expenses and payment-processing fees.</p>
+              </div>
+              <div class="border-t border-border pt-4">
+                <dt class="text-sm leading-6 text-muted-foreground">Modeled scenario surplus</dt>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatUSD(scenario.scenarioSurplus)}</dd>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground">After accounting for the internal hourly floor over actual hours.</p>
+              </div>
+              <div class="border-t border-border pt-4">
+                <dt class="text-sm leading-6 text-muted-foreground">Maximum hours at the internal floor</dt>
+                <dd class="mt-1 text-lg font-semibold tabular-nums text-foreground">{formatHours(scenario.maxHoursAtFloor)}</dd>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground">Approximate threshold before hourly recovery drops below your target.</p>
+              </div>
+            </dl>
+            <div class="mt-6 rounded-md border border-border bg-background p-4">
+              <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Compared with your internal hourly floor</p>
+              <p class="mt-2 text-lg font-semibold text-foreground">
+                {scenario.hourlyFloorComparison === "above"
+                  ? "Above target"
+                  : scenario.hourlyFloorComparison === "at"
+                    ? "At target"
+                    : "Below target"}
+              </p>
+              <p class="mt-1 text-sm leading-6 text-muted-foreground">
+                {HOURLY_FLOOR_COMPARISON_LABELS[scenario.hourlyFloorComparison]}:
+                {formatUSDPerHour(scenario.recoveredPerActualHour)} recovered against a
+                {formatUSDPerHour(scenario.internalHourlyFloor)} internal target.
+              </p>
+              <p class="mt-2 text-sm leading-6 text-muted-foreground">
+                Falling below your compensation-and-overhead target does not necessarily mean an accounting loss.
+                This is an internal recovery comparison, not a forecast of profit.
+              </p>
+            </div>
+          {/if}
+          <p class="mt-5 text-sm leading-6 text-muted-foreground">
+            Before you commit, revisit discovery, QA, client communication, revisions, and unknown
+            requirements. When scope cannot be estimated responsibly, paid discovery may be safer
+            than promising one fixed price for work you have not defined.
+          </p>
+        </section>
       </div>
     {:else}
       <div class="mt-6 border border-border bg-card p-5 sm:p-8">
@@ -422,7 +523,7 @@
     {/if}
   </section>
   <p class="mt-8 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-    Overrun scenarios, copy, print, and reset-to-example will be introduced in later steps.
-    This page remains a development preview.
+    Copy, print, and reset-to-example will be introduced in later steps.
+    This page remains a noindex development preview.
   </p>
 </div>

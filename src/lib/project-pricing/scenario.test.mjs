@@ -113,3 +113,17 @@ test("scenario wrapper matches preexisting quote computation exactly", () => {
   const scenario = result(input);
   for (const [key, value] of Object.entries(quote.result)) assert.equal(scenario[key], value, key);
 });
+
+
+test("5-point slider increments all preserve the quote and progressively lower recovery", () => {
+  const initial = result(example(i => { i.overrunRate = 0; }));
+  let lastRecovery = Infinity;
+  for (let percentage = 0; percentage <= 100; percentage += 5) {
+    const actual = result(example(i => { i.overrunRate = percentage / 100; }));
+    assert.equal(actual.roundedQuote, initial.roundedQuote, `${percentage}% quote changed`);
+    assert.equal(actual.processingFees, initial.processingFees, `${percentage}% fees changed`);
+    near(actual.actualScenarioHours, 60 * (1 + percentage / 100));
+    assert.ok(actual.recoveredPerActualHour <= lastRecovery, `${percentage}% recovery increased`);
+    lastRecovery = actual.recoveredPerActualHour;
+  }
+});

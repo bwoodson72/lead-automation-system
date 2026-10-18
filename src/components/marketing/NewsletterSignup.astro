@@ -21,6 +21,22 @@ const titleId = "dbl-newsletter-heading-" + placement;
         <h2 id={titleId} class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Fix one part of your freelance business every week.</h2>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Finding clients. Charging more. Closing better projects. Keeping the money you earn.</p>
         <p class="mt-4 max-w-2xl leading-7 text-foreground">One specific business problem, a practical fix, and something you can put to work immediately. No recycled motivational advice.</p>
+        {variant === "page" && (
+          <ul class="mt-8 space-y-5" aria-label="Newsletter subscriber benefits">
+            <li class="border-l-2 border-primary-accent pl-4">
+              <h3 class="font-semibold text-foreground">Practical business advice</h3>
+              <p class="mt-1 leading-7 text-muted-foreground">A focused weekly lesson about finding clients, pricing work, closing projects, and running your business.</p>
+            </li>
+            <li class="border-l-2 border-primary-accent pl-4">
+              <h3 class="font-semibold text-foreground">Ideas you can actually use</h3>
+              <p class="mt-1 leading-7 text-muted-foreground">Concrete examples and actions you can apply to your own freelance business.</p>
+            </li>
+            <li class="border-l-2 border-primary-accent pl-4">
+              <h3 class="font-semibold text-foreground">Exclusive subscriber discounts</h3>
+              <p class="mt-1 leading-7 text-muted-foreground">Occasional subscriber-only discount codes for Developer Business Lab guides, workbooks, and systems.</p>
+            </li>
+          </ul>
+        )}
       </div>
       <div class="surface-editorial p-6 sm:p-8">
         <NewsletterKitForm placement={placement} />

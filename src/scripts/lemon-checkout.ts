@@ -4,7 +4,7 @@
  * each completed navigation. Existing hrefs remain the fallback.
  */
 type LemonWindow = Window & {
-  LemonSqueezy?: { Refresh?: () => void };
+  LemonSqueezy?: { Refresh?: () => void; Url?: { Close?: () => void } };
 };
 
 const LEMON_SCRIPT_SRC = "https://app.lemonsqueezy.com/js/lemon.js";
@@ -56,3 +56,11 @@ function handlePageLoad(): void {
 
 // Astro's bundled module script executes once across ClientRouter transitions.
 document.addEventListener("astro:page-load", handlePageLoad);
+ 
+// The free-item confirmation inside Lemon Squeezy has no close control of its
+// own. This host-page control works without reaching into the provider iframe.
+document.addEventListener("click", (event) => {
+  if (event.target instanceof Element && event.target.closest("#dbl-lemon-close")) {
+    (window as LemonWindow).LemonSqueezy?.Url?.Close?.();
+  }
+});

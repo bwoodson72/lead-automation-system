@@ -214,3 +214,88 @@
   .dbl-newsletter-form .dbl-kit-credit a { text-decoration: underline; text-underline-offset: 2px; }
   @media (max-width: 640px) { .dbl-newsletter-form .formkit-field, .dbl-newsletter-form .formkit-submit { flex: 1 1 100%; } }
 }
+
+/*
+ * Lemon Squeezy controls the checkout iframe, but the host page controls its
+ * viewport. Present that viewport as a dialog without changing checkout HTML.
+ */
+body.lemonsqueezy-open {
+  --dbl-checkout-width: min(680px, calc(100vw - 32px));
+  --dbl-checkout-height: min(820px, calc(100dvh - 32px));
+  overflow: hidden;
+}
+
+body.lemonsqueezy-open::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483598;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+body.lemonsqueezy-open > iframe[src^="https://developerbusinesslab.lemonsqueezy.com/checkout/"] {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: var(--dbl-checkout-width) !important;
+  height: var(--dbl-checkout-height) !important;
+  z-index: 2147483600 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 24px 84px rgba(0, 0, 0, 0.58) !important;
+  background: #fff !important;
+}
+
+body.lemonsqueezy-open > .lemonsqueezy-loader {
+  z-index: 2147483599 !important;
+  background: rgba(0, 0, 0, 0.62) !important;
+  backdrop-filter: blur(3px);
+}
+
+/* Lemon.js may leave its loading class in place after a programmatic close. */
+body.lemonsqueezy-loading:not(.lemonsqueezy-open) > .lemonsqueezy-loader {
+  display: none !important;
+}
+
+#dbl-lemon-close {
+  display: none;
+}
+
+body.lemonsqueezy-open > #dbl-lemon-close {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  top: calc((100dvh - var(--dbl-checkout-height)) / 2 + 12px);
+  right: calc((100vw - var(--dbl-checkout-width)) / 2 + 12px);
+  z-index: 2147483601;
+  padding: 0;
+  background: rgba(24, 24, 24, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  color: #fff;
+  font: 28px/1 sans-serif;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.lemonsqueezy-open > #dbl-lemon-close:focus-visible {
+  outline: 3px solid #efad39;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  body.lemonsqueezy-open {
+    --dbl-checkout-width: calc(100vw - 12px);
+    --dbl-checkout-height: calc(100dvh - 12px);
+  }
+
+  body.lemonsqueezy-open > iframe[src^="https://developerbusinesslab.lemonsqueezy.com/checkout/"] {
+    border-radius: 10px !important;
+  }
+}

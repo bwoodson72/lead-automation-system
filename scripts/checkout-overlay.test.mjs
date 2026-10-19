@@ -141,6 +141,20 @@ test("a missing Lemon checkout class triggers a regression failure", () => {
   assert.throws(() => assertBundleCheckoutCTAs(bundle.replace("lemonsqueezy-button", "missing-lemon-class"), "mutated bundle"), { code: "ERR_ASSERTION" });
 });
 
+test("checkout modal styles have a matching host close control", () => {
+  const layout = read("src/layouts/BaseLayout.astro");
+  const styles = read("src/styles/starwind.css");
+  const coordinator = read("src/scripts/lemon-checkout.ts");
+
+  assert.match(layout, /id="dbl-lemon-close"[^>]*aria-label="Close checkout"/);
+  assert.match(styles, /body\.lemonsqueezy-open\s*>\s*iframe\[src\^="https:\/\/developerbusinesslab\.lemonsqueezy\.com\/checkout\/"/);
+  assert.match(styles, /width:\s*var\(--dbl-checkout-width\)\s*!important/);
+  assert.match(styles, /height:\s*var\(--dbl-checkout-height\)\s*!important/);
+  assert.match(styles, /body\.lemonsqueezy-open\s*>\s*#dbl-lemon-close/);
+  assert.match(coordinator, /closest\("#dbl-lemon-close"\)/);
+  assert.match(coordinator, /LemonSqueezy\?\.Url\?\.Close\?\.\(\)/);
+});
+
 test("direct load and repeat Astro navigation refresh once per event", async () => {
   let count = 0;
   const { document, script } = fakeBrowser({ Refresh: () => { count++; } });

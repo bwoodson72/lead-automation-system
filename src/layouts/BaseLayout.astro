@@ -28,7 +28,6 @@ const {
   description,
   noindex = false,
   printSummaryOnly = false,
-  enableCheckoutOverlay = false,
   structuredData,
 } = Astro.props;
 
@@ -219,7 +218,7 @@ const analyticsItemCategory = typeof analyticsProductSchema?.category === "strin
     {showPreFooterNewsletter && <NewsletterSignup variant="prefooter" placement="prefooter" />}
     <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><SiteFooter /></div>
     <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><CookieConsent /></div>
-    {enableCheckoutOverlay && <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>}
+    <script is:inline src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
     <SpeedInsights />
   </body>
 </html>

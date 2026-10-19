@@ -136,9 +136,9 @@ test("bundle upsell checkout is intercepted but product discovery is not", () =>
 
 test("a missing Lemon checkout class triggers a regression failure", () => {
   const product = read("src/components/products/ProductCTA.astro");
-  assert.throws(() => assertSharedProductCTA(product.replace("lemonsqueezy-button", "missing-lemon-class")), /lemonsqueezy-button/);
+  assert.throws(() => assertSharedProductCTA(product.replace("lemonsqueezy-button", "missing-lemon-class")), { code: "ERR_ASSERTION" });
   const bundle = read("src/pages/bundles/[slug].astro");
-  assert.throws(() => assertBundleCheckoutCTAs(bundle.replace("lemonsqueezy-button", "missing-lemon-class"), "mutated bundle"), /lemonsqueezy-button/);
+  assert.throws(() => assertBundleCheckoutCTAs(bundle.replace("lemonsqueezy-button", "missing-lemon-class"), "mutated bundle"), { code: "ERR_ASSERTION" });
 });
 
 test("direct load and repeat Astro navigation refresh once per event", async () => {

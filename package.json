@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "npm run test:unit",
-    "test:unit": "node --experimental-strip-types --test src/lib/project-pricing/*.test.mjs"
+    "test:unit": "node --experimental-strip-types --test src/lib/project-pricing/*.test.mjs",
+    "test:checkout": "node --experimental-strip-types --test scripts/checkout-overlay.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.7",

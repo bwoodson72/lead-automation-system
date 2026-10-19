@@ -221,6 +221,7 @@ const analyticsItemCategory = typeof analyticsProductSchema?.category === "strin
     {showPreFooterNewsletter && <NewsletterSignup variant="prefooter" placement="prefooter" />}
     <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><SiteFooter /></div>
     <div class={printSummaryOnly ? "contents print:hidden" : "contents"}><CookieConsent /></div>
+    <button id="dbl-lemon-close" type="button" aria-label="Close checkout" title="Close checkout">×</button>
     <script is:inline src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
     <SpeedInsights />
   </body>

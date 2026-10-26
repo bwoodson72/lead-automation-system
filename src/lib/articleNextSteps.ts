@@ -83,6 +83,16 @@ export function getArticleNextStep(article: ArticleEntry): ArticleNextStep {
     };
   }
 
+  if (stage === "deliver" && id.includes("handoff")) {
+    return {
+      eyebrow: "Take the next step",
+      title: "Make handoff part of a repeatable delivery process.",
+      body: "The Freelance Developer Launch Kit connects the handoff record to the rest of your client process—from the original scope and payment terms through acceptance, delivery, and the next source of paid work.",
+      primary: { label: "Explore the Freelance Developer Launch Kit", href: "/products/freelance-developer-launch-kit/" },
+      secondary: { label: "Explore post-launch support", href: "/articles/should-you-put-freelance-web-development-client-on-retainer-after-launch/" },
+    };
+  }
+
   if (stage === "deliver" && id.includes("client-delays")) {
     return {
       eyebrow: "Make client responsibilities clear before the project starts",

@@ -34,6 +34,16 @@ export function getArticleNextStep(article: ArticleEntry): ArticleNextStep {
   }
 
   if (stage === "attract") {
+    if (id === "how-to-get-first-freelance-web-development-client") {
+      return {
+        eyebrow: "Put your first acquisition cycle into practice",
+        title: "Find a real buyer before building another portfolio project.",
+        body: "Start with the free Developer Marketing Quickstart to define a reachable buyer, shape an offer, make initial market contact, and see what the results tell you. The Freelance Developer Launch Kit is there when you're ready to build the complete business around that first paid engagement.",
+        primary: { label: "Get the Free Quickstart", href: "/free/" },
+        secondary: { label: "Explore the Freelance Developer Launch Kit", href: "/products/freelance-developer-launch-kit/" },
+      };
+    }
+
     if (id.includes("agenc")) {
       return {
         eyebrow: "Take the next step",

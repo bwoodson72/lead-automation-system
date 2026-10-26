@@ -83,6 +83,16 @@ export function getArticleNextStep(article: ArticleEntry): ArticleNextStep {
     };
   }
 
+  if (stage === "deliver" && id.includes("client-delays")) {
+    return {
+      eyebrow: "Make client responsibilities clear before the project starts",
+      title: "Put review deadlines, approval responsibilities, and payment terms in writing.",
+      body: "The Developer Proposal & Closing Kit helps you agree on dependencies, acceptance conditions, payment triggers, and project-start requirements before a stalled review becomes a delivery or cash-flow problem.",
+      primary: { label: "Explore the Proposal & Closing Kit", href: "/products/developer-proposal-closing-kit/" },
+      secondary: { label: "Find where to start", href: "/start/" },
+    };
+  }
+
   if (stage === "retain") {
     return {
       eyebrow: "Take the next step",

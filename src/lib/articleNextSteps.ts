@@ -13,6 +13,16 @@ export function getArticleNextStep(article: ArticleEntry): ArticleNextStep {
   const stage = getArticleStageSlug(article);
   const id = article.id;
 
+  if (id === "how-to-protect-yourself-from-nonpayment-when-subcontracting-for-a-web-development-agency") {
+    return {
+      eyebrow: "Make agency work worth the risk",
+      title: "Evaluate agency partnerships before they control your cash flow.",
+      body: "The Agency Partnership Playbook helps you assess an agency, test the relationship on paid work, protect payment and scope boundaries, and decide when repeat work deserves more of your capacity.",
+      primary: { label: "Explore the Agency Partnership Playbook", href: "/products/agency-partnership-playbook/" },
+      secondary: { label: "Read about finding agency work", href: "/articles/how-to-get-web-development-work-from-agencies/" },
+    };
+  }
+
   if (stage === "define") {
     return {
       eyebrow: "Take the next step",
